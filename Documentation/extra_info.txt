@@ -1,1 +1,5 @@
 http://pdf.millionsbookon.com/?book=1119181313 - asp.net core with bootsrap
+http://www.c-sharpcorner.com/article/asp-net-core-2-0-apply-bootstrap-template/
+https://www.packtpub.com/books/content/getting-started-aspnet-core-and-bootstrap-4
+http://fluentbootstrap.com/Components
+https://getbootstrap.com/docs/4.0/getting-started/introduction/
