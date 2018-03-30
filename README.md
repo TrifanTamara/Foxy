@@ -1,2 +1,2 @@
-# LearnJapanesse
-Learn Japanesse web site
+# Foxy
+A learning platform for Japanese
