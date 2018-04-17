@@ -10,22 +10,21 @@ namespace Data.Domain.Entities.TemplateItems
         {
             // EF Core    
         }
+        
+        public Guid MainItemId { get; private set; }
+        public Guid ContainedItemId { get; private set; }
 
-        public Guid Id { get; private set; }
-        public VocabularTemplate MainItem { get; private set; }
-        public VocabularTemplate ContainedItem { get; private set; }
-
-        public static VocabularRelationship Create(VocabularTemplate main, VocabularTemplate contained)
+        public static VocabularRelationship Create(Guid main, Guid contained)
         {
-            var instance = new VocabularRelationship() { Id = Guid.NewGuid() };
+            var instance = new VocabularRelationship();
             instance.Update(main, contained);
             return instance;
         }
 
-        public void Update(VocabularTemplate main, VocabularTemplate contained)
+        public void Update(Guid main, Guid contained)
         {
-            MainItem = main;
-            ContainedItem = contained;
+            MainItemId = main;
+            ContainedItemId = contained;
         }
     }
 }
