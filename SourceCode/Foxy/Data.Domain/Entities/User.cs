@@ -39,5 +39,9 @@ namespace Data.Domain.Entities
             Level = level;
             ImageId = imageId;
         }
+        public void Update(string token)
+        {
+            Token = token;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,6 +10,7 @@ using Data.Domain.Entities;
 using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using WebApp.DTOs;
 using WebApp.Filter;
@@ -21,25 +23,32 @@ namespace WebApp.Controllers
     public class LoginController : Controller
     {
         private readonly IUsersRepository _repository;
-
+        private JwToken _jwtToken;
         public LoginController(IUsersRepository repository)
         {
             _repository = repository;
+
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("hosting.json", true)
+                .AddJsonFile("appsettings.json", true)
+                .Build();
+            _jwtToken = new JwToken(config);
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            // Get the Registered parameter if available
-            HttpContext.Request.Query.TryGetValue("Registered", out var registered);
-
-            // Send registered value to the view
-            if (registered.Equals(StringValues.Empty))
-                ViewData["Registered"] = 0;
-            else
-                ViewData["Registered"] = int.Parse(registered);
-            return View();
-        }
+//        [HttpGet]
+//        public IActionResult Login()
+//        {
+//            // Get the Registered parameter if available
+//            HttpContext.Request.Query.TryGetValue("Registered", out var registered);
+//
+//            // Send registered value to the view
+//            if (registered.Equals(StringValues.Empty))
+//                ViewData["Registered"] = 0;
+//            else
+//                ViewData["Registered"] = int.Parse(registered);
+//            return View();
+//        }
 
         [HttpPost]
         public async Task<IActionResult> Login(Login dto)
@@ -61,14 +70,11 @@ namespace WebApp.Controllers
                 if (user.Password.Equals(hashStr))
                 {
                     // Generate the token
-                    var token = JwToken.GenerateToken(user);
+                    var token = _jwtToken.GenerateToken(user);
 
-                    // Write the token to the cookie
-                    Response.Cookies.Append("SessionId", new JwtSecurityTokenHandler().WriteToken(token));
-
-                    HttpContext.Session.SetString("user_id", user.Id.ToString());
+                   // HttpContext.Session.SetString("user_id", user.Id.ToString());
                     // Redirect to homepage
-                    return RedirectToAction("Index", "Home");
+                    return Ok(token);
                 }
                 ModelState.AddModelError("", "Invalid password!");
             }
@@ -76,7 +82,8 @@ namespace WebApp.Controllers
                 ModelState.AddModelError("", "Account is not registered!");
 
             // If something went bad, return the model back to view
-            return View(dto);
+            //return View(dto);
+            return Unauthorized();
         }
     }
 }

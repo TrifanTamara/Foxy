@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Data.Domain.Entities;
 using Data.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using WebApp.DTOs;
@@ -24,12 +25,12 @@ namespace WebApp.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
+        //        [HttpGet]
+        //        public IActionResult Register()
+        //        {
+        //            return View();
+        //        }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(Register dto)
         {

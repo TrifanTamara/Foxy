@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Text;
 using Business;
 using Data.Domain.Interfaces;
 using Data.Persistence;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 using WebApp.Filter;
 
@@ -29,11 +32,13 @@ namespace WebApp
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FoxyConnection")));
 
+            services.AddSwaggerDocumentation();
+
             services.AddMvc();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "Foxy API", Version = "v1" });
-            });
+//            services.AddSwaggerGen(c =>
+//            {
+//                c.SwaggerDoc("v1", new Info { Title = "Foxy API", Version = "v1" });
+//            });
 
             services.AddMvc(options =>
                 {
@@ -41,13 +46,25 @@ namespace WebApp
                 }
             ).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>()).AddSessionStateTempDataProvider();
 
-            services.AddSession(options =>
-            {
-                // Set a short timeout for easy testing.
-                options.Cookie.Name = ".KunFooD.Session";
-                options.IdleTimeout = TimeSpan.MaxValue;
-                options.Cookie.HttpOnly = true;
-            });
+//            services.AddSession(options =>
+//            {
+//                // Set a short timeout for easy testing.
+//                options.Cookie.Name = ".Foxy.Session";
+//                options.IdleTimeout = TimeSpan.MaxValue;
+//                options.Cookie.HttpOnly = true;
+//            });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options=>
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,13 +83,19 @@ namespace WebApp
             }
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
+            //            app.UseSwaggerUI(c =>
+            //            {
+            //                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Foxy V1");
+            //            });
+            if (env.IsDevelopment())
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Foxy V1");
-            });
+                //.... rest of app configuration
+                app.UseSwaggerDocumentation();
+            }
 
             app.UseStaticFiles();
-            app.UseSession();
+            //app.UseSession();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

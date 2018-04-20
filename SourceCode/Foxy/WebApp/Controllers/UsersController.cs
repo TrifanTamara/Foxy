@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Data.Domain.Entities;
 using Data.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.DTO;
 
@@ -20,7 +21,7 @@ namespace WebApp.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         [Route("All")]
         public async Task<IActionResult> Index()
         {
