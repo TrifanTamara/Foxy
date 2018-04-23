@@ -30,6 +30,12 @@ namespace WebApp.Controllers
         //        {
         //            return View();
         //        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(Register dto)
