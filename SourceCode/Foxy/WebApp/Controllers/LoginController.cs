@@ -51,6 +51,7 @@ namespace WebApp.Controllers
 //        }
 
         [HttpPost]
+        [Route("Login")]
         public async Task<IActionResult> Login(Login dto)
         {
             User user = await _repository.GetByEmail(dto.Email);

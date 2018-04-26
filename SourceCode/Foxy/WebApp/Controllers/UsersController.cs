@@ -48,6 +48,7 @@ namespace WebApp.Controllers
 //        }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create([FromBody] CreateUsers usrToCreate)
         {
             User user = Data.Domain.Entities.User.Create(usrToCreate.Name, usrToCreate.IsAdmin, usrToCreate.Email, usrToCreate.Password, usrToCreate.Token, usrToCreate.Description);

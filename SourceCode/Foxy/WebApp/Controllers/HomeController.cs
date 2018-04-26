@@ -8,6 +8,8 @@ namespace WebApp.Controllers
     [DefaultControllerFilter]
     public class HomeController : Controller
     {
+        [HttpGet]
+        //[Route("index")]
         public IActionResult Index()
         {
             ViewBag.LoggedIn = false;

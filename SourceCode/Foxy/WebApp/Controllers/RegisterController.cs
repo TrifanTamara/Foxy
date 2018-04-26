@@ -30,7 +30,7 @@ namespace WebApp.Controllers
         //        {
         //            return View();
         //        }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View();
@@ -38,6 +38,7 @@ namespace WebApp.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [Route("Register")]
         public async Task<IActionResult> Register(Register dto)
         {
             // Encrypt the password using SHA256
@@ -54,6 +55,17 @@ namespace WebApp.Controllers
 
             // Redirect to login page with parameter registered
             return RedirectToAction("Login", new RouteValueDictionary(new { controller = "Login", Registered = 1 }));
+        }
+        
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("x")]
+        public ActionResult dummy(String name)
+        {
+
+            var x = 10;
+            // Redirect to login page with parameter registered
+            return RedirectToAction("Index");
         }
     }
 }
