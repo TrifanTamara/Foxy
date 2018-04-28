@@ -15,16 +15,22 @@ using Microsoft.Extensions.Primitives;
 using WebApp.DTOs;
 using WebApp.Filter;
 using WebApp.Security;
+using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace WebApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [DefaultControllerFilter]
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         private readonly IUsersRepository _repository;
         private JwToken _jwtToken;
-        public LoginController(IUsersRepository repository)
+        private readonly HttpClient _httpClient; // declare a HttpClient
+
+        public LoginController(IUsersRepository repository, HttpClient httpClient)
         {
             _repository = repository;
 
@@ -34,57 +40,57 @@ namespace WebApp.Controllers
                 .AddJsonFile("appsettings.json", true)
                 .Build();
             _jwtToken = new JwToken(config);
+            _httpClient = httpClient;
         }
 
-//        [HttpGet]
-//        public IActionResult Login()
-//        {
-//            // Get the Registered parameter if available
-//            HttpContext.Request.Query.TryGetValue("Registered", out var registered);
-//
-//            // Send registered value to the view
-//            if (registered.Equals(StringValues.Empty))
-//                ViewData["Registered"] = 0;
-//            else
-//                ViewData["Registered"] = int.Parse(registered);
-//            return View();
-//        }
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
 
         [HttpPost]
-        [Route("Login")]
-        public async Task<IActionResult> Login(Login dto)
+        public async Task<IActionResult> Index(Login dto)
         {
-            User user = await _repository.GetByEmail(dto.Email);
-
-            // Check if the user exists
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                // Hash the model password
-                byte[] bytes = Encoding.UTF8.GetBytes(dto.Password);
-                SHA256Managed cipher = new SHA256Managed();
-                byte[] hash = cipher.ComputeHash(bytes);
-                string hashStr = "";
-                foreach (byte b in hash)
-                    hashStr += string.Format("{0:x2}", b);
+                User user = await _repository.GetByEmail(dto.Email);
 
-                // Check if the passwords match
-                if (user.Password.Equals(hashStr))
+                // Check if the user exists
+                if (user != null)
                 {
-                    // Generate the token
-                    var token = _jwtToken.GenerateToken(user);
+                    // Hash the model password
+                    byte[] bytes = Encoding.UTF8.GetBytes(dto.Password);
+                    SHA256Managed cipher = new SHA256Managed();
+                    byte[] hash = cipher.ComputeHash(bytes);
+                    string hashStr = "";
+                    foreach (byte b in hash)
+                        hashStr += string.Format("{0:x2}", b);
 
-                   // HttpContext.Session.SetString("user_id", user.Id.ToString());
-                    // Redirect to homepage
-                    return Ok(token);
+                    // Check if the passwords match
+                    if (user.Password.Equals(hashStr))
+                    {
+                        // Generate the token
+                        var token = _jwtToken.GenerateToken(user);
+                        //_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                        //HttpContext.Request.Headers["Authorization"] = "Bearer "+token;
+                        //_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                        //return Ok(token);
+
+
+                        LoggedUser.IsLogged = true;
+                        LoggedUser.Email = user.Email;
+                        LoggedUser.UserName = user.Username;
+
+                        ViewBag.LoginFailed = null;
+                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Profile"}));
+                    }
                 }
-                ModelState.AddModelError("", "Invalid password!");
+                ViewBag.LoginFailed="Invalid email or password!";
             }
-            else
-                ModelState.AddModelError("", "Account is not registered!");
 
             // If something went bad, return the model back to view
-            //return View(dto);
-            return Unauthorized();
+            return View(dto);
         }
     }
 }

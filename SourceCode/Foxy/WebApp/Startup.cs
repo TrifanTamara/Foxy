@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 using WebApp.Filter;
+using WebApp.DTOs_Validators;
+using System.Net.Http;
 
 namespace WebApp
 {
@@ -43,16 +45,22 @@ namespace WebApp
             services.AddMvc(options =>
                 {
                     options.Filters.Add(typeof(DefaultControllerFilter));
+                    options.Filters.Add(typeof(AuthorizationFilter));
+                    //options.Filters.Add(typeof(RegisterValidator));
                 }
             ).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>()).AddSessionStateTempDataProvider();
 
-//            services.AddSession(options =>
-//            {
-//                // Set a short timeout for easy testing.
-//                options.Cookie.Name = ".Foxy.Session";
-//                options.IdleTimeout = TimeSpan.MaxValue;
-//                options.Cookie.HttpOnly = true;
-//            });
+            HttpClient httpClient = new HttpClient();
+            services.AddSingleton<HttpClient>(httpClient); // note the singleton
+
+
+            //            services.AddSession(options =>
+            //            {
+            //                // Set a short timeout for easy testing.
+            //                options.Cookie.Name = ".Foxy.Session";
+            //                options.IdleTimeout = TimeSpan.MaxValue;
+            //                options.Cookie.HttpOnly = true;
+            //            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options=>
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -61,6 +69,7 @@ namespace WebApp
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
+                        SaveSigninToken = true,
                         ValidIssuer = Configuration["Jwt:Issuer"],
                         ValidAudience = Configuration["Jwt:Issuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
