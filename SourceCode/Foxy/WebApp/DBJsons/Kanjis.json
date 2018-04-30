@@ -53,6 +53,17 @@
     "reading_mnemonic": "What name have this woman who whears a helmet? Oh, you find her name, it's Anne (あん)",
     "word_type": "",
     "components": [ "女", "宀" ]
+  },
+  {
+    "name": "一",
+    "meaning": "one",
+    "reading": "o=イチ_ichi;イツ_itsu||k=ひと-_hito",
+    "type": "1",
+    "required_level": "",
+    "meaning_mnemonic": "Even if the radical means ground, the kanji representative for its meaning. You have ONE line, that's all.",
+    "reading_mnemonic": "Have you heard about ICHI(いち)go from anime \"Bleach\"?. If No, then you should check it, he is really number ONE everywhere.",
+    "word_type": "",
+    "components": [ "一" ]
   }
 
 ]

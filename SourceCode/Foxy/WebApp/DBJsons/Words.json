@@ -9,6 +9,28 @@
     "reading_mnemonic": "Would you like this item for cheap?\nUh, yes (やす) please!",
     "word_type": "0",
     "components": [ "安" ]
+  },
+  {
+    "name": "一",
+    "meaning": "one",
+    "reading": "k=いち_ichi",
+    "type": "2",
+    "required_level": "",
+    "meaning_mnemonic": "The meaning is same as kanji's.",
+    "reading_mnemonic": "The reason is same as kanji's",
+    "word_type": "6",
+    "components": [ "一" ]
+  },
+  {
+    "name": "一日",
+    "meaning": "one",
+    "reading": "k=いちにち_ichinichi;ついたち_tsuitachi",
+    "type": "2",
+    "required_level": "",
+    "meaning_mnemonic": "The meaning is same as kanji's.",
+    "reading_mnemonic": "The reason is same as kanji's",
+    "word_type": "5",
+    "components": [ "一", "日" ]
   }
 
 ]
