@@ -1,0 +1,14 @@
+﻿[
+  {
+    "name": "安い",
+    "meaning": "cheap",
+    "reading": "k=やすい_yasui",
+    "type": "2",
+    "required_level": "",
+    "meaning_mnemonic": "This is a single kanji with an い on the end, meaning you know it's probably an adjective. What's the adjective form of cheap? It's also cheap. Time to go to a 100円 shop and get some 安い goods, ammiright?",
+    "reading_mnemonic": "Would you like this item for cheap?\nUh, yes (やす) please!",
+    "word_type": "0",
+    "components": [ "安" ]
+  }
+
+]

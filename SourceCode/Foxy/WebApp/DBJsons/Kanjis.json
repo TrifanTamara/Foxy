@@ -1,0 +1,58 @@
+﻿[
+  {
+    "name": "日",
+    "meaning": "day;sun;Japan",
+    "reading": "o=ニチ_nichi;ジツ_jitsu||k=-ひ_hi;-び_bi",
+    "type": "1",
+    "required_level": "",
+    "meaning_mnemonic": "",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": [ "日" ]
+  },
+  {
+    "name": "時",
+    "meaning": "time;hour",
+    "reading": "o=ジ-_ji;ド_do||k=とき_toki",
+    "type": "1",
+    "required_level": "",
+    "meaning_mnemonic": "The sun is used in the temple to tell time. Clocks aren't allowed in sacred places like this!, Go see where the sun falls in the temple. That's how you know that time it is.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": [ "日", "寺" ]
+  },
+  {
+    "name": "上",
+    "meaning": "above;upper;up",
+    "reading": "o=ショウ_shou;ジョウ_jou||k=うえ_ue;あ.げる_ageru;かみ_kami",
+    "type": "1",
+    "required_level": "",
+    "meaning_mnemonic": "There's a toe above ground. Look at it.",
+    "reading_mnemonic": "The toe sticking up above the ground is just a little thing... You go up to poke it and then you realize that the toe actually belongs to Joseph (じょう) Stalin. Joe doesn't like people messing with his toes, so you slowly back away.",
+    "word_type": "",
+    "components": [ "一", "ト" ]
+  },
+  {
+    "name": "女",
+    "meaning": "woman;female",
+    "reading": "o=ジョ_jo;ニョ_nyo||k=おんな_onna",
+    "type": "1",
+    "required_level": "",
+    "meaning_mnemonic": "This kanji is same as its radical. So it's easy.",
+    "reading_mnemonic": "The first woman you've met was Jo(じょ)sephina",
+    "word_type": "",
+    "components": [ "女" ]
+  },
+  {
+    "name": "安",
+    "meaning": "peace;cheap;safety",
+    "reading": "o=あん_an||k=やす_yasu",
+    "type": "1",
+    "required_level": "",
+    "meaning_mnemonic": "A woman who wears a helmet feels safe, and it is also very cheap.",
+    "reading_mnemonic": "What name have this woman who whears a helmet? Oh, you find her name, it's Anne (あん)",
+    "word_type": "",
+    "components": [ "女", "宀" ]
+  }
+
+]

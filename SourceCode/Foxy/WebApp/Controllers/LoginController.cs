@@ -83,7 +83,7 @@ namespace WebApp.Controllers
                         LoggedUser.UserName = user.Username;
 
                         ViewBag.LoginFailed = null;
-                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Profile"}));
+                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Dashboard"}));
                     }
                 }
                 ViewBag.LoginFailed="Invalid email or password!";
