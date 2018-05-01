@@ -7,6 +7,9 @@ val1;val2;val4
 surse:
 https://nihongoichiban.com/
 https://www.jlpt.jp/e/
+https://soundoftext.com/ - sounds
+http://www.joyokanji.com/ulrikes-mnemonics - mnemonics
+https://www.wanikani.com/ - mnemonics
 
 To do:
 -delete n4 from documentation, only n5
