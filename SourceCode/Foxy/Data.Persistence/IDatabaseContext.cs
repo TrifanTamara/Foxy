@@ -17,11 +17,13 @@ namespace Data.Persistence
         DbSet<VocabularItem> VocabularItems { get; set; }
         DbSet<VocabularRelationship> VocabularRelationships { get; set; }
 
-        DbSet<LessonTemplate> LessonTemplates { get; set; }
-        DbSet<LessonItem> LessonItems { get; set; }
+        DbSet<FormularTemplate> FormularTemplates { get; set; }
+        DbSet<FormularItem> FormularItems { get; set; }
 
-        DbSet<QuizzTemplate> QuizzTemplates { get; set; }
-        DbSet<QuizzItem> QuizzItems { get; set; }
+        DbSet<QuestionTemplate> QuestionTemplates { get; set; }
+        DbSet<QuestionItem> QuestionItems { get; set; }
+
+        DbSet<AnswerTemplate> AnswerTemplates { get; set; }
 
         int SaveChanges();
     }
