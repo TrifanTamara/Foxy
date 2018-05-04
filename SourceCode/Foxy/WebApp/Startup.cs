@@ -32,15 +32,18 @@ namespace WebApp
         {
             services.AddTransient<IDatabaseContext, DatabaseContext>();
             services.AddTransient<IUsersRepository, UsersRepository>();
+            services.AddTransient<IVocabularTempRepository, VocabularTempRepository>();
+            services.AddTransient<IVocabRelRepository, VocabRelRepository>();
+
+            services.AddTransient<VocabularTempRepository>();
+            services.AddTransient<UsersRepository>();
+            services.AddTransient<PopulateDb.PopulateDb>();
+
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FoxyConnection")));
 
             services.AddSwaggerDocumentation();
 
             services.AddMvc();
-//            services.AddSwaggerGen(c =>
-//            {
-//                c.SwaggerDoc("v1", new Info { Title = "Foxy API", Version = "v1" });
-//            });
 
             services.AddMvc(options =>
                 {
@@ -74,6 +77,7 @@ namespace WebApp
                         ValidAudience = Configuration["Jwt:Issuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

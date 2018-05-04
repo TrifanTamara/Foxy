@@ -12,6 +12,7 @@ namespace Data.Domain.Interfaces
         Task Add(T entity);
         Task Delete(Guid id);
         Task Edit(T entity);
+        Task Clear();
         Task Save();
     }
 }

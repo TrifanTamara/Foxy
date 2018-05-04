@@ -52,6 +52,13 @@ namespace Business
             await Save();
         }
 
+        public virtual async Task Clear()
+        {
+            _entities.RemoveRange(_entities);
+            await Save();
+        }
+
+
         public virtual async Task Save()
         {
             await ((DbContext)_databaseContext).SaveChangesAsync();

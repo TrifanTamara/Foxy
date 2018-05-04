@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Data.Domain.Interfaces
 {
-    public interface IVocabularItemRepository : IGenericRepository<Entities.UserRelated.VocabularItem>
+    public interface IVocabRelRepository : IGenericRepository<VocabularRelationship>
     {
     }
 }

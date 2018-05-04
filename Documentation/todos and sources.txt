@@ -18,3 +18,9 @@ To do:
 -fix front images
 -create logo and images
 -add sound to kanji and words
+-Maybe add two stages of flow: slower and faster (for user)
+
+
+Rules:
+-User can see unlocked items info, but cannot force it progress on them.
+-
