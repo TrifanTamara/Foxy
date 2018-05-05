@@ -44,7 +44,6 @@ namespace WebApp
             services.AddSwaggerDocumentation();
 
             services.AddMvc();
-
             services.AddMvc(options =>
                 {
                     options.Filters.Add(typeof(DefaultControllerFilter));
@@ -109,7 +108,7 @@ namespace WebApp
             app.UseStaticFiles();
             //app.UseSession();
             app.UseAuthentication();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

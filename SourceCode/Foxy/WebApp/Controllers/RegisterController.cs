@@ -45,8 +45,8 @@ namespace WebApp.Controllers
             {
                 if (_repository.GetByEmail(dto.Email).Result != null)
                 {
-                    ViewBag.RegisterFailed = "Email already exists!";
-                    return View(dto);
+                    SharedInfo.RegisterError = "Email already exists!";
+                    return Redirect("Register");
                 }
 
                 // Encrypt the password using SHA256
@@ -62,10 +62,14 @@ namespace WebApp.Controllers
                 await _repository.Add(user);
 
                 // Redirect to login page with parameter registered
-                ViewBag.RegisterFailed = null;
+                SharedInfo.RegisterError = "";
+               
+                //Success
+                
                 return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Login"}));
             }
             //return View("index", dto);
+
             return View(dto);
         }
     }

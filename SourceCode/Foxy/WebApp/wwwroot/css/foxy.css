@@ -12,6 +12,15 @@ h6 {
   font-family: 'Montserrat';
 }
 
+element {
+    --main-color-1: rgb(255, 94, 50);
+    --main-color-2: rgb(255, 144, 2);
+    --main-color-3: rgb(254, 211, 166);
+    --main-color-4: rgb(115, 184, 200);
+    --main-color-5: rgb(90, 124, 125);
+    --main-color-menu: rgb(9, 36, 58);
+}
+
 hr.star-light,
 hr.star-dark {
   max-width: 15rem;

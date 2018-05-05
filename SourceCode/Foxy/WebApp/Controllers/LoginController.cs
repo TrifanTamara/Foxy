@@ -46,6 +46,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            
             return View();
         }
 
@@ -82,13 +83,13 @@ namespace WebApp.Controllers
                         LoggedUser.Email = user.Email;
                         LoggedUser.UserName = user.Username;
 
-                        ViewBag.LoginFailed = null;
+                        SharedInfo.LoginError = "";
                         return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Dashboard"}));
                     }
                 }
-                ViewBag.LoginFailed="Invalid email or password!";
+                SharedInfo.LoginError = "Invalid email or password!";
+                return Redirect("Login");
             }
-
             // If something went bad, return the model back to view
             return View(dto);
         }
