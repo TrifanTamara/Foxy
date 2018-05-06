@@ -27,22 +27,20 @@
 
     <!-- Custom styles for this template -->
     <link href="~/js/login.js" rel="stylesheet">
+
+    <link href="~/toastr/toastr.css" rel="stylesheet" />
+    <script src="~/toastr/toastr.js"></script>
 </head>
 
 <body class="text-center">
-
-    @section Scripts
-        {
-            
+        @if(!string.IsNullOrEmpty(SharedInfo.ShowSuccessMessage))
+         {
             <script>
-            $(function(){
-                var title = "mew";
-                var message = "murmur";
-                toastr.error(message, title);
-            });
+                toastr.success("You are now registered!")
             </script>
-            
-        }
+            SharedInfo.ShowSuccessMessage = "";
+         }
+
         <form class="form-signin" action="login" name="index" id="loginForm" method="post">
             <img class="mb-4" src="" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
@@ -64,9 +62,6 @@
                 <button type="submit" class="btn btn-info btn-xl" id="sendMessageButton">Sign In</button>
             </div>
             <p class="help-block text-danger"></p>
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
 
             @if (!SharedInfo.LoginError.Equals(""))
              {

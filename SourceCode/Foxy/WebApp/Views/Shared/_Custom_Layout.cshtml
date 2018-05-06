@@ -2,9 +2,11 @@
 
 </head>
 <body>
+    <p>custom layout</p>
     <div class="container body-content">
         @RenderBody()
     </div>
 
     @RenderSection("Scripts", required: false)
+    @await Component.InvokeAsync("NToastNotify")
 </body>

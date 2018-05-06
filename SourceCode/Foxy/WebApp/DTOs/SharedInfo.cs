@@ -9,5 +9,6 @@ namespace WebApp.DTOs
     {
         public static String RegisterError = String.Empty;
         public static String LoginError = String.Empty;
+        public static String ShowSuccessMessage = String.Empty;
     }
 }

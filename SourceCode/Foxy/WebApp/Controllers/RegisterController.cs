@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Routing;
 using WebApp.DTOs;
 using WebApp.Filter;
 using WebApp.DTOs_Validators;
+using NToastNotify;
 
 namespace WebApp.Controllers
 {
@@ -21,10 +22,12 @@ namespace WebApp.Controllers
     public class RegisterController : Controller
     {
         private readonly IUsersRepository _repository;
+        private readonly IToastNotification _toastNotification;
 
-        public RegisterController(IUsersRepository repository)
+        public RegisterController(IUsersRepository repository, IToastNotification toastNotification)
         {
             _repository = repository;
+            _toastNotification = toastNotification;
         }
 
         //        [HttpGet]
@@ -35,6 +38,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            
             return View();
         }
         
@@ -63,9 +67,9 @@ namespace WebApp.Controllers
 
                 // Redirect to login page with parameter registered
                 SharedInfo.RegisterError = "";
-               
+
                 //Success
-                
+                SharedInfo.ShowSuccessMessage = "You are now registered!";
                 return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Login"}));
             }
             //return View("index", dto);

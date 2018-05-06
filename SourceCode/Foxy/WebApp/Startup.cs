@@ -15,6 +15,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using WebApp.Filter;
 using WebApp.DTOs_Validators;
 using System.Net.Http;
+using NToastNotify;
 
 namespace WebApp
 {
@@ -43,14 +44,18 @@ namespace WebApp
 
             services.AddSwaggerDocumentation();
 
-            services.AddMvc();
+            services.AddMvc().AddNToastNotifyToastr();
+
+            //services.AddMvc();
             services.AddMvc(options =>
                 {
                     options.Filters.Add(typeof(DefaultControllerFilter));
                     options.Filters.Add(typeof(AuthorizationFilter));
                     //options.Filters.Add(typeof(RegisterValidator));
                 }
-            ).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>()).AddSessionStateTempDataProvider();
+            ).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>())
+            .AddSessionStateTempDataProvider()
+            .AddNToastNotifyNoty();
 
             HttpClient httpClient = new HttpClient();
             services.AddSingleton<HttpClient>(httpClient); // note the singleton
@@ -83,6 +88,7 @@ namespace WebApp
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseSwagger();
+            app.UseNToastNotify();
 
             if (env.IsDevelopment())
             {
