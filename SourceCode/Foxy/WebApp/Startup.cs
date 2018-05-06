@@ -15,8 +15,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using WebApp.Filter;
 using WebApp.DTOs_Validators;
 using System.Net.Http;
-using NToastNotify;
-
 namespace WebApp
 {
     public class Startup
@@ -35,16 +33,11 @@ namespace WebApp
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddTransient<IVocabularTempRepository, VocabularTempRepository>();
             services.AddTransient<IVocabRelRepository, VocabRelRepository>();
-
-            services.AddTransient<VocabularTempRepository>();
-            services.AddTransient<UsersRepository>();
-            services.AddTransient<PopulateDb.PopulateDb>();
+            services.AddTransient<IVocabularItemRepository, VocabularItemRepository>();
 
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FoxyConnection")));
 
             services.AddSwaggerDocumentation();
-
-            services.AddMvc().AddNToastNotifyToastr();
 
             //services.AddMvc();
             services.AddMvc(options =>
@@ -54,8 +47,7 @@ namespace WebApp
                     //options.Filters.Add(typeof(RegisterValidator));
                 }
             ).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>())
-            .AddSessionStateTempDataProvider()
-            .AddNToastNotifyNoty();
+            .AddSessionStateTempDataProvider();
 
             HttpClient httpClient = new HttpClient();
             services.AddSingleton<HttpClient>(httpClient); // note the singleton
@@ -88,8 +80,6 @@ namespace WebApp
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseSwagger();
-            app.UseNToastNotify();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

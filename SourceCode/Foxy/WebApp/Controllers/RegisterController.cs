@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Routing;
 using WebApp.DTOs;
 using WebApp.Filter;
 using WebApp.DTOs_Validators;
-using NToastNotify;
 
 namespace WebApp.Controllers
 {
@@ -21,24 +20,18 @@ namespace WebApp.Controllers
     [AllowAnonymous]
     public class RegisterController : Controller
     {
-        private readonly IUsersRepository _repository;
-        private readonly IToastNotification _toastNotification;
+        private readonly IUsersRepository _userRepo;
+        private readonly IVocabularTempRepository _vocabRepo;
 
-        public RegisterController(IUsersRepository repository, IToastNotification toastNotification)
+        public RegisterController(IUsersRepository userRepo, IVocabularTempRepository vocabRepo)
         {
-            _repository = repository;
-            _toastNotification = toastNotification;
+            _userRepo = userRepo;
+            _vocabRepo = vocabRepo;
         }
-
-        //        [HttpGet]
-        //        public IActionResult Register()
-        //        {
-        //            return View();
-        //        }
+        
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            
             return View();
         }
         
@@ -47,7 +40,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_repository.GetByEmail(dto.Email).Result != null)
+                if (_userRepo.GetByEmail(dto.Email).Result != null)
                 {
                     SharedInfo.RegisterError = "Email already exists!";
                     return Redirect("Register");
@@ -62,9 +55,9 @@ namespace WebApp.Controllers
                     hashStr += string.Format("{0:x2}", b);
 
                 // Create the user and add it to database
-                User user = Data.Domain.Entities.User.Create(dto.UserName, false, dto.Email, hashStr, null, "New user");
-                await _repository.Add(user);
-
+                User user = Data.Domain.Entities.User.Create(dto.UserName, false, dto.Email, hashStr, null, "");
+                await _userRepo.Add(user);
+                await _vocabRepo.AddVocabularForNewUser(user.Id);
                 // Redirect to login page with parameter registered
                 SharedInfo.RegisterError = "";
 

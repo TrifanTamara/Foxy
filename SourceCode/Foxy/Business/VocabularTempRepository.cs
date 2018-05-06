@@ -1,9 +1,11 @@
 ﻿using Data.Domain.Entities.TemplateItems;
+using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
 using Data.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,11 +17,13 @@ namespace Business
         private readonly IDatabaseContext _databaseContext;
         //private DbSet<VocabularTemplate> _entitiesVocab;
         private IVocabRelRepository _relationRepo;
+        private IVocabularItemRepository _vocabItemRepo;
 
-        public VocabularTempRepository(IDatabaseContext databaseContext) : base(databaseContext)
+        public VocabularTempRepository(IDatabaseContext databaseContext, IVocabRelRepository vocabRelRepo, IVocabularItemRepository vocabItemRepo) : base(databaseContext)
         {
             _databaseContext = databaseContext;
-            _relationRepo = new VocabRelRepository(_databaseContext);
+            _relationRepo = vocabRelRepo;
+            _vocabItemRepo = vocabItemRepo;
         }
 
         public async Task ClearAllVocab()
@@ -46,6 +50,15 @@ namespace Business
                         await _relationRepo.Add(VocabularRelationship.Create(item.Id, constructionVocab.Id));
                     }
                 }
+            }
+        }
+
+        public async Task AddVocabularForNewUser(Guid userId)
+        {
+            List<VocabularTemplate> vocabList = (await GetAll()).ToList();
+            foreach(VocabularTemplate v in vocabList)
+            {
+                await _vocabItemRepo.Add(VocabularItem.Create(userId, v.Id));
             }
         }
 
