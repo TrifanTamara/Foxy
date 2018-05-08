@@ -19,6 +19,9 @@ h6 {
     --main-color-4: rgb(115, 184, 200);
     --main-color-5: rgb(90, 124, 125);
     --main-color-menu: rgb(9, 36, 58);
+    --main-color-radical: #96b9d7;
+    --main-color-kanji: #717c9a;
+    --main-color-word: #a77389;
 }
 
 #my-container{
@@ -42,11 +45,19 @@ h6 {
 
 #jumbo {
     padding: 1em;
+    margin-bottom:2em;
 }
 
+.levels{
+    margin-bottom:2em;
+}
 .container-level {
     height: 10em;
 
+}
+#vocabTitle{
+    background-color: rgba(219, 224, 229, 1);
+    height: 3em;
 }
 
 .square-box {
@@ -58,8 +69,13 @@ h6 {
     .square-box:before {
         content: "";
         display: block;
-        padding-top: 60%;
+        padding-top: 75%;
     }
+
+.centerWhite {
+    text-align: right;
+    vertical-align: middle;
+}
 
 .square-content {
     position: absolute;
@@ -82,3 +98,8 @@ h6 {
         vertical-align: middle;
         color: white
     }
+
+.currentLevel {
+    margin-bottom: 0;
+    background-color: rgba(241, 246, 250, 1)
+}
