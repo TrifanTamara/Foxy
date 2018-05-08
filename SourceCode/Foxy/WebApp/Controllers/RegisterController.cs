@@ -21,9 +21,9 @@ namespace WebApp.Controllers
     public class RegisterController : Controller
     {
         private readonly IUsersRepository _userRepo;
-        private readonly IVocabularTempRepository _vocabRepo;
+        private readonly IVocabularItemRepository _vocabRepo;
 
-        public RegisterController(IUsersRepository userRepo, IVocabularTempRepository vocabRepo)
+        public RegisterController(IUsersRepository userRepo, IVocabularItemRepository vocabRepo)
         {
             _userRepo = userRepo;
             _vocabRepo = vocabRepo;

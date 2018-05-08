@@ -8,7 +8,7 @@
             <div class="rounded-top col-xs-6 col-md-3 text-center" id="vocabTitle"><h3><span class="centerWhite">Vocabular</span></h3></div>
         </div>
         <div class="row jumbotron jumbotron-fluid" id="jumbo">
-            <div class="container">
+            <div class="container"t>
                 <div class="row levels">
                     <div class="square-box col-sm" id="seed">
                         <div class='square-content'>
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 text-center">
                         <div id="circle-radical"></div>
                         <div class="text-center" style="margin-bottom:1em;">
                             <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#radicalList" aria-expanded="false" aria-controls="collapseExample">
@@ -57,12 +57,29 @@
                             </button>
                         </div>
                         <div class="collapse" id="radicalList">
-                            <div class="card card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            <div class="container text-center">
+                                <p>Remaining lessons:</p>
+                                @for (int i = 0; i < 3; ++i)
+                                 {
+                                    <div class="row text-center">
+                                        @for (int j = 0; j < 6; ++j)
+                                         {
+                                            <div class="little-squares rounded" id="little-radicals">
+                                                <div class="little-content">
+                                                    <div class="table">
+                                                        <div class="table-cell little-text .ja">
+                                                            安
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         }
+                                     </div>
+                                 }
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 text-center">
                         <div id="circle-kanji"></div>
                         <div class="text-center" style="margin-bottom:1em;">
                             <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#kanjiList" aria-expanded="false" aria-controls="collapseExample">
@@ -70,12 +87,29 @@
                             </button>
                         </div>
                         <div class="collapse" id="kanjiList">
-                            <div class="card card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            <div class="container text-center">
+                                <p>Remaining lessons:</p>
+                                @for (int i = 0; i < 3; ++i)
+                                {
+                                    <div class="row text-center">
+                                        @for (int j = 0; j < 6; ++j)
+                                        {
+                                            <div class="little-squares rounded" id="little-kanji">
+                                                <div class="little-content">
+                                                    <div class="table">
+                                                        <div class="table-cell little-text .ja">
+                                                            安
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 text-center">
                         <div id="circle-word"></div>
                         <div class="text-center" style="margin-bottom:1em;">
                             <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#wordsList" aria-expanded="false" aria-controls="collapseExample">
@@ -83,15 +117,35 @@
                             </button>
                         </div>
                         <div class="collapse" id="wordsList">
-                            <div class="card card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            <div class="container text-center">
+                                <p>Remaining lessons:</p>
+                                @for (int i = 0; i < 3; ++i)
+                                {
+                                    <div class="row text-center">
+                                        @for (int j = 0; j < 6; ++j)
+                                        {
+                                            <div class="little-squares rounded" id="little-words">
+                                                <div class="little-content">
+                                                    <div class="table">
+                                                        <div class="table-cell little-text .ja">
+                                                            安
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
+        <div class="row" style="margin-bottom:5em">
+            <button type="button" class="btn btn-info btn-lg rounded-0" style="margin-right:0.3em;">Lesson</button>
+            <button type="button" class="btn btn-info btn-lg rounded-0">Review</button>
+        </div>
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">

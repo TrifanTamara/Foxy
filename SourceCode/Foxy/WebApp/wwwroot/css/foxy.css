@@ -1,5 +1,7 @@
 ﻿body {
     font-family: 'Lato';
+    min-height: 75rem;
+    padding-top: 4.5rem;
 }
 
 h1,
@@ -24,6 +26,11 @@ h6 {
     --main-color-word: #a77389;
 }
 
+.ja {
+    font-family: meiryo, sans-serif;
+}
+
+
 #my-container{
     margin-top: 0;
 }
@@ -44,8 +51,8 @@ h6 {
 }
 
 #jumbo {
-    padding: 1em;
-    margin-bottom:2em;
+    margin-bottom:0;
+    padding:1em;
 }
 
 .levels{
@@ -99,7 +106,92 @@ h6 {
         color: white
     }
 
+#little-radicals {
+    background-color: var(--main-color-radical);
+}
+
+#little-kanji {
+    background-color: var(--main-color-kanji);
+}
+
+#little-words {
+    background-color: var(--main-color-word);
+}
+
+.square-content-little {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: white;
+}
+
+    .square-content-little div {
+        display: table;
+        width: 100%;
+        height: 100%;
+    }
+
+    .square-content-little span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        color: white
+    }
+
+.square-box-little {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0.2em 0.2em 0.2em 0.2em;
+}
+
+    .square-box-little:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+    }
+
+
 .currentLevel {
     margin-bottom: 0;
     background-color: rgba(241, 246, 250, 1)
+}
+
+.little-squares {
+    width: 13.5%;
+    padding-bottom: 13.5%;
+    margin: 1%;
+    position: relative;
+}
+
+.little-content {
+    position: absolute;
+    height: 90%;
+    width: 90%; 
+    padding: 5%;
+}
+
+.table {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.little-text {
+    color: white;
+    font-size: 1.2em;
+}
+
+.review-lesson{
+    background-color:antiquewhite;
+    margin-right: 0.3em;
+    padding-bottom: 2em;
 }

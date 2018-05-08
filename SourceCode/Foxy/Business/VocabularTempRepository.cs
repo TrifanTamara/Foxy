@@ -17,13 +17,11 @@ namespace Business
         private readonly IDatabaseContext _databaseContext;
         //private DbSet<VocabularTemplate> _entitiesVocab;
         private IVocabRelRepository _relationRepo;
-        private IVocabularItemRepository _vocabItemRepo;
 
-        public VocabularTempRepository(IDatabaseContext databaseContext, IVocabRelRepository vocabRelRepo, IVocabularItemRepository vocabItemRepo) : base(databaseContext)
+        public VocabularTempRepository(IDatabaseContext databaseContext, IVocabRelRepository vocabRelRepo) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _relationRepo = vocabRelRepo;
-            _vocabItemRepo = vocabItemRepo;
         }
 
         public async Task ClearAllVocab()
@@ -52,15 +50,6 @@ namespace Business
                 }
             }
         }
-
-        public async Task AddVocabularForNewUser(Guid userId)
-        {
-            List<VocabularTemplate> vocabList = (await GetAll()).ToList();
-            foreach(VocabularTemplate v in vocabList)
-            {
-                await _vocabItemRepo.Add(VocabularItem.Create(userId, v.Id));
-            }
-        }
-
+        
     }
 }

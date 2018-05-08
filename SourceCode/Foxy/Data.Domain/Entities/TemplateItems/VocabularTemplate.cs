@@ -31,10 +31,14 @@ namespace Data.Domain.Entities.TemplateItems
         public string Name { get; private set; }
         public string Meaning { get; private set; }
         public string Reading { get; private set; }
+
         public VocabularType Type { get; private set; }
         public String MeaningMnemonic { get; private set; }
         public String ReadingMnemonic { get; private set; }
         public WordParticularType WordType { get; private set; }
+
+        public int ComponentsNumber { get; private set; }
+
         public byte RequiredLevel { get; private set; }
 
         public static VocabularTemplate Create(string name, string meaning, string reading, VocabularType type, byte requiredLevel, string meaningMnemonic, string readingMnemonic, WordParticularType wordType=0)
@@ -44,7 +48,7 @@ namespace Data.Domain.Entities.TemplateItems
             return instance;
         }
 
-        public void Update(string name, string meaning, string reading, VocabularType type, byte requiredLevel, string meaningMnemonic, string readingMnemonic, WordParticularType wordType)
+        public void Update(string name, string meaning, string reading, VocabularType type, byte requiredLevel, string meaningMnemonic, string readingMnemonic, WordParticularType wordType, int components=0)
         {
             Name = name;
             Meaning = meaning;
@@ -54,6 +58,12 @@ namespace Data.Domain.Entities.TemplateItems
             MeaningMnemonic = meaningMnemonic;
             ReadingMnemonic = readingMnemonic;
             WordType = wordType;
+            Update(components);
+        }
+
+        public void Update(int components)
+        {
+            ComponentsNumber = components;
         }
     }
 }

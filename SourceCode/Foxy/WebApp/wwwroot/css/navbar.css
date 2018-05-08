@@ -4,8 +4,10 @@
 
 .navbar {
     margin-bottom: 20px;
+    min-height: 5em;
 }
 
 .main-navbar{
     font-family: 'Comic Sans MS';
+    padding-bottom:4em;
 }

@@ -4,6 +4,42 @@ using System.Text;
 
 namespace Data.Domain.Entities.UserRelated
 {
+    public enum MiniLevels : byte
+    {
+        Lev0,
+        Lev11, //30 min
+        Lev12, //1h
+        Lev13, //3h
+        Lev14, //1z
+        Lev21, //6z
+        Lev22, //2w
+        Lev31, //1month
+        Lev4
+    }
+
+    public enum PeriodLevels // in minutes
+    {
+        Time0 = 0,
+        Time11 = 30, //30 min
+        Time12 = 60, //1h
+        Time13 = 180, //3h
+        Time14 = 1440, //1z
+        Lev21 = 8640, //6z
+        Lev22 = 20160, //2w
+        Lev31 = 43200, //1month
+        Lev4
+    }
+
+    public enum GrandLevels : byte
+    {
+        Lesson = 0, //0
+        Seed = 4, //1<=x<=4
+        Bloom = 6, //5<=x<=6
+        Leaf = 7, //7
+        Flourished = 8 //8
+    }
+
+
     public class VocabularItem
     {
         private VocabularItem()
@@ -24,17 +60,20 @@ namespace Data.Domain.Entities.UserRelated
         public int WrongAnswers { get; private set; }
         public bool LastAnswer { get; private set; }
 
+        public int LockedComponents { get; private set; }
+
         public DateTime LastTimeAnswered { get; private set; }
         public DateTime UnlockTime { get; private set; }
 
         public bool Favorite { get; private set; }
 
-        public static VocabularItem Create(Guid userId, Guid vocabularId)
+        public static VocabularItem Create(Guid userId, Guid vocabularId, int lockedComponents)
         {
             var instance = new VocabularItem() { Id = Guid.NewGuid() };
             instance.Update(userId, vocabularId);
             instance.Update(DateTime.MaxValue);
             instance.Update("", "",  0, 0, 0, false, DateTime.MaxValue, false);
+            instance.Update(lockedComponents);
             return instance;
         }
 
@@ -60,6 +99,11 @@ namespace Data.Domain.Entities.UserRelated
             LastAnswer = lastAnswer;
             LastTimeAnswered = lastTimeAnswered;
             Favorite = favorite;
+        }
+
+        public void Update(int unlockedComponents)
+        {
+            Locked = unlockedComponents;
         }
     }
 }

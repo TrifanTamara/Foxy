@@ -11,6 +11,6 @@ namespace Data.Domain.Interfaces
         Task ClearAllVocab();
         Task<VocabularTemplate> GetByTypeAndName(VocabularType type, String name);
         Task AddRelations(String itemName, VocabularType itemType, List<String> constructionElements);
-        Task AddVocabularForNewUser(Guid userId);
+        
     }
 }
