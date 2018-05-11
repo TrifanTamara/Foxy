@@ -7,10 +7,8 @@ namespace Data.Domain.Entities.UserRelated
     public enum MiniLevels : byte
     {
         Lev0,
-        Lev11, //30 min
-        Lev12, //1h
-        Lev13, //3h
-        Lev14, //1z
+        Lev11, //5 min
+        Lev12, //10 min
         Lev21, //6z
         Lev22, //2w
         Lev31, //1month
@@ -20,10 +18,8 @@ namespace Data.Domain.Entities.UserRelated
     public enum PeriodLevels // in minutes
     {
         Time0 = 0,
-        Time11 = 30, //30 min
-        Time12 = 60, //1h
-        Time13 = 180, //3h
-        Time14 = 1440, //1z
+        Time11 = 30, //5 min
+        Time12 = 60, //10 min
         Lev21 = 8640, //6z
         Lev22 = 20160, //2w
         Lev31 = 43200, //1month
@@ -33,10 +29,10 @@ namespace Data.Domain.Entities.UserRelated
     public enum GrandLevels : byte
     {
         Lesson = 0, //0
-        Seed = 4, //1<=x<=4
-        Bloom = 6, //5<=x<=6
-        Leaf = 7, //7
-        Flourished = 8 //8
+        Seed = 2, //1<=x<=2
+        Bloom = 4, //3<=x<=4
+        Leaf = 5, //5
+        Flourished = 6 //6
     }
 
 
@@ -65,6 +61,8 @@ namespace Data.Domain.Entities.UserRelated
         public DateTime LastTimeAnswered { get; private set; }
         public DateTime UnlockTime { get; private set; }
 
+        public MiniLevels CurrentMiniLevel { get; private set; }
+
         public bool Favorite { get; private set; }
 
         public static VocabularItem Create(Guid userId, Guid vocabularId, int lockedComponents)
@@ -73,7 +71,7 @@ namespace Data.Domain.Entities.UserRelated
             instance.Update(userId, vocabularId);
             instance.Update(DateTime.MaxValue);
             instance.Update("", "",  0, 0, 0, false, DateTime.MaxValue, false);
-            instance.Update(lockedComponents);
+            instance.Update(lockedComponents, 0);
             return instance;
         }
 
@@ -101,9 +99,10 @@ namespace Data.Domain.Entities.UserRelated
             Favorite = favorite;
         }
 
-        public void Update(int unlockedComponents)
+        public void Update(int lockedComponents, MiniLevels miniLevels)
         {
-            Locked = unlockedComponents;
+            LockedComponents = lockedComponents;
+            CurrentMiniLevel = miniLevels;
         }
     }
 }

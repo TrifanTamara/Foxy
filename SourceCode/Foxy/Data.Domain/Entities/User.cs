@@ -36,12 +36,16 @@ namespace Data.Domain.Entities
             Password = password;
             Token = token;
             Description = description;
-            Level = level;
+            Update(level);
             ImageId = imageId;
         }
         public void Update(string token)
         {
             Token = token;
+        }
+        public void Update(int level)
+        {
+            Level = level;
         }
     }
 }

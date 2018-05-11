@@ -30,6 +30,12 @@ namespace Business
             await Clear();
         }
 
+        public async Task<int> GetComponentsById(Guid id)
+        {
+
+            return (_databaseContext.VocabularRelationships.Where(x => x.MainItemId.Equals(id))).Count();
+        }
+
         public async Task<VocabularTemplate> GetByTypeAndName(VocabularType type, String name)
         {
             return await _databaseContext.VocabularTemplates.FirstOrDefaultAsync(vocab => vocab.Type == type && vocab.Name.Equals(name));
