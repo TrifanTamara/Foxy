@@ -17,48 +17,75 @@ namespace Business
     {
         private readonly IDatabaseContext _databaseContext;
         private readonly IVocabularTempRepository _tempVocabRepo;
+        private readonly IVocabRelRepository _relVocabRepo;
         private readonly IUsersRepository _userRepo;
-        //public List<VocabularItem> LessonList { get; private set; }
-        //public List<VocabularItem> ReviewList { get; private set; }
 
-        public VocabularItemRepository(IDatabaseContext databaseContext, IVocabularTempRepository tempVocabRepo) : base(databaseContext)
+        public VocabularItemRepository(IDatabaseContext databaseContext, IVocabularTempRepository tempVocabRepo, IUsersRepository userRepo, IVocabRelRepository relationRepo) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _tempVocabRepo = tempVocabRepo;
-            //LessonList = new List<VocabularItem>();
-            //ReviewList = new List<VocabularItem>();
+            _userRepo = userRepo;
+            _relVocabRepo = relationRepo;
         }
 
-        //this should be called first 
-        /*
-        public async Task CreateLessonList()
-        {
-            LessonList.Clear();
 
-        }
-
-        //this should be called first
-        public async Task CreateReviewList()
-        {
-            ReviewList.Clear();
-        }
-        */
         public async Task<IEnumerable<VocabularItem>> GetVocabByUser(Guid userId)
         {
             return await _databaseContext.VocabularItems.Where(x => x.UserId.Equals(userId)).ToListAsync();
+        }
+
+        public async Task<VocabularItem> GetVocabByTemplate(Guid templateId)
+        {
+            return await _databaseContext.VocabularItems.Where(x => x.VocabularId.Equals(templateId)).FirstOrDefaultAsync();
+        }
+
+
+        public async Task UnlockElements(VocabularItem item)
+        {
+            List<VocabularItem> vocabs = new List<VocabularItem>();
+            List<VocabularRelationship> pairs = (await _relVocabRepo.GetByContainedId(item.VocabularId)).ToList();
+            foreach (VocabularRelationship x in pairs)
+            {
+                VocabularItem vItem = await GetVocabByTemplate(x.MainItemId);
+                if (vItem != null)
+                {
+                    vItem.Update(vItem.LockedComponents - 1, vItem.CurrentMiniLevel);
+                    if (vItem.LockedComponents == 0) vItem.Update(DateTime.Now);
+                    await Edit(vItem);
+                }
+            }
         }
 
         public async Task AddToLesson(VocabularItem vocab)
         {
             vocab.Update(DateTime.Now);
             await Edit(vocab);
-            //LessonList.Add(vocab);
         }
         
-
         public async Task RemoveFromLesson(VocabularItem vocab)
         {
             vocab.Update(vocab.LockedComponents, vocab.CurrentMiniLevel + 1);
+            await Edit(vocab);
+            await UnlockElements(vocab);
+        }
+
+        public async Task AddAnswer(VocabularItem vocab, bool answer)
+        {
+            if (answer)
+            {
+                vocab.Update(vocab.LockedComponents, vocab.CurrentMiniLevel + 1);
+                int strike = vocab.CurrentStrike + 1;
+                int maxstrike = (strike > vocab.LongestStrike) ? strike : vocab.LongestStrike;
+                vocab.Update(strike, maxstrike, vocab.RightAnswers + 1, vocab.WrongAnswers, true, DateTime.Now);
+            }
+            else
+            {
+                if ((int)vocab.CurrentMiniLevel > 1)
+                {
+                    vocab.Update(vocab.LockedComponents, vocab.CurrentMiniLevel - 1);
+                }
+                vocab.Update(0, vocab.LongestStrike, vocab.RightAnswers, vocab.WrongAnswers + 1, false, DateTime.Now);
+            }
             await Edit(vocab);
         }
 
@@ -88,6 +115,63 @@ namespace Business
                 await Add(VocabularItem.Create(userId, v.Id, nr));
             }
         }
-        
+
+        public async Task<List<VocabularItem>> GetVocabLesson(Guid userId)
+        {
+            User user = await _userRepo.FindById(userId);
+            List<VocabularItem> allUsersVocab = (await GetVocabByUser(userId)).ToList();
+            List<VocabularItem> lessons = new List<VocabularItem>();
+            foreach(VocabularItem x in allUsersVocab)
+            {
+                VocabularTemplate vTemp = await _tempVocabRepo.FindById(x.VocabularId);
+                if(vTemp.Type == VocabularType.Radical || vTemp.Type == VocabularType.Kanji)
+                {
+                    if(vTemp.RequiredLevel == user.Level && x.CurrentMiniLevel == 0)
+                    {
+                        lessons.Add(x);
+                    }
+                }
+                else
+                {
+                    //word
+                    if(vTemp.RequiredLevel<=user.Level && x.CurrentMiniLevel == 0 && DateTime.Compare(x.UnlockTime,DateTime.Now)<=0)
+                    {
+                        lessons.Add(x);
+                    }
+                }
+            }
+            return lessons;
+        }
+
+        public bool ActiveForReview(VocabularItem item)
+        {
+            if ((int)item.CurrentMiniLevel == (int)GrandLevels.Flourished)
+                return false;
+            DateTime readyTime = item.LastTimeAnswered.AddMinutes(StaticInfo.minutesForLevel[(int)item.CurrentMiniLevel]);
+            if (DateTime.Compare(readyTime, DateTime.Now) <= 0)
+                return true;
+            return false;
+        }
+
+        public async Task<List<VocabularItem>> GetVocabForReview(Guid userId)
+        {
+            User user = await _userRepo.FindById(userId);
+            List<VocabularItem> allUsersVocab = (await GetVocabByUser(userId)).ToList();
+            List<VocabularItem> reviews = new List<VocabularItem>();
+            foreach (VocabularItem x in allUsersVocab)
+            {
+                if (ActiveForReview(x))
+                    reviews.Add(x);
+            }
+            return reviews;
+        }
+
+        public async Task<List<VocabularItem>> GetItemsByGrandLevels(Guid userId, GrandLevels level)
+        {
+            User user = await _userRepo.FindById(userId);
+            List<VocabularItem> allUsersVocab = (await GetVocabByUser(userId)).ToList();
+            return allUsersVocab.Where(x => (int)x.CurrentMiniLevel > (int)level-1 && (int)x.CurrentMiniLevel <= (int)level).ToList();
+        }
+
     }
 }

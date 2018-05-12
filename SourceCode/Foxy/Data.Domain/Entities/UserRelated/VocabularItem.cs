@@ -20,9 +20,9 @@ namespace Data.Domain.Entities.UserRelated
         Time0 = 0,
         Time11 = 30, //5 min
         Time12 = 60, //10 min
-        Lev21 = 8640, //6z
-        Lev22 = 20160, //2w
-        Lev31 = 43200, //1month
+        Time21 = 8640, //6z
+        Time22 = 20160, //2w
+        Time31 = 43200, //1month
         Lev4
     }
 
@@ -52,6 +52,8 @@ namespace Data.Domain.Entities.UserRelated
         public string ReadingNote { get; private set; }
 
         public int CurrentStrike { get; private set; }
+        public int LongestStrike { get; private set; }
+
         public int RightAnswers { get; private set; }
         public int WrongAnswers { get; private set; }
         public bool LastAnswer { get; private set; }
@@ -70,7 +72,8 @@ namespace Data.Domain.Entities.UserRelated
             var instance = new VocabularItem() { Id = Guid.NewGuid() };
             instance.Update(userId, vocabularId);
             instance.Update(DateTime.MaxValue);
-            instance.Update("", "",  0, 0, 0, false, DateTime.MaxValue, false);
+            instance.Update("", "", false);
+            instance.Update(0, 0, 0, 0, true, DateTime.MaxValue);
             instance.Update(lockedComponents, 0);
             return instance;
         }
@@ -86,17 +89,22 @@ namespace Data.Domain.Entities.UserRelated
             UnlockTime = unlockTime;
         }
 
-        public void Update(string meaningNote, string readingNote, int currentStrike, int rightAnswers, int wrongAnswers, bool lastAnswer,
-            DateTime lastTimeAnswered, bool favorite)
+        public void Update(string meaningNote, string readingNote, bool favorite)
         {
             MeaningNote = meaningNote;
             ReadingNote = readingNote;
+            Favorite = favorite;
+        }
+
+        public void Update(int currentStrike, int longestStrike, int rightAnswers, int wrongAnswers, bool lastAnswer,
+            DateTime lastTimeAnswered)
+        {
             CurrentStrike = currentStrike;
+            LongestStrike = longestStrike;
             RightAnswers = rightAnswers;
             WrongAnswers = wrongAnswers;
             LastAnswer = lastAnswer;
             LastTimeAnswered = lastTimeAnswered;
-            Favorite = favorite;
         }
 
         public void Update(int lockedComponents, MiniLevels miniLevels)
