@@ -1,13 +1,86 @@
 ﻿body {
-    padding-bottom: 20px;
+    padding-top: 150px;
 }
 
 .navbar {
     margin-bottom: 20px;
-    min-height: 5em;
 }
 
-.main-navbar{
-    font-family: 'Comic Sans MS';
-    padding-bottom:4em;
+
+
+#main-navbar {
+    position: fixed;
+    top: 0;
+    background: #09243a;
+    width: 100%;
+    color: #fff;
+    z-index: 9999;
 }
+
+.class-myNav {
+    
+    
+    
+    height: 150px;
+    
+    background: #09243a;
+    color: #fff;
+    line-height: 150px;
+    -webkit-transition: height .5s, line-height .5s; /* Safari */
+    transition: height .5s, line-height .5s;
+}
+
+.site-title {
+    display: inline-block;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+.scrolled-nav .site-title {
+    font-size: 16px;
+    color: white;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+    .nav-list li {
+        list-style: none;
+        display: inline-block;
+        padding-left: 10px;
+    }
+
+
+
+.scrolled-nav {
+    height: 50px !important;
+    line-height: 50px !important;
+}
+
+.round-border {
+}
+
+.btn-sq-lg {
+    width: 150px !important;
+    height: 150px !important;
+}
+
+.btn-sq {
+    width: 100px !important;
+    height: 100px !important;
+    font-size: 10px;
+}
+
+.btn-sq-sm {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 10px;
+}
+
+.btn-sq-xs {
+    width: 25px !important;
+    height: 25px !important;
+    padding: 2px;
+}
+

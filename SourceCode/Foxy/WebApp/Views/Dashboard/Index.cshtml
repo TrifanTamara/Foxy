@@ -1,4 +1,14 @@
-﻿<br />
+﻿@using WebApp.DTOs;
+
+
+<br />
+    @if (!string.IsNullOrEmpty(SharedInfo.ShowSuccessMessage))
+    {
+        <script>
+            toastr.success("Welcome!")
+        </script>
+        SharedInfo.ShowSuccessMessage = "";
+    }
 
     <div class="currentLevel row jumbotron col-xs-12 col-sm-6 col-md-4">
         Current level: 

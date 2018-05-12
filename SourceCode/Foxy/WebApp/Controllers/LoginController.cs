@@ -84,6 +84,7 @@ namespace WebApp.Controllers
                         LoggedUser.UserName = user.Username;
 
                         SharedInfo.LoginError = "";
+                        SharedInfo.ShowSuccessMessage = "You are now logged in!";
                         return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Dashboard"}));
                     }
                 }
