@@ -12,7 +12,11 @@
     <title>Foxy</title>
 
     <!-- Bootstrap core CSS -->
+    <script src="~/vendor/jquery/jquery.js"></script>
+
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
     <!-- Custom fonts for this template -->
     <!-- Plugin CSS -->
@@ -21,9 +25,7 @@
     <link href="~/css/navbar.css" rel="stylesheet">
     <link href="~/circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
 
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+
 
     <link href="~/toastr/toastr.css" rel="stylesheet" />
     <script src="~/toastr/toastr.js"></script>
@@ -42,13 +44,15 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarCollapse">
 
-                            <ul class="navbar-nav mr-auto nav-list">
+                            <ul class="navbar-nav mr-auto nav-list" data-toggle="collapse" data-target="#navbarCollapse">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Vocabular</a>
-                                    <div class="dropdown-menu" aria-labelledby="menuVocabLink">
-                                        <a class="dropdown-item" href="#">Level 1</a>
-                                        <a class="dropdown-item" href="#">Level 2</a>
-                                        <a class="dropdown-item" href="#">Level 3</a>
+                                    <div class="dropdown-menu dropdown-thin menu-drop-main" aria-labelledby="menuVocabLink">
+                                        <ul class="drop-list-menu">
+                                            <li class="list-drop-item"><a  href="#">Level 1</a></li>
+                                            <li class="list-drop-item"><a  href="#">Level 2</a></li>
+                                            <li class="list-drop-item"><a  href="#">Level 3</a></li>
+                                        </ul>
                                     </div>
                                 </li>
                                 <li class="nav-item">
@@ -58,7 +62,7 @@
                                     <a class="nav-link" href="#">Reading</a>
                                 </li>
                             </ul>
-                            <ul class="nav navbar-nav pull-right nav-list">
+                            <ul class="nav navbar-nav pull-right nav-list" data-toggle="collapse" data-target="#navbarCollapse">
                                 <li class="nav-item">
                                     <div class="container">
                                         <span class="round-border">13</span>
@@ -70,12 +74,13 @@
                                     Review
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div class="dropdown-toggle" id="profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Profile
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    </div>
+                                    <div class="dropdown-menu" aria-labelledby="profile-dropdown">
                                         <a class="dropdown-item" asp-controller="Profile" asp-action="Index">Profile</a>
                                         <a class="dropdown-item" href="#">Account</a>
+                                        <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" asp-controller="Logout" asp-action="Index">Sign out</a>
                                     </div>
                                 </li>
@@ -86,15 +91,6 @@
             </div>
         </header>
     </div>
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Contact Form JavaScript -->
-    <script src="js/foxy.js"></script>
-    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="~/circliful/js/jquery.circliful.js"></script>
 
 
     <div class="container body-content">

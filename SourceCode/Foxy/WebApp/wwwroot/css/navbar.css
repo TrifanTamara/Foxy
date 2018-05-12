@@ -17,12 +17,9 @@
     z-index: 9999;
 }
 
+
 .class-myNav {
-    
-    
-    
-    height: 150px;
-    
+    height: 130px;
     background: #09243a;
     color: #fff;
     line-height: 150px;
@@ -51,7 +48,10 @@
         padding-left: 10px;
     }
 
-
+.dropdown-menu {
+    height: 300px !important;
+    line-height: 80px !important;
+}
 
 .scrolled-nav {
     height: 50px !important;
@@ -83,4 +83,3 @@
     height: 25px !important;
     padding: 2px;
 }
-
