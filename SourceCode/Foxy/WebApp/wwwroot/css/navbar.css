@@ -1,12 +1,16 @@
 ﻿body {
     padding-top: 150px;
+    font-family: 'Lora', serif;
 }
 
 .navbar {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
-
+#foxy-title-id {
+    color: white !important;
+    align-self: center !important;
+}
 
 #main-navbar {
     position: fixed;
@@ -22,7 +26,6 @@
     height: 130px;
     background: #09243a;
     color: #fff;
-    line-height: 150px;
     -webkit-transition: height .5s, line-height .5s; /* Safari */
     transition: height .5s, line-height .5s;
 }
@@ -49,8 +52,8 @@
     }
 
 .dropdown-menu {
-    height: 300px !important;
-    line-height: 80px !important;
+    
+    line-height: 40px !important;
 }
 
 .scrolled-nav {
@@ -58,28 +61,107 @@
     line-height: 50px !important;
 }
 
-.round-border {
+#foxy-icon {
+    position: relative !important;
+    height: 70%;
+    padding-bottom:5px;
+    margin-top:0!important;
+    display: block;
 }
 
-.btn-sq-lg {
+.brand-div-foxy {
+    height: 100%;
+    
+    margin-right: 20px!important;
+    width: 80px;
+}
+
+.subtext{
+    position:absolute!important;
+}
+.foxy-title-first {
+    height: 30%;
+    position:relative;
+}
+.foxy-title-second {
+    height: 100%;
+    font-size: x-large;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center;
+}
+
+.div-container-list-text {
+    position: relative;
+    height:100%;
+    text-align:center;
+}
+
+.circle-big {
+    position: relative !important;
+    height: 60px;
+    width: 60px;
+    margin-top: 0 !important;
+    border-radius: 50%;
+    background: #38a9e4;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center;
+    margin-bottom:10px;
+}
+
+.circle-small {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 20% !important;
+    height: 100% !important;
+    vertical-align: middle;
+    display: inline;
+    justify-content: center; /* align horizontal */
+    align-items: center;
+}
+
+.text-item-small {
+    width: 60% !important;
+    height: 100% !important;
+    vertical-align: middle;
+    display: inline;
+    margin-left: 5px;
+    justify-content: center; /* align horizontal */
+    align-items: center;
+}
+
+#levels-id{
+
+}
+
+#navbarCollapse{
+    height:100%;
+}
+
+.big-nav-li {
+    display: flex;
+    flex-direction: column;
+    padding-top:10px;
+    margin-right:30px;
+}
+
+.small-nav-li {
     width: 150px !important;
-    height: 150px !important;
+    float: left;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center !important;
+    vertical-align: middle !important;
 }
 
-.btn-sq {
-    width: 100px !important;
-    height: 100px !important;
-    font-size: 10px;
+#menuVocabLink{
 }
 
-.btn-sq-sm {
-    width: 50px !important;
-    height: 50px !important;
-    font-size: 10px;
-}
+second-text-items{
 
-.btn-sq-xs {
-    width: 25px !important;
-    height: 25px !important;
-    padding: 2px;
 }

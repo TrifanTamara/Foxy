@@ -23,6 +23,7 @@
     <!-- Custom styles for this template -->
     <link href="~/css/foxy.css" rel="stylesheet">
     <link href="~/css/navbar.css" rel="stylesheet">
+    <link href="~/css/fontfamily.css" rel="stylesheet">
     <link href="~/circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
 
 
@@ -37,22 +38,33 @@
         <header class="masthead mb-auto">
             <div>
                 <nav class="navbar navbar-dark navbar-expand-md" id="main-navbar">
-                    <div class="container">
-                        <a class="navbar-brand site-title" asp-controller="Dashboard" asp-action="Index">Foxy</a>
+                    <div class="container text-center" style="height:100%; margin-top:10px; position:relative;">
+                        <div class="brand-div-foxy" asp-controller="Dashboard" asp-action="Index">
+                            <div id="foxy-icon">
+                                <img src="~/img/profile.png" class="rounded-circle border border-light" style="width: 70px;">
+                            </div>
+                            <div class="text-center" id="foxy-title-id">Foxy</div>
+
+                        </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarCollapse">
 
-                            <ul class="navbar-nav mr-auto nav-list" data-toggle="collapse" data-target="#navbarCollapse">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Vocabular</a>
-                                    <div class="dropdown-menu dropdown-thin menu-drop-main" aria-labelledby="menuVocabLink">
-                                        <ul class="drop-list-menu">
-                                            <li class="list-drop-item"><a  href="#">Level 1</a></li>
-                                            <li class="list-drop-item"><a  href="#">Level 2</a></li>
-                                            <li class="list-drop-item"><a  href="#">Level 3</a></li>
-                                        </ul>
+                            <ul class="navbar-nav mr-auto nav-list" style="height:100%;" data-toggle="collapse" data-target="#navbarCollapse">
+                                <li class="dropdown" style="vertical-align: middle">
+                                    <div class="div-container-list-text">
+                                        <div id="levels-id">
+                                            13
+                                        </div>
+                                        <div class="dropdown-toggle" id="menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Levels</div>
+                                        <div class="dropdown-menu medium-dropdown menu-drop-main" aria-labelledby="menuVocabLink">
+                                            <ul class="drop-list-menu">
+                                                <li class="list-drop-item"><a href="#">Level 1</a></li>
+                                                <li class="list-drop-item"><a href="#">Level 2</a></li>
+                                                <li class="list-drop-item"><a href="#">Level 3</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </li>
                                 <li class="nav-item">
