@@ -105,25 +105,30 @@
     width: 60px;
     margin-top: 0 !important;
     border-radius: 50%;
-    background: gray;
+    background: #6c7e8c;
     color: white;
     font-size: 24px;
     text-align: center;
     display: flex;
     justify-content: center; /* align horizontal */
     align-items: center;
-    margin-bottom:10px;
+    margin-bottom: 10px;
+    align-self: center;
+}
+
+div.circle-big:hover {
+    background-color: #92a5b5;
 }
 
 .circle-small {
-    background-color: rgba(255, 255, 255, 0.5);
-    width: 20% !important;
+    background-color: rgba(255, 255, 255, 0.4);
+    width: 35% !important;
     border-radius: 10%;
     color: white;
     vertical-align: middle;
     position: relative;
-    height: 70%;
-    font-size: medium;
+    height: 65%;
+    font-size: 16px;
     padding-bottom: 5px;
     display: flex;
     justify-content: center; /* align horizontal */
@@ -136,12 +141,8 @@
     padding-bottom: 5px;
     display: flex;
     justify-content: center; /* align horizontal */
-    align-items: center;
-    margin-left:2px!important;
-}
-
-#levels-id{
-
+    align-items: center!important;
+    margin-left:3px!important;
 }
 
 #navbarCollapse{
@@ -165,9 +166,15 @@
     vertical-align: middle !important;
 }
 
-#menuVocabLink{
+.li-a-bit-smaller {
+    width: 80px !important;
 }
 
-second-text-items{
-
+.liNavbar{
+    width:95px;
 }
+
+.menuVocabLink{
+    text-align:left;
+}
+
