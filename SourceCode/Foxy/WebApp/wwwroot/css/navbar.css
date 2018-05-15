@@ -94,8 +94,9 @@
 
 .div-container-list-text {
     position: relative;
-    height:100%;
-    text-align:center;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .circle-big {
@@ -104,7 +105,7 @@
     width: 60px;
     margin-top: 0 !important;
     border-radius: 50%;
-    background: #38a9e4;
+    background: gray;
     color: white;
     font-size: 24px;
     text-align: center;
@@ -117,21 +118,26 @@
 .circle-small {
     background-color: rgba(255, 255, 255, 0.5);
     width: 20% !important;
-    height: 100% !important;
+    border-radius: 10%;
+    color: white;
     vertical-align: middle;
-    display: inline;
+    position: relative;
+    height: 70%;
+    font-size: medium;
+    padding-bottom: 5px;
+    display: flex;
     justify-content: center; /* align horizontal */
     align-items: center;
 }
 
 .text-item-small {
-    width: 60% !important;
-    height: 100% !important;
-    vertical-align: middle;
-    display: inline;
-    margin-left: 5px;
+    height: 100%;
+    font-size: medium;
+    padding-bottom: 5px;
+    display: flex;
     justify-content: center; /* align horizontal */
     align-items: center;
+    margin-left:2px!important;
 }
 
 #levels-id{
@@ -150,7 +156,7 @@
 }
 
 .small-nav-li {
-    width: 150px !important;
+    width: 100px !important;
     float: left;
     margin-right: 10px;
     display: flex;

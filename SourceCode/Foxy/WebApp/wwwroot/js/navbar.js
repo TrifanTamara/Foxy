@@ -55,22 +55,30 @@ function ShowBrand() {
     $("#foxy-icon").show();
     $('#foxy-title-id').removeClass('foxy-title-second');
     $('#foxy-title-id').addClass('foxy-title-first');
-    $('li').addClass('big-nav-li');
-    $('li').remove('small-nav-li');
+
+    $('#div-saviour').removeClass('div-container-list-text');
+
+    $('#li1').removeClass('small-nav-li');
+    $('#li1').addClass('big-nav-li');
 
     $('#levels-id').removeClass('circle-small');
     $('#levels-id').addClass('circle-big');
 
-
+    
     $('#menuVocabLink').removeClass('text-item-small');
 }
 
 function HideBrand() {
     $("#foxy-icon").hide();
+
+
+    $('#div-saviour').addClass('div-container-list-text');
+
     $('#foxy-title-id').addClass('foxy-title-second');
     $('#foxy-title-id').removeClass('foxy-title-first');
-    $('li').removeClass('big-nav-li');
-    $('li').addClass('small-nav-li');
+
+    $('#li1').addClass('small-nav-li');
+    $('#li1').removeClass('big-nav-li');
     
     $('#menuVocabLink').addClass('text-item-small');
 
