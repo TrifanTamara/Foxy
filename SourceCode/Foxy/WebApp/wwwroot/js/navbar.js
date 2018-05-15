@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     $('.dropdown-toggle').dropdown();
     var scrollTop = 0;
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1010) {
         mobile();
     } else {
         maximizeNav();
@@ -10,7 +10,7 @@
     $(window).scroll(function () {
         scrollTop = $(window).scrollTop();
         $('.counter').html(scrollTop);
-        if (window.innerWidth >= 768) {
+        if (window.innerWidth >= 1010) {
             maximizeNav();
             if (scrollTop >= 100) {
                 minimizeNav();
@@ -19,6 +19,7 @@
             }
         } else {
             minimizeNav();
+            mobile();
         } 
 
     });
@@ -27,7 +28,7 @@
 
 
 $(window).resize(function () {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1010) {
         mobile();
     }
 });
