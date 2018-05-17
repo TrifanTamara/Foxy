@@ -9,3 +9,4 @@ https://getbootstrap.com/docs/4.0/getting-started/introduction/
 !
 https://stackoverflow.com/questions/44363572/simple-authentication-using-jwt-in-dot-net-core-mvc
 https://code.msdn.microsoft.com/How-to-achieve-a-bearer-9448db57
+https://docs.microsoft.com/en-us/aspnet/core/mvc/razor-pages/?view=aspnetcore-2.0&tabs=visual-studio 
