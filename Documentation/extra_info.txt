@@ -3,3 +3,8 @@ http://www.c-sharpcorner.com/article/asp-net-core-2-0-apply-bootstrap-template/
 https://www.packtpub.com/books/content/getting-started-aspnet-core-and-bootstrap-4
 http://fluentbootstrap.com/Components
 https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
+
+
+!
+https://stackoverflow.com/questions/44363572/simple-authentication-using-jwt-in-dot-net-core-mvc
