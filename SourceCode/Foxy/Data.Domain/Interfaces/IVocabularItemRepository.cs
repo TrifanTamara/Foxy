@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace Data.Domain.Interfaces
 {
+    public enum InfoLessonType
+    {
+        ActiveLesson,
+        ViewedLesson,
+        Passed,
+        All
+    }
+
     public interface IVocabularItemRepository : IGenericRepository<Entities.UserRelated.VocabularItem>
     {
         Task AddVocabularForNewUser(Guid userId);
@@ -21,6 +29,6 @@ namespace Data.Domain.Interfaces
         Task<List<VocabularItem>> GetVocabForReview(Guid userId);
         bool ActiveForReview(VocabularItem item);
         Task<List<VocabularItem>> GetItemsByGrandLevels(Guid userId, GrandLevels level);
-
+        Task<List<VocabularItem>> GetVocabLessonByTypes(Guid userId, int level, VocabularType type, InfoLessonType requestedInfo);
     }
 }

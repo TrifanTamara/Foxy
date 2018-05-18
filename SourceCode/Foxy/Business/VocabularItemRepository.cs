@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace Business
 {
+    
+
     public class VocabularItemRepository :
         GenericRepository<VocabularItem>, IVocabularItemRepository
     {
@@ -119,10 +121,11 @@ namespace Business
         public async Task AddVocabularForNewUser(Guid userId)
         {
             List<VocabularTemplate> vocabList = (await _tempVocabRepo.GetAll()).ToList();
+            User user = await _userRepo.FindById(userId);
             foreach (VocabularTemplate v in vocabList)
             {
                 int nr = await _tempVocabRepo.GetComponentsById(v.Id);
-                await Add(VocabularItem.Create(userId, v.Id, nr));
+                await Add(VocabularItem.Create(user, v, nr));
             }
         }
 
@@ -133,8 +136,7 @@ namespace Business
             List<VocabularItem> lessons = new List<VocabularItem>();
             foreach(VocabularItem x in allUsersVocab)
             {
-                VocabularTemplate vTemp = await _tempVocabRepo.FindById(x.VocabularId);
-                if(vTemp.Type == VocabularType.Radical || vTemp.Type == VocabularType.Kanji)
+                if(x.Vocabular.Type == VocabularType.Radical || x.Vocabular.Type == VocabularType.Kanji)
                 {
                     if(vTemp.RequiredLevel == user.Level && x.CurrentMiniLevel == 0)
                     {
@@ -151,6 +153,75 @@ namespace Business
                 }
             }
             return lessons;
+        }
+
+        public bool MiniIsGrand(MiniLevels minilevel, GrandLevels grandLevel)
+        {
+            switch (grandLevel)
+            {
+                case GrandLevels.Seed:
+                    if ((int)minilevel <= (int)GrandLevels.Seed && (int)minilevel > (int)GrandLevels.Lesson)
+                        return true;
+                    break;
+                case GrandLevels.Leaf:
+                    if ((int)minilevel <= (int)GrandLevels.Leaf && (int)minilevel > (int)GrandLevels.Seed)
+                        return true;
+                    break;
+                case GrandLevels.Bloom:
+                    return ((int)minilevel == (int)GrandLevels.Bloom);
+                case GrandLevels.Flourished:
+                    return ((int)minilevel == (int)GrandLevels.Flourished);
+            }
+            return false;
+        }
+
+        public async Task<List<VocabularItem>> GetVocabViewedLesson(Guid userId, int level, VocabularType type, GrandLevels levelItem)
+        {
+            User user = await _userRepo.FindById(userId);
+            List<VocabularItem> allUsersVocab = (await GetVocabByUser(userId)).ToList();
+            List<VocabularItem> lessons = new List<VocabularItem>();
+            foreach (VocabularItem x in allUsersVocab)
+            {
+                VocabularTemplate vTemp = await _tempVocabRepo.FindById(x.VocabularId);
+                if (vTemp.Type != type) continue;
+
+                if (vTemp.Type == VocabularType.Radical || vTemp.Type == VocabularType.Kanji)
+                {
+                    if (vTemp.RequiredLevel == level && MiniIsGrand(x.CurrentMiniLevel, levelItem))
+                    {
+                        lessons.Add(x);
+                    }
+                }
+            }
+            return lessons;
+        }
+
+        public async Task<List<VocabularItem>> GetVocabLessonByTypes(Guid userId, int level, VocabularType type, InfoLessonType requestedInfo)
+        {
+            List<VocabularItem> elements = await GetVocabLesson(userId);
+            List<VocabularItem> elementsType = new List<VocabularItem>();
+            foreach(var x in elements)
+            {
+                VocabularTemplate vTemp = await _tempVocabRepo.FindById(x.VocabularId);
+                if (vTemp.Type == type) elementsType.Add(x);
+            }
+            if (requestedInfo == InfoLessonType.ActiveLesson)
+                return elementsType;
+
+            List<VocabularItem> result = new List<VocabularItem>();
+            foreach(var x in elementsType)
+            {
+                switch (requestedInfo)
+                {
+                    case InfoLessonType.ViewedLesson:
+                        return (await GetVocabViewedLesson(userId, level, type, GrandLevels.Seed));
+                    case InfoLessonType.Passed:
+                        return (await GetVocabViewedLesson(userId, level, type, GrandLevels.Leaf));
+                } 
+            }
+
+            //default ?
+            return elements;
         }
 
         public bool ActiveForReview(VocabularItem item)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Domain.Entities.TemplateItems;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -30,8 +31,8 @@ namespace Data.Domain.Entities.UserRelated
     {
         Lesson = 0, //0
         Seed = 2, //1<=x<=2
-        Bloom = 4, //3<=x<=4
-        Leaf = 5, //5
+        Leaf = 4, //3<=x<=4
+        Bloom = 5, //5
         Flourished = 6 //6
     }
 
@@ -45,8 +46,8 @@ namespace Data.Domain.Entities.UserRelated
 
         public Guid Id { get; private set; }
 
-        public Guid UserId { get; private set; }
-        public Guid VocabularId { get; private set; }
+        public User User { get; private set; }
+        public VocabularTemplate Vocabular { get; private set; }
 
         public string MeaningNote { get; private set; }
         public string ReadingNote { get; private set; }
@@ -67,10 +68,10 @@ namespace Data.Domain.Entities.UserRelated
 
         public bool Favorite { get; private set; }
 
-        public static VocabularItem Create(Guid userId, Guid vocabularId, int lockedComponents)
+        public static VocabularItem Create(User user, VocabularTemplate vocabular, int lockedComponents)
         {
             var instance = new VocabularItem() { Id = Guid.NewGuid() };
-            instance.Update(userId, vocabularId);
+            instance.Update(user, vocabular);
             instance.Update(DateTime.MaxValue);
             instance.Update("", "", false);
             instance.Update(0, 0, 0, 0, true, DateTime.MaxValue);
@@ -78,10 +79,10 @@ namespace Data.Domain.Entities.UserRelated
             return instance;
         }
 
-        public void Update(Guid userId, Guid vocabularId)
+        public void Update(User user, VocabularTemplate vocabular)
         {
-            UserId = userId;
-            VocabularId = vocabularId;
+            User = user;
+            Vocabular = vocabular;
         }
 
         public void Update(DateTime unlockTime)

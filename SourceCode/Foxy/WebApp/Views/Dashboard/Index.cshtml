@@ -1,5 +1,9 @@
 ﻿@using WebApp.DTOs;
+@model DashboardModel
 
+@{ 
+    int colNr = 6;
+}
 
 <br />
 @if (!string.IsNullOrEmpty(SharedInfo.ShowSuccessMessage))
@@ -66,16 +70,16 @@
                 <div class="collapse" id="radicalList">
                     <div class="container text-center">
                         <p>Remaining lessons:</p>
-                        @for (int i = 0; i < 3; ++i)
+                        @for (int i = 0; i < Model.RadicalsLesson.Count()/colNr; ++i)
                         {
                             <div class="row text-center">
-                                @for (int j = 0; j < 6; ++j)
+                                @for (int j = 0; j < colNr; ++j)
                                 {
                                     <div class="little-squares rounded" id="little-radicals">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
-                                                    安
+                                                    @Model.KanjisLesson[i*colNr+j]
                                                 </div>
                                             </div>
                                         </div>
