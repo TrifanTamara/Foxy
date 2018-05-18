@@ -1,4 +1,5 @@
 ﻿using Data.Domain.Entities.TemplateItems;
+using Data.Domain.Entities.UserRelated;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,17 @@ namespace Data.Domain.Interfaces
     public interface IVocabularItemRepository : IGenericRepository<Entities.UserRelated.VocabularItem>
     {
         Task AddVocabularForNewUser(Guid userId);
+        Task<IEnumerable<VocabularItem>> GetVocabByUser(Guid userId);
+        Task<VocabularItem> GetVocabByTemplate(Guid templateId);
+        Task UnlockElements(VocabularItem item);
+        Task AddToLesson(VocabularItem vocab, VocabularTemplate vTemp);
+        Task RemoveFromLesson(VocabularItem vocab);
+        Task AddAnswer(VocabularItem vocab, bool answer);
+        Task PassToNextLevel(int level, Guid userId);
+        Task<List<VocabularItem>> GetVocabLesson(Guid userId);
+        Task<List<VocabularItem>> GetVocabForReview(Guid userId);
+        bool ActiveForReview(VocabularItem item);
+        Task<List<VocabularItem>> GetItemsByGrandLevels(Guid userId, GrandLevels level);
+
     }
 }

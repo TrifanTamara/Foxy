@@ -2,160 +2,157 @@
 
 
 <br />
-    @if (!string.IsNullOrEmpty(SharedInfo.ShowSuccessMessage))
-    {
-        <script>
-            toastr.success("Welcome!")
-        </script>
-        SharedInfo.ShowSuccessMessage = "";
-    }
+@if (!string.IsNullOrEmpty(SharedInfo.ShowSuccessMessage))
+{
+    <script>
+        toastr.success("Welcome!")
+    </script>
+    SharedInfo.ShowSuccessMessage = "";
+}
 
-    <div class="currentLevel row jumbotron col-xs-12 col-sm-6 col-md-4">
-        Current level: 
-    </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-9"></div>
-            <div class="rounded-top col-xs-6 col-md-3 text-center" id="vocabTitle"><h3><span class="centerWhite">Vocabular</span></h3></div>
-        </div>
-        <div class="row jumbotron jumbotron-fluid" id="jumbo">
-            <div class="container"t>
-                <div class="row levels">
-                    <div class="square-box col-sm" id="seed">
-                        <div class='square-content'>
-                            <div>
-                                <span>
-                                    Seed
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="square-box col-sm" id="leaf">
-                        <div class='square-content'>
-                            <div>
-                                <span>
-                                    Leaf
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="square-box col-sm" id="bloom">
-                        <div class='square-content'>
-                            <div>
-                                <span>
-                                    Bloom
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="square-box col-sm" id="flower">
-                        <div class='square-content'>
-                            <div>
-                                <span>
-                                    Flourished
-                                </span>
-                            </div>
-                        </div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-9"></div>
+    <div class="rounded-top col-xs-6 col-md-3 text-center" id="vocabTitle"><h3><span class="centerWhite">Vocabular</span></h3></div>
+</div>
+<div class="row jumbotron jumbotron-fluid" id="jumbo">
+    <div class="container" t>
+        <div class="row levels">
+            <div class="square-box col-sm" id="seed">
+                <div class='square-content'>
+                    <div>
+                        <span>
+                            Seed
+                        </span>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-4 text-center">
-                        <div id="circle-radical"></div>
-                        <div class="text-center" style="margin-bottom:1em;">
-                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#radicalList" aria-expanded="false" aria-controls="collapseExample">
-                                Radical
-                            </button>
-                        </div>
-                        <div class="collapse" id="radicalList">
-                            <div class="container text-center">
-                                <p>Remaining lessons:</p>
-                                @for (int i = 0; i < 3; ++i)
-                                 {
-                                    <div class="row text-center">
-                                        @for (int j = 0; j < 6; ++j)
-                                         {
-                                            <div class="little-squares rounded" id="little-radicals">
-                                                <div class="little-content">
-                                                    <div class="table">
-                                                        <div class="table-cell little-text .ja">
-                                                            安
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                         }
-                                     </div>
-                                 }
-                            </div>
-                        </div>
+            </div>
+            <div class="square-box col-sm" id="leaf">
+                <div class='square-content'>
+                    <div>
+                        <span>
+                            Leaf
+                        </span>
                     </div>
-                    <div class="col-lg-4 text-center">
-                        <div id="circle-kanji"></div>
-                        <div class="text-center" style="margin-bottom:1em;">
-                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#kanjiList" aria-expanded="false" aria-controls="collapseExample">
-                                Kanji
-                            </button>
-                        </div>
-                        <div class="collapse" id="kanjiList">
-                            <div class="container text-center">
-                                <p>Remaining lessons:</p>
-                                @for (int i = 0; i < 3; ++i)
-                                {
-                                    <div class="row text-center">
-                                        @for (int j = 0; j < 6; ++j)
-                                        {
-                                            <div class="little-squares rounded" id="little-kanji">
-                                                <div class="little-content">
-                                                    <div class="table">
-                                                        <div class="table-cell little-text .ja">
-                                                            安
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="square-box col-sm" id="bloom">
+                <div class='square-content'>
+                    <div>
+                        <span>
+                            Bloom
+                        </span>
                     </div>
-                    <div class="col-lg-4 text-center">
-                        <div id="circle-word"></div>
-                        <div class="text-center" style="margin-bottom:1em;">
-                            <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#wordsList" aria-expanded="false" aria-controls="collapseExample">
-                                Words
-                            </button>
-                        </div>
-                        <div class="collapse" id="wordsList">
-                            <div class="container text-center">
-                                <p>Remaining lessons:</p>
-                                @for (int i = 0; i < 3; ++i)
-                                {
-                                    <div class="row text-center">
-                                        @for (int j = 0; j < 6; ++j)
-                                        {
-                                            <div class="little-squares rounded" id="little-words">
-                                                <div class="little-content">
-                                                    <div class="table">
-                                                        <div class="table-cell little-text .ja">
-                                                            安
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="square-box col-sm" id="flower">
+                <div class='square-content'>
+                    <div>
+                        <span>
+                            Flourished
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-bottom:5em">
-            <button type="button" class="btn btn-info btn-lg rounded-0" style="margin-right:0.3em;">Lesson</button>
-            <button type="button" class="btn btn-info btn-lg rounded-0">Review</button>
+
+        <div class="row">
+            <div class="col-lg-4 text-center">
+                <div id="circle-radical"></div>
+                <div class="text-center" style="margin-bottom:1em;">
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#radicalList" aria-expanded="false" aria-controls="collapseExample">
+                        Radical
+                    </button>
+                </div>
+                <div class="collapse" id="radicalList">
+                    <div class="container text-center">
+                        <p>Remaining lessons:</p>
+                        @for (int i = 0; i < 3; ++i)
+                        {
+                            <div class="row text-center">
+                                @for (int j = 0; j < 6; ++j)
+                                {
+                                    <div class="little-squares rounded" id="little-radicals">
+                                        <div class="little-content">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    安
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div id="circle-kanji"></div>
+                <div class="text-center" style="margin-bottom:1em;">
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#kanjiList" aria-expanded="false" aria-controls="collapseExample">
+                        Kanji
+                    </button>
+                </div>
+                <div class="collapse" id="kanjiList">
+                    <div class="container text-center">
+                        <p>Remaining lessons:</p>
+                        @for (int i = 0; i < 3; ++i)
+                        {
+                            <div class="row text-center">
+                                @for (int j = 0; j < 6; ++j)
+                                {
+                                    <div class="little-squares rounded" id="little-kanji">
+                                        <div class="little-content">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    安
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div id="circle-word"></div>
+                <div class="text-center" style="margin-bottom:1em;">
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#wordsList" aria-expanded="false" aria-controls="collapseExample">
+                        Words
+                    </button>
+                </div>
+                <div class="collapse" id="wordsList">
+                    <div class="container text-center">
+                        <p>Remaining lessons:</p>
+                        @for (int i = 0; i < 3; ++i)
+                        {
+                            <div class="row text-center">
+                                @for (int j = 0; j < 6; ++j)
+                                {
+                                    <div class="little-squares rounded" id="little-words">
+                                        <div class="little-content">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    安
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
+<div class="row" style="margin-bottom:5em">
+    <button type="button" class="btn btn-info btn-lg rounded-0" style="margin-right:0.3em;">Lesson</button>
+    <button type="button" class="btn btn-info btn-lg rounded-0">Review</button>
+</div>
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">

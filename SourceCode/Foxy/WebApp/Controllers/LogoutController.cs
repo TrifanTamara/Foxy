@@ -1,4 +1,5 @@
 ﻿using Data.Domain.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -15,7 +16,7 @@ namespace WebApp.Controllers
 {
     [Route("[controller]")]
     [DefaultControllerFilter]
-    [AllowAnonymous]
+    [Authorize]
     public class LogoutController : Controller
     {
         private readonly IUsersRepository _repository;
@@ -30,7 +31,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            LoggedUser.IsLogged = false;
+            await HttpContext.SignOutAsync();
             return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home" }));
         }
     }

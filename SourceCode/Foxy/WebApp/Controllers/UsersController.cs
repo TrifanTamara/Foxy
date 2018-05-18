@@ -11,7 +11,7 @@ using WebApp.DTO;
 namespace WebApp.Controllers
 {
     [Route("api/[controller]")]
-    //[DefaultControllerFilter]
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly IUsersRepository _repository;
@@ -27,26 +27,6 @@ namespace WebApp.Controllers
         {
             return Ok(await _repository.GetAll());
         }
-
-//        [HttpGet]
-//        [Route("Admins")]
-//        public async Task<IActionResult> GetAdmins()
-//        {
-//            return Ok(await _repository.GetAdmins());
-//        }
-//
-//        [HttpGet]
-//        [Route("{id}")]
-//        public async Task<IActionResult> GetById(Guid id)
-//        {
-//            var user = await _repository.FindById(id);
-//            if (user == null)
-//            {
-//                return NotFound();
-//            }
-//            return Ok(user);
-//        }
-
         [HttpPost]
         [Route("Create")]
         public IActionResult Create([FromBody] CreateUsers usrToCreate)
@@ -55,19 +35,5 @@ namespace WebApp.Controllers
             _repository.Add(user);
             return Ok(user);
         }
-
-//        [HttpPut]
-//        [Route("{id}")]
-//        public async Task<IActionResult> Update(Guid id, [FromBody]UpdateUsers userToUpdate)
-//        {
-//            if (id != userToUpdate.Id)
-//            {
-//                return NotFound();
-//            }
-//            var user = await _repository.FindById(id);
-//            user.Update(userToUpdate.Name, userToUpdate.IsAdmin, userToUpdate.Email, userToUpdate.Password, userToUpdate.Token, userToUpdate.Description);
-//            await _repository.Edit(user);
-//            return Ok(user);
-//        }
     }
 }

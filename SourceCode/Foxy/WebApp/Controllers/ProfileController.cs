@@ -12,7 +12,7 @@ namespace WebApp.Controllers
 {
     [Route("[controller]")]
     [DefaultControllerFilter]
-    [AllowAnonymous]
+    [Authorize]
     public class ProfileController : Controller
     {
         private IUsersRepository _repository;

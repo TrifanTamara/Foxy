@@ -15,6 +15,10 @@ using Swashbuckle.AspNetCore.Swagger;
 using WebApp.Filter;
 using WebApp.DTOs_Validators;
 using System.Net.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using WebApp.Services;
+
 namespace WebApp
 {
     public class Startup
@@ -35,11 +39,22 @@ namespace WebApp
             services.AddTransient<IVocabRelRepository, VocabRelRepository>();
             services.AddTransient<IVocabularItemRepository, VocabularItemRepository>();
 
+            services.AddScoped<IMainService, MainService>();
+
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FoxyConnection")));
 
             services.AddSwaggerDocumentation();
 
-            //services.AddMvc();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options =>
+                    {
+                        options.AccessDeniedPath = new PathString("/Login"); //cahnge maybe for unothorized page
+                        options.LoginPath = new PathString("/Login");
+                        options.CookieName = "FoxyCookie";
+                        options.ExpireTimeSpan = new TimeSpan(2, 0, 0);
+
+                    });
+
             services.AddMvc(options =>
                 {
                     options.Filters.Add(typeof(DefaultControllerFilter));
@@ -52,27 +67,20 @@ namespace WebApp
             HttpClient httpClient = new HttpClient();
             services.AddSingleton<HttpClient>(httpClient); // note the singleton
 
-
-            //            services.AddSession(options =>
-            //            {
-            //                // Set a short timeout for easy testing.
-            //                options.Cookie.Name = ".Foxy.Session";
-            //                options.IdleTimeout = TimeSpan.MaxValue;
-            //                options.Cookie.HttpOnly = true;
-            //            });
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options=>
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        SaveSigninToken = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                    });
+            
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(options=>
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateIssuer = true,
+            //            ValidateAudience = true,
+            //            ValidateLifetime = true,
+            //            ValidateIssuerSigningKey = true,
+            //            SaveSigninToken = true,
+            //            ValidIssuer = Configuration["Jwt:Issuer"],
+            //            ValidAudience = Configuration["Jwt:Issuer"],
+            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+            //        });
             
         }
 
@@ -90,11 +98,7 @@ namespace WebApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            //            app.UseSwaggerUI(c =>
-            //            {
-            //                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Foxy V1");
-            //            });
+            
             if (env.IsDevelopment())
             {
                 //.... rest of app configuration
@@ -102,7 +106,7 @@ namespace WebApp
             }
 
             app.UseStaticFiles();
-            //app.UseSession();
+
             app.UseAuthentication();
             
             app.UseMvc(routes =>

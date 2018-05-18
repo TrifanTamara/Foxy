@@ -34,6 +34,9 @@
 
 </head>
 <body>
+    @{
+        MenuModel menuModel = FService.GetMenuModel(Context.User.Claims.First().Value);
+    }
     <div id="my-container">
         <header class="masthead mb-auto">
             <div>
@@ -55,7 +58,7 @@
                                 <li class="dropdown liNavbar">
                                     <div class="div-saviour">
                                         <div class="levels-id circle-just-border">
-                                            13
+                                            @menuModel.Level
                                         </div>
                                         <div class="dropdown-toggle menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Levels</div>
                                         <div class="dropdown-menu medium-dropdown menu-drop-main" aria-labelledby="menuVocabLink">
@@ -117,7 +120,7 @@
                                 <li class="liNavbar li-a-bit-smaller">
                                     <div class="div-saviour">
                                         <div class="levels-id circle-just-border" >
-                                            131
+                                            @menuModel.LessonNumber
                                         </div>
                                         <div class="menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lesson</div>
                                     </div>
@@ -125,7 +128,7 @@
                                 <li class="liNavbar li-a-bit-smaller">
                                     <div class="div-saviour">
                                         <div class="levels-id circle-just-border">
-                                            2
+                                            @menuModel.ReviewNumber
                                         </div>
                                         <div class="menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Review</div>
 

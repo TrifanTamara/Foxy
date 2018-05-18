@@ -18,6 +18,8 @@ using WebApp.Security;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using Microsoft.AspNetCore.Routing;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WebApp.Controllers
 {
@@ -71,20 +73,32 @@ namespace WebApp.Controllers
                     if (user.Password.Equals(hashStr))
                     {
                         // Generate the token
-                        var token = _jwtToken.GenerateToken(user);
-                        //_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                        //HttpContext.Request.Headers["Authorization"] = "Bearer "+token;
-                        //_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                        //return Ok(token);
+                        //var token = _jwtToken.GenerateToken(user);
 
 
-                        LoggedUser.IsLogged = true;
-                        LoggedUser.Email = user.Email;
-                        LoggedUser.UserName = user.Username;
+                        // create claims
+                        List<Claim> claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Email, user.Email),
+                            new Claim(ClaimTypes.Name, user.Username)
+                        };
+
+                        // create identity
+                        ClaimsIdentity identity = new ClaimsIdentity(claims, "login");
+
+                        // create principal
+                        ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+
+                        // sign-in
+                        await HttpContext.SignInAsync(principal);
+
+                        //LoggedUser.IsLogged = true;
+                        //LoggedUser.Email = user.Email;
+                        //LoggedUser.UserName = user.Username;
 
                         SharedInfo.LoginError = "";
                         SharedInfo.ShowSuccessMessage = "You are now logged in!";
-                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Dashboard"}));
+                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Dashboard" }));
                     }
                 }
                 SharedInfo.LoginError = "Invalid email or password!";

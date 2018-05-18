@@ -42,31 +42,41 @@ namespace Business
 
         public async Task UnlockElements(VocabularItem item)
         {
+            User user = await _userRepo.FindById(item.UserId);
             List<VocabularItem> vocabs = new List<VocabularItem>();
             List<VocabularRelationship> pairs = (await _relVocabRepo.GetByContainedId(item.VocabularId)).ToList();
             foreach (VocabularRelationship x in pairs)
             {
                 VocabularItem vItem = await GetVocabByTemplate(x.MainItemId);
+                VocabularTemplate vTemp = await _tempVocabRepo.FindById(x.MainItemId);
                 if (vItem != null)
                 {
                     vItem.Update(vItem.LockedComponents - 1, vItem.CurrentMiniLevel);
-                    if (vItem.LockedComponents == 0) vItem.Update(DateTime.Now);
+                    if (vItem.LockedComponents == 0 && vTemp.RequiredLevel<=user.Level)
+                        vItem.Update(DateTime.Now);
                     await Edit(vItem);
                 }
             }
         }
 
-        public async Task AddToLesson(VocabularItem vocab)
-        {
-            vocab.Update(DateTime.Now);
-            await Edit(vocab);
+        public async Task AddToLesson(VocabularItem vocab, VocabularTemplate vTemp)
+        {   if (vTemp.Type == VocabularType.Kanji || vTemp.Type == VocabularType.Radical || 
+                (vTemp.Type == VocabularType.Word && vocab.LockedComponents==0))
+            {
+                vocab.Update(DateTime.Now);
+                await Edit(vocab);
+            }
         }
-        
+
         public async Task RemoveFromLesson(VocabularItem vocab)
         {
+            VocabularTemplate vTemp = await _tempVocabRepo.FindById(vocab.VocabularId);
             vocab.Update(vocab.LockedComponents, vocab.CurrentMiniLevel + 1);
             await Edit(vocab);
-            await UnlockElements(vocab);
+            if (vTemp.Type != VocabularType.Word)
+            {
+                await UnlockElements(vocab);
+            }
         }
 
         public async Task AddAnswer(VocabularItem vocab, bool answer)
@@ -101,7 +111,7 @@ namespace Business
                 VocabularTemplate vTemp = await _tempVocabRepo.FindById(v.VocabularId);
                 if(vTemp.RequiredLevel == level)
                 {
-                    await AddToLesson(v);
+                    await AddToLesson(v, vTemp);
                 }
             }
         }

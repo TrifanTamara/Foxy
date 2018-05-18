@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using WebApp.Filter;
 using WebApp.Models;
 using Data.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
     [DefaultControllerFilter]
+    [AllowAnonymous]
     public class HomeController : Controller
     {
 
@@ -17,7 +19,6 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        //[Route("index")]
         public IActionResult Index()
         {
             ViewBag.LoggedIn = false;
