@@ -21,7 +21,7 @@ namespace Data.Domain.Interfaces
         Task<IEnumerable<VocabularItem>> GetVocabByUser(Guid userId);
         Task<VocabularItem> GetVocabByTemplate(Guid templateId);
         Task UnlockElements(VocabularItem item);
-        Task AddToLesson(VocabularItem vocab, VocabularTemplate vTemp);
+        Task AddToLesson(VocabularItem vocab);
         Task RemoveFromLesson(VocabularItem vocab);
         Task AddAnswer(VocabularItem vocab, bool answer);
         Task PassToNextLevel(int level, Guid userId);

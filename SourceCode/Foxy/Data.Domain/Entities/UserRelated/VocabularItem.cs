@@ -1,6 +1,7 @@
 ﻿using Data.Domain.Entities.TemplateItems;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Data.Domain.Entities.UserRelated
@@ -46,7 +47,12 @@ namespace Data.Domain.Entities.UserRelated
 
         public Guid Id { get; private set; }
 
+        [ForeignKey("User")]
+        public Guid UserId { get; private set; }
         public User User { get; private set; }
+
+        [ForeignKey("VocabularTemplate")]
+        public Guid VocablarId { get; set; }
         public VocabularTemplate Vocabular { get; private set; }
 
         public string MeaningNote { get; private set; }
