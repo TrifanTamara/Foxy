@@ -1,9 +1,6 @@
 ﻿using Business.Wrappers;
-using Data.Domain.Entities.UserRelated;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApp.Models
 {

@@ -267,5 +267,12 @@ namespace Business
                 (int)x.CurrentMiniLevel > (int)level-1 && (int)x.CurrentMiniLevel <= (int)level).ToList();
         }
 
+        public async Task<List<VocabularWrapper>> GetItemsForLesson(Guid userId)
+        {
+            //implement this properly
+            List<VocabularWrapper> vocab = await GetVocabLesson(userId);
+            return vocab.GetRange(0, 5);
+        }
+
     }
 }

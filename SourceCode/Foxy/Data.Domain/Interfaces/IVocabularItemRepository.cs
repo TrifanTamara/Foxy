@@ -31,5 +31,6 @@ namespace Data.Domain.Interfaces
         bool ActiveForReview(VocabularItem item);
         Task<List<VocabularItem>> GetItemsByGrandLevels(Guid userId, GrandLevels level);
         Task<List<VocabularWrapper>> GetVocabLessonByTypes(Guid userId, int level, VocabularType type, InfoLessonType requestedInfo);
+        Task<List<VocabularWrapper>> GetItemsForLesson(Guid userId);
     }
 }
