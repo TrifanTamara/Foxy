@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Data.Domain.Entities.UserRelated;
+using System;
+using System.Collections.Generic;
 
 namespace Data.Domain.Entities.TemplateItems
 {
@@ -27,7 +29,7 @@ namespace Data.Domain.Entities.TemplateItems
             // EF Core    
         }
 
-        public Guid Id { get; private set; }
+        public Guid VocabularTemplateId { get; private set; }
         public string Name { get; private set; }
         public string Meaning { get; private set; }
         public string Reading { get; private set; }
@@ -41,9 +43,11 @@ namespace Data.Domain.Entities.TemplateItems
 
         public byte RequiredLevel { get; private set; }
 
+        public List<VocabularItem> VocabularItems { get; set; }
+
         public static VocabularTemplate Create(string name, string meaning, string reading, VocabularType type, byte requiredLevel, string meaningMnemonic, string readingMnemonic, WordParticularType wordType=0)
         {
-            var instance = new VocabularTemplate { Id = Guid.NewGuid() };
+            var instance = new VocabularTemplate { VocabularTemplateId = Guid.NewGuid() };
             instance.Update(name, meaning, reading, type, requiredLevel, meaningMnemonic, readingMnemonic, wordType);
             return instance;
         }

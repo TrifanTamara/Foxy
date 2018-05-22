@@ -45,15 +45,10 @@ namespace Data.Domain.Entities.UserRelated
             // EF Core    
         }
 
-        public Guid Id { get; private set; }
-
-        [ForeignKey("User")]
+        public Guid VocabularItemId { get; private set; }
+        
         public Guid UserId { get; private set; }
-        public User User { get; private set; }
-
-        [ForeignKey("VocabularTemplate")]
-        public Guid VocablarId { get; set; }
-        public VocabularTemplate Vocabular { get; private set; }
+        public Guid VocabularTemplateId { get; set; }
 
         public string MeaningNote { get; private set; }
         public string ReadingNote { get; private set; }
@@ -74,21 +69,20 @@ namespace Data.Domain.Entities.UserRelated
 
         public bool Favorite { get; private set; }
 
-        public static VocabularItem Create(User user, VocabularTemplate vocabular, int lockedComponents)
+        public static VocabularItem Create(Guid userId, Guid vocabularId, int lockedComponents)
         {
-            var instance = new VocabularItem() { Id = Guid.NewGuid() };
-            instance.Update(user, vocabular);
+            var instance = new VocabularItem() { VocabularItemId = Guid.NewGuid() };
+            instance.Update(userId, vocabularId);
             instance.Update(DateTime.MaxValue);
             instance.Update("", "", false);
             instance.Update(0, 0, 0, 0, true, DateTime.MaxValue);
             instance.Update(lockedComponents, 0);
             return instance;
         }
-
-        public void Update(User user, VocabularTemplate vocabular)
+        public void Update(Guid user, Guid vocabular)
         {
-            User = user;
-            Vocabular = vocabular;
+            UserId = user;
+            VocabularTemplateId = vocabular;
         }
 
         public void Update(DateTime unlockTime)

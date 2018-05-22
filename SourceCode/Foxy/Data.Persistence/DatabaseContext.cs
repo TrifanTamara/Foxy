@@ -22,6 +22,7 @@ namespace Data.Persistence
         {
             modelBuilder.Entity<VocabularRelationship>()
                 .HasKey(vocabularRelationship => new { vocabularRelationship.MainItemId, vocabularRelationship.ContainedItemId });
+            
         }
 
         public DbSet<User> Users { get; set; }

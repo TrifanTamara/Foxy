@@ -1,0 +1,9 @@
+﻿.container-dashboard-vocab {
+    padding-left: 2.3em !important;
+    border: solid;
+    border-width: 0.05em;
+    border-radius: 10px;
+    border-color: darkgrey;
+    margin-bottom: 1em;
+    padding: 1em;
+}

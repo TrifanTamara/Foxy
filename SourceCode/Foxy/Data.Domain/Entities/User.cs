@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Data.Domain.Entities.UserRelated;
+using System;
+using System.Collections.Generic;
 
 namespace Data.Domain.Entities
 {
@@ -9,7 +11,7 @@ namespace Data.Domain.Entities
             // EF Core    
         }
 
-        public Guid Id { get; private set; }
+        public Guid UserId { get; private set; }
         public string Username { get; private set; }
         public bool IsAdmin { get; private set; }
         public string Email { get; private set; }
@@ -20,9 +22,11 @@ namespace Data.Domain.Entities
         public int Level { get; private set; }
         public Guid ImageId { get; private set; }
 
+        public List<VocabularItem> VocabularItems { get; set; }
+
         public static User Create(string name, bool isAdmin, string email, string password, string token, string description)
         {
-            var instance = new User { Id = Guid.NewGuid(), CreatedAt = DateTime.Now};
+            var instance = new User { UserId = Guid.NewGuid(), CreatedAt = DateTime.Now};
             ImageEntity image = ImageEntity.Create(null);
             instance.Update(name, isAdmin, email, password, token, description, 1, image.Id);
             return instance;

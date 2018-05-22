@@ -1,7 +1,7 @@
 ﻿@using WebApp.DTOs;
 @model DashboardModel
 
-@{ 
+@{
     int colNr = 6;
 }
 
@@ -61,25 +61,84 @@
 
         <div class="row">
             <div class="col-lg-4 text-center">
-                <div id="circle-radical"></div>
+                <div id="circle-radical">
+                    <script>
+                    RadicalCircliful(@Model.RadicalPercent);
+                    </script>
+                </div>
                 <div class="text-center" style="margin-bottom:1em;">
                     <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#radicalList" aria-expanded="false" aria-controls="collapseExample">
                         Radical
                     </button>
                 </div>
                 <div class="collapse" id="radicalList">
-                    <div class="container text-center">
-                        <p>Remaining lessons:</p>
-                        @for (int i = 0; i < Model.RadicalsLesson.Count()/colNr; ++i)
+                    <div class="container text-center container-dashboard-vocab">
+                        <p>Remaining lessons [@Model.RadicalsLesson.Count()]</p>
+                        @{
+                            var n = Model.RadicalsLesson.Count() / colNr;
+                            var m = Model.RadicalsLesson.Count() % colNr;
+                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                        }
+                        @for (int i = 0; i < n; ++i)
                         {
                             <div class="row text-center">
-                                @for (int j = 0; j < colNr; ++j)
+                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
                                     <div class="little-squares rounded" id="little-radicals">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
-                                                    @Model.KanjisLesson[i * colNr + j].Vocabular.Name;
+                                                    @Model.RadicalsLesson[i * colNr + j].Template.Name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="container text-center container-dashboard-vocab">
+                        <p>Viewed lesson [@Model.RadicalsViewed.Count()]</p>
+                        @{
+                            n = Model.RadicalsViewed.Count() / colNr;
+                            m = Model.RadicalsViewed.Count() % colNr;
+                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                        }
+                        @for (int i = 0; i < n; ++i)
+                        {
+                            <div class="row text-center">
+                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
+                                {
+                                    <div class="little-squares rounded" id="little-radicals">
+                                        <div class="little-content">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    @Model.RadicalsViewed[i * colNr + j].Template.Name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="container text-center container-dashboard-vocab">
+                        <p>Passed items [@Model.RadicalsPassed.Count()]</p>
+                        @{
+                            n = Model.RadicalsPassed.Count() / colNr;
+                            m = Model.RadicalsPassed.Count() % colNr;
+                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                        }
+                        @for (int i = 0; i < n; ++i)
+                        {
+                            <div class="row text-center">
+                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
+                                {
+                                    <div class="little-squares rounded" id="little-radicals">
+                                        <div class="little-content">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    @Model.RadicalsPassed[i * colNr + j].Template.Name
                                                 </div>
                                             </div>
                                         </div>
@@ -91,25 +150,84 @@
                 </div>
             </div>
             <div class="col-lg-4 text-center">
-                <div id="circle-kanji"></div>
+                <div id="circle-kanji">
+                    <script>
+                    KanjiCircliful(@Model.KanjiPercent);
+                    </script>
+                </div>
                 <div class="text-center" style="margin-bottom:1em;">
                     <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#kanjiList" aria-expanded="false" aria-controls="collapseExample">
                         Kanji
                     </button>
                 </div>
                 <div class="collapse" id="kanjiList">
-                    <div class="container text-center">
-                        <p>Remaining lessons:</p>
-                        @for (int i = 0; i < 3; ++i)
+                    <div class="container text-center container-dashboard-vocab">
+                        <p>Remaining lessons [@Model.KanjisLesson.Count()]</p>
+                        @{
+                            n = Model.KanjisLesson.Count() / colNr;
+                            m = Model.KanjisLesson.Count() % colNr;
+                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                        }
+                        @for (int i = 0; i < n; ++i)
                         {
                             <div class="row text-center">
-                                @for (int j = 0; j < 6; ++j)
+                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
                                     <div class="little-squares rounded" id="little-kanji">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
-                                                    安
+                                                    @Model.KanjisLesson[i * colNr + j].Template.Name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="container text-center container-dashboard-vocab">
+                        <p>Viewed lessons [@Model.KanjisViewed.Count()]</p>
+                        @{
+                            n = Model.KanjisViewed.Count() / colNr;
+                            m = Model.KanjisViewed.Count() % colNr;
+                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                        }
+                        @for (int i = 0; i < n; ++i)
+                        {
+                            <div class="row text-center">
+                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
+                                {
+                                    <div class="little-squares rounded" id="little-kanji">
+                                        <div class="little-content">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    @Model.KanjisViewed[i * colNr + j].Template.Name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="container text-center container-dashboard-vocab">
+                        <p>Passed items [@Model.KanjisPassed.Count()]</p>
+                        @{
+                            n = Model.KanjisPassed.Count() / colNr;
+                            m = Model.KanjisPassed.Count() % colNr;
+                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                        }
+                        @for (int i = 0; i < n; ++i)
+                        {
+                            <div class="row text-center">
+                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
+                                {
+                                    <div class="little-squares rounded" id="little-kanji">
+                                        <div class="little-content">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    @Model.KanjisPassed[i * colNr + j].Template.Name
                                                 </div>
                                             </div>
                                         </div>
@@ -121,25 +239,84 @@
                 </div>
             </div>
             <div class="col-lg-4 text-center">
-                <div id="circle-word"></div>
+                <div id="circle-word">
+                    <script>
+                    WordCircliful(@Model.WordsPercent);
+                    </script>
+                </div>
                 <div class="text-center" style="margin-bottom:1em;">
                     <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#wordsList" aria-expanded="false" aria-controls="collapseExample">
                         Words
                     </button>
                 </div>
                 <div class="collapse" id="wordsList">
-                    <div class="container text-center">
-                        <p>Remaining lessons:</p>
-                        @for (int i = 0; i < 3; ++i)
+                    <div class="container text-center container-dashboard-vocab">
+                        <p>Remaining lessons [@Model.WordsLesson.Count()]</p>
+                        @{
+                            n = Model.WordsLesson.Count() / colNr;
+                            m = Model.WordsLesson.Count() % colNr;
+                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                        }
+                        @for (int i = 0; i < n; ++i)
                         {
                             <div class="row text-center">
-                                @for (int j = 0; j < 6; ++j)
+                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
                                     <div class="little-squares rounded" id="little-words">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
-                                                    安
+                                                    @Model.WordsLesson[i * colNr + j].Template.Name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="container text-center container-dashboard-vocab">
+                        <p>Viewed lessons [@Model.WordsViewed.Count()]</p>
+                        @{
+                            n = Model.WordsViewed.Count() / colNr;
+                            m = Model.WordsViewed.Count() % colNr;
+                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                        }
+                        @for (int i = 0; i < n; ++i)
+                        {
+                            <div class="row text-center">
+                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
+                                {
+                                    <div class="little-squares rounded" id="little-words">
+                                        <div class="little-content">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    @Model.WordsViewed[i * colNr + j].Template.Name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="container text-center container-dashboard-vocab">
+                        <p>Viewed lessons [@Model.WordsPassed.Count()]</p>
+                        @{
+                            n = Model.WordsPassed.Count() / colNr;
+                            m = Model.WordsPassed.Count() % colNr;
+                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                        }
+                        @for (int i = 0; i < n; ++i)
+                        {
+                            <div class="row text-center">
+                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
+                                {
+                                    <div class="little-squares rounded" id="little-words">
+                                        <div class="little-content">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    @Model.WordsPassed[i * colNr + j].Template.Name
                                                 </div>
                                             </div>
                                         </div>

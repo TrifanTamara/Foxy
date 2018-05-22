@@ -51,7 +51,7 @@ namespace Business
                     VocabularTemplate constructionVocab = await GetByTypeAndName(item.Type - 1, elem);
                     if (null != constructionVocab)
                     {
-                        await _relationRepo.Add(VocabularRelationship.Create(item.Id, constructionVocab.Id));
+                        await _relationRepo.Add(VocabularRelationship.Create(item.VocabularTemplateId, constructionVocab.VocabularTemplateId));
                     }
                 }
             }

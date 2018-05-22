@@ -1,4 +1,5 @@
-﻿using Data.Domain.Entities.TemplateItems;
+﻿using Business.Wrappers;
+using Data.Domain.Entities.TemplateItems;
 using Data.Domain.Entities.UserRelated;
 using System;
 using System.Collections.Generic;
@@ -25,10 +26,10 @@ namespace Data.Domain.Interfaces
         Task RemoveFromLesson(VocabularItem vocab);
         Task AddAnswer(VocabularItem vocab, bool answer);
         Task PassToNextLevel(int level, Guid userId);
-        Task<List<VocabularItem>> GetVocabLesson(Guid userId);
-        Task<List<VocabularItem>> GetVocabForReview(Guid userId);
+        Task<List<VocabularWrapper>> GetVocabLesson(Guid userId);
+        Task<List<VocabularWrapper>> GetVocabForReview(Guid userId);
         bool ActiveForReview(VocabularItem item);
         Task<List<VocabularItem>> GetItemsByGrandLevels(Guid userId, GrandLevels level);
-        Task<List<VocabularItem>> GetVocabLessonByTypes(Guid userId, int level, VocabularType type, InfoLessonType requestedInfo);
+        Task<List<VocabularWrapper>> GetVocabLessonByTypes(Guid userId, int level, VocabularType type, InfoLessonType requestedInfo);
     }
 }

@@ -25,8 +25,8 @@ namespace WebApp.Services
             MenuModel model = new MenuModel();
             model.Username = user.Username;
             model.Level = user.Level;
-            model.LessonNumber = _vocabRepo.GetVocabLesson(user.Id).Result.Count();
-            model.ReviewNumber = _vocabRepo.GetVocabForReview(user.Id).Result.Count();
+            model.LessonNumber = _vocabRepo.GetVocabLesson(user.UserId).Result.Count();
+            model.ReviewNumber = _vocabRepo.GetVocabForReview(user.UserId).Result.Count();
 
             return model;
         }
