@@ -4,6 +4,7 @@ using WebApp.Filter;
 using WebApp.Models;
 using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Routing;
 
 namespace WebApp.Controllers
 {
@@ -21,7 +22,6 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.LoggedIn = false;
 
             return View();
         }

@@ -1,0 +1,119 @@
+﻿body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.hide-a-div {
+    visibility: hidden;
+}
+
+.radical-color {
+    background-color: #1e6f83!important;
+}
+.kanji-color {
+    background-color: #af615d !important;
+}
+.word-color {
+    background-color: #814b75 !important;
+}
+
+.mini-radical-color {
+    background-color: #45a5bd !important;
+}
+
+.mini-kanji-color {
+    background-color: #cc7b77 !important;
+}
+
+.mini-word-color {
+    background-color: #ae75a2 !important;
+}
+
+#first-div {
+    background-color: #21323a;
+    width: 100%;
+    height: 5%;
+    border-collapse: collapse;
+}
+
+#second-div {
+    
+    position: absolute;
+    height: 85%;
+    width: 100%;
+    background-color: #808080;
+    border-collapse: collapse;
+}
+
+#third-div {
+    position: absolute;
+    height: 10%;
+    width: 100%;
+    background-color: #21323a;
+    border-collapse: collapse;
+    bottom: 0;
+}
+
+.lesson-container {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+
+}
+
+.div-for-name {
+    height: 320px;
+    width: 100%;
+    text-align: center;
+    font-size: 15em;
+    color: white;
+    background-color: #1e6f83;
+}
+
+.div-for-meaning {
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    color: white;
+    background-color: #45a5bd;
+}
+
+.div-for-sound {
+    height: 35px;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    color: white;
+    background-color: #bbb8b8;
+}
+
+.div-for-meaningmnemonic {
+    padding: 1em;
+    height: 150px;
+    color: white;
+    background-color: #bbb8b8;
+    margin-top: 2em;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: left;
+    font-size: 1em;
+    border-radius: 10px;
+}
+
+.div-for-readingmnemoning {
+    padding: 1em;
+    height: 170px;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    font-size: 1em;
+    border-radius: 10px;
+    text-align: left;
+    color: white;
+    background-color: #bbb8b8;
+    margin-top: 1em;
+}
+
