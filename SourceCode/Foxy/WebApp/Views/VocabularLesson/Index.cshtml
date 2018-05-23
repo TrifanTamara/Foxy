@@ -2,17 +2,16 @@
     Layout = null;
 }
 @model LessonModel
-
 @*@if (Model.LessonList.Count() == 0)
-{
-    <p>You have no Lesson!</p>
-}
-else
-{
-    <div>Header menu</div>
-    @await Html.PartialAsync("VocabLessonItem", Model.LessonList[0])
-    <div>footer lesson</div>
-}*@
+    {
+        <p>You have no Lesson!</p>
+    }
+    else
+    {
+        <div>Header menu</div>
+        @await Html.PartialAsync("VocabLessonItem", Model.LessonList[0])
+        <div>footer lesson</div>
+    }*@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,43 +28,43 @@ else
 
     <link href="~/toastr/toastr.css" rel="stylesheet" />
     <script src="~/toastr/toastr.js"></script>
+
 </head>
 
-<body>
+<body style="background-color:#808080;">
 
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <div style="background-color:#808080;height:100%; width:100%;">
+                <div style="height:100%; width:100%;">
                     <p>Slide</p>
                     <div class="card" style="width: 18rem; margin:15%;margin-left:40%;">
                         <div class="card-body">
                             <h5 class="card-title">@Model.LessonList[0].Template.Name</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+                            <h6 class="card-subtitle mb-2 text-muted">@Model.LessonList[0].Template.Meaning</h6>
+                            <p class="card-text">@Model.LessonList[0].Template.Reading</p>
+                            <a href="#" class="card-link">@Model.LessonList[0].Template.MeaningMnemonic</a>
+                            <a href="#" class="card-link">@Model.LessonList[0].Template.ReadingMnemonic</a>
                         </div>
                     </div>
                 </div>
             </div>
-            @for (int i = 1; i < Model.LessonList.Count(); ++i) {
-            <div class="carousel-item">
+            @for (int i = 1; i < Model.LessonList.Count(); ++i)
+            {
                 <div class="carousel-item">
-                    <div style="background-color:#808080;height:100%; width:100%;">
+                    <div style="height:100%; width:100%;">
                         <p>Slide</p>
                         <div class="card" style="width: 18rem; margin:15%;margin-left:40%;">
                             <div class="card-body">
                                 <h5 class="card-title">@Model.LessonList[i].Template.Name</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                                <h6 class="card-subtitle mb-2 text-muted">@Model.LessonList[i].Template.Meaning</h6>
+                                <p class="card-text">@Model.LessonList[i].Template.Reading</p>
+                                <a href="#" class="card-link">@Model.LessonList[i].Template.MeaningMnemonic</a>
+                                <a href="#" class="card-link">@Model.LessonList[i].Template.ReadingMnemonic</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             }
 
         </div>
