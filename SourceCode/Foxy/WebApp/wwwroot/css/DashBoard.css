@@ -222,3 +222,7 @@
     background-color: #607e66;
     color: white;
 }
+
+.popover {
+    top: 71px !important;
+}

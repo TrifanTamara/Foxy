@@ -47,6 +47,24 @@ namespace Business
         {
             return await _databaseContext.VocabularItems.Where(x => x.VocabularTemplateId.Equals(templateId) && x.UserId.Equals(userId)).FirstOrDefaultAsync();
         }
+        
+        public async Task<List<VocabularWrapper>> WrapVocabular(List<VocabularItem> oldItems)
+        {
+            List<VocabularWrapper> result = new List<VocabularWrapper>();
+            foreach (VocabularItem item in oldItems)
+            {
+                VocabularTemplate vTemp = await _tempVocabRepo.FindById(item.VocabularTemplateId);
+
+                List<VocabularRelationship> pairs = (await _relVocabRepo.GetByMainId(vTemp.VocabularTemplateId)).ToList();
+                List<VocabularTemplate> templatesComponents = new List<VocabularTemplate>();
+                foreach (var pair in pairs)
+                {
+                    templatesComponents.Add(await _tempVocabRepo.FindById(pair.ContainedItemId));
+                }
+                result.Add(new VocabularWrapper(item, vTemp, templatesComponents));
+            }
+            return result;
+        }
 
         public async Task UnlockElements(VocabularItem item)
         {
@@ -56,8 +74,7 @@ namespace Business
             List<VocabularRelationship> pairs = (await _relVocabRepo.GetByContainedId(vTemp.VocabularTemplateId)).ToList();
             foreach (VocabularRelationship x in pairs)
             {
-                //VocabularTemplate vT = await _tempVocabRepo.FindById(x.MainItemId);
-                VocabularItem vItem = await GetVocabByTemplateAndUser(vTemp.VocabularTemplateId, user.UserId);
+                VocabularItem vItem = await GetVocabByTemplateAndUser(x.MainItemId, user.UserId);
                 if (vItem != null)
                 {
                     vItem.Update(vItem.LockedComponents - 1, vItem.CurrentMiniLevel);
@@ -142,7 +159,7 @@ namespace Business
         {
             User user = await _userRepo.FindById(userId);
             List<VocabularItem> allUsersVocab = (await GetVocabByUser(userId)).ToList();
-            List<VocabularWrapper> lessons = new List<VocabularWrapper>();
+            List<VocabularItem> lessons = new List<VocabularItem>();
             foreach(VocabularItem x in allUsersVocab)
             {
                 VocabularTemplate vTemp = await _tempVocabRepo.FindById(x.VocabularTemplateId);
@@ -150,7 +167,7 @@ namespace Business
                 {
                     if(vTemp.RequiredLevel == user.Level && x.CurrentMiniLevel == 0)
                     {
-                        lessons.Add(new VocabularWrapper(x, vTemp));
+                        lessons.Add(x);
                     }
                 }
                 else
@@ -158,11 +175,11 @@ namespace Business
                     //word
                     if(vTemp.RequiredLevel<=user.Level && x.CurrentMiniLevel == 0 && DateTime.Compare(x.UnlockTime,DateTime.Now)<=0)
                     {
-                        lessons.Add(new VocabularWrapper(x, vTemp));
+                        lessons.Add(x);
                     }
                 }
             }
-            return lessons;
+            return (await WrapVocabular(lessons));
         }
 
         public bool MiniIsGrand(MiniLevels minilevel, GrandLevels grandLevel)
@@ -189,21 +206,21 @@ namespace Business
         {
             User user = await _userRepo.FindById(userId);
             List<VocabularItem> allUsersVocab = (await GetVocabByUser(userId)).ToList();
-            List<VocabularWrapper> lessons = new List<VocabularWrapper>();
-            foreach (VocabularItem x in allUsersVocab)
+            List<VocabularItem> lessons = new List<VocabularItem>();
+            foreach (VocabularItem item in allUsersVocab)
             {
-                VocabularTemplate vTemp = await _tempVocabRepo.FindById(x.VocabularTemplateId);
+                VocabularTemplate vTemp = await _tempVocabRepo.FindById(item.VocabularTemplateId);
                 if (vTemp.Type != type) continue;
 
                 //if (vTemp.Type == VocabularType.Radical || vTemp.Type == VocabularType.Kanji)
                 //{
-                    if (vTemp.RequiredLevel == level && MiniIsGrand(x.CurrentMiniLevel, levelItem))
+                    if (vTemp.RequiredLevel == level && MiniIsGrand(item.CurrentMiniLevel, levelItem))
                     {
-                        lessons.Add(new VocabularWrapper(x, vTemp));
+                        lessons.Add(item);
                     }
                 //}
             }
-            return lessons;
+            return (await WrapVocabular(lessons));
         }
 
         public async Task<List<VocabularWrapper>> GetVocabLessonByTypes(Guid userId, int level, VocabularType type, InfoLessonType requestedInfo)
@@ -247,16 +264,16 @@ namespace Business
         {
             User user = await _userRepo.FindById(userId);
             List<VocabularItem> allUsersVocab = (await GetVocabByUser(userId)).ToList();
-            List<VocabularWrapper> reviews = new List<VocabularWrapper>();
+            List<VocabularItem> reviews = new List<VocabularItem>();
             foreach (VocabularItem x in allUsersVocab)
             {
                 if (ActiveForReview(x))
                 {
                     VocabularTemplate vTemp = await _tempVocabRepo.FindById(x.VocabularTemplateId);
-                    reviews.Add(new VocabularWrapper(x, vTemp));
+                    reviews.Add(x);
                 }
             }
-            return reviews;
+            return (await WrapVocabular(reviews));
         }
 
         public async Task<List<VocabularItem>> GetItemsByGrandLevels(Guid userId, GrandLevels level)

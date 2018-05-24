@@ -3,6 +3,7 @@
 
 @{
     int colNr = 6;
+    string tooltip_style;
 }
 
 <br />
@@ -64,11 +65,13 @@
 
         <div class="row">
             <div class="col-lg-4 text-center">
+                <a style="all:unset;" tabindex="0" class="popover-dismiss" data-toggle="popover" data-trigger="focus"  data-placement="top" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">
                 <div id="circle-radical">
                     <script>
                     RadicalCircliful(@Model.RadicalPercent);
                     </script>
                 </div>
+                 </a>
                 <div class="text-center" style="margin-bottom:1em;">
                     <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#radicalList" aria-expanded="false" aria-controls="collapseExample">
                         Radical
@@ -77,7 +80,7 @@
                 <div class="collapse" id="radicalList">
                     <div class="container text-center container-dashboard-vocab">
                         <p>Remaining lessons  <span class="badge badge-radical badge-number-size">@Model.RadicalsLesson.Count()</span></p>
-                        
+
                         @{
                             var n = Model.RadicalsLesson.Count() / colNr;
                             var m = Model.RadicalsLesson.Count() % colNr;
@@ -88,7 +91,7 @@
                             <div class="row text-center">
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
-                                    string tooltip_style = "<p>"+ @Model.RadicalsLesson[i * colNr + j].Template.Meaning + "</p>";
+                                    tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsLesson[i * colNr + j].MeaningsList[0] + "</p>";
                                     <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radicals">
                                         <div class="little-content">
                                             <div class="table">
@@ -114,7 +117,9 @@
                             <div class="row text-center">
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
-                                    <div class="little-squares rounded" id="little-radicals">
+                                    tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsViewed[i * colNr + j].MeaningsList[0] + "</p>";
+                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radicals">
+
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
@@ -139,7 +144,8 @@
                             <div class="row text-center">
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
-                                    <div class="little-squares rounded" id="little-radicals">
+                                    tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsPassed[i * colNr + j].MeaningsList[0] + "</p>";
+                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radicals">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
@@ -178,7 +184,9 @@
                             <div class="row text-center">
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
-                                    <div class="little-squares rounded" id="little-kanji">
+                                    tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.KanjisLesson[i * colNr + j].MeaningsList[0] + "</p>";
+                                    tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.KanjisLesson[i * colNr + j].MainReading + "</p></div>";
+                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-kanji">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
@@ -203,7 +211,9 @@
                             <div class="row text-center">
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
-                                    <div class="little-squares rounded" id="little-kanji">
+                                    tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.KanjisViewed[i * colNr + j].MeaningsList[0] + "</p>";
+                                    tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.KanjisViewed[i * colNr + j].MainReading + "</p></div>";
+                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-kanji">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
@@ -228,7 +238,9 @@
                             <div class="row text-center">
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
-                                    <div class="little-squares rounded" id="little-kanji">
+                                    tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.KanjisPassed[i * colNr + j].MeaningsList[0] + "</p>";
+                                    tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.KanjisPassed[i * colNr + j].MainReading + "</p></div>";
+                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-kanji">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
@@ -263,7 +275,13 @@
                         @for (int i = 0; i < n; ++i)
                         {
                             <div class="text-center">
-                                <div class="rounded little-squares-words" id="little-words">
+                                @{
+                                    tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.WordsLesson[i].MeaningsList[0] + "</p>";
+                                    tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.WordsLesson[i].MainReading + "</p></div>";
+
+                                }
+                                <div class="little-squares-words rounded" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style" id="little-words">
+
                                     <div class="little-content word-no-top-pad">
                                         <div class="table">
                                             <div class="table-cell little-text .ja">
