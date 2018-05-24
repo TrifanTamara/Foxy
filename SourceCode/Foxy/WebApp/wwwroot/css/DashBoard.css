@@ -7,3 +7,218 @@
     margin-bottom: 1em;
     padding: 1em;
 }
+
+#my-container {
+    margin-top: 0;
+}
+
+#seed {
+    background-color: var(--main-color-5)
+}
+
+#leaf {
+    background-color: var(--main-color-4)
+}
+
+#bloom {
+    background-color: var(--main-color-3)
+}
+
+#flower {
+    background-color: var(--main-color-2)
+}
+
+#jumbo {
+    margin-bottom: 0;
+    padding: 1em;
+}
+
+.levels {
+    margin-bottom: 2em;
+}
+
+.container-level {
+    height: 10em;
+}
+
+#vocabTitle {
+    background-color: rgba(219, 224, 229, 1);
+    height: 3em;
+}
+
+.square-box {
+    position: relative;
+    width: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+    .square-box:before {
+        content: "";
+        display: block;
+        padding-top: 75%;
+    }
+    
+    .square-box:hover{
+        opacity:0.8;
+    }
+
+.centerWhite {
+    text-align: right;
+    vertical-align: middle;
+}
+
+.square-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: white;
+}
+
+    .square-content div {
+        display: table;
+        width: 100%;
+        height: 100%;
+    }
+
+    .square-content span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        color: white
+    }
+
+#little-radicals {
+    background-color: var(--main-color-radical);
+}
+
+#little-kanji {
+    background-color: var(--main-color-kanji);
+}
+
+#little-words {
+    background-color: var(--main-color-word);
+}
+
+.square-content-little {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: white;
+}
+
+    .square-content-little div {
+        display: table;
+        width: 100%;
+        height: 100%;
+    }
+
+    .square-content-little span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        color: white
+    }
+
+.square-box-little {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0.2em 0.2em 0.2em 0.2em;
+}
+
+    .square-box-little:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+    }
+
+
+.currentLevel {
+    margin-bottom: 0;
+    background-color: rgba(241, 246, 250, 1)
+}
+
+.little-squares {
+    width: 13.5%;
+    padding-bottom: 13.5%;
+    margin: 1%;
+    position: relative;
+    cursor: pointer;
+}
+
+    .little-squares:hover {
+        opacity: 0.65;
+    }
+
+.little-squares-words {
+    width: 92%;
+    padding-bottom: 13.5%;
+    margin: 1%;
+    position: relative;
+    cursor: pointer;
+}
+
+    .little-squares-words:hover {
+        opacity: 0.7;
+    }
+
+.little-content {
+    position: absolute;
+    height: 90%;
+    width: 90%;
+    padding: 5% !important;
+}
+
+.table {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.little-text {
+    position: absolute;
+    color: white;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+.review-lesson {
+    background-color: antiquewhite;
+    margin-right: 0.3em;
+    padding-bottom: 2em;
+}
+
+.word-no-top-pad {
+    margin-top: 0 !important;
+    padding-top: 2% !important;
+}
+
+.badge-number-size {
+    font-size: 0.9em;
+}
+
+.badge-radical {
+    background-color: #6b7c89;
+    color: white;
+}
+
+.badge-kanji {
+    background-color: #946363;
+    color: white;
+}
+
+.badge-word {
+    background-color: #607e66;
+    color: white;
+}

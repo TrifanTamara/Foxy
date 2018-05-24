@@ -58,6 +58,7 @@ namespace WebApp.Controllers
                 User user = Data.Domain.Entities.User.Create(dto.UserName, false, dto.Email, hashStr, null, "");
                 await _userRepo.Add(user);
                 await _vocabRepo.AddVocabularForNewUser(user.UserId);
+                await _vocabRepo.PassToNextLevel(1, user.UserId);
                 // Redirect to login page with parameter registered
                 SharedInfo.RegisterError = "";
 

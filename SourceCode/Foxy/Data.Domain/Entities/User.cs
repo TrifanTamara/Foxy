@@ -28,7 +28,7 @@ namespace Data.Domain.Entities
         {
             var instance = new User { UserId = Guid.NewGuid(), CreatedAt = DateTime.Now};
             ImageEntity image = ImageEntity.Create(null);
-            instance.Update(name, isAdmin, email, password, token, description, 1, image.Id);
+            instance.Update(name, isAdmin, email, password, token, description, 0, image.Id);
             return instance;
         }
 

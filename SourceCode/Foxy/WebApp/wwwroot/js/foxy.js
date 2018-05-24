@@ -1,3 +1,7 @@
+jQuery(document).ready(function () {
+    jQuery('[data-toggle="tooltip"]').tooltip();
+});
+
 function RadicalCircliful(p) {
     $("#circle-radical").circliful({
         animation: 1,

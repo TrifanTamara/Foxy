@@ -36,7 +36,7 @@
     "name": "いつ",
     "meaning": "when",
     "reading": "k=いつ",
-    "type": "5",
+    "type": "2",
     "required_level": "1",
     "meaning_mnemonic": "WHEN I will see a TSUnami? (I TSU)",
     "reading_mnemonic": "The reading is more than obvious.",
@@ -163,5 +163,60 @@
     "reading_mnemonic": "The kunyomi for 一 which you may have learnt is ひと, you can associate it again with a \"Hit, oh!\" not again.. ! The reading for moon you've already learnt.",
     "word_type": "6",
     "components": [ "一", "月" ]
+  },
+  {
+    "name": "この",
+    "meaning": "this",
+    "reading": "k=この",
+    "type": "2",
+    "required_level": "1",
+    "meaning_mnemonic": "THIS in japanese have different readings: この, これ .. It's not that hard, NO?",
+    "reading_mnemonic": "Luckily you don't need a reading mnemonic! ^^.",
+    "word_type": "5",
+    "components": []
+  },
+  {
+    "name": "これ",
+    "meaning": "this",
+    "reading": "k=これ",
+    "type": "2",
+    "required_level": "1",
+    "meaning_mnemonic": "THIS in japanese have different meanings: この, これ, .. It seems that THIS REpeats itself :)",
+    "reading_mnemonic": "Luckily you don't need a reading mnemonic! ^^.",
+    "word_type": "5",
+    "components": []
+  },
+  {
+    "name": "ごろ",
+    "meaning": "around;approximately",
+    "reading": "k=ごろ",
+    "type": "2",
+    "required_level": "1",
+    "meaning_mnemonic": "What do you do when you want to know an APPROXIMATELY value? You just GO on the ROad and ask people. For example \"what time it is?\"",
+    "reading_mnemonic": "Luckily you don't need a reading mnemonic! ^^.",
+    "word_type": "5",
+    "components": []
+  },
+  {
+    "name": "さあ",
+    "meaning": "well",
+    "reading": "k=さあ",
+    "type": "2",
+    "required_level": "1",
+    "meaning_mnemonic": "This is more likely a expression that you use when you take a short break to think about. You cand also think about it as: \"let's see\", or \"uummmm...\".",
+    "reading_mnemonic": "さあ... Luckily you don't need a reading mnemonic! ^^.",
+    "word_type": "5",
+    "components": []
+  },
+  {
+    "name": "〜さん",
+    "meaning": "Mr.;Mrs.",
+    "reading": "k=さん",
+    "type": "2",
+    "required_level": "1",
+    "meaning_mnemonic": "I guess you've already heard about attaching SAN at the end of every adult name. Be carreful, if you don't do it people could take is as a sign of disrespect. So keep in mind: SAN SAN SAN, Foxy-SAN!",
+    "reading_mnemonic": "Luckily you don't need a reading mnemonic! ^^.",
+    "word_type": "5",
+    "components": []
   }
 ]

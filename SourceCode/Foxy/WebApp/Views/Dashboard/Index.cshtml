@@ -14,6 +14,9 @@
     SharedInfo.ShowSuccessMessage = "";
 }
 
+<br />
+<br />
+
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-9"></div>
     <div class="rounded-top col-xs-6 col-md-3 text-center" id="vocabTitle"><h3><span class="centerWhite">Vocabular</span></h3></div>
@@ -73,7 +76,8 @@
                 </div>
                 <div class="collapse" id="radicalList">
                     <div class="container text-center container-dashboard-vocab">
-                        <p>Remaining lessons [@Model.RadicalsLesson.Count()]</p>
+                        <p>Remaining lessons  <span class="badge badge-radical badge-number-size">@Model.RadicalsLesson.Count()</span></p>
+                        
                         @{
                             var n = Model.RadicalsLesson.Count() / colNr;
                             var m = Model.RadicalsLesson.Count() % colNr;
@@ -84,7 +88,8 @@
                             <div class="row text-center">
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
-                                    <div class="little-squares rounded" id="little-radicals">
+                                    string tooltip_style = "<p>"+ @Model.RadicalsLesson[i * colNr + j].Template.Meaning + "</p>";
+                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radicals">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
@@ -98,7 +103,7 @@
                         }
                     </div>
                     <div class="container text-center container-dashboard-vocab">
-                        <p>Viewed lesson [@Model.RadicalsViewed.Count()]</p>
+                        <p>Viewed lesson  <span class="badge badge-radical badge-number-size">@Model.RadicalsViewed.Count()</span></p>
                         @{
                             n = Model.RadicalsViewed.Count() / colNr;
                             m = Model.RadicalsViewed.Count() % colNr;
@@ -123,7 +128,7 @@
                         }
                     </div>
                     <div class="container text-center container-dashboard-vocab">
-                        <p>Passed items [@Model.RadicalsPassed.Count()]</p>
+                        <p>Passed items  <span class="badge badge-radical badge-number-size">@Model.RadicalsPassed.Count()</span></p>
                         @{
                             n = Model.RadicalsPassed.Count() / colNr;
                             m = Model.RadicalsPassed.Count() % colNr;
@@ -162,7 +167,7 @@
                 </div>
                 <div class="collapse" id="kanjiList">
                     <div class="container text-center container-dashboard-vocab">
-                        <p>Remaining lessons [@Model.KanjisLesson.Count()]</p>
+                        <p>Remaining lessons <span class="badge badge-kanji badge-number-size">@Model.KanjisLesson.Count()</span></p>
                         @{
                             n = Model.KanjisLesson.Count() / colNr;
                             m = Model.KanjisLesson.Count() % colNr;
@@ -187,7 +192,7 @@
                         }
                     </div>
                     <div class="container text-center container-dashboard-vocab">
-                        <p>Viewed lessons [@Model.KanjisViewed.Count()]</p>
+                        <p>Viewed lessons <span class="badge badge-kanji badge-number-size">@Model.KanjisViewed.Count()</span></p>
                         @{
                             n = Model.KanjisViewed.Count() / colNr;
                             m = Model.KanjisViewed.Count() % colNr;
@@ -212,7 +217,7 @@
                         }
                     </div>
                     <div class="container text-center container-dashboard-vocab">
-                        <p>Passed items [@Model.KanjisPassed.Count()]</p>
+                        <p>Passed items <span class="badge badge-kanji badge-number-size">@Model.KanjisPassed.Count()</span></p>
                         @{
                             n = Model.KanjisPassed.Count() / colNr;
                             m = Model.KanjisPassed.Count() % colNr;
@@ -251,77 +256,22 @@
                 </div>
                 <div class="collapse" id="wordsList">
                     <div class="container text-center container-dashboard-vocab">
-                        <p>Remaining lessons [@Model.WordsLesson.Count()]</p>
+                        <p>Lessons <span class="badge badge-word badge-number-size">@Model.WordsLesson.Count()</span></p>
                         @{
-                            n = Model.WordsLesson.Count() / colNr;
-                            m = Model.WordsLesson.Count() % colNr;
-                            if (m != 0) { n = n + 1; } else { m = colNr; }
+                            n = Model.WordsLesson.Count();
                         }
                         @for (int i = 0; i < n; ++i)
                         {
-                            <div class="row text-center">
-                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
-                                {
-                                    <div class="little-squares rounded" id="little-words">
-                                        <div class="little-content">
-                                            <div class="table">
-                                                <div class="table-cell little-text .ja">
-                                                    @Model.WordsLesson[i * colNr + j].Template.Name
-                                                </div>
+                            <div class="text-center">
+                                <div class="rounded little-squares-words" id="little-words">
+                                    <div class="little-content word-no-top-pad">
+                                        <div class="table">
+                                            <div class="table-cell little-text .ja">
+                                                @Model.WordsLesson[i].Template.Name
                                             </div>
                                         </div>
                                     </div>
-                                }
-                            </div>
-                        }
-                    </div>
-                    <div class="container text-center container-dashboard-vocab">
-                        <p>Viewed lessons [@Model.WordsViewed.Count()]</p>
-                        @{
-                            n = Model.WordsViewed.Count() / colNr;
-                            m = Model.WordsViewed.Count() % colNr;
-                            if (m != 0) { n = n + 1; } else { m = colNr; }
-                        }
-                        @for (int i = 0; i < n; ++i)
-                        {
-                            <div class="row text-center">
-                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
-                                {
-                                    <div class="little-squares rounded" id="little-words">
-                                        <div class="little-content">
-                                            <div class="table">
-                                                <div class="table-cell little-text .ja">
-                                                    @Model.WordsViewed[i * colNr + j].Template.Name
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        }
-                    </div>
-                    <div class="container text-center container-dashboard-vocab">
-                        <p>Viewed lessons [@Model.WordsPassed.Count()]</p>
-                        @{
-                            n = Model.WordsPassed.Count() / colNr;
-                            m = Model.WordsPassed.Count() % colNr;
-                            if (m != 0) { n = n + 1; } else { m = colNr; }
-                        }
-                        @for (int i = 0; i < n; ++i)
-                        {
-                            <div class="row text-center">
-                                @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
-                                {
-                                    <div class="little-squares rounded" id="little-words">
-                                        <div class="little-content">
-                                            <div class="table">
-                                                <div class="table-cell little-text .ja">
-                                                    @Model.WordsPassed[i * colNr + j].Template.Name
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
+                                </div>
                             </div>
                         }
                     </div>
