@@ -54,6 +54,7 @@ namespace Business.Wrappers
 
         private void TransformInformation()
         {
+            Name = Template.Name;
             MeaningsList = new List<string>(Template.Meaning.Split(";"));
 
             List<string> aux = new List<string>(Template.Reading.Split("||"));

@@ -66,21 +66,6 @@ namespace WebApp
 
             HttpClient httpClient = new HttpClient();
             services.AddSingleton<HttpClient>(httpClient); // note the singleton
-
-            
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options=>
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidateLifetime = true,
-            //            ValidateIssuerSigningKey = true,
-            //            SaveSigninToken = true,
-            //            ValidIssuer = Configuration["Jwt:Issuer"],
-            //            ValidAudience = Configuration["Jwt:Issuer"],
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-            //        });
             
         }
 
@@ -98,7 +83,7 @@ namespace WebApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            
+
             if (env.IsDevelopment())
             {
                 //.... rest of app configuration
@@ -114,6 +99,10 @@ namespace WebApp
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "vocabular_route",
+                    template: "{controller=Vocabular}/{action=Radical}/{name}"
+                    );
             });
 
         }

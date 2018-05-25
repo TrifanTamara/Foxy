@@ -4,6 +4,7 @@
 @{
     int colNr = 6;
     string tooltip_style;
+    int MaximWordsDisplay = 5;
 }
 
 <br />
@@ -65,13 +66,19 @@
 
         <div class="row">
             <div class="col-lg-4 text-center">
-                <a style="all:unset;" tabindex="0" class="popover-dismiss" data-toggle="popover" data-trigger="focus"  data-placement="top" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">
-                <div id="circle-radical">
-                    <script>
-                    RadicalCircliful(@Model.RadicalPercent);
-                    </script>
+                @{
+                    string title_circliful_radical = "<h5 style=\"color:#4a5c5d\">Radicals' progress</h5>";
+                    tooltip_style = "<p  style=\"font-size:1.1em;text-align:justify;\">This represents your radicals' progress at current level.</p><p style=\"display:inline\">To pass current level you need to have at least <p style=\"color:green;display:inline;font-size:1.3em;\"><b>80%</b></p> displayed here. You can view the remaining items and the passed items in section below!</p>";
+                }
+                <div style="all:unset;position:relative">
+                    <a style="all:unset;" tabindex="0" class="popover-dismiss popover-left" data-toggle="popover" data-trigger="focus" data-html="true" data-placement="top" title="@title_circliful_radical" data-content="@tooltip_style">
+                        <div id="circle-radical" style="cursor:pointer;">
+                            <script>
+                        RadicalCircliful(@Model.RadicalPercent);
+                            </script>
+                        </div>
+                    </a>
                 </div>
-                 </a>
                 <div class="text-center" style="margin-bottom:1em;">
                     <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#radicalList" aria-expanded="false" aria-controls="collapseExample">
                         Radical
@@ -161,11 +168,17 @@
                 </div>
             </div>
             <div class="col-lg-4 text-center">
-                <div id="circle-kanji">
-                    <script>
+                @{
+                    string title_circliful_kanji = "<h5 style=\"color:#4a5c5d\">Kanjis' progress</h5>";
+                    tooltip_style = "<p  style=\"font-size:1.1em;text-align:justify;\">This represents your kanjis' progress at current level.</p><p style=\"display:inline\">To pass current level you need to have at least <p style=\"color:green;display:inline;font-size:1.3em;\"><b>80%</b></p> displayed here. You can view the remaining items and the passed items in section below!</p>";
+                }
+                <a style="all:unset;" tabindex="0" class="popover-dismiss popover-top" data-toggle="popover" data-trigger="focus" data-html="true" data-placement="top" title="@title_circliful_kanji" data-content="@tooltip_style">
+                    <div id="circle-kanji" style="cursor:pointer;">
+                        <script>
                     KanjiCircliful(@Model.KanjiPercent);
-                    </script>
-                </div>
+                        </script>
+                    </div>
+                </a>
                 <div class="text-center" style="margin-bottom:1em;">
                     <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#kanjiList" aria-expanded="false" aria-controls="collapseExample">
                         Kanji
@@ -256,11 +269,19 @@
                 </div>
             </div>
             <div class="col-lg-4 text-center">
-                <div id="circle-word">
-                    <script>
+                @{
+                    string title_circliful_word = "<h5 style=\"color:#4a5c5d\">Words' progress</h5>";
+                    tooltip_style = "<p  style=\"font-size:1.1em;text-align:justify;\">This represents your overall words' progress.</p><p style=\"display:inline\">You don't have to worry if the percentage is always law. It represent how many words have you leared from ALL words available on this site!</p>";
+                }
+                <a style="all:unset;" tabindex="0" class="popover-dismiss popover-rigth" data-toggle="popover" data-trigger="focus" data-html="true" data-placement="top" title="@title_circliful_word" data-content="@tooltip_style">
+
+
+                    <div id="circle-word" style="cursor:pointer;">
+                        <script>
                     WordCircliful(@Model.WordsPercent);
-                    </script>
-                </div>
+                        </script>
+                    </div>
+                </a>
                 <div class="text-center" style="margin-bottom:1em;">
                     <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#wordsList" aria-expanded="false" aria-controls="collapseExample">
                         Words
@@ -272,7 +293,7 @@
                         @{
                             n = Model.WordsLesson.Count();
                         }
-                        @for (int i = 0; i < n; ++i)
+                        @for (int i = 0; i < MaximWordsDisplay; ++i)
                         {
                             <div class="text-center">
                                 @{
@@ -291,6 +312,58 @@
                                     </div>
                                 </div>
                             </div>
+                        }
+                        @{if (MaximWordsDisplay < n)
+                            {
+                                <div class="little-squares-words rounded words-show-more">
+
+                                    <div class="little-content word-no-top-pad" data-toggle="modal" data-target="#longModalWords">
+                                        <div class="table">
+                                            <div class="table-cell .ja">
+                                                See more words...
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" style="margin-top:2em!important" id="longModalWords" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="longModalWordsTitle">Available words lessons</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                @for (int i = 0; i < n; ++i)
+                                                {
+                                                    <div class="text-center">
+                                                        @{
+                                                            tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.WordsLesson[i].MeaningsList[0] + "</p>";
+                                                            tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.WordsLesson[i].MainReading + "</p></div>";
+
+                                                        }
+                                                        <div class="little-squares-words rounded" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style" id="little-words">
+
+                                                            <div class="little-content word-no-top-pad">
+                                                                <div class="table">
+                                                                    <div class="table-cell little-text .ja">
+                                                                        @Model.WordsLesson[i].Template.Name
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                         }
                     </div>
                 </div>

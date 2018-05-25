@@ -31,6 +31,17 @@ namespace Business
             _relVocabRepo = relationRepo;
         }
 
+        public async Task<VocabularWrapper> GetWrappedItem(Guid userId, string name, VocabularType type)
+        {
+            VocabularTemplate vTemp = await _tempVocabRepo.GetByTypeAndName(type, name);
+            if (vTemp!=null)
+            {
+                VocabularItem item = await GetVocabByTemplateAndUser(vTemp.VocabularTemplateId, userId);
+                return  await WrapSingleVocabular(item);
+            }
+            
+            return null;
+        }
 
         public async Task<IEnumerable<VocabularItem>> GetVocabByUser(Guid userId)
         {
@@ -47,21 +58,26 @@ namespace Business
         {
             return await _databaseContext.VocabularItems.Where(x => x.VocabularTemplateId.Equals(templateId) && x.UserId.Equals(userId)).FirstOrDefaultAsync();
         }
-        
+
+        public async Task<VocabularWrapper> WrapSingleVocabular(VocabularItem item)
+        {
+            VocabularTemplate vTemp = await _tempVocabRepo.FindById(item.VocabularTemplateId);
+
+            List<VocabularRelationship> pairs = (await _relVocabRepo.GetByMainId(vTemp.VocabularTemplateId)).ToList();
+            List<VocabularTemplate> templatesComponents = new List<VocabularTemplate>();
+            foreach (var pair in pairs)
+            {
+                templatesComponents.Add(await _tempVocabRepo.FindById(pair.ContainedItemId));
+            }
+            return (new VocabularWrapper(item, vTemp, templatesComponents));
+        }
+
         public async Task<List<VocabularWrapper>> WrapVocabular(List<VocabularItem> oldItems)
         {
             List<VocabularWrapper> result = new List<VocabularWrapper>();
             foreach (VocabularItem item in oldItems)
             {
-                VocabularTemplate vTemp = await _tempVocabRepo.FindById(item.VocabularTemplateId);
-
-                List<VocabularRelationship> pairs = (await _relVocabRepo.GetByMainId(vTemp.VocabularTemplateId)).ToList();
-                List<VocabularTemplate> templatesComponents = new List<VocabularTemplate>();
-                foreach (var pair in pairs)
-                {
-                    templatesComponents.Add(await _tempVocabRepo.FindById(pair.ContainedItemId));
-                }
-                result.Add(new VocabularWrapper(item, vTemp, templatesComponents));
+                result.Add(await WrapSingleVocabular(item));
             }
             return result;
         }
