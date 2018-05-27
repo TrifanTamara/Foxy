@@ -61,7 +61,6 @@
 }
 
 .meaning-col {
-    display: inline !important;
     width: 100%;
 }
 
@@ -103,8 +102,22 @@
     border-bottom-width: 0.1vmin;
 }
 
+.mini-title-categories {
+    color: rgba(19, 19, 56, 0.70);
+    font-size: 1.4em;
+    text-transform: capitalize;
+    padding-bottom: 0.3em;
+    border-bottom: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.55);
+    border-bottom-width: 0.1vmin;
+}
+
 .categories-title-col {
     width: 100%;
+}
+
+.mini-category-row {
+    margin-top: 1.7em;
 }
 
 .category-row {
@@ -114,17 +127,18 @@
 .mini-name-text {
     position: relative;
     color: white;
-    font-size: 4.2vmin;
+    font-size: 2.1em;
     vertical-align: middle;
 }
 
 .mini-name-box {
     vertical-align: middle;
     text-align: center;
-    width: 6.5vmin !important;
-    height: 6.5vmin !important;
+    width: 3em !important;
+    height: 3em !important;
     cursor: pointer;
     margin-right: 1vmin;
+    border-radius:2px!important;
 }
 
     .mini-name-box:hover {
@@ -132,7 +146,7 @@
     }
 
 .mnemonic-box {
-    background-color: rgba(128, 128, 128, 0.24);
+    /*background-color: rgba(128, 128, 128, 0.09);*/
     padding: 0.5em;
     height:100%;
 }
@@ -143,12 +157,16 @@
     border-radius:2px!important;
     margin-bottom:0.7em!important;
 }
-.text-mnem{
-    text-align:justify;
-    font-size: 0.9em;
+.text-mnem {
+    text-align: justify;
+    font-size: 1.05em;
     padding: 0.3em;
-    background-color: rgba(255, 255, 255, 0.36);
+    /*background-color: rgba(255, 255, 255, 0.66);
     border:solid;
     border-width:0.1vmin;
-    border-color:darkgray;
+    border-color:rgba(169, 169, 169, 0.65);*/
+}
+
+#input-reading{
+    margin-bottom:0!important;
 }

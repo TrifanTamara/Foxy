@@ -5,6 +5,8 @@
     jQuery('.popover-dismiss').popover({
         trigger: 'focus'
     })
+
+    $('#input-reading').hide();
 });
 
 
@@ -44,4 +46,22 @@ function WordCircliful(p) {
 function playSound() {
     var audio = document.getElementById("audio");
     audio.play();
+}
+
+function RefreshReadingDiv() {
+    var node = document.getElementById('readingUserInput');
+    $("#reading-note").text(node.value);
+
+    $('#input-reading').hide();
+    $('#editIconReading').show();
+}
+
+function ShowReadingInput() {
+    $('#input-reading').show();
+    $('#editIconReading').hide();
+}
+
+function RefreshDiv() {
+    $('#input-reading').hide();
+    $('#editIconReading').show();
 }

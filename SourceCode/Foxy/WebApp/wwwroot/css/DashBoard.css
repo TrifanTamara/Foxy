@@ -103,16 +103,16 @@
         color: white
     }
 
-#little-radical {
-    background-color: var(--main-color-radical);
+.little-radical {
+    background-color: var(--main-color-radical)!important;
 }
 
-#little-kanji {
-    background-color: var(--main-color-kanji);
+.little-kanji {
+    background-color: var(--main-color-kanji)!important;
 }
 
-#little-word {
-    background-color: var(--main-color-word);
+.little-word {
+    background-color: var(--main-color-word)!important;
 }
 
 .square-content-little {
