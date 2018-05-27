@@ -1,0 +1,154 @@
+﻿.name-text {
+    position: relative;
+    color: white;
+    font-size: 6.7vmin;
+    vertical-align: middle;
+}
+
+.name-box {
+    vertical-align: middle;
+    text-align: center;
+    width: 10vmin;
+    height: 10vmin;
+    cursor: pointer;
+    margin-left: 15px;
+    margin-right: 0 !important;
+}
+
+.word-name-box {
+    width: auto !important;
+    display: inline-block !important;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+
+.big-container {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.name-style {
+    position: relative !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    font-size: 4vmin;
+    text-transform: uppercase;
+    padding-top: 3.5vmin;
+    margin: 0 !important;
+    border-bottom: solid;
+    border-bottom-width: 0.3vmin;
+}
+
+.main-meaning-div {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    margin-left: 1.5vmin !important;
+    vertical-align: bottom !important;
+    width: auto !important;
+    display: inline-block !important;
+}
+
+.big-col {
+    all: unset !important;
+    width: 100% !important;
+}
+
+.meaning-row {
+    margin-top: 3em;
+    width: 100%;
+}
+
+.meaning-col {
+    display: inline !important;
+    width: 100%;
+}
+
+.text-other-meaning {
+    font-size: 0.8em;
+    display: inline-block !important;
+    color: dimgray;
+    text-transform: uppercase;
+}
+
+.text-user-meaning {
+    font-size: 0.8em;
+    display: inline-block !important;
+    color: dimgray;
+    text-transform: uppercase;
+}
+
+.meaning-badge {
+    font-size: 1em;
+    padding: 0.4em !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.2em !important;
+}
+
+.user-meaning-badge {
+    font-size: 0.8em;
+    padding: 0.4em !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.2em !important;
+}
+
+.title-categories {
+    color: rgba(19, 19, 56, 0.70);
+    font-size: 1.8em;
+    text-transform: capitalize;
+    padding-bottom: 0.3em;
+    border-bottom: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.55);
+    border-bottom-width: 0.1vmin;
+}
+
+.categories-title-col {
+    width: 100%;
+}
+
+.category-row {
+    margin-top: 3.5em;
+}
+
+.mini-name-text {
+    position: relative;
+    color: white;
+    font-size: 4.2vmin;
+    vertical-align: middle;
+}
+
+.mini-name-box {
+    vertical-align: middle;
+    text-align: center;
+    width: 6.5vmin !important;
+    height: 6.5vmin !important;
+    cursor: pointer;
+    margin-right: 1vmin;
+}
+
+    .mini-name-box:hover {
+        opacity: 0.8;
+    }
+
+.mnemonic-box {
+    background-color: rgba(128, 128, 128, 0.24);
+    padding: 0.5em;
+    height:100%;
+}
+
+.mnem-title{
+    font-size: 1em;
+    font-weight: normal!important;
+    border-radius:2px!important;
+    margin-bottom:0.7em!important;
+}
+.text-mnem{
+    text-align:justify;
+    font-size: 0.9em;
+    padding: 0.3em;
+    background-color: rgba(255, 255, 255, 0.36);
+    border:solid;
+    border-width:0.1vmin;
+    border-color:darkgray;
+}

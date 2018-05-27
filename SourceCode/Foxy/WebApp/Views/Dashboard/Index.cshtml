@@ -7,7 +7,6 @@
     int MaximWordsDisplay = 5;
 }
 
-<br />
 @if (!string.IsNullOrEmpty(SharedInfo.ShowSuccessMessage))
 {
     <script>
@@ -15,16 +14,14 @@
     </script>
     SharedInfo.ShowSuccessMessage = "";
 }
-
-<br />
-<br />
-
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-9"></div>
-    <div class="rounded-top col-xs-6 col-md-3 text-center" id="vocabTitle"><h3><span class="centerWhite">Vocabular</span></h3></div>
+    <div class="rounded-top col-xs-6 col-md-3 text-center shadow" id="vocabTitle">
+        <p class="title-upper-box">Vocabular</p>
+    </div>
 </div>
 <div class="row jumbotron jumbotron-fluid" id="jumbo">
-    <div class="container" t>
+    <div class="container">
         <div class="row levels">
             <div class="square-box col-sm" id="seed">
                 <div class='square-content'>
@@ -99,7 +96,7 @@
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsLesson[i * colNr + j].MeaningsList[0] + "</p>";
-                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radicals">
+                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radical">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
@@ -125,7 +122,7 @@
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsViewed[i * colNr + j].MeaningsList[0] + "</p>";
-                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radicals">
+                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radical">
 
                                         <div class="little-content">
                                             <div class="table">
@@ -152,7 +149,7 @@
                                 @for (int j = 0; (i < n - 1 && j < colNr) || (n - 1 == i && j < m); ++j)
                                 {
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsPassed[i * colNr + j].MeaningsList[0] + "</p>";
-                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radicals">
+                                    <div class="little-squares rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style" id="little-radical">
                                         <div class="little-content">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
@@ -301,7 +298,7 @@
                                     tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.WordsLesson[i].MainReading + "</p></div>";
 
                                 }
-                                <div class="little-squares-words rounded" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style" id="little-words">
+                                <div class="little-squares-words rounded" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style" id="little-word">
 
                                     <div class="little-content word-no-top-pad">
                                         <div class="table">
@@ -344,7 +341,7 @@
                                                             tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.WordsLesson[i].MainReading + "</p></div>";
 
                                                         }
-                                                        <div class="little-squares-words rounded" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style" id="little-words">
+                                                        <div class="little-squares-words rounded" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style" id="little-word">
 
                                                             <div class="little-content word-no-top-pad">
                                                                 <div class="table">

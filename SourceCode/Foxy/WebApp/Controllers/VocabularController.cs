@@ -45,9 +45,36 @@ namespace WebApp.Controllers
             VocabularWrapper model = await _vocabularRepo.GetWrappedItem(user.UserId, name, Data.Domain.Entities.TemplateItems.VocabularType.Radical);
 
 
-            return View("radical", model);
+            return View("ItemForm", model);
         }
 
+        [HttpGet]
+        [Route("kanji/{name}")]
+        public async Task<IActionResult> Kanji([FromRoute]string name)
+        {
+
+            string email = HttpContext.User.Claims.First().Value;
+            User user = await _userRepo.GetByEmail(email);
+
+            VocabularWrapper model = await _vocabularRepo.GetWrappedItem(user.UserId, name, Data.Domain.Entities.TemplateItems.VocabularType.Kanji);
+
+
+            return View("ItemForm", model);
+        }
+
+        [HttpGet]
+        [Route("word/{name}")]
+        public async Task<IActionResult> Word([FromRoute]string name)
+        {
+
+            string email = HttpContext.User.Claims.First().Value;
+            User user = await _userRepo.GetByEmail(email);
+
+            VocabularWrapper model = await _vocabularRepo.GetWrappedItem(user.UserId, name, Data.Domain.Entities.TemplateItems.VocabularType.Word);
+
+
+            return View("ItemForm", model);
+        }
 
     }
 }

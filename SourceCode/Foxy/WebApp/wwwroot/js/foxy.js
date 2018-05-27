@@ -1,4 +1,4 @@
-jQuery(document).ready(function () {
+﻿jQuery(document).ready(function () {
     jQuery('[data-toggle="tooltip"]').tooltip();
     jQuery('[data-toggle="popover"]').popover();
 
@@ -39,4 +39,9 @@ function WordCircliful(p) {
         foregroundColor: '#a77389',
         percent: p
     });
+}
+
+function playSound() {
+    var audio = document.getElementById("audio");
+    audio.play();
 }

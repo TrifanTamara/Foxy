@@ -57,6 +57,9 @@ namespace Business.Wrappers
             Name = Template.Name;
             MeaningsList = new List<string>(Template.Meaning.Split(";"));
 
+            OnyomiReading = new List<string>();
+            KunyoumiReading = new List<string>();
+
             List<string> aux = new List<string>(Template.Reading.Split("||"));
             if (aux.Count >= 1)
             {
@@ -79,6 +82,7 @@ namespace Business.Wrappers
                     VocabularType = "word";
                     break;
             }
+            
 
             if (Template.Type == Data.Domain.Entities.TemplateItems.VocabularType.Word) {
                 switch (Template.WordType)

@@ -41,8 +41,21 @@
     height: 10em;
 }
 
+.title-upper-box {
+    margin-bottom: 5px;
+    color: rgba(19, 19, 56, 0.70);
+    font-size: 2em;
+    text-transform: capitalize;
+}
+
+.shadow {
+    border-bottom: solid;
+    border-bottom-color: rgb(255, 255, 255);
+}
+
+
 #vocabTitle {
-    background-color: rgba(219, 224, 229, 1);
+    background-color: rgb(215, 224, 233);
     height: 3em;
 }
 
@@ -90,7 +103,7 @@
         color: white
     }
 
-#little-radicals {
+#little-radical {
     background-color: var(--main-color-radical);
 }
 
@@ -98,7 +111,7 @@
     background-color: var(--main-color-kanji);
 }
 
-#little-words {
+#little-word {
     background-color: var(--main-color-word);
 }
 
@@ -171,16 +184,16 @@
     border-width: 2px !important;
     border-color: #565656 !important;
     background-color: rgba(86, 86, 86, 0.13) !important;*/
-    padding-top:0.5em!important;
-    padding-left:1.2em!important;
+    padding-top: 0.5em !important;
+    padding-left: 1.2em !important;
     background-color: #565656 !important;
     color: rgba(255, 255, 255, 0.88) !important;
-    font-size: 0.9em!important;
+    font-size: 0.9em !important;
 }
 
-    .little-squares-words:hover {
-        opacity: 0.7;
-    }
+.little-squares-words:hover {
+    opacity: 0.7;
+}
 
 .little-content {
     position: absolute;
@@ -239,11 +252,11 @@
 
 
 .popover {
-    top:5em!important;
+    top: 5em !important;
 }
 
-#longModalWordsTitle{
-    all:unset;
-    font-size:1.3em;
-    text-align:center;
+#longModalWordsTitle {
+    all: unset;
+    font-size: 1.3em;
+    text-align: center;
 }

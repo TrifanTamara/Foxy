@@ -2,6 +2,8 @@
     font-family: 'Lato';
     min-height: 75rem;
     padding-top: 4.5rem;
+    min-width: 350px; /* Suppose you want minimum width of 1000px */
+    width: auto !important;
 }
 
 h1,
