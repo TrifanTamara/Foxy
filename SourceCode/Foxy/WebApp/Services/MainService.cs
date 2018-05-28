@@ -1,4 +1,5 @@
 ﻿using Data.Domain.Entities;
+using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,12 @@ namespace WebApp.Services
             model.ReviewNumber = _vocabRepo.GetVocabForReview(user.UserId).Result.Count();
 
             return model;
+        }
+
+        public void UpdateItemMeaningNote(VocabularItem item, string note)
+        {
+            item.Update(note, item.ReadingNote, item.Favorite);
+            _vocabRepo.Edit(item);
         }
     }
 }

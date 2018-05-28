@@ -7,6 +7,7 @@
     })
 
     $('#input-reading').hide();
+    $('#input-meaning').hide();
 });
 
 
@@ -61,7 +62,36 @@ function ShowReadingInput() {
     $('#editIconReading').hide();
 }
 
+function ShowMeaningInput() {
+    $('#input-meaning').show();
+    $('#editIconMeaning').hide();
+}
+
+
 function RefreshDiv() {
     $('#input-reading').hide();
     $('#editIconReading').show();
+}
+
+function HideMeaningDiv() {
+    $('#input-meaning').hide();
+    $('#editIconMeaning').show();
+}
+
+function RefreshMeaningDiv() {
+    var node = document.getElementById('meaningUserInput');
+    var strMM = node.value;
+    $("#meaning-note").text(strMM);
+
+    $('#input-meaning').hide();
+    $('#editIconMeaning').show();
+
+    $.ajax({
+        type: "POST",
+        url: "/vocabular/update/meaningNote",
+        data: {
+            data: strMM
+        },
+        dataType: 'json'
+    })
 }

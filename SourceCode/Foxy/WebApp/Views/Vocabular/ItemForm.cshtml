@@ -195,14 +195,42 @@
         </div>
         <div class="row mini-category-row">
             <div class="col categories-title-col">
-                <p class="mini-title-categories">
-                    User's meaning note
-                </p>
-                <div class="col" style="margin-bottom:1em">
-                    <div class="mnemonic-box">
-                        @*<div class=" badge badge-secondary mnem-title">Default Menmonic</div>*@
-                        <div class="text-mnem">
+                <div class="row mini-title-categories" style="position:relative!important">
+                    <div class="">
+                        <p style="display: inline;">
+                            User's meaning note
+                        </p>
+                    </div>
+                    <div class="">
+                        <div id="editIconMeaning">
+                            <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:2em!important; height:2em!important;position:absolute;vertical-align:middle;margin-left:7px!important; cursor:pointer!important" onclick="ShowMeaningInput()">
+                                <img src="~/img/octicons/svg/pencil.svg" style="position:relative!important;height:1.3em; width:1.3em;padding-bottom: 3px;" alt="*">
+                            </button>
+                        </div>
+                    </div>
 
+                    <div>
+                        <div class="input-group input-group-sm mb-3" id="input-meaning">
+                            <input type="text" class="form-control" id="meaningUserInput" placeholder="Reading note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" onclick="RefreshMeaningDiv()">Save</button>
+                                <button class="btn btn-outline-secondary" type="button" onclick="HideMeaningDiv()">Discard</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="margin-bottom:1em">
+
+                    <div class="row text-mnem">
+                        <div class="col">
+                            <div class="mnemonic-box">
+                                <div id="opertionExecute">
+                                </div>
+                                <div class="text-mnem" id="meaning-note">
+
+                                    @Model.Item.MeaningNote
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -227,24 +255,20 @@
             </div>
             <div class="row mini-category-row">
                 <div class="col categories-title-col">
-                    <div class="row mini-title-categories">
-                        <div class="col">
-                            <p style="display:inline">
+                    <div class="row mini-title-categories" style="position:relative!important">
+                        <div class="">
+                            <p style="display: inline;">
                                 User's reading note
                             </p>
                         </div>
-                        <div class="col">
+                        <div class="">
                             <div id="editIconReading">
                                 <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:2em!important; height:2em!important;position:absolute;vertical-align:middle;margin-left:7px!important; cursor:pointer!important" onclick="ShowReadingInput()">
                                     <img src="~/img/octicons/svg/pencil.svg" style="position:relative!important;height:1.3em; width:1.3em;padding-bottom: 3px;" alt="*">
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="col" style="margin-bottom:1em">
-                        <div class="row mnemonic-box" style="height:3em;">
-
-
+                        <div>
                             <div class="input-group input-group-sm mb-3" id="input-reading">
                                 <input type="text" class="form-control" id="readingUserInput" placeholder="Reading note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
@@ -253,11 +277,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row text-mnem" id="reading-note">
+                    </div>
+                    <div class="col" style="margin-bottom:1em">
+
+                        <div class="row text-mnem">
                             <div class="col">
                                 <div class="mnemonic-box">
-                                    <div class="text-mnem">
-                                        @Model.Template.ReadingMnemonic
+                                    <div class="text-mnem" id="reading-note">
+                                        @Model.Item.ReadingNote
                                     </div>
                                 </div>
                             </div>

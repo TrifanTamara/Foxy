@@ -1,5 +1,6 @@
 ﻿using Business.Wrappers;
 using Data.Domain.Entities;
+using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,8 @@ namespace WebApp.Controllers
     {
         private IUsersRepository _userRepo;
         private IVocabularItemRepository _vocabularRepo;
+        private static Dictionary<Guid, VocabularWrapper> currentItem = new Dictionary<Guid, VocabularWrapper>();
+
 
         public VocabularController(IUsersRepository userRepo, IVocabularItemRepository vocabularRepo)
         {
@@ -43,8 +46,11 @@ namespace WebApp.Controllers
             User user = await _userRepo.GetByEmail(email);
 
             VocabularWrapper model = await _vocabularRepo.GetWrappedItem(user.UserId, name, Data.Domain.Entities.TemplateItems.VocabularType.Radical);
-
-
+            if (model != null)
+            {
+                currentItem[user.UserId] = model;
+            }
+            //return404
             return View("ItemForm", model);
         }
 
@@ -58,7 +64,10 @@ namespace WebApp.Controllers
 
             VocabularWrapper model = await _vocabularRepo.GetWrappedItem(user.UserId, name, Data.Domain.Entities.TemplateItems.VocabularType.Kanji);
 
-
+            if (model != null)
+            {
+                currentItem[user.UserId] = model;
+            }
             return View("ItemForm", model);
         }
 
@@ -71,10 +80,24 @@ namespace WebApp.Controllers
             User user = await _userRepo.GetByEmail(email);
 
             VocabularWrapper model = await _vocabularRepo.GetWrappedItem(user.UserId, name, Data.Domain.Entities.TemplateItems.VocabularType.Word);
-
+            if (model != null)
+            {
+                currentItem[user.UserId] = model;
+            }
 
             return View("ItemForm", model);
         }
 
+        [HttpPost]
+        [Route("update/meaningNote")]
+        public async Task<bool> UpdateMeaningNote(string data)
+        {
+            string email = HttpContext.User.Claims.First().Value;
+            User user = await _userRepo.GetByEmail(email);
+            VocabularItem item = currentItem[user.UserId].Item;
+            item.Update(data, item.ReadingNote, item.Favorite);
+            await _vocabularRepo.Edit(item);
+            return true;
+        }
     }
 }

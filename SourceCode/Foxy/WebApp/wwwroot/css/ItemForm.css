@@ -110,6 +110,8 @@
     border-bottom: solid;
     border-bottom-color: rgba(128, 128, 128, 0.55);
     border-bottom-width: 0.1vmin;
+    margin-right: 0.08em;
+    margin-left: 0.08em;
 }
 
 .categories-title-col {
@@ -169,4 +171,18 @@
 
 #input-reading{
     margin-bottom:0!important;
+    margin-left:0.5em!important;
+}
+
+#editIconReading{
+    margin-left:0.3em!important;
+}
+
+#input-meaning {
+    margin-bottom: 0 !important;
+    margin-left: 0.5em !important;
+}
+
+#editIconMeaning {
+    margin-left: 0.3em !important;
 }
