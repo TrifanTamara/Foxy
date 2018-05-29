@@ -66,6 +66,7 @@
         padding-bottom: 5px;
         margin-top: 0 !important;
         display: block;
+        cursor: pointer;
     }
 
     .brand-div-foxy {

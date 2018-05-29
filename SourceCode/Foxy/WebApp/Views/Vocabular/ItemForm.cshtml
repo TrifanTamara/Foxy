@@ -38,6 +38,19 @@
                     </p>
                 </div>
             </div>
+            <div class="col">
+
+            </div>
+            <div class="col-2 align-self-end" style="width:4em!important;vertical-align:middle;text-align:center">
+                <input id="toggle-heart" type="checkbox" onclick="favoriteChanged('@Model.Item.VocabularItemId','@Model.Item.Favorite')" />
+                <label for="toggle-heart">❤</label>
+            </div>
+            @if (Model.Item.Favorite == true)
+            {
+                <script>
+                    CheckHeart();
+                </script>
+            }
 
         </div>
         <div class="row meaning-row">
@@ -213,7 +226,7 @@
                         <div class="input-group input-group-sm mb-3" id="input-meaning">
                             <input type="text" class="form-control" id="meaningUserInput" placeholder="Reading note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" onclick="RefreshMeaningDiv()">Save</button>
+                                <button class="btn btn-outline-secondary" type="button" onclick="RefreshMeaningDiv('@Model.Item.VocabularItemId.ToString()')">Save</button>
                                 <button class="btn btn-outline-secondary" type="button" onclick="HideMeaningDiv()">Discard</button>
                             </div>
                         </div>
@@ -272,7 +285,7 @@
                             <div class="input-group input-group-sm mb-3" id="input-reading">
                                 <input type="text" class="form-control" id="readingUserInput" placeholder="Reading note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="RefreshReadingDiv()">Save</button>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="RefreshReadingDiv('@Model.Item.VocabularItemId.ToString()')">Save</button>
                                     <button class="btn btn-outline-secondary" type="button" onclick="RefreshDiv()">Discard</button>
                                 </div>
                             </div>

@@ -1,4 +1,5 @@
 ﻿@using WebApp.DTOs
+@inject IJsonHelper Json;
 
 <!DOCTYPE html>
 <html>
@@ -39,9 +40,6 @@
     <script src="~/js/navbar.js"></script>
     <script src="~/js/foxy.js"></script>
 
-    <link href="~/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
-    <script src="~/bootstrap-editable/js/bootstrap-editable.min.js"></script>
-
 </head>
 <body>
     @{
@@ -57,7 +55,6 @@
                                 <img src="~/img/profile.png" class="rounded-circle border border-light" style="width: 70px;">
                             </div>
                             <div class="text-center" id="foxy-title-id">Foxy</div>
-
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -129,7 +126,7 @@
                             <ul class="nav navbar-nav pull-right nav-list" style="height:100%;" data-toggle="collapse" data-target="#navbarCollapse">
                                 <li class="liNavbar li-a-bit-smaller">
                                     <div class="div-saviour">
-                                        <div class="levels-id circle-just-border" >
+                                        <div class="levels-id circle-just-border">
                                             @menuModel.LessonNumber
                                         </div>
                                         <div class="menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lesson</div>

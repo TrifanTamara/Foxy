@@ -97,14 +97,18 @@
                                 {
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsLesson[i * colNr + j].MeaningsList[0] + "</p>";
                                     <div class="little-squares rounded little-radical" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <div class="little-content">
-                                            <div class="table">
-                                                <div class="table-cell little-text .ja">
-                                                    @Model.RadicalsLesson[i * colNr + j].Template.Name
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical/@Model.RadicalsLesson[i * colNr + j].Template.Name">
+
+                                            <div class="little-content">
+                                                <div class="table">
+                                                    <div class="table-cell little-text .ja">
+                                                        @Model.RadicalsLesson[i * colNr + j].Template.Name
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
+
                                 }
                             </div>
                         }
@@ -123,14 +127,15 @@
                                 {
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsViewed[i * colNr + j].MeaningsList[0] + "</p>";
                                     <div class="little-squares rounded little-radical" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-
-                                        <div class="little-content">
-                                            <div class="table">
-                                                <div class="table-cell little-text .ja">
-                                                    @Model.RadicalsViewed[i * colNr + j].Template.Name
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical/@Model.RadicalsViewed[i * colNr + j].Template.Name">
+                                            <div class="little-content">
+                                                <div class="table">
+                                                    <div class="table-cell little-text .ja">
+                                                        @Model.RadicalsViewed[i * colNr + j].Template.Name
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 }
                             </div>
@@ -150,13 +155,15 @@
                                 {
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsPassed[i * colNr + j].MeaningsList[0] + "</p>";
                                     <div class="little-squares rounded little-radical" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <div class="little-content">
-                                            <div class="table">
-                                                <div class="table-cell little-text .ja">
-                                                    @Model.RadicalsPassed[i * colNr + j].Template.Name
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical/@Model.RadicalsPassed[i * colNr + j].Template.Name">
+                                            <div class="little-content">
+                                                <div class="table">
+                                                    <div class="table-cell little-text .ja">
+                                                        @Model.RadicalsPassed[i * colNr + j].Template.Name
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 }
                             </div>
@@ -172,7 +179,7 @@
                 <a style="all:unset;" tabindex="0" class="popover-dismiss popover-top" data-toggle="popover" data-trigger="focus" data-html="true" data-placement="top" title="@title_circliful_kanji" data-content="@tooltip_style">
                     <div id="circle-kanji" style="cursor:pointer;">
                         <script>
-                    KanjiCircliful(@Model.KanjiPercent);
+                            KanjiCircliful(@Model.KanjiPercent);
                         </script>
                     </div>
                 </a>
@@ -197,13 +204,15 @@
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.KanjisLesson[i * colNr + j].MeaningsList[0] + "</p>";
                                     tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.KanjisLesson[i * colNr + j].MainReading + "</p></div>";
                                     <div class="little-squares rounded little-kanji" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <div class="little-content">
-                                            <div class="table">
-                                                <div class="table-cell little-text .ja">
-                                                    @Model.KanjisLesson[i * colNr + j].Template.Name
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji/@Model.KanjisLesson[i * colNr + j].Template.Name">
+                                            <div class="little-content">
+                                                <div class="table">
+                                                    <div class="table-cell little-text .ja">
+                                                        @Model.KanjisLesson[i * colNr + j].Template.Name
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 }
                             </div>
@@ -224,13 +233,15 @@
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.KanjisViewed[i * colNr + j].MeaningsList[0] + "</p>";
                                     tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.KanjisViewed[i * colNr + j].MainReading + "</p></div>";
                                     <div class="little-squares rounded little-kanji" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <div class="little-content">
-                                            <div class="table">
-                                                <div class="table-cell little-text .ja">
-                                                    @Model.KanjisViewed[i * colNr + j].Template.Name
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji/@Model.KanjisViewed[i * colNr + j].Template.Name">
+                                            <div class="little-content">
+                                                <div class="table">
+                                                    <div class="table-cell little-text .ja">
+                                                        @Model.KanjisViewed[i * colNr + j].Template.Name
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 }
                             </div>
@@ -251,13 +262,15 @@
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.KanjisPassed[i * colNr + j].MeaningsList[0] + "</p>";
                                     tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.KanjisPassed[i * colNr + j].MainReading + "</p></div>";
                                     <div class="little-squares rounded little-kanji" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <div class="little-content">
-                                            <div class="table">
-                                                <div class="table-cell little-text .ja">
-                                                    @Model.KanjisPassed[i * colNr + j].Template.Name
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji/@Model.KanjisPassed[i * colNr + j].Template.Name">
+                                            <div class="little-content">
+                                                <div class="table">
+                                                    <div class="table-cell little-text .ja">
+                                                        @Model.KanjisPassed[i * colNr + j].Template.Name
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 }
                             </div>
@@ -299,14 +312,15 @@
 
                                 }
                                 <div class="little-squares-words rounded little-word" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
-
-                                    <div class="little-content word-no-top-pad">
-                                        <div class="table">
-                                            <div class="table-cell little-text .ja">
-                                                @Model.WordsLesson[i].Template.Name
+                                    <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@Model.WordsLesson[i].Template.Name">
+                                        <div class="little-content word-no-top-pad">
+                                            <div class="table">
+                                                <div class="table-cell little-text .ja">
+                                                    @Model.WordsLesson[i].Template.Name
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         }
@@ -342,14 +356,15 @@
 
                                                         }
                                                         <div class="little-squares-words rounded little-word" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
-
-                                                            <div class="little-content word-no-top-pad">
-                                                                <div class="table">
-                                                                    <div class="table-cell little-text .ja">
-                                                                        @Model.WordsLesson[i].Template.Name
+                                                            <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@Model.WordsLesson[i].Template.Name">
+                                                                <div class="little-content word-no-top-pad">
+                                                                    <div class="table">
+                                                                        <div class="table-cell little-text .ja">
+                                                                            @Model.WordsLesson[i].Template.Name
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 }

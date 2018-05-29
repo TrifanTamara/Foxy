@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.DTOs;
 using WebApp.Filter;
 
 namespace WebApp.Controllers
@@ -90,14 +91,42 @@ namespace WebApp.Controllers
 
         [HttpPost]
         [Route("update/meaningNote")]
-        public async Task<bool> UpdateMeaningNote(string data)
+        public async Task<bool> UpdateMeaningNote(UpdateNoteDto model)
         {
-            string email = HttpContext.User.Claims.First().Value;
-            User user = await _userRepo.GetByEmail(email);
-            VocabularItem item = currentItem[user.UserId].Item;
-            item.Update(data, item.ReadingNote, item.Favorite);
-            await _vocabularRepo.Edit(item);
+            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
+            if (item != null)
+            {
+                item.Update(model.NewContent, item.ReadingNote, item.Favorite);
+                await _vocabularRepo.Edit(item);
+            }
             return true;
+        }
+
+        [HttpPost]
+        [Route("update/readingNote")]
+        public async Task<bool> UpdateReadingNote(UpdateNoteDto model)
+        {
+            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
+            if (item != null)
+            {
+                item.Update(item.MeaningNote, model.NewContent, item.Favorite);
+                await _vocabularRepo.Edit(item);
+            }
+            return true;
+        }
+
+        [HttpPost]
+        [Route("update/Favorite")]
+        public async Task<bool> UpdateFavorite(ChangeFavoriteDto model)
+        {
+            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
+            if (item != null)
+            {
+                item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite);
+                await _vocabularRepo.Edit(item);
+                return item.Favorite;
+            }
+            return false;
         }
     }
 }
