@@ -1,7 +1,8 @@
 ﻿body, html {
     width: 100%;
     height: 100%;
-    margin: 0;
+    margin: 0!important;
+    padding:0!important;
 }
 
 .hide-a-div {
@@ -38,7 +39,6 @@
 }
 
 #second-div {
-    
     position: absolute;
     height: 85%;
     width: 100%;
@@ -63,19 +63,23 @@
 }
 
 .div-for-name {
-    height: 320px;
+    height: 240px;
     width: 100%;
     text-align: center;
-    font-size: 15em;
+    font-size: 10em;
     color: white;
     background-color: #1e6f83;
 }
 
+.upper-header{
+    height:40px;
+}
+
 .div-for-meaning {
-    height: 50px;
+    height: 45px;
     width: 100%;
     text-align: center;
-    font-size: 2em;
+    font-size: 1.8em;
     color: white;
     background-color: #45a5bd;
 }
@@ -117,3 +121,35 @@
     margin-top: 1em;
 }
 
+.my-navbar-dark {
+    background-color: #bbb8b8;
+    color: white;
+}
+
+a{
+    color:black;
+    font-size:1.1em;
+}
+.info-div {
+    position:relative;
+    display: inline-block;
+    background-color: #ebebeb;
+    width:90%;
+    height: 20em;
+}
+
+.left-button {
+    display: inline-block;
+    margin-left: 2.5em !important;
+    background-color: #d8d8d8;
+    height: 20em;
+    width: 2.5em !important;
+}
+
+.right-button {
+    display: inline-block;
+    margin-right: 2.5em!important;
+    background-color: #d8d8d8;
+    height: 20em;
+    width: 2.5em!important;
+}

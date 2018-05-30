@@ -1,0 +1,110 @@
+﻿@model LessonModel
+@{
+    Layout = null;
+}
+
+@{
+    Data.Domain.Entities.TemplateItems.VocabularType elementType;
+    string elementNameColor;
+    string elementMeaningColor;
+    string hideDiv;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Foxy</title>
+
+    <!-- Bootstrap core CSS -->
+    <script src="~/vendor/jquery/jquery.js"></script>
+
+
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!-- Custom fonts for this template -->
+    <!-- Plugin CSS -->
+    <!-- Custom styles for this template -->
+    <link href="~/css/foxy.css" rel="stylesheet">
+    <link href="~/css/ItemForm.css" rel="stylesheet">
+    <link href="~/css/fontfamily.css" rel="stylesheet">
+    <link href="~/css/DashBoard.css" rel="stylesheet" type="text/css" />
+    <link href="~/toastr/toastr.css" rel="stylesheet" />
+
+    <link href="~/css/LessonVocabular.css" rel="stylesheet" />
+
+    <script src="~/toastr/toastr.js"></script>
+    <script src="~/js/foxy.js"></script>
+</head>
+<body>
+    <div class="upper-header">
+
+    </div>
+    <div>
+        @{
+            hideDiv = "";
+            elementType = Model.LessonList[0].Template.Type;
+            if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Radical)
+            {
+                elementNameColor = "radical-color";
+                hideDiv = "hide-a-div";
+            }
+            else if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Kanji)
+            {
+                elementNameColor = "kanji-color";
+            }
+            else
+            {
+                elementNameColor = "word-color";
+            }
+            elementMeaningColor = "mini-" + elementNameColor;
+        }
+        <div class="div-for-name @elementNameColor">
+            @Model.LessonList[0].Template.Name
+        </div>
+        <div class="div-for-meaning @elementMeaningColor">
+            @Model.LessonList[0].Template.Meaning
+        </div>
+    </div>
+    <nav class="my-navbar-dark">
+        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-structure" role="tab" aria-controls="nav-structure" aria-selected="true">Structure</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-meaning" role="tab" aria-controls="nav-meaning" aria-selected="false">Meaning</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-reading" role="tab" aria-controls="nav-reading" aria-selected="false">Reading</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-structure" role="tabpanel" aria-labelledby="nav-structure-tab">
+            <div class="row" style="width:100%">
+                <div class="left-button">
+
+                </div>
+                <div class="info-div">
+                    div1
+                </div>
+                <div class="right-button">
+
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-meaning" role="tabpanel" aria-labelledby="nav-meaning-tab">
+            <div class="info-div">
+                div2
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-reading" role="tabpanel" aria-labelledby="nav-reading-tab">
+            <div class="info-div">
+                div3
+            </div>
+        </div>
+    </div>
+</body>
+</html>

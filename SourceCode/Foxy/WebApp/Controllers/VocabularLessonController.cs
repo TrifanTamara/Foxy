@@ -13,6 +13,7 @@ namespace WebApp.Controllers
 {
     [DefaultControllerFilter]
     [Authorize]
+    [Route("[controller]")]
     public class VocabularLessonController : Controller 
     {
         private IUsersRepository _userRepo;
@@ -35,6 +36,20 @@ namespace WebApp.Controllers
             model.LessonList = await _vocabularRepo.GetItemsForLesson(user.UserId);
 
             return View(model);
+        }
+
+        [HttpGet]
+        [Route("LessonPage")]
+        public async Task<IActionResult> Radical([FromRoute]string name)
+        {
+            string email = HttpContext.User.Claims.First().Value;
+            User user = await _userRepo.GetByEmail(email);
+
+            LessonModel model = new LessonModel();
+            //set model list and instantiate list in model to avoid nullreferenec
+            model.LessonList = await _vocabularRepo.GetItemsForLesson(user.UserId);
+
+            return View("LessonPage", model);
         }
     }
 }
