@@ -66,15 +66,61 @@
             </div>
         </div>
         <div class="row">
+            <div class="col" style="width:100%">
+                <div class="row">
+                    <div class="" style="margin-left:1em!important">
+                        <p class="text-user-meaning" stle="display:inline!important;">
+                            User's synonyms
+                        </p>
+                    </div>
+                    <div id="synonyms-list">
+                        @for (int i = 0; i < Model.UserSynonyms.Count() && i < 5; ++i)
+                        {
+                            <div class="" style="display:inline;margin:0" id="divSyn@(i)">
+                                <span class="badge badge-secondary user-meaning-badge">
+                                    <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">@Model.UserSynonyms[i]</p>
 
-            <div class="col meaning-col">
-                <p class="text-user-meaning">
-                    User's synonyms
-                </p>
-                @for (int i = 0; i < Model.MeaningsList.Count(); ++i)
-                {
-                    <span class="badge badge-secondary user-meaning-badge">@Model.MeaningsList[i]</span>
-                }
+                                </span>
+                            </div>
+                        }
+                        @for (int i = Model.UserSynonyms.Count(); i < 5; ++i)
+                        {
+                            <div class="" style="display:inline;" id="divSyn@(i)">
+                                <span class="badge badge-secondary user-meaning-badge">
+                                    <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">x</p>
+                                </span>
+                            </div>
+                        }
+
+                        <script>
+                            HideSynonyms(@Model.UserSynonyms.Count());
+                        </script>
+                    </div>
+                    <div style="display:inline;margin-left:0.2em;" id="add-syn-button">
+                        <span class="badge badge-secondary user-meaning-badge add-syn-badge" onclick="AddSynoymClicked()">+</span>
+                    </div>
+
+                    <form style="display:inline" id="synIdForm" data-toggle="validator" name="syn-form" onsubmit="AddSynonim('@Model.Item.VocabularItemId');return false;">
+                        @*<div class="" style="display:inline;margin-left:0.3em;vertical-align:middle;">*@
+                            <div class="input-group input-group-sm" id="input-synonyms">
+                                <input type="text" pattern="[a-zA-Z ]+" title="Only letters and white spaces are allowed" class="form-control" id="synInput" placeholder="New synonym.." aria-label="Recipient's synonym" aria-describedby="basic-addon2" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="submit">Add</button>
+                                    @*<button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="submit" onclick="AddSynonim('@Model.Item.VocabularItemId')">Add</button>*@
+
+                                    <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="button" onclick="CloseInputSyn()">Discard</button>
+                                </div>
+
+                            </div>
+                        @*</div>*@
+                    </form>
+                </div>
             </div>
         </div>
         @{
@@ -306,4 +352,59 @@
                 </div>
             </div>
         }
+        <div class="row category-row">
+
+            <div class="col categories-title-col">
+                <p class="title-categories" style="margin-bottom:0!important">
+                    Item progress
+                </p>
+                @{
+                    string unlockedClass = "";
+                    if (!Model.Unlocked)
+                    {
+                        unlockedClass = "element-unlocked";
+                    }
+                }
+                <div class="my-progress-bar @unlockedClass">
+                    <div class="progress" style="padding-left:0.5em; margin-top:1em!important;height:2em!important;background-color:rgba(9, 36, 58, 0.58)!important;font-size:0.8em">
+                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: @Model.Percent%">
+                            @Model.Percent%
+                        </div>
+                    </div>
+                    <ul class="list-group stats-list" style="margin-top:1em!important">
+                        <li class="list-group-item d-flex justify-content-between align-items-center stats-elem">
+                            Last time answered
+                            <span class="badge badge-primary badge-pill" style="background-color:#e2576a">@Model.LastTimeAString</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center stats-elem">
+                            Current strick
+                            <span class="badge badge-primary badge-pill my-pill">@Model.Item.CurrentStrike</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center stats-elem">
+                            Best strick
+                            <span class="badge badge-primary badge-pill my-pill">@Model.Item.LongestStrike</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center stats-elem">
+                            Total answers
+                            <span class="badge badge-primary badge-pill my-pill">@(Model.Item.RightAnswers + Model.Item.WrongAnswers)</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center stats-elem">
+                            Right answers
+                            <span class="badge badge-primary badge-pill my-pill">@Model.Item.RightAnswers</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center stats-elem">
+                            Wrong answers
+                            <span class="badge badge-primary badge-pill my-pill">@Model.Item.WrongAnswers</span>
+                        </li>
+                        @if (Model.Unlocked)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center stats-elem">
+                                Unlocked time
+                                <span class="badge badge-primary badge-pill" style="background-color:rgba(9, 36, 58, 0.5)">@Model.Item.UnlockTime.ToString("MMMM d, yyyy")</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>

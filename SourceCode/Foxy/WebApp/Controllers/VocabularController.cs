@@ -96,7 +96,7 @@ namespace WebApp.Controllers
             VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
             if (item != null)
             {
-                item.Update(model.NewContent, item.ReadingNote, item.Favorite);
+                item.Update(model.NewContent, item.ReadingNote, item.Favorite, item.UserSynonyms);
                 await _vocabularRepo.Edit(item);
             }
             return true;
@@ -109,7 +109,7 @@ namespace WebApp.Controllers
             VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
             if (item != null)
             {
-                item.Update(item.MeaningNote, model.NewContent, item.Favorite);
+                item.Update(item.MeaningNote, model.NewContent, item.Favorite, item.UserSynonyms);
                 await _vocabularRepo.Edit(item);
             }
             return true;
@@ -122,11 +122,49 @@ namespace WebApp.Controllers
             VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
             if (item != null)
             {
-                item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite);
+                item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite, item.UserSynonyms);
                 await _vocabularRepo.Edit(item);
                 return item.Favorite;
             }
             return false;
+        }
+
+        [HttpPost]
+        [Route("addSynonym")]
+        public async Task<JsonResult> AddSynonim(UpdateNoteDto model)
+        {
+            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
+            if (item != null && !model.NewContent.Equals(""))
+            {
+                string syn = item.UserSynonyms;
+                if (!syn.Equals("")) syn += ";";
+                syn += model.NewContent;
+                item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite, syn);
+                await _vocabularRepo.Edit(item);
+                return Json(new { synonyms = syn });
+            }
+            return Json("");
+        }
+
+        [HttpPost]
+        [Route("removeSynonym")]
+        public async Task<JsonResult> RemoveSynonim(RemoveSynVocDto model)
+        {
+            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
+            if (item != null && model.Index<5)
+            {
+                string syn = item.UserSynonyms;
+                string result="";
+                List<string> listSyn = new List<string>(syn.Split(";"));
+                listSyn.Remove(listSyn[model.Index]);
+                if (listSyn.Count() > 0) result = listSyn[0];
+                for(int i=1; i<listSyn.Count();++i) result+=";"+listSyn[i];
+                
+                item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite, result);
+                await _vocabularRepo.Edit(item);
+                return Json(new { synonyms = result });
+            }
+            return Json("");
         }
     }
 }

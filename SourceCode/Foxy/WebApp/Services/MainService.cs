@@ -34,7 +34,7 @@ namespace WebApp.Services
 
         public void UpdateItemMeaningNote(VocabularItem item, string note)
         {
-            item.Update(note, item.ReadingNote, item.Favorite);
+            item.Update(note, item.ReadingNote, item.Favorite, item.UserSynonyms);
             _vocabRepo.Edit(item);
         }
     }

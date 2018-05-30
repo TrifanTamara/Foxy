@@ -53,6 +53,8 @@ namespace Data.Domain.Entities.UserRelated
         public string MeaningNote { get; private set; }
         public string ReadingNote { get; private set; }
 
+        public string UserSynonyms { get; private set; }
+
         public int CurrentStrike { get; private set; }
         public int LongestStrike { get; private set; }
 
@@ -74,7 +76,7 @@ namespace Data.Domain.Entities.UserRelated
             var instance = new VocabularItem() { VocabularItemId = Guid.NewGuid() };
             instance.Update(userId, vocabularId);
             instance.Update(DateTime.MaxValue);
-            instance.Update("", "", false);
+            instance.Update("", "", false, "");
             instance.Update(0, 0, 0, 0, true, DateTime.MaxValue);
             instance.Update(lockedComponents, 0);
             return instance;
@@ -90,11 +92,12 @@ namespace Data.Domain.Entities.UserRelated
             UnlockTime = unlockTime;
         }
 
-        public void Update(string meaningNote, string readingNote, bool favorite)
+        public void Update(string meaningNote, string readingNote, bool favorite, string synonyms)
         {
             MeaningNote = meaningNote;
             ReadingNote = readingNote;
             Favorite = favorite;
+            UserSynonyms = synonyms;
         }
 
         public void Update(int currentStrike, int longestStrike, int rightAnswers, int wrongAnswers, bool lastAnswer,

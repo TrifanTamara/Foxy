@@ -8,6 +8,11 @@
 
     $('#input-reading').hide();
     $('#input-meaning').hide();
+    $('#input-synonyms').hide();
+
+    $('.carousel').carousel({
+        interval: false
+    }); 
 });
 
 
@@ -134,4 +139,125 @@ function CheckHeart() {
         x = 1;
     }
     x = -3;
+}
+
+function GetSynonymsNumber() {
+    var elemNr = 0;
+    var str;
+    for (var i = 0; i < 5; i++) {
+        str = "#synonym" + i;
+        if ($(str).is(":visible")) elemNr += 1; 
+    }
+    var f = 1;
+    return elemNr;
+}
+
+function AddSynoymClicked() {
+    if (GetSynonymsNumber() >= 5) {
+        toastr.error("You can't add more than 5 synonyms!")
+    } else {
+        $('#add-syn-button').hide();
+        $('#input-synonyms').show();
+    }
+}
+
+function AddSynonim(vId) {
+    $('#add-syn-button').show();
+    $('#input-synonyms').hide();
+
+    var node = document.getElementById('synInput');
+    var strMM = node.value;
+
+    $.ajax({
+        type: "POST",
+        url: "/vocabular/addSynonym",
+        data: {
+            VocabularId: vId,
+            NewContent: strMM
+        },
+        dataType: 'json',
+        success: function (data) {
+            //var json = JSON.parse(data);
+            var str = data["synonyms"];
+            var list = str.split(";");
+            var arrayLength = list.length;
+            var txt = "";
+            var str;
+            var sDiv;
+            for (var i = 0; i < arrayLength; i++) {
+                str = "#synonym" + i;
+                $(str).text(list[i]);
+                sDiv = "#divSyn" + i;
+                $(sDiv).show();
+            }
+            for (var i = arrayLength; i < 5; i++) {
+                str = "#synonym" + i;
+                sDiv = "#divSyn" + i;
+                $(sDiv).hide();
+            }
+            toastr.success("New synonym added!");
+        },
+        error: function (data) {
+            toastr.error("?");
+            var x = 1;
+        }
+    })
+    
+}
+
+function CloseInputSyn() {
+    $('#add-syn-button').show();
+    $('#input-synonyms').hide();
+}
+
+function HideSynonyms(index) {
+    var str;
+    for (var i = index; i < 5; i++) {
+        str = "#divSyn" + i;
+        $(str).hide();
+    }
+}
+
+function RemoveSynonym(vId, index) {
+    var node = document.getElementById('synInput');
+    var strMM = node.value;
+
+    $.ajax({
+        type: "POST",
+        url: "/vocabular/removeSynonym",
+        data: {
+            VocabularId: vId,
+            Index: index
+        },
+        dataType: 'json',
+        success: function (data) {
+            //var json = JSON.parse(data);
+            var str = data["synonyms"];
+            if (str == "") HideSynonyms(0);
+            else {
+                var list = str.split(";");
+                var arrayLength = list.length;
+                var txt = "";
+                var str;
+                var sDiv;
+                for (var i = 0; i < arrayLength; i++) {
+                    str = "#synonym" + i;
+                    $(str).text(list[i]);
+                    sDiv = "#divSyn" + i;
+                    $(sDiv).show();
+                }
+                for (var i = arrayLength; i < 5; i++) {
+                    str = "#synonym" + i;
+                    sDiv = "#divSyn" + i;
+                    $(sDiv).hide();
+                }
+            }
+            toastr.warning("Synonym removed");
+            
+        },
+        error: function (data) {
+            toastr.error("?");
+            var x = 1;
+        }
+    })
 }

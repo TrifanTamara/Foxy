@@ -76,6 +76,7 @@
     display: inline-block !important;
     color: dimgray;
     text-transform: uppercase;
+    margin-right:4px;
 }
 
 .meaning-badge {
@@ -90,6 +91,7 @@
     padding: 0.4em !important;
     font-weight: 600 !important;
     margin-bottom: 0.2em !important;
+    margin-right:0.1em!important;
 }
 
 .title-categories {
@@ -140,7 +142,7 @@
     height: 3em !important;
     cursor: pointer;
     margin-right: 1vmin;
-    border-radius:2px!important;
+    border-radius: 2px !important;
 }
 
     .mini-name-box:hover {
@@ -150,18 +152,19 @@
 .mnemonic-box {
     /*background-color: rgba(128, 128, 128, 0.09);*/
     padding: 0.5em;
-    height:100%;
+    height: 100%;
 }
 
-.mnem-title{
+.mnem-title {
     font-size: 1em;
-    font-weight: normal!important;
-    border-radius:2px!important;
-    margin-bottom:0.7em!important;
+    font-weight: normal !important;
+    border-radius: 2px !important;
+    margin-bottom: 0.7em !important;
 }
+
 .text-mnem {
     text-align: justify;
-    font-size: 1.05em;
+    font-size: 1em;
     padding: 0.3em;
     /*background-color: rgba(255, 255, 255, 0.66);
     border:solid;
@@ -169,13 +172,13 @@
     border-color:rgba(169, 169, 169, 0.65);*/
 }
 
-#input-reading{
-    margin-bottom:0!important;
-    margin-left:0.5em!important;
+#input-reading {
+    margin-bottom: 0 !important;
+    margin-left: 0.5em !important;
 }
 
-#editIconReading{
-    margin-left:0.3em!important;
+#editIconReading {
+    margin-left: 0.3em !important;
 }
 
 #input-meaning {
@@ -215,4 +218,59 @@ label:hover {
     0%, 15% {
         font-size: 0;
     }
+}
+
+.my-progress-bar {
+    margin-top: 0em;
+    padding: 1em;
+}
+
+.element-unlocked {
+    opacity: 0.4 !important;
+}
+
+.stats-elem {
+    height: 2.3em !important;
+    margin-bottom: 0.5em !important;
+}
+
+.stats-list {
+    font-size: 1em;
+    color: #3e474f;
+}
+
+.my-pill {
+    background-color: #57bfcf !important;
+}
+
+.add-syn-badge {
+    width: 1.8em;
+    cursor: pointer;
+    background-color: #e2576a;
+    color: white;
+    border: solid;
+    border-width: 1px;
+}
+
+    .add-syn-badge:hover {
+        opacity:0.8;
+    }
+
+.btn-close{ 
+    font-size:1em!important;
+    display:inline-block!important;
+    color:white;    
+    margin-left:3px;
+    
+}
+
+    .btn-close:hover {
+        color: white !important;
+        transform: scale(1.5);
+        font-weight: normal!important;
+    }
+
+#input-synonyms{
+    height:1.5em!important;
+    margin-top:2px!important;
 }
