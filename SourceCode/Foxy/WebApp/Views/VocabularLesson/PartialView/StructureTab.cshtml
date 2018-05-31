@@ -1,0 +1,63 @@
+﻿@using Business.Wrappers;
+@model VocabularWrapper
+@{
+    string title = "";
+    if (Model.VocabularType.Equals("kanji"))
+    {
+        title = "radical";
+    }
+    else if (Model.VocabularType.Equals("word"))
+    {
+        title = "kanji";
+    }
+
+    string componentColor = "";
+    componentColor = title + "-color";
+}
+
+<div class="row" style="all:unset;">
+    <div class="col header-col" style="width:100%">
+        <p class="heading-title">
+            @title breakdown
+        </p>
+    </div>
+</div>
+
+<div class="row" style="all:unset;">
+    <div class="col components-col" style="width:100%">
+        @if (Model.VocabularType.Equals("radical"))
+        {
+            <div class="row">
+                <p>
+                    No item to display
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                @for (int i = 0; i < Model.Components.Count(); ++i)
+                {
+                    <div class="col">
+                        <div class="row" style="margin-bottom:1em!important;">
+                            <div class="component-name-box @componentColor">
+                                <div class="component-name-text">
+                                    @Model.Components[i].Name
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row meaning-comp">
+                            @{
+                                string meaningFirst = @Model.Components[i].Meaning.Split(";")[0];
+                            }
+                            <p class="meaning-comp-text">
+                                @meaningFirst
+                            </p>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        }
+    </div>
+</div>

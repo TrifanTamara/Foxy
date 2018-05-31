@@ -40,7 +40,7 @@ namespace WebApp.Controllers
 
         [HttpGet]
         [Route("LessonPage")]
-        public async Task<IActionResult> Radical([FromRoute]string name)
+        public async Task<IActionResult> LessonPage([FromRoute]string name)
         {
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);

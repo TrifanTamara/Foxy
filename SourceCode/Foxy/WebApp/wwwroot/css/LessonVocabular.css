@@ -11,13 +11,13 @@
 }
 
 .radical-color {
-    background-color: #1e6f83!important;
+    background-color: var(--main-color-radical)!important;
 }
 .kanji-color {
-    background-color: #af615d !important;
+    background-color: var(--main-color-kanji)!important;
 }
 .word-color {
-    background-color: #814b75 !important;
+    background-color: var(--main-color-word)!important;
 }
 
 .mini-radical-color {
@@ -25,7 +25,7 @@
 }
 
 .mini-kanji-color {
-    background-color: #cc7b77 !important;
+    background-color: var(--main-color-kanji) !important;
 }
 
 .mini-word-color {
@@ -135,70 +135,152 @@
 
 nav-item + show {
     color: #202c39;
-    background-color: var(--main-color-div-info);
+    background-color: var(--main-color-div-info)!important;
 }
 
-a{
-    color:whitesmoke;
-    font-size:1.1em;
+a {
+    color: whitesmoke;
+    font-size: 1.1em;
 }
 .info-div {
-    position: relative;
-    display: inline-block;
+    position: absolute;
+    display: flex;
     background-color: var(--main-color-div-info);
     width: 97%;
-    height: 20em;
+
+}
+
+.vertical-align {
+    display: flex!important;
+    align-items: center!important;
 }
 
 .left-button {
     text-align: center;
-    height: 20em;
-    line-height: 20em;
-    vertical-align: middle;
-    display: inline-block;
+    vertical-align: middle!important;
     background-color: var(--main-color-div-info);
     width: 2em !important;
     cursor: pointer;
+    display:inline-block;
 }
     .left-button:hover {
-        background-color: #d8d8d8;
+        background-color: rgba(233, 232, 232, 0.82);
     }
 
 .icon-container {
-    display: inline-block;
-    vertical-align: middle;
     line-height: normal;
     opacity: 0.4;
 }
 
-.right-button {
-    text-align: center;
-    vertical-align: middle;
-    line-height: 20em;
-    display: inline-block;
-    background-color: var(--main-color-div-info);
-    height: 20em;
-    width: 2em !important;
-    cursor: pointer;
-}
-    .right-button:hover {
-        background-color: #d8d8d8;
-    }
-
 .middle-div {
+    position: relative;
     display: inline-block;
-    height: 20em;
+    width: calc(100% - 4em);
+    margin-top: 1em;
+    padding-bottom: 1.5em;
 }
 
 .left-right-icon {
     position: relative !important;
     height: 1.5em;
     width: 1.5em;
-    fill: gray !important
+    fill: gray !important;
+    vertical-align: middle;
 }
 
 .effect1 {
     -webkit-box-shadow: 0px 10px 6px -6px #777;
     -moz-box-shadow: 0px 10px 6px -6px #777;
     box-shadow: 4px 10px 6px -6px #777, -1px 0 .1em rgba(119, 119, 119, 0.29);
+}
+
+.heading-title {
+    all: unset;
+    height: 2em;
+    font-size: 1.5em;
+    color: rgba(19, 19, 56, 0.70);
+    text-transform: capitalize;
+    padding-bottom: 0.3em;
+    
+}
+
+.header-col {
+    padding: 0;
+    margin-left:1em;
+    margin-right:1em;
+    width: calc(100% - 2em)!important;
+    border-bottom: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.55);
+    border-bottom-width: 0.1vmin;
+}
+
+.components-col {
+    padding: 0;
+    margin-top:3.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: calc(100% - 2em) !important;
+    text-align: center;
+}
+
+.component-name-text {
+    position: relative;
+    color: white;
+    font-size: 4.5em;
+    vertical-align: middle;
+}
+
+.component-name-box {
+    position: relative!important;
+    vertical-align: middle;
+    text-align: center;
+    width: 6.5em;
+    height: 6.5em;
+    cursor: pointer;
+    border-radius:7px;
+    margin-left: calc(50% - 3.25em)!important;
+}
+
+.meaning-comp{
+    all:unset;
+    margin-top:2em!important;
+    text-align:center!important;
+}
+
+.meaning-comp-text {
+    position: relative !important;
+    font-size: 1.4em;
+    text-transform: capitalize;
+    color: dimgrey;
+}
+
+.header-col-medium {
+    padding: 0;
+    border-bottom: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.55);
+    border-bottom-width: 0.1vmin;
+}
+
+.header-col-small {
+    padding: 0;
+    border-bottom: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.55);
+    border-bottom-width: 0.1vmin;
+}
+
+.title-small {
+    all: unset;
+    font-size: 1.5em;
+    color: rgba(19, 19, 56, 0.70);
+    text-transform: capitalize;
+    padding-bottom: 0.1em;
+}
+
+.main-row{
+    margin-right:1em!important;
+    margin-left:1em!important;
+}
+
+.synonyms-conainer{
+    margin-top: 10px!important;
 }

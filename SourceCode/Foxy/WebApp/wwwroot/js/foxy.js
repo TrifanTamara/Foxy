@@ -13,6 +13,7 @@
     $('.carousel').carousel({
         interval: false
     }); 
+
 });
 
 

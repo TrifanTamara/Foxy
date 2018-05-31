@@ -1,0 +1,105 @@
+﻿@using Business.Wrappers;
+@model VocabularWrapper
+@{
+    string title = "";
+    if (Model.VocabularType.Equals("kanji"))
+    {
+        title = "radical";
+    }
+    else if (Model.VocabularType.Equals("word"))
+    {
+        title = "kanji";
+    }
+
+    string componentColor = "";
+    componentColor = title + "-color";
+}
+
+<div class="row main-row">
+    <div class="col-sm-2">
+        <div class="row header-col-small">
+            <p class="title-small">
+                All meanings
+            </p>
+        </div>
+        <div class="row synonyms-conainer">
+            <div class=" row" style="all:unset; width:100%;">
+                @for (int i = 0; i < Model.MeaningsList.Count(); ++i)
+                {
+                    <span class="badge badge-info meaning-badge">@Model.MeaningsList[i]</span>
+                }
+            </div>
+            <div class="row" style="all:unset;width:100%;margin-top:10px!important;">
+                <p class="text-other-meaning" style="margin-bottom:0!important;">
+                    User's synonyms
+                </p>
+            </div>
+            <div class="row" id="synonyms-list" style="all:unset">
+                @for (int i = 0; i < Model.UserSynonyms.Count() && i < 5; ++i)
+                {
+                    <div class="" style="display:inline;margin:0" id="divSyn@(i)">
+                        <span class="badge badge-secondary user-meaning-badge">
+                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">@Model.UserSynonyms[i]</p>
+
+                        </span>
+                    </div>
+                }
+                @for (int i = 0; i < Model.UserSynonyms.Count() && i < 5; ++i)
+                {
+                    <div class="" style="display:inline;margin:0" id="divSyn@(i)">
+                        <span class="badge badge-secondary user-meaning-badge">
+                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">@Model.UserSynonyms[i]</p>
+
+                        </span>
+                    </div>
+                }
+                @for (int i = 0; i < Model.UserSynonyms.Count() && i < 5; ++i)
+                {
+                    <div class="" style="display:inline;margin:0" id="divSyn@(i)">
+                        <span class="badge badge-secondary user-meaning-badge">
+                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">@Model.UserSynonyms[i]</p>
+
+                        </span>
+                    </div>
+                }
+
+                @for (int i = Model.UserSynonyms.Count(); i < 5; ++i)
+                {
+                    <div class="" style="display:inline;" id="divSyn@(i)">
+                        <span class="badge badge-secondary user-meaning-badge">
+                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">x</p>
+                        </span>
+                    </div>
+                }
+
+                <script>
+                            HideSynonyms(@Model.UserSynonyms.Count());
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-9">
+        <div class="row header-col-medium">
+            <p class="title-small">
+                Meaning mnemonic
+            </p>
+        </div>
+    </div>
+</div>
+
+

@@ -85,15 +85,15 @@
         <div class="tab-pane fade show active" id="nav-structure" role="tabpanel" aria-labelledby="nav-structure-tab">
             <div class="row justify-content-center" style="width:100%;margin:0!important">
                 <div class="info-div flex effect1">
-                    <div class="left-button float-left">
+                    <div class="left-button float-left vertical-align">
                         <div class="icon-container">
                             <img src="~/img/octicons/svg/chevron-left.svg" class="left-right-icon" alt="*">
                         </div>
                     </div>
                     <div class="middle-div">
-                        div3
+                        @await Html.PartialAsync("PartialView/StructureTab", Model.LessonList[0])
                     </div>
-                    <div class="right-button float-right">
+                    <div class="left-button float-right vertical-align">
                         <div class="icon-container">
                             <img src="~/img/octicons/svg/chevron-right.svg" class="left-right-icon" alt="*">
                         </div>
@@ -104,15 +104,15 @@
         <div class="tab-pane fade" id="nav-meaning" role="tabpanel" aria-labelledby="nav-meaning-tab">
             <div class="row justify-content-center" style="width:100%;margin:0!important">
                 <div class="info-div flex effect1">
-                    <div class="left-button float-left">
+                    <div class="left-button float-left vertical-align">
                         <div class="icon-container">
                             <img src="~/img/octicons/svg/chevron-left.svg" class="left-right-icon" alt="*">
                         </div>
                     </div>
                     <div class="middle-div">
-                        div3
+                        @await Html.PartialAsync("PartialView/MeaningTab", Model.LessonList[0])
                     </div>
-                    <div class="right-button float-right">
+                    <div class="left-button float-right vertical-align">
                         <div class="icon-container">
                             <img src="~/img/octicons/svg/chevron-right.svg" class="left-right-icon" alt="*">
                         </div>
@@ -123,7 +123,7 @@
         <div class="tab-pane fade" id="nav-reading" role="tabpanel" aria-labelledby="nav-reading-tab">
             <div class="row justify-content-center" style="width:100%;margin:0!important">
                 <div class="info-div flex effect1">
-                    <div class="left-button float-left">
+                    <div class="left-button float-left vertical-align">
                         <div class="icon-container">
                             <img src="~/img/octicons/svg/chevron-left.svg" class="left-right-icon" alt="*">
                         </div>
@@ -131,7 +131,7 @@
                     <div class="middle-div">
                         div3
                     </div>
-                    <div class="right-button float-right">
+                    <div class="left-button float-right vertical-align">
                         <div class="icon-container">
                             <img src="~/img/octicons/svg/chevron-right.svg" class="left-right-icon" alt="*">
                         </div>
