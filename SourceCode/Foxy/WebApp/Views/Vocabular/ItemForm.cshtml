@@ -107,18 +107,14 @@
                     </div>
 
                     <form style="display:inline" id="synIdForm" data-toggle="validator" name="syn-form" onsubmit="AddSynonim('@Model.Item.VocabularItemId');return false;">
-                        @*<div class="" style="display:inline;margin-left:0.3em;vertical-align:middle;">*@
-                            <div class="input-group input-group-sm" id="input-synonyms">
-                                <input type="text" pattern="[a-zA-Z ]+" title="Only letters and white spaces are allowed" class="form-control" id="synInput" placeholder="New synonym.." aria-label="Recipient's synonym" aria-describedby="basic-addon2" required>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="submit">Add</button>
-                                    @*<button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="submit" onclick="AddSynonim('@Model.Item.VocabularItemId')">Add</button>*@
+                        <div class="input-group input-group-sm" id="input-synonyms">
+                            <input type="text" pattern="[a-zA-Z ]+" title="Only letters and white spaces are allowed" class="form-control" id="synInput" placeholder="New synonym.." aria-label="Recipient's synonym" aria-describedby="basic-addon2" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="submit">Add</button>
 
-                                    <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="button" onclick="CloseInputSyn()">Discard</button>
-                                </div>
-
+                                <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="button" onclick="CloseInputSyn()">Discard</button>
                             </div>
-                        @*</div>*@
+                        </div>
                     </form>
                 </div>
             </div>

@@ -26,7 +26,7 @@
             <div class=" row" style="all:unset; width:100%;">
                 @for (int i = 0; i < Model.MeaningsList.Count(); ++i)
                 {
-                    <span class="badge badge-info meaning-badge">@Model.MeaningsList[i]</span>
+                    <span class="badge badge-info meaning-badge" style="font-size:1.15em!important">@Model.MeaningsList[i]</span>
                 }
             </div>
             <div class="row" style="all:unset;width:100%;margin-top:10px!important;">
@@ -39,34 +39,10 @@
                 {
                     <div class="" style="display:inline;margin:0" id="divSyn@(i)">
                         <span class="badge badge-secondary user-meaning-badge">
-                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                            <button type="button" class="close btn-close" style="margin-top:3.5px!important" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">@Model.UserSynonyms[i]</p>
-
-                        </span>
-                    </div>
-                }
-                @for (int i = 0; i < Model.UserSynonyms.Count() && i < 5; ++i)
-                {
-                    <div class="" style="display:inline;margin:0" id="divSyn@(i)">
-                        <span class="badge badge-secondary user-meaning-badge">
-                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">@Model.UserSynonyms[i]</p>
-
-                        </span>
-                    </div>
-                }
-                @for (int i = 0; i < Model.UserSynonyms.Count() && i < 5; ++i)
-                {
-                    <div class="" style="display:inline;margin:0" id="divSyn@(i)">
-                        <span class="badge badge-secondary user-meaning-badge">
-                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">@Model.UserSynonyms[i]</p>
+                            <p style="margin-bottom:0; margin-right:2px;display:inline;font-size:1.2em!important" id="synonym@(i)">@Model.UserSynonyms[i]</p>
 
                         </span>
                     </div>
@@ -76,18 +52,42 @@
                 {
                     <div class="" style="display:inline;" id="divSyn@(i)">
                         <span class="badge badge-secondary user-meaning-badge">
-                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                            <button type="button" class="close btn-close" style="margin-top:3.5px!important" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">x</p>
+                            <p style="margin-bottom:0; margin-right:2px;display:inline; font-size: 1.2em!important" id="synonym@(i)">x</p>
                         </span>
                     </div>
                 }
-
                 <script>
-                            HideSynonyms(@Model.UserSynonyms.Count());
+                    HideSynonyms(@Model.UserSynonyms.Count());
                 </script>
+                <div style="display:inline;font-size:1.1em!important;font-weight:bold!important" id="add-syn-button">
+                    <span class="badge badge-secondary user-meaning-badge add-syn-badge" onclick="AddSynoymClicked()">+</span>
+                </div>
+                <form style="display:inline" id="synIdForm" data-toggle="validator" name="syn-form" onsubmit="AddSynonim('@Model.Item.VocabularItemId');return false;">
+                    <div class="input-group input-group-sm" id="input-synonyms">
+                        <input type="text" pattern="[a-zA-Z ]+" title="Only letters and white spaces are allowed" class="form-control" id="synInput" placeholder="New synonym.." aria-label="Recipient's synonym" aria-describedby="basic-addon2" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="submit">Add</button>
+                            <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="button" onclick="CloseInputSyn()">Discard</button>
+                        </div>
+
+                    </div>
+                </form>
+
             </div>
+            @if (title.Equals("word"))
+            {
+                <div class="row" style="all:unset;width:100%;margin-top:10px!important;">
+                    <p class="text-other-meaning" style="margin-bottom:0!important;">
+                        Word type
+                    </p>
+                </div>
+                <div class="row" style="all:unset;width:100%;margin-top:10px!important;">
+                    <div class="badge-info">@Model.WordTypeString</div>
+                </div>
+            }
         </div>
     </div>
     <div class="col-sm-1">
@@ -98,6 +98,35 @@
             <p class="title-small">
                 Meaning mnemonic
             </p>
+        </div>
+        <div class="row mnemonic-box" style="height:auto!important">
+            <div class="text-mnem" style="margin:0!important;padding:0!important;color:dimgray!important">
+                @Model.Template.MeaningMnemonic
+            </div>
+        </div>
+        <div class="row header-col-medium" style="margin-top:2em!important">
+            <p class="title-small" style="font-size:1.3em!important">
+                User's meaning note
+            </p>
+            <div id="editIconMeaning">
+                <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:1.5em!important; height:1.5em!important;position:absolute;vertical-align:middle;margin-left:2px!important; margin-top:3px!important; cursor:pointer!important" onclick="ShowMeaningInput()">
+                    <img src="~/img/octicons/svg/pencil.svg" style="position:relative!important;height:1.2em; width:1.2em;padding-bottom: 3px;" alt="*">
+                </button>
+            </div>
+            <div>
+                <div class="input-group input-group-sm mb-3" id="input-meaning">
+                    <input type="text" class="form-control" id="meaningUserInput" placeholder="Reading note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="RefreshMeaningDiv('@Model.Item.VocabularItemId.ToString()')">Save</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="HideMeaningDiv()">Discard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mnemonic-box" style="height:auto!important">
+            <div class="text-mnem" style="margin:0!important;padding:0!important;color:dimgray!important;" id="meaning-note">
+                @Model.Item.MeaningNote
+            </div>
         </div>
     </div>
 </div>

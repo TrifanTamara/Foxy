@@ -14,8 +14,29 @@
         interval: false
     }); 
 
+    $('#navigateBackItem').click();
+    $('#navigateAheadMeaning').click(function (e) {
+        e.preventDefault();
+        RemoveActiveFromNavTabs();
+        $('#nav-meaning').addClass('active');
+        $('#nav-meaning-tab').addClass('active');
+        //$('#nav-meaning-tab').addClass('show');
+        $('#nav-meaning').addClass('show');
+    });
+    
 });
 
+function RemoveActiveFromNavTabs() {
+    $('#nav-structure').removeClass('active');
+    $('#nav-meaning').removeClass('active');
+    $('#nav-reading').removeClass('active');
+    $('#nav-structure').removeClass('show');
+    $('#nav-meaning').removeClass('show');
+    $('#nav-reading').removeClass('show');
+    $('#nav-structure-tab').removeClass('active');
+    $('#nav-meaning-tab').removeClass('active');
+    $('#nav-reading-tab').removeClass('active');
+}
 
 function RadicalCircliful(p) {
     $("#circle-radical").circliful({
@@ -101,6 +122,8 @@ function RefreshMeaningDiv(vId) {
 
     $('#input-meaning').hide();
     $('#editIconMeaning').show();
+
+    toastr.success("Meaning note updated!");
 
     $.ajax({
         type: "POST",

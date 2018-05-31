@@ -76,24 +76,24 @@
     </div>
     <nav class="my-navbar-dark">
         <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-structure" role="tab" aria-controls="nav-structure" aria-selected="true">Structure</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-meaning" role="tab" aria-controls="nav-meaning" aria-selected="false">Meaning</a>
-            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-reading" role="tab" aria-controls="nav-reading" aria-selected="false">Reading</a>
+            <a class="nav-item nav-link active" id="nav-structure-tab" data-toggle="tab" href="#nav-structure" role="tab" aria-controls="nav-structure" aria-selected="true">Structure</a>
+            <a class="nav-item nav-link" id="nav-meaning-tab" data-toggle="tab" href="#nav-meaning" role="tab" aria-controls="nav-meaning" aria-selected="false">Meaning</a>
+            <a class="nav-item nav-link" id="nav-reading-tab" data-toggle="tab" href="#nav-reading" role="tab" aria-controls="nav-reading" aria-selected="false">Reading</a>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-structure" role="tabpanel" aria-labelledby="nav-structure-tab">
             <div class="row justify-content-center" style="width:100%;margin:0!important">
                 <div class="info-div flex effect1">
-                    <div class="left-button float-left vertical-align">
+                    <div class="left-button float-left vertical-align" id="navigateBackItem">
                         <div class="icon-container">
-                            <img src="~/img/octicons/svg/chevron-left.svg" class="left-right-icon" alt="*">
+                            <img href="#nav-meaning" src="~/img/octicons/svg/chevron-left.svg" class="left-right-icon" alt="*">
                         </div>
                     </div>
                     <div class="middle-div">
                         @await Html.PartialAsync("PartialView/StructureTab", Model.LessonList[0])
                     </div>
-                    <div class="left-button float-right vertical-align">
+                    <div class="left-button float-right vertical-align" id="navigateAheadMeaning">
                         <div class="icon-container">
                             <img src="~/img/octicons/svg/chevron-right.svg" class="left-right-icon" alt="*">
                         </div>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <div class="middle-div">
-                        div3
+                        @await Html.PartialAsync("PartialView/ReadingTab", Model.LessonList[0])
                     </div>
                     <div class="left-button float-right vertical-align">
                         <div class="icon-container">
