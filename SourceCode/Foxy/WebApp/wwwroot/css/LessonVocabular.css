@@ -1,8 +1,9 @@
 ﻿body, html {
     width: 100%;
-    height: 100%;
-    margin: 0!important;
-    padding:0!important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #ebebeb;
 }
 
 .hide-a-div {
@@ -31,6 +32,10 @@
     background-color: #ae75a2 !important;
 }
 
+:root {
+    --main-color-div-info: #fcfcfc;
+}
+
 #first-div {
     background-color: #21323a;
     width: 100%;
@@ -44,6 +49,7 @@
     width: 100%;
     background-color: #808080;
     border-collapse: collapse;
+    color: #fcfcfc;
 }
 
 #third-div {
@@ -71,8 +77,9 @@
     background-color: #1e6f83;
 }
 
-.upper-header{
-    height:40px;
+.upper-header {
+    height: 10px;
+    background-color: #202c39;
 }
 
 .div-for-meaning {
@@ -122,34 +129,76 @@
 }
 
 .my-navbar-dark {
-    background-color: #bbb8b8;
+    background-color: #202c39;
     color: white;
 }
 
+nav-item + show {
+    color: #202c39;
+    background-color: var(--main-color-div-info);
+}
+
 a{
-    color:black;
+    color:whitesmoke;
     font-size:1.1em;
 }
 .info-div {
-    position:relative;
+    position: relative;
     display: inline-block;
-    background-color: #ebebeb;
-    width:90%;
+    background-color: var(--main-color-div-info);
+    width: 97%;
     height: 20em;
 }
 
 .left-button {
-    display: inline-block;
-    margin-left: 2.5em !important;
-    background-color: #d8d8d8;
+    text-align: center;
     height: 20em;
-    width: 2.5em !important;
+    line-height: 20em;
+    vertical-align: middle;
+    display: inline-block;
+    background-color: var(--main-color-div-info);
+    width: 2em !important;
+    cursor: pointer;
+}
+    .left-button:hover {
+        background-color: #d8d8d8;
+    }
+
+.icon-container {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    opacity: 0.4;
 }
 
 .right-button {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20em;
     display: inline-block;
-    margin-right: 2.5em!important;
-    background-color: #d8d8d8;
+    background-color: var(--main-color-div-info);
     height: 20em;
-    width: 2.5em!important;
+    width: 2em !important;
+    cursor: pointer;
+}
+    .right-button:hover {
+        background-color: #d8d8d8;
+    }
+
+.middle-div {
+    display: inline-block;
+    height: 20em;
+}
+
+.left-right-icon {
+    position: relative !important;
+    height: 1.5em;
+    width: 1.5em;
+    fill: gray !important
+}
+
+.effect1 {
+    -webkit-box-shadow: 0px 10px 6px -6px #777;
+    -moz-box-shadow: 0px 10px 6px -6px #777;
+    box-shadow: 4px 10px 6px -6px #777, -1px 0 .1em rgba(119, 119, 119, 0.29);
 }
