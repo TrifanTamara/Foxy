@@ -141,7 +141,23 @@
                 </div>
             </div>
         </div>
+    </div>
+    <footer class="footer text-center justify-content-center">
+
+        @for (int i = 0; i < Model.LessonList.Count(); ++i)
+        {
+            string componentColor = Model.LessonList[i].VocabularType + "-color";
+            <div class="legend-name-box @componentColor" style="display:inline-block">
+                <div class="legend-text-box">
+                    @Model.LessonList[i].Name
+                </div>
+            </div>
+        }
+        <div class="legend-name-box innactive-review" style="display:inline-block; background-color:gray;">
+            <div class="legend-text-box">
+                Review
+            </div>
         </div>
-        <footer class="footer">This footer will always be positioned at the bottom of the page, but <strong>not fixed</strong>.</footer>
+    </footer>
 </body>
 </html>

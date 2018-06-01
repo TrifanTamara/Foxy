@@ -18,6 +18,7 @@ namespace WebApp.Controllers
     {
         private IUsersRepository _userRepo;
         private IVocabularItemRepository _vocabularRepo;
+        private static Dictionary<Guid, LessonModel> currentItem = new Dictionary<Guid, LessonModel>();
 
         public VocabularLessonController(IUsersRepository userRepo, IVocabularItemRepository vocabularRepo)
         {
@@ -44,11 +45,11 @@ namespace WebApp.Controllers
         {
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
-
-            LessonModel model = new LessonModel();
-            //set model list and instantiate list in model to avoid nullreferenec
-            model.LessonList = await _vocabularRepo.GetItemsForLesson(user.UserId);
-
+            
+                LessonModel model = new LessonModel();
+                //set model list and instantiate
+                model.LessonList = await _vocabularRepo.GetItemsForLesson(user.UserId);
+            
             return View("LessonPage", model);
         }
     }
