@@ -14,17 +14,46 @@
         interval: false
     }); 
 
-    $('#navigateBackItem').click();
+    $('#navigateBackItem').click(function (e) {
+        e.preventDefault();
+        NavigatePreviousItem();
+    });
     $('#navigateAheadMeaning').click(function (e) {
         e.preventDefault();
-        RemoveActiveFromNavTabs();
-        $('#nav-meaning').addClass('active');
-        $('#nav-meaning-tab').addClass('active');
-        //$('#nav-meaning-tab').addClass('show');
-        $('#nav-meaning').addClass('show');
+        NavigateToMeaning();
     });
-    
+    $('#navigateBackStructure').click(function (e) {
+        e.preventDefault();
+        NavigateToStructure();
+    });
+    $('#navigateAheadReading').click(function (e) {
+        e.preventDefault();
+        NavigatToReading();
+    });
+    $('#navigateBackMeaning').click(function (e) {
+        e.preventDefault();
+        NavigateToMeaning();
+    });
+    $('#navigateNextItem').click(function (e) {
+        e.preventDefault();
+        NavigatNextItem();
+    });
+
+
+    $(document).keydown (function (e) {
+        
+        if (e.keyCode == '37') {
+            // left arrow   
+            e.preventDefault();
+            NavigateBack();
+        } else if (event.keyCode == '39') {
+            // right arrow
+            e.preventDefault();
+            NavigateNext();
+        } 
+    });
 });
+
 
 function RemoveActiveFromNavTabs() {
     $('#nav-structure').removeClass('active');
@@ -36,6 +65,49 @@ function RemoveActiveFromNavTabs() {
     $('#nav-structure-tab').removeClass('active');
     $('#nav-meaning-tab').removeClass('active');
     $('#nav-reading-tab').removeClass('active');
+}
+
+function NavigatePreviousItem() {
+
+}
+function NavigateToStructure() {
+    RemoveActiveFromNavTabs();
+    $('#nav-structure').addClass('active');
+    $('#nav-structure-tab').addClass('active');
+    $('#nav-structure').addClass('show');
+}
+function NavigateToMeaning() {
+    RemoveActiveFromNavTabs();
+    $('#nav-meaning').addClass('active');
+    $('#nav-meaning-tab').addClass('active');
+    $('#nav-meaning').addClass('show');
+}
+function NavigatToReading() {
+    RemoveActiveFromNavTabs();
+    $('#nav-reading').addClass('active');
+    $('#nav-reading-tab').addClass('active');
+    $('#nav-reading').addClass('show');
+}
+function NavigatNextItem() {
+}
+
+function NavigateBack() {
+    if ($('#nav-structure-tab').hasClass('active')) {
+        NavigatePreviousItem();
+    } else if ($('#nav-meaning-tab').hasClass('active')) {
+        NavigateToStructure();
+    } else if ($('#nav-reading-tab').hasClass('active')) {
+        NavigateToMeaning();
+    }
+}
+function NavigateNext() {
+    if ($('#nav-structure-tab').hasClass('active')) {
+        NavigateToMeaning();
+    } else if ($('#nav-meaning-tab').hasClass('active')) {
+        NavigatToReading();
+    } else if ($('#nav-reading-tab').hasClass('active')) {
+        NavigatNextItem();
+    }
 }
 
 function RadicalCircliful(p) {
