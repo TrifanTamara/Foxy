@@ -68,10 +68,10 @@
                 }
                 elementMeaningColor = "mini-" + elementNameColor;
             }
-            <div class="div-for-name @elementNameColor">
+            <div class="div-for-name @elementNameColor" id="mainDivName">
                 @Model.LessonList[0].Template.Name
             </div>
-            <div class="div-for-meaning @elementMeaningColor">
+            <div class="div-for-meaning @elementMeaningColor" id="mainDivMeaning">
                 @Model.LessonList[0].Template.Meaning
             </div>
         </div>
@@ -91,7 +91,7 @@
                                 <img href="#nav-meaning" src="~/img/octicons/svg/chevron-left.svg" class="left-right-icon" alt="*">
                             </div>
                         </div>
-                        <div class="middle-div">
+                        <div class="middle-div" id="middle-div-structure">
                             @await Html.PartialAsync("PartialView/StructureTab", Model.LessonList[0])
                         </div>
                         <div class="left-button float-right vertical-align" id="navigateAheadMeaning" tabindex="1">
@@ -110,7 +110,7 @@
                                 <img src="~/img/octicons/svg/chevron-left.svg" class="left-right-icon" alt="*">
                             </div>
                         </div>
-                        <div class="middle-div">
+                        <div class="middle-div" id="middle-div-meaning">
                             @await Html.PartialAsync("PartialView/MeaningTab", Model.LessonList[0])
                         </div>
                         <div class="left-button float-right vertical-align" id="navigateAheadReading">
@@ -129,7 +129,7 @@
                                 <img src="~/img/octicons/svg/chevron-left.svg" class="left-right-icon" alt="*">
                             </div>
                         </div>
-                        <div class="middle-div">
+                        <div class="middle-div" id="middle-div-reading">
                             @await Html.PartialAsync("PartialView/ReadingTab", Model.LessonList[0])
                         </div>
                         <div class="left-button float-right vertical-align" id="navigateNextItem">

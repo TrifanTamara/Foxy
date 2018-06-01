@@ -12,7 +12,7 @@
 
     $('.carousel').carousel({
         interval: false
-    }); 
+    });
 
     $('#navigateBackItem').click(function (e) {
         e.preventDefault();
@@ -40,8 +40,8 @@
     });
 
 
-    $(document).keydown (function (e) {
-        
+    $(document).keydown(function (e) {
+
         if (e.keyCode == '37') {
             // left arrow   
             e.preventDefault();
@@ -50,7 +50,7 @@
             // right arrow
             e.preventDefault();
             NavigateNext();
-        } 
+        }
     });
 });
 
@@ -68,8 +68,79 @@ function RemoveActiveFromNavTabs() {
 }
 
 function NavigatePreviousItem() {
+    $.ajax({
+        type: "Get",
+        url: "/VocabularLesson/PreviousItem",
+        dataType: 'json',
+        success: function (data) {
+            var name = data["name"];
+            var meaning = data["meaning"];
+            var activeIndex = data["activeIndex"];
+            var activeReview = data["activeReview"];
 
+            $('#mainDivName').text(name);
+            $('#mainDivMeaning').text(meaning);
+        },
+        error: function (data) {
+            toastr.error("?");
+            var x = 1;
+        }
+    });
+    ReloadAllTabs();
+    NavigateToStructure();
 }
+
+function ReloadAllTabs() {
+    var t0 = performance.now();
+    $.ajax({
+        type: "Get",
+        url: "/VocabularLesson/StructureTab"
+    }).done(function (partialViewResult) {
+        $("#middle-div-structure").html(partialViewResult);
+    });
+
+    $.ajax({
+        type: "Get",
+        url: "/VocabularLesson/MeaningTab"
+    }).done(function (partialViewResult) {
+        $("#middle-div-meaning").html(partialViewResult);
+    });
+
+    $.ajax({
+        type: "Get",
+        url: "/VocabularLesson/ReadingTab"
+    }).done(function (partialViewResult) {
+        $("#middle-div-reading").html(partialViewResult);
+        });
+
+    var t1 = performance.now();
+    console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
+}
+
+function NavigatNextItem() {
+    $.ajax({
+        type: "Get",
+        url: "/VocabularLesson/NextItem",
+        dataType: 'json',
+        success: function (data) {
+            var name = data["name"];
+            var meaning = data["meaning"];
+            var activeIndex = data["activeIndex"];
+            var activeReview = data["activeReview"];
+            var showModal = data["showModal"];
+
+            $('#mainDivName').text(name);
+            $('#mainDivMeaning').text(meaning);
+        },
+        error: function (data) {
+            toastr.error("?");
+            var x = 1;
+        }
+    });
+    ReloadAllTabs();
+    NavigateToStructure();
+}
+
 function NavigateToStructure() {
     RemoveActiveFromNavTabs();
     $('#nav-structure').addClass('active');
@@ -88,8 +159,7 @@ function NavigatToReading() {
     $('#nav-reading-tab').addClass('active');
     $('#nav-reading').addClass('show');
 }
-function NavigatNextItem() {
-}
+
 
 function NavigateBack() {
     if ($('#nav-structure-tab').hasClass('active')) {
@@ -210,7 +280,7 @@ function RefreshMeaningDiv(vId) {
 
 function favoriteChanged(vId, myVal) {
     var checkedValue = $('#toggle-heart').val();
-   
+
     $.ajax({
         type: "POST",
         url: "/vocabular/update/Favorite",
@@ -231,7 +301,7 @@ function favoriteChanged(vId, myVal) {
 function CheckHeart() {
     var x = 0;
     $("#toggle-heart").attr("checked", "checked");
-    if ($("#toggle-heart").val=="on"){
+    if ($("#toggle-heart").val == "on") {
         x = 1;
     }
     x = -3;
@@ -242,7 +312,7 @@ function GetSynonymsNumber() {
     var str;
     for (var i = 0; i < 5; i++) {
         str = "#synonym" + i;
-        if ($(str).is(":visible")) elemNr += 1; 
+        if ($(str).is(":visible")) elemNr += 1;
     }
     var f = 1;
     return elemNr;
@@ -298,7 +368,7 @@ function AddSynonim(vId) {
             var x = 1;
         }
     })
-    
+
 }
 
 function CloseInputSyn() {
@@ -349,7 +419,7 @@ function RemoveSynonym(vId, index) {
                 }
             }
             toastr.warning("Synonym removed");
-            
+
         },
         error: function (data) {
             toastr.error("?");

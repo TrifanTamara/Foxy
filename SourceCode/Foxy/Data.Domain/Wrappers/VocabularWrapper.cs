@@ -20,6 +20,8 @@ namespace Business.Wrappers
         //reading
         public List<string> KunyoumiReading { get; set; }
         public List<string> OnyomiReading { get; set; }
+
+        public string MainMeaning { get; set; }
         public string MainReading { get; set; }
         
         public string VocabularType { get; set; }
@@ -60,6 +62,9 @@ namespace Business.Wrappers
         private void TransformInformation()
         {
             Name = Template.Name;
+
+            MainMeaning = Template.Meaning.Split(";")[0];
+
             MeaningsList = new List<string>(Template.Meaning.Split(";"));
             if (Item.UserSynonyms.Equals("")) UserSynonyms = new List<string>();
             else UserSynonyms = new List<string>(Item.UserSynonyms.Split(";"));
