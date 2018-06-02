@@ -76,14 +76,20 @@ namespace WebApp.Controllers
             }
 
             VocabularWrapper item = model.LessonList[model.CurrentIndex];
-            return Json(new
+
+            var json = Json(new
             {
                 name = item.Name,
                 meaning = item.MainMeaning,
+                title = item.VocabularType,
                 activeIndex = model.CurrentIndex,
                 activeReview = model.ReviewActive,
                 showModal = showModal
+                //htmlStructure = PartialView("PartialView/StructureTab", item),
+                //htmlMeaning = PartialView("PartialView/MeaningTab", item),
+                //htmlReading = PartialView("PartialView/ReadingTab", item)
             });
+            return json;
         }
 
         [HttpGet]
@@ -97,13 +103,18 @@ namespace WebApp.Controllers
             if (model.CurrentIndex > 0) model.CurrentIndex--;
 
             VocabularWrapper item = model.LessonList[model.CurrentIndex];
-            return Json(new
+            var json = Json(new
             {
                 name = item.Name,
                 meaning = item.MainMeaning,
+                title = item.VocabularType,
                 activeIndex = model.CurrentIndex,
                 activeReview = model.ReviewActive
+                //htmlStructure = PartialView("PartialView/StructureTab", item),
+                //htmlMeaning = PartialView("PartialView/MeaningTab", item),
+                //htmlReading = PartialView("PartialView/ReadingTab", item)
             });
+            return json;
         }
 
         [HttpGet]
@@ -114,6 +125,10 @@ namespace WebApp.Controllers
             User user = _userRepo.GetByEmail(email).Result;
 
             LessonModel model = currentSeesion[user.UserId];
+            string it = model.LessonList[model.CurrentIndex].Template.Name;
+            Console.WriteLine("name - " + it);
+            Console.WriteLine(". reading - " + model.CurrentIndex);
+
             return PartialView("PartialView/ReadingTab", model.LessonList[model.CurrentIndex]);
         }
 
@@ -125,6 +140,11 @@ namespace WebApp.Controllers
             User user = _userRepo.GetByEmail(email).Result;
 
             LessonModel model = currentSeesion[user.UserId];
+
+
+            string it = model.LessonList[model.CurrentIndex].Template.Name;
+            Console.WriteLine("name - "+ it);
+            Console.WriteLine(". structure - "+ model.CurrentIndex);
             return PartialView("PartialView/StructureTab", model.LessonList[model.CurrentIndex]);
         }
 
@@ -137,6 +157,10 @@ namespace WebApp.Controllers
 
             LessonModel model = currentSeesion[user.UserId];
 
+
+            string it = model.LessonList[model.CurrentIndex].Template.Name;
+            Console.WriteLine("name - " + it);
+            Console.WriteLine(". meaning - " + model.CurrentIndex);
             return PartialView("PartialView/MeaningTab", model.LessonList[model.CurrentIndex]);
         }
     }

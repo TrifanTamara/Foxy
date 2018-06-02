@@ -43,13 +43,17 @@
 
     <script src="~/toastr/toastr.js"></script>
     <script src="~/js/foxy.js"></script>
+    <script src="~/js/LessonSession.js"></script>
 </head>
 <body>
+    <script>
+        lessonNumber = @Model.LessonList.Count();
+    </script>
     <div class="fill-screen">
         <div class="upper-header">
 
         </div>
-        <div>
+        <div id="huge-text-div">
             @{
                 hideDiv = "";
                 elementType = Model.LessonList[0].Template.Type;
@@ -66,12 +70,11 @@
                 {
                     elementNameColor = "word-color";
                 }
-                elementMeaningColor = "mini-" + elementNameColor;
             }
             <div class="div-for-name @elementNameColor" id="mainDivName">
                 @Model.LessonList[0].Template.Name
             </div>
-            <div class="div-for-meaning @elementMeaningColor" id="mainDivMeaning">
+            <div class="div-for-meaning @elementNameColor" id="mainDivMeaning">
                 @Model.LessonList[0].Template.Meaning
             </div>
         </div>
@@ -142,6 +145,54 @@
             </div>
         </div>
     </div>
+
+    <div>
+        @for (int i = 0; i < Model.LessonList.Count; ++i)
+        {
+            <div id="scheme-structure-div-@i" style="display:none!important">
+                @await Html.PartialAsync("PartialView/StructureTab", Model.LessonList[i])
+            </div>
+        }
+        @for (int i = 0; i < Model.LessonList.Count; ++i)
+        {
+            <div id="scheme-meaning-div-@i" style="display:none!important">
+                @await Html.PartialAsync("PartialView/MeaningTab", Model.LessonList[i])
+            </div>
+        }@for (int i = 0; i < Model.LessonList.Count; ++i)
+        {
+            <div id="scheme-reading-div-@i" style="display:none!important">
+                @await Html.PartialAsync("PartialView/ReadingTab", Model.LessonList[i])
+            </div>
+        }
+        @for (int i = 0; i < Model.LessonList.Count(); ++i)
+        {
+
+            hideDiv = "";
+            elementType = Model.LessonList[i].Template.Type;
+            if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Radical)
+            {
+                elementNameColor = "radical-color";
+                hideDiv = "hide-a-div";
+            }
+            else if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Kanji)
+            {
+                elementNameColor = "kanji-color";
+            }
+            else
+            {
+                elementNameColor = "word-color";
+            }
+            <div id="scheme-huge-@i" style="display:none!important">
+                <div class="div-for-name @elementNameColor" id="mainDivName">
+                    @Model.LessonList[i].Template.Name
+                </div>
+                <div class="div-for-meaning @elementNameColor" id="mainDivMeaning">
+                    @Model.LessonList[i].MainMeaning
+                </div>
+            </div>
+        }
+    </div>
+
     <footer class="footer text-center justify-content-center">
 
         @for (int i = 0; i < Model.LessonList.Count(); ++i)
@@ -159,5 +210,8 @@
             </div>
         </div>
     </footer>
+    <script>
+        LessonHideShowSynonyms();
+    </script>
 </body>
 </html>

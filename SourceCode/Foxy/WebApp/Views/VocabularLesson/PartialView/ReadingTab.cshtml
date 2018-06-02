@@ -42,7 +42,7 @@
                 <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:2em!important; height:2em!important;position:relative;vertical-align:middle;margin-left:7px!important; cursor:pointer!important;display:inline-block!important" onclick="playSound()">
                     <img src="~/img/octicons/svg/unmute.svg" style="position:relative!important;height:1.3em; width:1.3em;padding-bottom: 3px;" alt="*">
                 </button>
-                <audio id="audio" src="~/sounds/@(soundPath).mp3"></audio>
+                <audio class="audio" src="~/sounds/@(soundPath).mp3"></audio>
             </div>
 
             @if (@Model.OnyomiReading.Count() > 0)
@@ -57,7 +57,7 @@
                 <div class="row">
                     @for (int j = 0; j < Model.OnyomiReading.Count; ++j)
                     {
-                        <div class="badge badge-secondary" style="font-size:1.15em!important;font-weight:normal!important;margin-bottom:1px;">
+                        <div class="badge badge-secondary" style="font-size:1.15em!important;font-weight:normal!important;margin-bottom:1px;margin-right:4px;">
                             <p style="margin-bottom:0!important;">
                                 @Model.OnyomiReading[j]
                             </p>
@@ -105,23 +105,23 @@
                 <p class="title-small" style="font-size:1.3em!important">
                     User's reading note
                 </p>
-                <div id="editIconReading">
-                    <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:1.5em!important; height:1.5em!important;position:absolute;vertical-align:middle;margin-left:2px!important; margin-top:3px!important; cursor:pointer!important" onclick="ShowReadingInput()">
+                <div class="editIconReading">
+                    <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:1.5em!important; height:1.5em!important;position:absolute;vertical-align:middle;margin-left:2px!important; margin-top:3px!important; cursor:pointer!important" onclick="LessonShowReadingInput()">
                         <img src="~/img/octicons/svg/pencil.svg" style="position:relative!important;height:1.2em; width:1.2em;padding-bottom: 3px;" alt="*">
                     </button>
                 </div>
                 <div>
-                    <div class="input-group input-group-sm mb-3" id="input-reading">
-                        <input type="text" class="form-control" id="readingUserInput" placeholder="Reading note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group input-group-sm mb-3 input-reading">
+                        <input type="text" class="form-control readingUserInput" placeholder="Reading note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="RefreshReadingDiv('@Model.Item.VocabularItemId.ToString()')">Save</button>
-                            <button class="btn btn-outline-secondary" type="button" onclick="RefreshDiv()">Discard</button>
+                            <button class="btn btn-outline-secondary" type="button" onclick="LessonRefreshReadingDiv('@Model.Item.VocabularItemId.ToString()')">Save</button>
+                            <button class="btn btn-outline-secondary" type="button" onclick="LessonRefreshDiv()">Discard</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row mnemonic-box" style="height:auto!important">
-                <div class="text-mnem" style="margin:0!important;padding:0!important;color:dimgray!important;" id="reading-note">
+                <div class="text-mnem reading-note" style="margin:0!important;padding:0!important;color:dimgray!important;">
                     @Model.Item.ReadingNote
                 </div>
             </div>

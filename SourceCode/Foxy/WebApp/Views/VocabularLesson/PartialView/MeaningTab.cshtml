@@ -34,15 +34,15 @@
                     User's synonyms
                 </p>
             </div>
-            <div class="row" id="synonyms-list" style="all:unset">
+            <div class="row synonyms-list" style="all:unset; width:100%">
                 @for (int i = 0; i < Model.UserSynonyms.Count() && i < 5; ++i)
                 {
-                    <div class="" style="display:inline;margin:0" id="divSyn@(i)">
+                    <div class="divSyn@(i)" style="display:inline;margin:0 ">
                         <span class="badge badge-secondary user-meaning-badge">
-                            <button type="button" class="close btn-close" style="margin-top:3.5px!important" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                            <button type="button" class="close btn-close" style="margin-top:3.5px!important" aria-label="Close" onclick="LessonRemoveSynonym('@Model.Item.VocabularItemId', @i)">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <p style="margin-bottom:0; margin-right:2px;display:inline;font-size:1.2em!important" id="synonym@(i)">@Model.UserSynonyms[i]</p>
+                            <p style="margin-bottom:0; margin-right:2px;display:inline;font-size:1.2em!important" class="synonym@(i)">@Model.UserSynonyms[i]</p>
 
                         </span>
                     </div>
@@ -50,27 +50,27 @@
 
                 @for (int i = Model.UserSynonyms.Count(); i < 5; ++i)
                 {
-                    <div class="" style="display:inline;" id="divSyn@(i)">
+                    <div class="divSyn@(i)" style="display:inline;">
                         <span class="badge badge-secondary user-meaning-badge">
-                            <button type="button" class="close btn-close" style="margin-top:3.5px!important" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                            <button type="button" class="close btn-close" style="margin-top:3.5px!important" aria-label="Close" onclick="LessonRemoveSynonym('@Model.Item.VocabularItemId', @i)">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <p style="margin-bottom:0; margin-right:2px;display:inline; font-size: 1.2em!important" id="synonym@(i)">x</p>
+                            <p style="margin-bottom:0; margin-right:2px;display:inline; font-size: 1.2em!important" class="synonym@(i)">?</p>
                         </span>
                     </div>
                 }
                 <script>
-                    HideSynonyms(@Model.UserSynonyms.Count());
+                    LessonHideShowSynonyms();
                 </script>
-                <div style="display:inline;font-size:1.1em!important;font-weight:bold!important" id="add-syn-button">
-                    <span class="badge badge-secondary user-meaning-badge add-syn-badge" onclick="AddSynoymClicked()">+</span>
+                <div style="display:inline;font-size:1.1em!important;font-weight:bold!important" class="add-syn-button">
+                    <span class="badge badge-secondary user-meaning-badge add-syn-badge" onclick="LessonAddSynoymClicked()">+</span>
                 </div>
-                <form style="display:inline" id="synIdForm" data-toggle="validator" name="syn-form" onsubmit="AddSynonim('@Model.Item.VocabularItemId');return false;">
-                    <div class="input-group input-group-sm" id="input-synonyms">
-                        <input type="text" pattern="[a-zA-Z ]+" title="Only letters and white spaces are allowed" class="form-control" id="synInput" placeholder="New synonym.." aria-label="Recipient's synonym" aria-describedby="basic-addon2" required>
+                <form style="display:inline" class="synIdForm" data-toggle="validator" name="syn-form" onsubmit="LessonAddSynonim('@Model.Item.VocabularItemId');return false;">
+                    <div class="input-group input-group-sm input-synonyms">
+                        <input type="text" pattern="[a-zA-Z ]+" title="Only letters and white spaces are allowed" class="form-control synInput" placeholder="New synonym.." aria-label="Recipient's synonym" aria-describedby="basic-addon2" required>
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="submit">Add</button>
-                            <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="button" onclick="CloseInputSyn()">Discard</button>
+                            <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="button" onclick="LessonCloseInputSyn()">Discard</button>
                         </div>
 
                     </div>
@@ -108,23 +108,23 @@
             <p class="title-small" style="font-size:1.3em!important">
                 User's meaning note
             </p>
-            <div id="editIconMeaning">
-                <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:1.5em!important; height:1.5em!important;position:absolute;vertical-align:middle;margin-left:2px!important; margin-top:3px!important; cursor:pointer!important" onclick="ShowMeaningInput()">
+            <div class="editIconMeaning">
+                <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:1.5em!important; height:1.5em!important;position:absolute;vertical-align:middle;margin-left:2px!important; margin-top:3px!important; cursor:pointer!important" onclick="LessonShowMeaningInput()">
                     <img src="~/img/octicons/svg/pencil.svg" style="position:relative!important;height:1.2em; width:1.2em;padding-bottom: 3px;" alt="*">
                 </button>
             </div>
             <div>
-                <div class="input-group input-group-sm mb-3" id="input-meaning">
-                    <input type="text" class="form-control" id="meaningUserInput" placeholder="Reading note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group input-group-sm mb-3 input-meaning">
+                    <input type="text" class="form-control meaningUserInput" placeholder="Meaning note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" onclick="RefreshMeaningDiv('@Model.Item.VocabularItemId.ToString()')">Save</button>
-                        <button class="btn btn-outline-secondary" type="button" onclick="HideMeaningDiv()">Discard</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="LessonRefreshMeaningDiv('@Model.Item.VocabularItemId.ToString()')">Save</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="LessonHideMeaningDiv()">Discard</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row mnemonic-box" style="height:auto!important">
-            <div class="text-mnem" style="margin:0!important;padding:0!important;color:dimgray!important;" id="meaning-note">
+            <div class="text-mnem meaning-note" style="margin:0!important;padding:0!important;color:dimgray!important;">
                 @Model.Item.MeaningNote
             </div>
         </div>
