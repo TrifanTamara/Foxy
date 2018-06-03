@@ -5,7 +5,15 @@
     jQuery('.popover-dismiss').popover({
         trigger: 'focus'
     })
+
+    HideInputs();
 });
+
+function HideInputs() {
+    $('#input-reading').hide();
+    $('#input-meaning').hide();
+    $('#input-synonyms').hide();
+}
 
 
 function RadicalCircliful(p) {
@@ -52,6 +60,8 @@ function RefreshReadingDiv(vId) {
 
     $('#input-reading').hide();
     $('#editIconReading').show();
+
+    toastr.success("Reading note updated!");
 
     $.ajax({
         type: "POST",

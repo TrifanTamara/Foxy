@@ -53,6 +53,12 @@
         <div class="upper-header">
 
         </div>
+        <a style="all:unset!important" asp-controller="Dashboard" asp-action="Index">
+            <div class="my-btn-home">
+                <img href="#nav-meaning" src="~/img/octicons/svg/home.svg" class="home-icon" alt="*">
+                <p style="font-weight:bold; color:rgba(0, 0, 0, 0.84);">Home</p>
+            </div>
+        </a>
         <div id="huge-text-div">
             @{
                 hideDiv = "";
@@ -77,6 +83,7 @@
             <div class="div-for-meaning @elementNameColor" id="mainDivMeaning">
                 @Model.LessonList[0].Template.Meaning
             </div>
+
         </div>
         <nav class="my-navbar-dark">
             <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
@@ -193,25 +200,66 @@
         }
     </div>
 
-    <footer class="footer text-center justify-content-center">
+    <footer class="footer text-center justify-content-center" style="height:auto!important;vertical-align:middle!important">
+        <div class="row text-center justify-content-center" style="height:auto!important;vertical-align:middle!important;">
+            @for (int i = 0; i < Model.LessonList.Count(); ++i)
+            {
+                string componentColor = Model.LessonList[i].VocabularType + "-color";
 
-        @for (int i = 0; i < Model.LessonList.Count(); ++i)
-        {
-            string componentColor = Model.LessonList[i].VocabularType + "-color";
-            <div class="legend-name-box @componentColor" style="display:inline-block">
-                <div class="legend-text-box">
-                    @Model.LessonList[i].Name
+                <div class="col" style="all:unset;width:auto!important">
+
+                    <div class="row" style="all:unset;width:auto!important">
+                        <div id="legend@(i)" class="legend-name-box @componentColor" style="display:block" onclick="SwitchToIndex(@i)">
+                            <div class="legend-text-box">
+                                @Model.LessonList[i].Name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="all:unset;width:auto!important;display:block">
+                        <input id="checkItem@(i)" type="radio" onclick="return false" input">
+                    </div>
+                </div>
+            }
+            <div class="col" style="all:unset;width:auto!important">
+
+                <div class="row" style="all:unset;width:auto!important">
+                    <div id="review-button" class="legend-name-box" style="display:inline-block; background-color:gray;">
+                        <div class="legend-text-box">
+                            Review
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="all:unset;width:auto!important;display:none">
+                    x
+                </div>
+
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="modalReview" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Ready for review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p style="font-size:1.2em;color:dimgray">
+                                Do you want to review the items you've just learnt?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">I need more time</button>
+                            <button type="button" class="btn btn-info">Go to review</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        }
-        <div class="legend-name-box innactive-review" style="display:inline-block; background-color:gray;">
-            <div class="legend-text-box">
-                Review
-            </div>
-        </div>
     </footer>
     <script>
         LessonHideShowSynonyms();
+        UpdateLegendIndex();
     </script>
 </body>
 </html>

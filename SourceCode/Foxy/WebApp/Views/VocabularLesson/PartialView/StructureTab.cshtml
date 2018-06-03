@@ -14,27 +14,25 @@
     string componentColor = "";
     componentColor = title + "-color";
 }
-
-<div class="row" style="all:unset;">
-    <div class="col header-col" style="width:100%">
-        <p class="heading-title">
-            @title breakdown
-        </p>
+@if (Model.VocabularType.Equals("radical"))
+{
+    <div class="container text-center" style="margin:2em">
+        <h5 style="color:gray;text-transform:uppercase">nothing to display</h5>
     </div>
-</div>
+}
+else
+{
+    <div class="row" style="all:unset;">
+        <div class="col header-col" style="width:100%">
+            <p class="heading-title">
+                @title breakdown
+            </p>
+        </div>
+    </div>
 
-<div class="row" style="all:unset;">
-    <div class="col components-col" style="width:100%">
-        @if (Model.VocabularType.Equals("radical"))
-        {
-            <div class="row">
-                <p>
-                    No item to display
-                </p>
-            </div>
-        }
-        else
-        {
+    <div class="row" style="all:unset;">
+        <div class="col components-col" style="width:100%">
+
             <div class="row">
                 @for (int i = 0; i < Model.Components.Count(); ++i)
                 {
@@ -58,6 +56,7 @@
 
                 }
             </div>
-        }
+
+        </div>
     </div>
-</div>
+}

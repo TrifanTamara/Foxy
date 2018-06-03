@@ -1,5 +1,7 @@
 ﻿var globalIndex = 0;
 var lessonNumber;
+var VisitedItems = [true, false];
+
 
 jQuery(document).ready(function () {
     LessonHideInputs();
@@ -17,7 +19,7 @@ jQuery(document).ready(function () {
     });
     $('#navigateAheadReading').click(function (e) {
         e.preventDefault();
-        NavigatToReading();
+        NavigateToReading();
     });
     $('#navigateBackMeaning').click(function (e) {
         e.preventDefault();
@@ -27,9 +29,20 @@ jQuery(document).ready(function () {
         e.preventDefault();
         NavigateNextItem();
     });
+    toastr.options.positionClass = "toast-top-right";
+    $('#review-button').click(function (e) {
+        if ($('#review-button').hasClass('active-review')) {
+            //go to review
+            toastr.success("you go to review", { positionClass: 'toast-top-right'});
+        } else {
+            toastr.warning("All elements must be visited to activate review!", { positionClass: 'toast-top-right' });
+        }
+    });
 
 
     $(document).keydown(function (e) {
+        if (e.target.nodeName == 'INPUT') return;
+        if ($('#modalReview').is(':visible')) return;
         if (e.keyCode == '37') {
             // left arrow   
             e.preventDefault();
@@ -40,7 +53,45 @@ jQuery(document).ready(function () {
             NavigateNext();
         }
     });
+    for (var i = 1; i < lessonNumber; ++i) {
+        VisitedItems.push(false);
+        var checkStr = 'checkItem' + i;
+        var radiobtn = document.getElementById(checkStr);
+        radiobtn.checked = false;
+    }
 });
+
+function MarkVisited() {
+    VisitedItems[globalIndex] = true;
+    var active = true;
+    for (var i = 0; i < lessonNumber; ++i) {
+        if (VisitedItems[i] == false)
+            active = false;
+    }
+    if (active == true)
+        $('#review-button').addClass('active-review');
+
+    var checkStr = 'checkItem' + globalIndex;
+    var radiobtn = document.getElementById(checkStr);
+    radiobtn.checked = true;
+}
+
+function UpdateLegendIndex() {
+    for (var i = 0; i < lessonNumber; ++i) {
+        $('#legend' + i).removeClass('current-item');
+    }
+    $('#legend' + globalIndex).addClass('current-item');
+    MarkVisited();
+}
+
+function SwitchToIndex(index) {
+    globalIndex = index;
+    ReplaceContent();
+    UpdateLegendIndex();
+    LessonHideShowSynonyms();
+    ShowIcons();
+    NavigateToStructure();
+}
 
 function HideAllTabs(nr) {
     for (var i = 0; i < nr; i++) {
@@ -52,6 +103,7 @@ function HideAllTabs(nr) {
 
 function ShowTabs(index) {
     globalIndex = index;
+    UpdateLegendIndex();
     //$("#meaning-div-" + index).show();
     //$("#reading-div-" + index).show();
     $("#structure-div-" + index).show();
@@ -90,19 +142,37 @@ function ReplaceContent() {
 }
 
 function NavigatePreviousItem() {
-    if (globalIndex > 0) globalIndex -= 1;
+    var prevInd = globalIndex;
+    if (globalIndex > 0) {
+        globalIndex -= 1;
+        UpdateLegendIndex();
+    }
+
     ReplaceContent();
-    NavigateToStructure();
     LessonHideInputs();
+    ShowIcons();
     LessonHideShowSynonyms();
+    if (prevInd > 0) NavigateToReading();
 }
 
 function NavigateNextItem() {
-    if (globalIndex < lessonNumber - 1) globalIndex += 1;
+    var prevIndex = globalIndex;
+    if (globalIndex < lessonNumber - 1) {
+        globalIndex += 1;
+        UpdateLegendIndex();
+    }
 
     ReplaceContent();
+    ShowIcons();
 
-    if (globalIndex < lessonNumber - 1) NavigateToStructure();
+    if (prevIndex < lessonNumber - 1) NavigateToStructure();
+    else if (prevIndex == lessonNumber - 1) {
+        if ($('#review-button').hasClass('active-review')) {
+            $('#modalReview').modal('show');
+        } else {
+            toastr.warning("All elements must be visited to activate review!", { positionClass: 'toast-top-right' });
+        }
+    }
     LessonHideInputs();
     LessonHideShowSynonyms();
 }
@@ -126,7 +196,7 @@ function NavigateToMeaning() {
     var str = '#meaning-div-' + globalIndex;
     $(str).show;
 }
-function NavigatToReading() {
+function NavigateToReading() {
     RemoveActiveFromNavTabs();
     $('#nav-reading').addClass('active');
     $('#nav-reading-tab').addClass('active');
@@ -149,7 +219,7 @@ function NavigateNext() {
     if ($('#nav-structure-tab').hasClass('active')) {
         NavigateToMeaning();
     } else if ($('#nav-meaning-tab').hasClass('active')) {
-        NavigatToReading();
+        NavigateToReading();
     } else if ($('#nav-reading-tab').hasClass('active')) {
         NavigateNextItem();
     }
@@ -216,6 +286,13 @@ function LessonHideInputs() {
     $('.input-synonyms').hide();
 }
 
+function ShowIcons() {
+    LessonHideInputs();
+    $('.editIconReading').show();
+    $('.editIconMeaning').show();
+    $('.add-syn-button').show();
+}
+
 function LessonRefreshReadingDiv(vId) {
     var node;
     $('.readingUserInput').each(function () {
@@ -259,9 +336,9 @@ function LessonShowReadingInput() {
 }
 
 function LessonHideReadingDiv() {
-    $('.editIconReading').hide();
+    $('.input-reading').hide();
 
-    $('.input-reading').each(function () {
+    $('.editIconReading').each(function () {
         if ($(this).parents('div#middle-div-reading').length) {
             $(this).show();
         }
@@ -280,7 +357,21 @@ function LessonRemoveSynonym(vId, index) {
         success: function (data) {
             var str = data["synonyms"];
             //?????????????
-            if (str == "") LessonHideShowSynonyms();
+            if (str == "") {
+                for (var i = 0; i < 5; i++) {
+                    str = ".synonym" + i;
+                    $(str).each(function () {
+                        if ($(this).parents('div#middle-div-meaning').length) {
+                            $(this).text("?");
+                        }
+                        var parentStr = 'div#scheme-meaning-div-' + globalIndex;
+                        if ($(this).parents(parentStr).length) {
+                            $(this).text("?");
+                        }
+                    });
+                }
+                LessonHideShowSynonyms();
+            }
             else {
                 var list = str.split(";");
                 var arrayLength = list.length;
@@ -329,6 +420,7 @@ function LessonHideShowSynonyms() {
         str = ".divSyn" + i;
         $(str).each(function () {
             if ($(this).parents('div#middle-div-meaning').length) {
+                $(str).addClass('d-inline-flex');
                 $(this).show();
             }
         });
@@ -336,6 +428,7 @@ function LessonHideShowSynonyms() {
 
     for (var i = index; i < 5; i++) {
         str = ".divSyn" + i;
+        $(str).removeClass('d-inline-flex');
         $(str).hide();
     }
 }
@@ -348,6 +441,7 @@ function LessonGetSynonymsNumber() {
         var x = "div#middle-div-meaning";
         $(str).each(function () {
             if ($(this).parents(x).length) {
+
                 if (this.innerHTML == "?") elemNr -= 1;
             }
         });

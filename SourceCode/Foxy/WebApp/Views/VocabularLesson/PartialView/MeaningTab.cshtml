@@ -34,10 +34,11 @@
                     User's synonyms
                 </p>
             </div>
-            <div class="row synonyms-list" style="all:unset; width:100%">
+            <div class="row" style="all:unset; width:100%">
+                @*<div class="synonyms-list">*@
                 @for (int i = 0; i < Model.UserSynonyms.Count() && i < 5; ++i)
                 {
-                    <div class="divSyn@(i)" style="display:inline;margin:0 ">
+                    <div class="divSyn@(i) d-inline-flex" style="margin:0;">
                         <span class="badge badge-secondary user-meaning-badge">
                             <button type="button" class="close btn-close" style="margin-top:3.5px!important" aria-label="Close" onclick="LessonRemoveSynonym('@Model.Item.VocabularItemId', @i)">
                                 <span aria-hidden="true">&times;</span>
@@ -50,7 +51,7 @@
 
                 @for (int i = Model.UserSynonyms.Count(); i < 5; ++i)
                 {
-                    <div class="divSyn@(i)" style="display:inline;">
+                    <div class="divSyn@(i)" style="margin:0;">
                         <span class="badge badge-secondary user-meaning-badge">
                             <button type="button" class="close btn-close" style="margin-top:3.5px!important" aria-label="Close" onclick="LessonRemoveSynonym('@Model.Item.VocabularItemId', @i)">
                                 <span aria-hidden="true">&times;</span>
@@ -59,9 +60,7 @@
                         </span>
                     </div>
                 }
-                <script>
-                    LessonHideShowSynonyms();
-                </script>
+                @* </div>*@
                 <div style="display:inline;font-size:1.1em!important;font-weight:bold!important" class="add-syn-button">
                     <span class="badge badge-secondary user-meaning-badge add-syn-badge" onclick="LessonAddSynoymClicked()">+</span>
                 </div>
@@ -75,6 +74,7 @@
 
                     </div>
                 </form>
+
 
             </div>
             @if (title.Equals("word"))
@@ -115,7 +115,7 @@
             </div>
             <div>
                 <div class="input-group input-group-sm mb-3 input-meaning">
-                    <input type="text" class="form-control meaningUserInput" placeholder="Meaning note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <input type="text" pattern="[^<>]*" title="Not all special charachters are permitted!" class="form-control meaningUserInput" placeholder="Meaning note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" onclick="LessonRefreshMeaningDiv('@Model.Item.VocabularItemId.ToString()')">Save</button>
                         <button class="btn btn-outline-secondary" type="button" onclick="LessonHideMeaningDiv()">Discard</button>

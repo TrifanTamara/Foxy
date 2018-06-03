@@ -13,12 +13,12 @@ https://www.wanikani.com/ - mnemonics
 
 To do:
 -delete n4 from documentation, only n5
--authorization
--add ps simple mockups
 -fix front images
 -create logo and images
 -add sound to kanji and words
 -Maybe add two stages of flow: slower and faster (for user)
+-fix clear input after add notes or synonyms
+-
 
 
 Rules:

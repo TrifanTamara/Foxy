@@ -85,9 +85,6 @@ namespace WebApp.Controllers
                 activeIndex = model.CurrentIndex,
                 activeReview = model.ReviewActive,
                 showModal = showModal
-                //htmlStructure = PartialView("PartialView/StructureTab", item),
-                //htmlMeaning = PartialView("PartialView/MeaningTab", item),
-                //htmlReading = PartialView("PartialView/ReadingTab", item)
             });
             return json;
         }
@@ -110,58 +107,9 @@ namespace WebApp.Controllers
                 title = item.VocabularType,
                 activeIndex = model.CurrentIndex,
                 activeReview = model.ReviewActive
-                //htmlStructure = PartialView("PartialView/StructureTab", item),
-                //htmlMeaning = PartialView("PartialView/MeaningTab", item),
-                //htmlReading = PartialView("PartialView/ReadingTab", item)
             });
             return json;
         }
 
-        [HttpGet]
-        [Route("ReadingTab")]
-        public IActionResult ReadingTab()
-        {
-            string email = HttpContext.User.Claims.First().Value;
-            User user = _userRepo.GetByEmail(email).Result;
-
-            LessonModel model = currentSeesion[user.UserId];
-            string it = model.LessonList[model.CurrentIndex].Template.Name;
-            Console.WriteLine("name - " + it);
-            Console.WriteLine(". reading - " + model.CurrentIndex);
-
-            return PartialView("PartialView/ReadingTab", model.LessonList[model.CurrentIndex]);
-        }
-
-        [HttpGet]
-        [Route("StructureTab")]
-        public IActionResult StructureTab()
-        {
-            string email = HttpContext.User.Claims.First().Value;
-            User user = _userRepo.GetByEmail(email).Result;
-
-            LessonModel model = currentSeesion[user.UserId];
-
-
-            string it = model.LessonList[model.CurrentIndex].Template.Name;
-            Console.WriteLine("name - "+ it);
-            Console.WriteLine(". structure - "+ model.CurrentIndex);
-            return PartialView("PartialView/StructureTab", model.LessonList[model.CurrentIndex]);
-        }
-
-        [HttpGet]
-        [Route("MeaningTab")]
-        public IActionResult MeaningTab()
-        {
-            string email = HttpContext.User.Claims.First().Value;
-            User user = _userRepo.GetByEmail(email).Result;
-
-            LessonModel model = currentSeesion[user.UserId];
-
-
-            string it = model.LessonList[model.CurrentIndex].Template.Name;
-            Console.WriteLine("name - " + it);
-            Console.WriteLine(". meaning - " + model.CurrentIndex);
-            return PartialView("PartialView/MeaningTab", model.LessonList[model.CurrentIndex]);
-        }
     }
 }
