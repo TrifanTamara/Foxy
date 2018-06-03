@@ -90,23 +90,31 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        [Route("PreviousItem")]
-        public JsonResult PreviousItem()
+        [Route("LessonReview")]
+        public IActionResult LessonReview()
         {
             string email = HttpContext.User.Claims.First().Value;
             User user = _userRepo.GetByEmail(email).Result;
 
             LessonModel model = currentSeesion[user.UserId];
-            if (model.CurrentIndex > 0) model.CurrentIndex--;
+            bool showModal = false;
+            if (model.CurrentIndex < model.LessonList.Count - 1) model.CurrentIndex++;
+            if (model.CurrentIndex == model.LessonList.Count - 1 && model.ItemVisited[model.CurrentIndex] == false)
+            {
+                showModal = true;
+                model.ReviewActive = true;
+            }
 
             VocabularWrapper item = model.LessonList[model.CurrentIndex];
+
             var json = Json(new
             {
                 name = item.Name,
                 meaning = item.MainMeaning,
                 title = item.VocabularType,
                 activeIndex = model.CurrentIndex,
-                activeReview = model.ReviewActive
+                activeReview = model.ReviewActive,
+                showModal = showModal
             });
             return json;
         }

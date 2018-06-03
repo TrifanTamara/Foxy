@@ -1,4 +1,5 @@
-﻿using Data.Domain.Entities;
+﻿using Business.Wrappers;
+using Data.Domain.Entities;
 using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
 using System;
@@ -13,6 +14,18 @@ namespace WebApp.Services
     {
         private readonly IUsersRepository _userRepo;
         IVocabularItemRepository _vocabRepo;
+        private static Dictionary<Guid, ReviewModel> currentReviewSeesion = new Dictionary<Guid, ReviewModel>();
+
+        public static bool CheckReadingAns(string userAns, string rightAnsw)
+        {
+            return true;
+        }
+
+        public static bool CheckMeaningAns(string userAns, string rightAnsw)
+        {
+            return true;
+            return (userAns.ToLower().Equals(rightAnsw.ToLower()));
+        }
 
         public MainService(IUsersRepository repository, IVocabularItemRepository vocabRepo)
         {
@@ -36,6 +49,43 @@ namespace WebApp.Services
         {
             item.Update(note, item.ReadingNote, item.Favorite, item.UserSynonyms);
             _vocabRepo.Edit(item);
+        }
+
+        public void StartReviewSession(Guid userId, List<VocabularWrapper> items)
+        {
+            ReviewModel model = new ReviewModel();
+            model.Reviewitems = new List<VocabularWrapper>(items);
+            currentReviewSeesion[userId] = model;
+        }
+        
+        public VocabularWrapper GetItemForReview(Guid userId)
+        {
+            ReviewModel model = currentReviewSeesion[userId];
+            if (model.Reviewitems.Count == 0)
+                return null;
+            var rnd = new Random();
+            model.Reviewitems = model.Reviewitems.OrderBy(item => rnd.Next()).ToList();
+            return model.Reviewitems[0];
+        }
+
+        public AnswerStatusModel UserAnswered(Guid userId, string ansMeaning, string ansReading)
+        {
+            ReviewModel model = currentReviewSeesion[userId];
+            if (model != null)
+            {
+                VocabularWrapper item = model.Reviewitems[0];
+                AnswerStatusModel result = new AnswerStatusModel();
+                //change in vocabular wrapper so that I have a list of reading and meanings
+                result.Meaning = CheckMeaningAns(ansMeaning, item.Template.Meaning);
+                result.Reading = CheckReadingAns(ansMeaning, item.Template.Reading);
+                result.Final = result.Meaning && result.Reading;
+
+                //go with logic of back end. Answer right vs Answer wrong
+
+                return result;
+            }
+
+            return null;
         }
     }
 }
