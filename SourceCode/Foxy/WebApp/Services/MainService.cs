@@ -16,15 +16,24 @@ namespace WebApp.Services
         IVocabularItemRepository _vocabRepo;
         private static Dictionary<Guid, ReviewModel> currentReviewSeesion = new Dictionary<Guid, ReviewModel>();
 
-        public static bool CheckReadingAns(string userAns, string rightAnsw)
+        public static bool CheckReadingAns(string userAns, List<string> rightAnswers)
         {
-            return true;
+            for(int i=0; i<rightAnswers.Count(); ++i)
+            {
+                if (rightAnswers[i].ToLower().Equals(userAns.ToLower()))
+                    return true;
+            }
+            return false;
         }
 
-        public static bool CheckMeaningAns(string userAns, string rightAnsw)
+        public static bool CheckMeaningAns(string userAns, List<string> rightAnswers)
         {
-            return true;
-            return (userAns.ToLower().Equals(rightAnsw.ToLower()));
+            for (int i = 0; i < rightAnswers.Count(); ++i)
+            {
+                if (rightAnswers[i].ToLower().Equals(userAns.ToLower()))
+                    return true;
+            }
+            return false;
         }
 
         public MainService(IUsersRepository repository, IVocabularItemRepository vocabRepo)
@@ -51,13 +60,16 @@ namespace WebApp.Services
             _vocabRepo.Edit(item);
         }
 
-        public void StartReviewSession(Guid userId, List<VocabularWrapper> items)
+        public void StartReviewSession(Guid userId, bool forLesson, List<VocabularWrapper> items = null)
         {
             ReviewModel model = new ReviewModel();
-            model.Reviewitems = new List<VocabularWrapper>(items);
+            if (forLesson)
+                model.Reviewitems = new List<VocabularWrapper>(items);
+            else
+                model.Reviewitems = _vocabRepo.GetVocabForReview(userId).Result;
             currentReviewSeesion[userId] = model;
         }
-        
+            
         public VocabularWrapper GetItemForReview(Guid userId)
         {
             ReviewModel model = currentReviewSeesion[userId];
@@ -75,12 +87,18 @@ namespace WebApp.Services
             {
                 VocabularWrapper item = model.Reviewitems[0];
                 AnswerStatusModel result = new AnswerStatusModel();
-                //change in vocabular wrapper so that I have a list of reading and meanings
-                result.Meaning = CheckMeaningAns(ansMeaning, item.Template.Meaning);
-                result.Reading = CheckReadingAns(ansMeaning, item.Template.Reading);
+                
+                result.Meaning = CheckMeaningAns(ansMeaning, item.MeaningsList);
+                List<string> readingList = item.OnyomyIsMain ? item.OnyomiReading : item.KunyoumiReading;
+                result.Reading = CheckReadingAns(ansMeaning, readingList);
                 result.Final = result.Meaning && result.Reading;
+                
+                _vocabRepo.AddAnswer(item.Item, result.Final);
+                model.Reviewitems[0].Item = _vocabRepo.FindById(item.Item.VocabularItemId).Result;
+                result.LevelName = _vocabRepo.GrandLvlNameFromMini(model.Reviewitems[0].Item.CurrentMiniLevel);
 
-                //go with logic of back end. Answer right vs Answer wrong
+                if (result.Final == true)
+                    model.Reviewitems.RemoveAt(0);
 
                 return result;
             }

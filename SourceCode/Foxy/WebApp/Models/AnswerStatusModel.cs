@@ -10,8 +10,7 @@ namespace WebApp.Models
         public bool Final { get; set; }
         public bool Meaning{ get; set; }
         public bool Reading { get; set; }
-
-        public bool LevelUp { get; set; }
+        
         public string LevelName { get; set; }
     }
 }

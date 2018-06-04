@@ -1,0 +1,88 @@
+﻿@using Business.Wrappers;
+@model VocabularWrapper
+@{
+    Layout = null;
+}
+
+@{
+    Data.Domain.Entities.TemplateItems.VocabularType elementType;
+    string elementNameColor;
+    string elementMeaningColor;
+    string hideDiv;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Foxy</title>
+
+    <!-- Bootstrap core CSS -->
+    <script src="~/vendor/jquery/jquery.js"></script>
+
+
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!-- Custom fonts for this template -->
+    <!-- Plugin CSS -->
+    <!-- Custom styles for this template -->
+    <link href="~/css/foxy.css" rel="stylesheet">
+    <link href="~/css/ItemForm.css" rel="stylesheet">
+    <link href="~/css/fontfamily.css" rel="stylesheet">
+    <link href="~/css/DashBoard.css" rel="stylesheet" type="text/css" />
+    <link href="~/toastr/toastr.css" rel="stylesheet" />
+
+    <link href="~/css/LessonVocabular.css" rel="stylesheet" />
+
+    <script src="~/toastr/toastr.js"></script>
+    <script src="~/js/foxy.js"></script>
+    <script src="~/js/LessonSession.js"></script>
+</head>
+<body>
+    <div class="fill-screen">
+        <div class="upper-header">
+
+        </div>
+        <a style="all:unset!important" asp-controller="Dashboard" asp-action="Index">
+            <div class="my-btn-home">
+                <img href="#nav-meaning" src="~/img/octicons/svg/home.svg" class="home-icon" alt="*">
+                <p style="font-weight:bold; color:rgba(0, 0, 0, 0.84);">Home</p>
+            </div>
+        </a>
+        <div id="huge-text-div">
+            @{
+                hideDiv = "";
+                elementType = Model.Template.Type;
+                if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Radical)
+                {
+                    elementNameColor = "radical-color";
+                    hideDiv = "hide-a-div";
+                }
+                else if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Kanji)
+                {
+                    elementNameColor = "kanji-color";
+                }
+                else
+                {
+                    elementNameColor = "word-color";
+                }
+            }
+            <div class="div-for-name @elementNameColor" id="mainDivName">
+                @Model.Template.Name
+            </div>
+            <div class="div-for-meaning @elementNameColor" id="mainDivMeaning">
+                @Model.Template.Meaning
+            </div>
+
+        </div>
+        
+</body>
+</html>

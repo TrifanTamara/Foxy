@@ -1,4 +1,5 @@
-﻿using Data.Domain.Entities.UserRelated;
+﻿using Business.Wrappers;
+using Data.Domain.Entities.UserRelated;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,9 @@ namespace WebApp.Services
     {
         MenuModel GetMenuModel(string email);
         void UpdateItemMeaningNote(VocabularItem item, string note);
+        void StartReviewSession(Guid userId, bool forLesson, List<VocabularWrapper> items = null);
+        VocabularWrapper GetItemForReview(Guid userId);
+        AnswerStatusModel UserAnswered(Guid userId, string ansMeaning, string ansReading);
+
     }
 }

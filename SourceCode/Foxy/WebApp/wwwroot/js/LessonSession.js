@@ -59,6 +59,12 @@ jQuery(document).ready(function () {
         var radiobtn = document.getElementById(checkStr);
         radiobtn.checked = false;
     }
+
+    $("#GoToReview").click(function (e) {
+        var url = 'LessonReview';
+        window.location.href = url;
+
+    });
 });
 
 function MarkVisited() {

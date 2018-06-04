@@ -28,6 +28,7 @@ namespace Business.Wrappers
         public string WordTypeString { get; set; }
 
         public bool Unlocked { get; set; }
+        public bool OnyomyIsMain { get; set; }
         public string LastTimeAString { get; set; }
         public int Percent { get; set; }
 
@@ -49,12 +50,19 @@ namespace Business.Wrappers
                 if (reading.StartsWith("k"))
                 {
                     KunyoumiReading = new List<string>(value.Split(";"));
-                    if (mainMeaning) MainReading = KunyoumiReading[0];
+                    if (mainMeaning)
+                    {
+                        OnyomyIsMain = false;
+                        MainReading = KunyoumiReading[0];
+                    }
                 }
                 else
                 {
                     OnyomiReading = new List<string>(value.Split(";"));
-                    if (mainMeaning) MainReading = OnyomiReading[0];
+                    if (mainMeaning) {
+                        OnyomyIsMain = true;
+                        MainReading = OnyomiReading[0];
+                    }
                 }
             }
         }
@@ -66,6 +74,7 @@ namespace Business.Wrappers
             MainMeaning = Template.Meaning.Split(";")[0];
 
             MeaningsList = new List<string>(Template.Meaning.Split(";"));
+
             if (Item.UserSynonyms.Equals("")) UserSynonyms = new List<string>();
             else UserSynonyms = new List<string>(Item.UserSynonyms.Split(";"));
 

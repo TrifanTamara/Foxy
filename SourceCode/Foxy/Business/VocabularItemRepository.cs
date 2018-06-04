@@ -218,6 +218,19 @@ namespace Business
             return false;
         }
 
+        public string GrandLvlNameFromMini(MiniLevels minilevel)
+        {
+            if (MiniIsGrand(minilevel, GrandLevels.Seed))
+                return "Seed";
+            if (MiniIsGrand(minilevel, GrandLevels.Leaf))
+                return "Leaf";
+            if (MiniIsGrand(minilevel, GrandLevels.Bloom))
+                return "Bloom";
+            if (MiniIsGrand(minilevel, GrandLevels.Flourished))
+                return "Flourished";
+            return "Nothing";
+        }
+
         public async Task<List<VocabularWrapper>> GetVocabViewedLesson(Guid userId, int level, VocabularType type, GrandLevels levelItem)
         {
             User user = await _userRepo.FindById(userId);

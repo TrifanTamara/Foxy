@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Filter;
 using WebApp.Models;
+using WebApp.Services;
 
 namespace WebApp.Controllers
 {
@@ -19,12 +20,14 @@ namespace WebApp.Controllers
     {
         private IUsersRepository _userRepo;
         private IVocabularItemRepository _vocabularRepo;
+        private IMainService _service;
         private static Dictionary<Guid, LessonModel> currentSeesion = new Dictionary<Guid, LessonModel>();
 
-        public VocabularLessonController(IUsersRepository userRepo, IVocabularItemRepository vocabularRepo)
+        public VocabularLessonController(IUsersRepository userRepo, IVocabularItemRepository vocabularRepo, IMainService mainServ)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;
+            _service = mainServ;
         }
 
         [HttpGet]
@@ -58,65 +61,18 @@ namespace WebApp.Controllers
             currentSeesion[user.UserId] = model;
             return View("LessonPage", model);
         }
-
-        [HttpGet]
-        [Route("NextItem")]
-        public JsonResult NextItem()
-        {
-            string email = HttpContext.User.Claims.First().Value;
-            User user = _userRepo.GetByEmail(email).Result;
-
-            LessonModel model = currentSeesion[user.UserId];
-            bool showModal = false;
-            if (model.CurrentIndex < model.LessonList.Count - 1) model.CurrentIndex++;
-            if (model.CurrentIndex == model.LessonList.Count - 1 && model.ItemVisited[model.CurrentIndex] == false)
-            {
-                showModal = true;
-                model.ReviewActive = true;
-            }
-
-            VocabularWrapper item = model.LessonList[model.CurrentIndex];
-
-            var json = Json(new
-            {
-                name = item.Name,
-                meaning = item.MainMeaning,
-                title = item.VocabularType,
-                activeIndex = model.CurrentIndex,
-                activeReview = model.ReviewActive,
-                showModal = showModal
-            });
-            return json;
-        }
-
+        
         [HttpGet]
         [Route("LessonReview")]
-        public IActionResult LessonReview()
+        public void LessonReview()
         {
             string email = HttpContext.User.Claims.First().Value;
             User user = _userRepo.GetByEmail(email).Result;
 
             LessonModel model = currentSeesion[user.UserId];
-            bool showModal = false;
-            if (model.CurrentIndex < model.LessonList.Count - 1) model.CurrentIndex++;
-            if (model.CurrentIndex == model.LessonList.Count - 1 && model.ItemVisited[model.CurrentIndex] == false)
-            {
-                showModal = true;
-                model.ReviewActive = true;
-            }
+            _service.StartReviewSession(user.UserId, true, model.LessonList);
 
-            VocabularWrapper item = model.LessonList[model.CurrentIndex];
-
-            var json = Json(new
-            {
-                name = item.Name,
-                meaning = item.MainMeaning,
-                title = item.VocabularType,
-                activeIndex = model.CurrentIndex,
-                activeReview = model.ReviewActive,
-                showModal = showModal
-            });
-            return json;
+            RedirectToAction("ReviewLesson", "VocabularReview");
         }
 
     }
