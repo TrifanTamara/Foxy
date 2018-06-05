@@ -46,6 +46,7 @@
     <script src="~/toastr/toastr.js"></script>
     <script src="~/js/foxy.js"></script>
     <script src="~/js/LessonSession.js"></script>
+    <script src="~/js/review.js"></script>
 </head>
 <body>
     <div class="fill-screen">
@@ -86,15 +87,37 @@
         </div>
         <nav class="my-navbar-dark">
             <div class="nav nav-tabs justify-content-center" id="nav-tab">
-                <div class="btn-light text-center rounded" style="width:2em;font-size:1.5em; cursor:pointer">
+                <div id="eye-button" class="btn-light text-center rounded" style="width:2em;font-size:1.5em; cursor:pointer">
                     <img href="#nav-meaning" src="~/img/octicons/svg/eye.svg" style="width:1.3em;margin-bottom:3px" alt="*">
                 </div>
             </div>
         </nav>
-        <div class="">
+        <div id="see-answer" class="">
             @await Html.PartialAsync("PartialView/ReviewInfo", Model)
         </div>
-
+        <div class="row justify-content-center" style="margin-top:2em;width:100%!important">
+            <div class="input-container" style="width:22em">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Meaning</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center" style="width:100%!important">
+            <div class="input-container" style="width:22em">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Reading</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center" style="width:100%!important;margin:0!important">
+            <button type="button" class="btn btn-info">Submit</button>
+        </div>
     </div>
 </body>
 </html>
