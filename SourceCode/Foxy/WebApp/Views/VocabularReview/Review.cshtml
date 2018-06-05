@@ -39,6 +39,7 @@
     <link href="~/css/fontfamily.css" rel="stylesheet">
     <link href="~/css/DashBoard.css" rel="stylesheet" type="text/css" />
     <link href="~/toastr/toastr.css" rel="stylesheet" />
+    <link href="~/css/Review.css" rel="stylesheet" />
 
     <link href="~/css/LessonVocabular.css" rel="stylesheet" />
 
@@ -79,10 +80,21 @@
                 @Model.Template.Name
             </div>
             <div class="div-for-meaning @elementNameColor" id="mainDivMeaning">
-                @Model.Template.Meaning
+                @Model.MainMeaning
             </div>
 
         </div>
-        
+        <nav class="my-navbar-dark">
+            <div class="nav nav-tabs justify-content-center" id="nav-tab">
+                <div class="btn-light text-center rounded" style="width:2em;font-size:1.5em; cursor:pointer">
+                    <img href="#nav-meaning" src="~/img/octicons/svg/eye.svg" style="width:1.3em;margin-bottom:3px" alt="*">
+                </div>
+            </div>
+        </nav>
+        <div class="">
+            @await Html.PartialAsync("PartialView/ReviewInfo", Model)
+        </div>
+
+    </div>
 </body>
 </html>

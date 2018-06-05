@@ -3,6 +3,7 @@ using Data.Domain.Entities;
 using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +65,7 @@ namespace WebApp.Controllers
         
         [HttpGet]
         [Route("LessonReview")]
-        public void LessonReview()
+        public async Task<IActionResult> LessonReview()
         {
             string email = HttpContext.User.Claims.First().Value;
             User user = _userRepo.GetByEmail(email).Result;
@@ -72,7 +73,9 @@ namespace WebApp.Controllers
             LessonModel model = currentSeesion[user.UserId];
             _service.StartReviewSession(user.UserId, true, model.LessonList);
 
-            RedirectToAction("ReviewLesson", "VocabularReview");
+            return RedirectToAction("ReviewLesson", "VocabularReview");
+
+            return RedirectToAction("ReviewLesson", new RouteValueDictionary(new { controller = "VocabularReview" }));
         }
 
     }

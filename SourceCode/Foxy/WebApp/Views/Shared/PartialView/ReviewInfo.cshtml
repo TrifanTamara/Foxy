@@ -1,0 +1,154 @@
+﻿@using Business.Wrappers;
+@model VocabularWrapper
+
+@{
+    string title = "";
+    if (Model.VocabularType.Equals("kanji"))
+    {
+        title = "radical";
+    }
+    else if (Model.VocabularType.Equals("word"))
+    {
+        title = "kanji";
+    }
+
+    string componentColor = "";
+    componentColor = title + "-color";
+}
+
+<div>
+    <div class="row main-row" style="height:auto!important">
+        <div class="col-sm-6">
+            <div class="info-review-container">
+                <div class="row meaning-row">
+                    <div class="col meaning-col">
+                        <p class="text-other-meaning">
+                            All meanings
+                        </p>
+                        @for (int i = 0; i < Model.MeaningsList.Count(); ++i)
+                        {
+                            <span class="badge badge-info meaning-badge">@Model.MeaningsList[i]</span>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="width:100%">
+                        <div class="row">
+                            <div class="" style="margin-left:1em!important">
+                                <p class="text-user-meaning" stle="display:inline!important;">
+                                    User's synonyms
+                                </p>
+                            </div>
+                            <div id="synonyms-list">
+                                @for (int i = 0; i < Model.UserSynonyms.Count() && i < 5; ++i)
+                                {
+                                    <div class="" style="display:inline;margin:0" id="divSyn@(i)">
+                                        <span class="badge badge-secondary user-meaning-badge">
+                                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">@Model.UserSynonyms[i]</p>
+
+                                        </span>
+                                    </div>
+                                }
+                                @for (int i = Model.UserSynonyms.Count(); i < 5; ++i)
+                                {
+                                    <div class="" style="display:inline;" id="divSyn@(i)">
+                                        <span class="badge badge-secondary user-meaning-badge">
+                                            <button type="button" class="close btn-close" aria-label="Close" onclick="RemoveSynonym('@Model.Item.VocabularItemId', @i)">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <p style="margin-bottom:0; margin-right:2px;display:inline" id="synonym@(i)">x</p>
+                                        </span>
+                                    </div>
+                                }
+
+                                <script>
+                            HideSynonyms(@Model.UserSynonyms.Count());
+                                </script>
+                            </div>
+                            <div style="display:inline;margin-left:0.2em;" id="add-syn-button">
+                                <span class="badge badge-secondary user-meaning-badge add-syn-badge" onclick="AddSynoymClicked()">+</span>
+                            </div>
+
+                            <form style="display:inline" id="synIdForm" data-toggle="validator" name="syn-form" onsubmit="AddSynonim('@Model.Item.VocabularItemId');return false;">
+                                <div class="input-group input-group-sm" id="input-synonyms">
+                                    <input type="text" pattern="[a-zA-Z ]+" title="Only letters and white spaces are allowed" class="form-control" id="synInput" placeholder="New synonym.." aria-label="Recipient's synonym" aria-describedby="basic-addon2" required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="submit">Add</button>
+
+                                        <button class="btn btn-outline-secondary" style="font-size:0.8em!important;" type="button" onclick="CloseInputSyn()">Discard</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row category-row">
+
+                <div class="col categories-title-col">
+                    <p class="title-categories">
+                        Meaning mnemonic
+                    </p>
+                    <div class="col">
+                        <div class="mnemonic-box">
+                            @*<div class=" badge badge-secondary mnem-title">Default Menmonic</div>*@
+                            <div class="text-mnem">
+                                @Model.Template.MeaningMnemonic
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mini-category-row">
+                <div class="col categories-title-col">
+                    <div class="row mini-title-categories" style="position:relative!important">
+                        <div class="">
+                            <p style="display: inline;">
+                                User's meaning note
+                            </p>
+                        </div>
+                        <div class="">
+                            <div id="editIconMeaning">
+                                <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:2em!important; height:2em!important;position:absolute;vertical-align:middle;margin-left:7px!important; cursor:pointer!important" onclick="ShowMeaningInput()">
+                                    <img src="~/img/octicons/svg/pencil.svg" style="position:relative!important;height:1.3em; width:1.3em;padding-bottom: 3px;" alt="*">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="input-group input-group-sm mb-3" id="input-meaning">
+                                <input type="text" class="form-control" id="meaningUserInput" placeholder="Reading note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="RefreshMeaningDiv('@Model.Item.VocabularItemId.ToString()')">Save</button>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="HideMeaningDiv()">Discard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" style="margin-bottom:1em">
+
+                        <div class="row text-mnem">
+                            <div class="col">
+                                <div class="mnemonic-box">
+                                    <div id="opertionExecute">
+                                    </div>
+                                    <div class="text-mnem" id="meaning-note">
+
+                                        @Model.Item.MeaningNote
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="info-review-container">
+
+                </div>
+            </div>
+        </div>
+</div>
