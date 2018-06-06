@@ -10,6 +10,7 @@ https://www.jlpt.jp/e/
 https://soundoftext.com/ - sounds
 http://www.joyokanji.com/ulrikes-mnemonics - mnemonics
 https://www.wanikani.com/ - mnemonics
+https://github.com/WaniKani/WanaKana - input converter
 
 To do:
 -delete n4 from documentation, only n5

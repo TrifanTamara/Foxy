@@ -47,6 +47,7 @@
     <script src="~/js/foxy.js"></script>
     <script src="~/js/LessonSession.js"></script>
     <script src="~/js/review.js"></script>
+    <script src="~/js/wanakana.min.js"></script>
 </head>
 <body>
     <div class="fill-screen">
@@ -95,29 +96,37 @@
         <div id="see-answer" class="">
             @await Html.PartialAsync("PartialView/ReviewInfo", Model)
         </div>
-        <div class="row justify-content-center" style="margin-top:2em;width:100%!important">
-            <div class="input-container" style="width:22em">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Meaning</span>
+        <form name="review-form" class="needs-validation" novalidate>
+            <div class="row justify-content-center" style="margin-top:2em;width:100%!important">
+                <div class="input-container" style="width:22em">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Meaning</span>
+                        </div>
+                        <input type="text" name="meaning-input" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                        <div class="invalid-feedback text-center" id="div-validate-meaning">
+                            x
+                        </div>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center" style="width:100%!important">
-            <div class="input-container" style="width:22em">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Reading</span>
+            <div class="row justify-content-center" style="width:100%!important">
+                <div class="input-container" style="width:22em">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Reading</span>
+                        </div>
+                        <input id="wanakana-input" name="reading-input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                        <div class="invalid-feedback text-center" id="div-validate-reading">
+                            x
+                        </div>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center" style="width:100%!important;margin:0!important">
-            <button type="button" class="btn btn-info">Submit</button>
-        </div>
+            <div class="row justify-content-center" style="width:100%!important;margin:0!important">
+                <button type="submit" class="btn btn-info">Submit</button>
+            </div>
+        </form>
     </div>
 </body>
 </html>
