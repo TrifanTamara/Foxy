@@ -18,6 +18,8 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using WebApp.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace WebApp
 {
@@ -55,6 +57,8 @@ namespace WebApp
 
                     });
 
+
+
             services.AddMvc(options =>
                 {
                     options.Filters.Add(typeof(DefaultControllerFilter));
@@ -63,10 +67,59 @@ namespace WebApp
                 }
             ).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>())
             .AddSessionStateTempDataProvider();
+            
+            services.AddCors(options =>
+            {
+
+                // BEGIN02
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin();
+                    });
+                // END02
+
+                // BEGIN04
+                options.AddPolicy("AllowAllMethods",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:60000")
+                               .AllowAnyMethod();
+                    });
+                // END04
+
+                // BEGIN06
+                options.AddPolicy("AllowAllHeaders",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:60000")
+                               .AllowAnyHeader();
+                    });
+                // END06
+
+                // BEGIN07
+                options.AddPolicy("ExposeResponseHeaders",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:60000")
+                               .WithExposedHeaders("x-custom-header");
+                    });
+                // END07
+
+                // BEGIN08
+                options.AddPolicy("AllowCredentials",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:60000")
+                               .AllowCredentials();
+                    });
+                // END08
+                
+            });
 
             HttpClient httpClient = new HttpClient();
             services.AddSingleton<HttpClient>(httpClient); // note the singleton
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +147,7 @@ namespace WebApp
 
             app.UseAuthentication();
             
+            app.UseCors("AllowSpecificOrigins");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -35,11 +35,13 @@ namespace WebApp.Models
             if (RadicalsLesson != null)
             {
                 int total = RadicalsLesson.Count() + RadicalsViewed.Count() + RadicalsPassed.Count();
+                if (total == 0) RadicalPercent = 100; else
                 RadicalPercent = ((int)((RadicalsPassed.Count() / total) * 100));
             }
             if (KanjisLesson != null)
             {
                 int total = KanjisLesson.Count() + KanjisViewed.Count() + KanjisPassed.Count();
+                if (total == 0) KanjiPercent = 100; else
                 KanjiPercent = ((int)((RadicalsPassed.Count() / total) * 100));
             }
             if (WordsLesson != null)

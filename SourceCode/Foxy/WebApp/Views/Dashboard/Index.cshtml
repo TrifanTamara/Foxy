@@ -303,7 +303,7 @@
                         @{
                             n = Model.WordsLesson.Count();
                         }
-                        @for (int i = 0; i < MaximWordsDisplay; ++i)
+                        @for (int i = 0; i < MaximWordsDisplay && i<n; ++i)
                         {
                             <div class="text-center">
                                 @{

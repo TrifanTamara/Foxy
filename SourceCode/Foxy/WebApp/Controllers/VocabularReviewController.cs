@@ -55,14 +55,15 @@ namespace WebApp.Controllers
 
         [HttpPost]
         [Route("CheckAnswer")]
-        public async Task<JsonResult> CheckAnswer(VocabularAnswerDto answer)
+        public JsonResult CheckAnswer(VocabularAnswerDto answer)
         {
             if (answer != null && answer.Meaning != null)
             {
                 string email = HttpContext.User.Claims.First().Value;
-                User user = await _userRepo.GetByEmail(email);
-
+                User user = _userRepo.GetByEmail(email).Result;
+                
                 AnswerStatusModel status = _service.UserAnswered(user.UserId, answer);
+                
                 return Json(new
                 {
                     status.Reading,
@@ -71,7 +72,7 @@ namespace WebApp.Controllers
                     status.LevelName
                 });
             }
-            return null;
+            return Json(new { });
         }
 
         [HttpGet]

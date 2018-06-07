@@ -28,10 +28,10 @@ function ManageEyeButton() {
 }
 
 function validateForm(form) {
+    var reading = form.wanakanainput.value;
+    var meaning = form.meaninginput.value;
     if ($('#submitButton').is(':visible')) {
         var result = true;
-        var reading = form.wanakanainput.value;
-        var meaning = form.meaninginput.value;
 
         if ($('#div-reading-wanakana').is(':visible')) {
             if (reading == "") {
@@ -80,9 +80,9 @@ function validateForm(form) {
         $('#eye-button').tooltip('disable');
         $('#eye-button').tooltip('hide');
         ClearResponseBoxes();
-
-        $("#meaninginput").value = "";
-        $("#wanakanainput").value = "";
+        
+        form.wanakanainput.value = "";
+        form.meaninginput.value = "";
 
         document.getElementById('meaninginput').readOnly = false;
         document.getElementById('wanakanainput').readOnly = false;
@@ -103,20 +103,27 @@ function CheckAnswerServer(inputMeaning, inputReading) {
             Reading: inputReading
         },
         dataType: 'json',
+        async: false,
+        timeout: 5000,
         success: function (data) {
-            var bMeaning = data["Meaning"];
-            var bReading = data["Reading"];
-            var bFinal = data["Final"];
-            
-            var strLevel = data["LevelName"];
-            
-            setResponse("#reading-result", bMeaning);
-            setResponse("#meaning-result", bReading);
+            var bMeaning = data.meaning;
+            var bReading = data["reading"];
+            var bFinal = data["final"];
+
+            var strLevel = data["levelName"];
+
+            setMeaningResponse(bMeaning);
+            console.log(bMeaning);
+            setReadingResponse(bReading);
         },
         error: function (data) {
-            toastr.error("?");
+            var x;
+            x = 1;
+        },
+        complete: function (data) {
+            console.log(data);
         }
-    })
+    });
 }
 
 function GetNextReview() {
@@ -135,11 +142,15 @@ function GetNextReview() {
             $('#mainDivName').addClass(sType + "-color");
             $('#mainDivName').text(sName);
 
+            if (sType == "radical") {
+                HideWanakanaReading(true);
+            } else HideWanakanaReading(false);
+
         },
         error: function (data) {
             toastr.error("?");
         }
-    })
+    });
 }
 
 function ReloadRightAns() {
@@ -152,7 +163,7 @@ function ReloadRightAns() {
 }
 
 function HideWanakanaReading(hideReading) {
-    if (hideReading != "False") {
+    if (hideReading != "False" && hideReading != false) {
         $("#div-reading-wanakana").hide();
     }
     else {
@@ -160,13 +171,23 @@ function HideWanakanaReading(hideReading) {
     }
 }
 
-function setResponse(elementId, answer) {
-    if (answer) {
-        $(elementId).text("🠝");
-        $(elementId).addClass("arrow-up");
+function setMeaningResponse(answer) {
+    if (answer==true || answer=="True") {
+        $("#meaning-result").text("🠝");
+        $("#meaning-result").addClass("arrow-up");
     } else {
-        $(elementId).text("🠟");
-        $(elementId).addClass("arrow-down");
+        $("#meaning-result").text("🠟");
+        $("#meaning-result").addClass("arrow-down");
+    }
+}
+
+function setReadingResponse(answer) {
+    if (answer == true || answer == "True") {
+        $("#reading-result").text("🠝");
+        $("#reading-result").addClass("arrow-up");
+    } else {
+        $("#reading-result").text("🠟");
+        $("#reading-result").addClass("arrow-down");
     }
 }
 
