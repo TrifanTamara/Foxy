@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.DTOs;
 using WebApp.Models;
 
 namespace WebApp.Services
@@ -18,7 +19,7 @@ namespace WebApp.Services
 
         public static bool CheckReadingAns(string userAns, List<string> rightAnswers)
         {
-            for(int i=0; i<rightAnswers.Count(); ++i)
+            for (int i = 0; i < rightAnswers.Count(); ++i)
             {
                 if (rightAnswers[i].ToLower().Equals(userAns.ToLower()))
                     return true;
@@ -44,7 +45,7 @@ namespace WebApp.Services
 
         public MenuModel GetMenuModel(string email)
         {
-            User user = _userRepo.GetByEmail(email).Result; 
+            User user = _userRepo.GetByEmail(email).Result;
             MenuModel model = new MenuModel();
             model.Username = user.Username;
             model.Level = user.Level;
@@ -69,7 +70,7 @@ namespace WebApp.Services
                 model.Reviewitems = _vocabRepo.GetVocabForReview(userId).Result;
             currentReviewSeesion[userId] = model;
         }
-            
+
         public VocabularWrapper GetItemForReview(Guid userId)
         {
             ReviewModel model = currentReviewSeesion[userId];
@@ -80,19 +81,29 @@ namespace WebApp.Services
             return model.Reviewitems[0];
         }
 
-        public AnswerStatusModel UserAnswered(Guid userId, string ansMeaning, string ansReading)
+        public VocabularWrapper GetCurrentItem(Guid userId)
+        {
+            ReviewModel model = currentReviewSeesion[userId];
+            if (model.Reviewitems.Count == 0)
+                return null;
+            
+            return model.Reviewitems[0];
+        }
+
+        public AnswerStatusModel UserAnswered(Guid userId, VocabularAnswerDto answer)
         {
             ReviewModel model = currentReviewSeesion[userId];
             if (model != null)
             {
                 VocabularWrapper item = model.Reviewitems[0];
                 AnswerStatusModel result = new AnswerStatusModel();
-                
-                result.Meaning = CheckMeaningAns(ansMeaning, item.MeaningsList);
+
+                result.Meaning = CheckMeaningAns(answer.Meaning, item.MeaningsList);
                 List<string> readingList = item.OnyomyIsMain ? item.OnyomiReading : item.KunyoumiReading;
-                result.Reading = CheckReadingAns(ansMeaning, readingList);
+                if (item.Template.Type != Data.Domain.Entities.TemplateItems.VocabularType.Radical)
+                    result.Reading = CheckReadingAns(answer.Reading, readingList);
+                else result.Reading = true;
                 result.Final = result.Meaning && result.Reading;
-                
                 _vocabRepo.AddAnswer(item.Item, result.Final);
                 model.Reviewitems[0].Item = _vocabRepo.FindById(item.Item.VocabularItemId).Result;
                 result.LevelName = _vocabRepo.GrandLvlNameFromMini(model.Reviewitems[0].Item.CurrentMiniLevel);

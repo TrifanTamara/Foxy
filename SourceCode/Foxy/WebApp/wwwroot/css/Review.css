@@ -26,6 +26,27 @@
     padding-bottom: 3px;
 }
 
-.input-container{
-    padding:0.5em!important;
+.input-container {
+    padding: 0.5em !important;
+}
+
+.inactive-button {
+    opacity: 0.8 !important;
+}
+
+.input-form {
+}
+.arrow-up {
+    font-size: 1em;
+    font-weight: bold;
+    background-color: rgba(0, 128, 0, 0.69);
+    color: white;
+
+}
+
+.arrow-down {
+    font-size: 1em;
+    font-weight: bold;
+    background-color: rgba(255, 0, 0, 0.63); 
+    color: white;
 }

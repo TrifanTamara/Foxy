@@ -181,7 +181,6 @@ function AddSynonim(vId) {
         },
         dataType: 'json',
         success: function (data) {
-            //var json = JSON.parse(data);
             var str = data["synonyms"];
             var list = str.split(";");
             var arrayLength = list.length;

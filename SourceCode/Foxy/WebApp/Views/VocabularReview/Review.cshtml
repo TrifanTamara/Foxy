@@ -63,11 +63,13 @@
         <div id="huge-text-div">
             @{
                 hideDiv = "";
+                var hideReading = false;
                 elementType = Model.Template.Type;
                 if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Radical)
                 {
                     elementNameColor = "radical-color";
                     hideDiv = "hide-a-div";
+                    hideReading = true;
                 }
                 else if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Kanji)
                 {
@@ -81,14 +83,14 @@
             <div class="div-for-name @elementNameColor" id="mainDivName">
                 @Model.Template.Name
             </div>
-            <div class="div-for-meaning @elementNameColor" id="mainDivMeaning">
-                @Model.MainMeaning
-            </div>
+            @*<div class="div-for-meaning @elementNameColor" id="mainDivMeaning">
+                    @Model.MainMeaning
+                </div>*@
 
         </div>
         <nav class="my-navbar-dark">
             <div class="nav nav-tabs justify-content-center" id="nav-tab">
-                <div id="eye-button" class="btn-light text-center rounded" style="width:2em;font-size:1.5em; cursor:pointer">
+                <div id="eye-button" class="btn-light text-center rounded" style="width:2em;font-size:1.5em; cursor:pointer" data-toggle="tooltip" data-placement="bottom" title="Check the right answer">
                     <img href="#nav-meaning" src="~/img/octicons/svg/eye.svg" style="width:1.3em;margin-bottom:3px" alt="*">
                 </div>
             </div>
@@ -96,37 +98,53 @@
         <div id="see-answer" class="">
             @await Html.PartialAsync("PartialView/ReviewInfo", Model)
         </div>
-        <form name="review-form" class="needs-validation" novalidate>
-            <div class="row justify-content-center" style="margin-top:2em;width:100%!important">
-                <div class="input-container" style="width:22em">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Meaning</span>
-                        </div>
-                        <input type="text" name="meaning-input" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                        <div class="invalid-feedback text-center" id="div-validate-meaning">
-                            x
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center" style="width:100%!important">
-                <div class="input-container" style="width:22em">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Reading</span>
-                        </div>
-                        <input id="wanakana-input" name="reading-input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                        <div class="invalid-feedback text-center" id="div-validate-reading">
-                            x
+        <div class="justify-content-center">
+            <form name="review-form" onsubmit="return validateForm(this);" class="needs-validation input-form justify-content-center" autocomplete="off">
+                <div class="row justify-content-center" style="margin-top:2em;width:100%!important">
+                    <div class="input-container" style="width:22em">
+                        <div class="input-group mb-3">
+                            
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Meaning</span>
+                            </div>
+                            <input type="text" id="meaninginput" name="meaning-input" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:2.3em!important" id="meaning-result"></span>
+                            </div>
+
+                            <div class="invalid-feedback text-center" id="div-validate-meaning">
+                                x
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row justify-content-center" style="width:100%!important;margin:0!important">
-                <button type="submit" class="btn btn-info">Submit</button>
-            </div>
-        </form>
+                <div class="row justify-content-center" id="div-reading-wanakana" style="width:100%!important">
+                    <div class="input-container" style="width:22em">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Reading</span>
+                            </div>
+                            <input id="wanakanainput" name="reading-input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:2.3em!important" id="reading-result"></span>
+                            </div>
+                            <div class="invalid-feedback text-center" id="div-validate-reading">
+                                x
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center" style="width:100%!important;margin:0!important">
+                    <button id="submitButton" type="submit" class="btn btn-info">Submit</button>
+                </div>
+                <div class="row justify-content-center" style="width:100%!important;margin:0!important">
+                    <button id="nextButton" type="submit" class="btn btn-warning">Next</button>
+                </div>
+            </form>
+        </div>
     </div>
+    <script>
+        HideWanakanaReading('@hideReading');
+    </script>
 </body>
 </html>

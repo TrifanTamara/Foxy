@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.DTOs;
 using WebApp.Filter;
 using WebApp.Models;
 using WebApp.Services;
@@ -68,14 +69,12 @@ namespace WebApp.Controllers
         public async Task<IActionResult> LessonReview()
         {
             string email = HttpContext.User.Claims.First().Value;
-            User user = _userRepo.GetByEmail(email).Result;
+            User user = await _userRepo.GetByEmail(email);
 
             LessonModel model = currentSeesion[user.UserId];
             _service.StartReviewSession(user.UserId, true, model.LessonList);
 
             return RedirectToAction("ReviewLesson", "VocabularReview");
-
-            return RedirectToAction("ReviewLesson", new RouteValueDictionary(new { controller = "VocabularReview" }));
         }
 
     }
