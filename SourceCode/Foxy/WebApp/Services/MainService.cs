@@ -95,23 +95,27 @@ namespace WebApp.Services
             ReviewModel model = currentReviewSeesion[userId];
             if (model != null)
             {
-                VocabularWrapper item = model.Reviewitems[0];
-                AnswerStatusModel result = new AnswerStatusModel();
+                if (model.Reviewitems.Count() == 0) { return null; }
+                else
+                {
+                    VocabularWrapper item = model.Reviewitems[0];
+                    AnswerStatusModel result = new AnswerStatusModel();
 
-                result.Meaning = CheckMeaningAns(answer.Meaning, item.MeaningsList);
-                List<string> readingList = item.OnyomyIsMain ? item.OnyomiReading : item.KunyoumiReading;
-                if (item.Template.Type != Data.Domain.Entities.TemplateItems.VocabularType.Radical)
-                    result.Reading = CheckReadingAns(answer.Reading, readingList);
-                else result.Reading = true;
-                result.Final = result.Meaning && result.Reading;
-                _vocabRepo.AddAnswer(item.Item, result.Final);
-                model.Reviewitems[0].Item = _vocabRepo.FindById(item.Item.VocabularItemId).Result;
-                result.LevelName = _vocabRepo.GrandLvlNameFromMini(model.Reviewitems[0].Item.CurrentMiniLevel);
+                    result.Meaning = CheckMeaningAns(answer.Meaning, item.MeaningsList);
+                    List<string> readingList = item.OnyomyIsMain ? item.OnyomiReading : item.KunyoumiReading;
+                    if (item.Template.Type != Data.Domain.Entities.TemplateItems.VocabularType.Radical)
+                        result.Reading = CheckReadingAns(answer.Reading, readingList);
+                    else result.Reading = true;
+                    result.Final = result.Meaning && result.Reading;
+                    _vocabRepo.AddAnswer(item.Item, result.Final);
+                    model.Reviewitems[0].Item = _vocabRepo.FindById(item.Item.VocabularItemId).Result;
+                    result.LevelName = _vocabRepo.GrandLvlNameFromMini(model.Reviewitems[0].Item.CurrentMiniLevel);
 
-                if (result.Final == true)
-                    model.Reviewitems.RemoveAt(0);
+                    if (result.Final == true)
+                        model.Reviewitems.RemoveAt(0);
 
-                return result;
+                    return result;
+                }
             }
 
             return null;

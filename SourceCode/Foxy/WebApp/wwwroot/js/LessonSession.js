@@ -33,7 +33,7 @@ jQuery(document).ready(function () {
     $('#review-button').click(function (e) {
         if ($('#review-button').hasClass('active-review')) {
             //go to review
-            toastr.success("you go to review", { positionClass: 'toast-top-right'});
+            toastr.success("you go to review", { positionClass: 'toast-top-right' });
         } else {
             toastr.warning("All elements must be visited to activate review!", { positionClass: 'toast-top-right' });
         }
@@ -66,6 +66,14 @@ jQuery(document).ready(function () {
 
     });
 });
+
+function lessonPlaySound() {
+    $('.audio').each(function () {
+        if ($(this).parents('div#middle-div-reading').length) {
+            this.play();
+        }
+    });
+}
 
 function MarkVisited() {
     VisitedItems[globalIndex] = true;

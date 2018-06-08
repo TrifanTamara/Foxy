@@ -1,0 +1,67 @@
+﻿@using Business.Wrappers;
+@model VocabularWrapper
+@{
+    Layout = null;
+}
+
+@{
+    Data.Domain.Entities.TemplateItems.VocabularType elementType;
+    string elementNameColor;
+    string elementMeaningColor;
+    string hideDiv;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Foxy</title>
+
+    <!-- Bootstrap core CSS -->
+    <script src="~/vendor/jquery/jquery.js"></script>
+
+
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!-- Custom fonts for this template -->
+    <!-- Plugin CSS -->
+    <!-- Custom styles for this template -->
+    <link href="~/css/foxy.css" rel="stylesheet">
+    <link href="~/css/ItemForm.css" rel="stylesheet">
+    <link href="~/css/fontfamily.css" rel="stylesheet">
+    <link href="~/css/DashBoard.css" rel="stylesheet" type="text/css" />
+    <link href="~/toastr/toastr.css" rel="stylesheet" />
+    <link href="~/css/Review.css" rel="stylesheet" />
+
+    <link href="~/css/LessonVocabular.css" rel="stylesheet" />
+
+    <script src="~/toastr/toastr.js"></script>
+    <script src="~/js/foxy.js"></script>
+    <script src="~/js/LessonSession.js"></script>
+    <script src="~/js/review.js"></script>
+    <script src="~/js/wanakana.min.js"></script>
+</head>
+<body>
+    <div class="container text-center justify-content-center vertical-align" style="padding-top:5em!important">
+        <div class="row justify-content-center" style="padding-top:5em;width:100%">
+            <h1>Review Finished</h1>
+        </div>
+        <div class="row justify-content-center" style="padding-top:5em;width:100%">
+            <div class="btn btn-info" style="display:block">
+                <a style="all:unset!important" asp-controller="Dashboard" asp-action="Index">
+                    Back to dashboard
+                </a>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

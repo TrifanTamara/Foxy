@@ -8,9 +8,9 @@
     $("#eye-button").click(function (e) {
         ManageEyeButton();
     });
-
+    
     var textInput = document.getElementById('wanakanainput');
-    wanakana.bind(textInput, /* options */); 
+    wanakana.bind(textInput, /* options */);
 });
 
 function ManageEyeButton() {
@@ -19,6 +19,7 @@ function ManageEyeButton() {
         if ($('#see-answer').is(':visible')) {
             $('#see-answer').hide();
         } else {
+            HideInputs();
             $('#see-answer').show();
         }
     } else {
@@ -71,8 +72,6 @@ function validateForm(form) {
 
             CheckAnswerServer(meaning, reading);
         }
-
-        return false;
     } else {
         $('#submitButton').show();
         $('#nextButton').hide();
@@ -80,7 +79,7 @@ function validateForm(form) {
         $('#eye-button').tooltip('disable');
         $('#eye-button').tooltip('hide');
         ClearResponseBoxes();
-        
+
         form.wanakanainput.value = "";
         form.meaninginput.value = "";
 
@@ -89,9 +88,8 @@ function validateForm(form) {
 
         GetNextReview();
         ReloadRightAns();
-
-        return false;
     }
+    return false;
 }
 
 function CheckAnswerServer(inputMeaning, inputReading) {
@@ -104,7 +102,6 @@ function CheckAnswerServer(inputMeaning, inputReading) {
         },
         dataType: 'json',
         async: false,
-        timeout: 5000,
         success: function (data) {
             var bMeaning = data.meaning;
             var bReading = data["reading"];
@@ -127,30 +124,40 @@ function CheckAnswerServer(inputMeaning, inputReading) {
 }
 
 function GetNextReview() {
+    $('#see-answer').hide();
+    $("#meaninginput").focus();
+
     $.ajax({
         type: "GET",
         url: "/VocabularReview/NextReview",
         dataType: 'json',
         success: function (data) {
-            var sName = data["name"];
-            var sType = data["type"];
+            var sFinish = data["finish"];
+            if (sFinish === true) {
+                var url = 'ReviewFinished';
+                window.location.href = url;
+            }
+            else {
+                var sName = data["name"];
+                var sType = data["type"];
 
-            $('#mainDivName').removeClass("kanji-color");
-            $('#mainDivName').removeClass("word-color");
-            $('#mainDivName').removeClass("radical-color");
+                $('#mainDivName').removeClass("kanji-color");
+                $('#mainDivName').removeClass("word-color");
+                $('#mainDivName').removeClass("radical-color");
 
-            $('#mainDivName').addClass(sType + "-color");
-            $('#mainDivName').text(sName);
+                $('#mainDivName').addClass(sType + "-color");
+                $('#mainDivName').text(sName);
 
-            if (sType == "radical") {
-                HideWanakanaReading(true);
-            } else HideWanakanaReading(false);
-
+                if (sType == "radical") {
+                    HideWanakanaReading(true);
+                } else HideWanakanaReading(false);
+            }
         },
         error: function (data) {
             toastr.error("?");
         }
     });
+
 }
 
 function ReloadRightAns() {
@@ -172,7 +179,7 @@ function HideWanakanaReading(hideReading) {
 }
 
 function setMeaningResponse(answer) {
-    if (answer==true || answer=="True") {
+    if (answer == true || answer == "True") {
         $("#meaning-result").text("🠝");
         $("#meaning-result").addClass("arrow-up");
     } else {

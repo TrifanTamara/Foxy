@@ -104,15 +104,15 @@
     }
 
 .little-radical {
-    background-color: var(--main-color-radical)!important;
+    background-color: var(--main-color-radical) !important;
 }
 
 .little-kanji {
-    background-color: var(--main-color-kanji)!important;
+    background-color: var(--main-color-kanji) !important;
 }
 
 .little-word {
-    background-color: var(--main-color-word)!important;
+    background-color: var(--main-color-word) !important;
 }
 
 .square-content-little {
@@ -260,3 +260,11 @@
     font-size: 1.3em;
     text-align: center;
 }
+
+a {
+    color: inherit;
+}
+
+    a:hover {
+        color: inherit;
+    }

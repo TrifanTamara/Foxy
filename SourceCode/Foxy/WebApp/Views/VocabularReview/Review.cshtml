@@ -99,7 +99,7 @@
             @await Html.PartialAsync("PartialView/ReviewInfo", Model)
         </div>
         <div class="justify-content-center">
-            <form name="review-form" onsubmit="validateForm(this); return false;" class="needs-validation input-form justify-content-center" autocomplete="off">
+            <form id="reviewform"name="review-form" onsubmit="return validateForm(this);" class="needs-validation input-form justify-content-center" autocomplete="off">
                 <div class="row justify-content-center" style="margin-top:2em;width:100%!important">
                     <div class="input-container" style="width:22em">
                         <div class="input-group mb-3">

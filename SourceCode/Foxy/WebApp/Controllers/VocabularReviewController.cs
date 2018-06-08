@@ -53,17 +53,25 @@ namespace WebApp.Controllers
             return View("Review", item);
         }
 
+        [HttpGet]
+        [Route("ReviewFinished")]
+        public async Task<IActionResult> ReviewFinished()
+        {
+            return View("Finish");
+        }
+
         [HttpPost]
         [Route("CheckAnswer")]
         public JsonResult CheckAnswer(VocabularAnswerDto answer)
         {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             if (answer != null && answer.Meaning != null)
             {
                 string email = HttpContext.User.Claims.First().Value;
                 User user = _userRepo.GetByEmail(email).Result;
                 
                 AnswerStatusModel status = _service.UserAnswered(user.UserId, answer);
-                
+
                 return Json(new
                 {
                     status.Reading,
@@ -83,10 +91,12 @@ namespace WebApp.Controllers
             User user = await _userRepo.GetByEmail(email);
 
             VocabularWrapper item = _service.GetItemForReview(user.UserId);
+            if (item == null) return Json(new { Finish = true });
             return Json(new
             {
                 Name = item.Name,
-                Type = item.VocabularType
+                Type = item.VocabularType,
+                Finish = false
             });
 
         }

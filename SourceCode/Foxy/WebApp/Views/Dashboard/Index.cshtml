@@ -303,7 +303,7 @@
                         @{
                             n = Model.WordsLesson.Count();
                         }
-                        @for (int i = 0; i < MaximWordsDisplay && i<n; ++i)
+                        @for (int i = 0; i < MaximWordsDisplay && i < n; ++i)
                         {
                             <div class="text-center">
                                 @{
@@ -384,7 +384,12 @@
     </div>
 </div>
 <div class="row" style="margin-bottom:5em">
-    <button type="button" class="btn btn-info btn-lg rounded-0" style="margin-right:0.3em;" asp-controller="VocabularLesson" asp-action="Index">Lesson</button>
+    <button type="button" class="btn btn-info btn-lg rounded-0" style="margin-right:0.3em;">
+        <a style="all:unset!important" asp-controller="VocabularLesson" asp-action="lessonpage">
+            Lesson
+        </a>
+    </button>
+
     <button type="button" class="btn btn-info btn-lg rounded-0">Review</button>
 </div>
 
