@@ -112,6 +112,7 @@ function CheckAnswerServer(inputMeaning, inputReading) {
             setMeaningResponse(bMeaning);
             console.log(bMeaning);
             setReadingResponse(bReading);
+            setFinalResponse(bFinal, strLevel);
         },
         error: function (data) {
             var x;
@@ -126,6 +127,8 @@ function CheckAnswerServer(inputMeaning, inputReading) {
 function GetNextReview() {
     $('#see-answer').hide();
     $("#meaninginput").focus();
+    $("#alert-for-success").hide();
+    $("#alert-for-failure").hide();
 
     $.ajax({
         type: "GET",
@@ -200,6 +203,22 @@ function setReadingResponse(answer) {
     } else {
         $("#reading-result").text("🠟");
         $("#reading-result").addClass("arrow-down");
+    }
+}
+
+function setFinalResponse(answer, strLevel) {
+    if (answer == true || answer == "True") {
+        $("#alert-for-success").show();
+        $("#level-name-success").text(strLevel);
+
+        var element = document.getElementById('alert-for-success');
+        element.style.display = "flex";
+    } else {
+        $("#alert-for-failure").show();
+        $("#level-name-failure").text(strLevel);
+
+        var element = document.getElementById('alert-for-failure');
+        element.style.display = "flex";
     }
 }
 

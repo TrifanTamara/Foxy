@@ -102,12 +102,17 @@ namespace WebApp.Services
                     AnswerStatusModel result = new AnswerStatusModel();
 
                     result.Meaning = CheckMeaningAns(answer.Meaning, item.MeaningsList);
+
                     List<string> readingList = item.OnyomyIsMain ? item.OnyomiReading : item.KunyoumiReading;
+
                     if (item.Template.Type != Data.Domain.Entities.TemplateItems.VocabularType.Radical)
                         result.Reading = CheckReadingAns(answer.Reading, readingList);
                     else result.Reading = true;
+
                     result.Final = result.Meaning && result.Reading;
+
                     _vocabRepo.AddAnswer(item.Item, result.Final);
+
                     model.Reviewitems[0].Item = _vocabRepo.FindById(item.Item.VocabularItemId).Result;
                     result.LevelName = _vocabRepo.GrandLvlNameFromMini(model.Reviewitems[0].Item.CurrentMiniLevel);
 

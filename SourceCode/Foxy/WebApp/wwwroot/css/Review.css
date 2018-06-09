@@ -65,3 +65,19 @@
     margin-left: 0!important;
 }
 
+.result-alert{
+    width:21em!important;
+}
+
+#alert-for-success{
+    display: none;
+}
+
+#alert-for-failure {
+    display: none;
+}
+
+.title-level{
+    font-weight: bold;
+    display: inline;
+}

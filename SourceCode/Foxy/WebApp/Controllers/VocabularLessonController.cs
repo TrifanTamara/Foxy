@@ -39,7 +39,6 @@ namespace WebApp.Controllers
             User user = await _userRepo.GetByEmail(email);
 
             LessonModel model = new LessonModel();
-            //set model list and instantiate list in model to avoid nullreferenec
             model.LessonList = await _vocabularRepo.GetItemsForLesson(user.UserId);
 
             return View(model);
@@ -55,13 +54,19 @@ namespace WebApp.Controllers
             LessonModel model = new LessonModel();
             //set model list and instantiate
             model.LessonList = await _vocabularRepo.GetItemsForLesson(user.UserId);
-            model.ItemVisited = new List<bool>();
-            foreach (var x in model.LessonList) model.ItemVisited.Add(false);
-            model.CurrentIndex = 0;
-            model.ItemVisited[0] = true;
-            model.ReviewActive = false;
-            currentSeesion[user.UserId] = model;
-            return View("LessonPage", model);
+            if (model.LessonList.Count != 0)
+            {
+                model.ItemVisited = new List<bool>();
+                foreach (var x in model.LessonList) model.ItemVisited.Add(false);
+                model.CurrentIndex = 0;
+                model.ItemVisited[0] = true;
+                model.ReviewActive = false;
+                currentSeesion[user.UserId] = model;
+                return View("LessonPage", model);
+            } else
+            {
+                return View("EmptyLesson");
+            }
         }
         
         [HttpGet]

@@ -9,7 +9,6 @@ namespace WebApp.Models
     public class ReviewModel
     {
         public List<VocabularWrapper> Reviewitems { get; set; }
-        //public List<bool> ItemVisited { get; set; }
 
         public int CurrentIndex { get; set; }
     }

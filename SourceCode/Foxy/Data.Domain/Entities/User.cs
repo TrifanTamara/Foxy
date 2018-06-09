@@ -22,6 +22,8 @@ namespace Data.Domain.Entities
         public int Level { get; private set; }
         public Guid ImageId { get; private set; }
 
+        public int LessonSessionCount { get; private set; }
+
         public List<VocabularItem> VocabularItems { get; set; }
 
         public static User Create(string name, bool isAdmin, string email, string password, string token, string description)
@@ -42,10 +44,12 @@ namespace Data.Domain.Entities
             Description = description;
             Update(level);
             ImageId = imageId;
+            LessonSessionCount = 5;
         }
-        public void Update(string token)
+        public void Update(string token, int lessCount)
         {
             Token = token;
+            LessonSessionCount = lessCount;
         }
         public void Update(int level)
         {
