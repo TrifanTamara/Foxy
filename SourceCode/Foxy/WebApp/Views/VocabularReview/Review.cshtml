@@ -65,11 +65,13 @@
                 hideDiv = "";
                 var hideReading = false;
                 elementType = Model.Template.Type;
+                var styledefault = "";
                 if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Radical)
                 {
                     elementNameColor = "radical-color";
                     hideDiv = "hide-a-div";
                     hideReading = true;
+                    styledefault = "display:none;";
                 }
                 else if (elementType == Data.Domain.Entities.TemplateItems.VocabularType.Kanji)
                 {
@@ -100,7 +102,7 @@
         </div>
         <div class="justify-content-center">
             <form id="reviewform"name="review-form" onsubmit="return validateForm(this);" class="needs-validation input-form justify-content-center" autocomplete="off">
-                <div class="row justify-content-center" style="margin-top:2em;width:100%!important">
+                <div class="row justify-content-center" style="margin-top:2em;width:100%!important;margin-right:0px!important;margin-left:0px!important;">
                     <div class="input-container" style="width:22em">
                         <div class="input-group mb-3">
                             
@@ -118,7 +120,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center" id="div-reading-wanakana" style="width:100%!important">
+                <div class="row justify-content-center" id="div-reading-wanakana" style="@styledefault">
                     <div class="input-container" style="width:22em">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">

@@ -87,7 +87,6 @@ function validateForm(form) {
         document.getElementById('wanakanainput').readOnly = false;
 
         GetNextReview();
-        ReloadRightAns();
     }
     return false;
 }
@@ -101,7 +100,8 @@ function CheckAnswerServer(inputMeaning, inputReading) {
             Reading: inputReading
         },
         dataType: 'json',
-        async: false,
+        async: true,
+        cache: false,
         success: function (data) {
             var bMeaning = data.meaning;
             var bReading = data["reading"];
@@ -138,6 +138,7 @@ function GetNextReview() {
                 window.location.href = url;
             }
             else {
+                ReloadRightAns();
                 var sName = data["name"];
                 var sType = data["type"];
 
@@ -174,7 +175,11 @@ function HideWanakanaReading(hideReading) {
         $("#div-reading-wanakana").hide();
     }
     else {
+        //$('#div-reading-wanakana').css('display', 'normal');
+        var element = document.getElementById('div-reading-wanakana');
         $("#div-reading-wanakana").show();
+
+        element.style.display = "flex";
     }
 }
 

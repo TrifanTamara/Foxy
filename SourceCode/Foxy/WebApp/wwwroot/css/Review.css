@@ -50,3 +50,18 @@
     background-color: rgba(255, 0, 0, 0.63); 
     color: white;
 }
+
+#see-answer{
+    display: none;
+}
+
+#nextButton{
+    display: none;
+}
+
+#div-reading-wanakana {
+    width: 100% !important;
+    margin-right: 0!important;
+    margin-left: 0!important;
+}
+
