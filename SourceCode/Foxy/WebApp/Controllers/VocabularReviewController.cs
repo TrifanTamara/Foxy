@@ -38,6 +38,8 @@ namespace WebApp.Controllers
 
             await _service.StartReviewSession(user.UserId, false);
             VocabularWrapper item = _service.GetItemForReview(user.UserId);
+            if (item == null)
+                return View("EmptyReview");
 
             return View("Review", item);
         }

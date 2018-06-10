@@ -35,5 +35,6 @@ namespace Data.Domain.Interfaces
         Task<VocabularWrapper> GetWrappedItem(Guid userId, string name, VocabularType type);
         string GrandLvlNameFromMini(MiniLevels minilevel);
         Task<List<VocabularWrapper>> GetAllVocabByItemType(Guid userId, VocabularType type);
+        Task IsUserReadyForNextLevel(Guid userId);
     }
 }

@@ -1,0 +1,3 @@
+The instance of entity type 'VocabularItem' cannot be tracked because another instance with the same key value for {'VocabularItemId'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+
+The instance of entity type 'VocabularItem' cannot be tracked because another instance with the same key value for {'VocabularItemId'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.

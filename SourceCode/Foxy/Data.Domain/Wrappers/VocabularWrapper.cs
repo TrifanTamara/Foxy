@@ -109,8 +109,10 @@ namespace Business.Wrappers
 
                 span = Item.LastTimeAnswered.AddMinutes(StaticInfo.minutesForLevel[(int)Item.CurrentMiniLevel]) - DateTime.Now; 
                 TimeUntilNextReview = FormatTime(span);
-                if (TimeUntilNextReview.Equals("now")) TimeUntilNextReview = "Active in Review";
+                if (TimeUntilNextReview.Equals("now") || Item.LastAnswer == false) TimeUntilNextReview = "Active in Review";
                 else TimeUntilNextReview = "in " + TimeUntilNextReview;
+
+                if (Item.CurrentMiniLevel == MiniLevels.Lev4) TimeUntilNextReview = "You have already mastered this item";
             }
 
             List<string> aux = new List<string>(Template.Reading.Split("||"));

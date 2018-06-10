@@ -112,12 +112,14 @@ namespace WebApp.Services
                     result.Final = result.Meaning && result.Reading;
 
                     await _vocabRepo.AddAnswer(item.Item, result.Final);
+                    await _vocabRepo.IsUserReadyForNextLevel(item.Item.UserId);
 
                     model.Reviewitems[0].Item = await _vocabRepo.FindById(item.Item.VocabularItemId);
                     result.LevelName = _vocabRepo.GrandLvlNameFromMini(model.Reviewitems[0].Item.CurrentMiniLevel);
 
                     if (result.Final == true)
                         model.Reviewitems.RemoveAt(0);
+
 
                     return result;
                 }

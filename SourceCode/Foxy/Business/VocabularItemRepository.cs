@@ -123,6 +123,22 @@ namespace Business
             }
         }
 
+        public async Task IsUserReadyForNextLevel(Guid userId)
+        {
+            User user = await _userRepo.FindById(userId);
+            int passedRadicals = (await GetVocabLessonByTypes(userId, user.Level, VocabularType.Radical, InfoLessonType.Passed)).Count;
+            int totalRadicals = (await GetAllVocabByItemType(user.UserId, VocabularType.Radical)).Count;
+
+            int passedKanjis = (await GetVocabLessonByTypes(userId, user.Level, VocabularType.Kanji, InfoLessonType.Passed)).Count;
+            int totalKanjis = (await GetAllVocabByItemType(user.UserId, VocabularType.Kanji)).Count;
+
+            int radPercent = (int)(passedRadicals * 100 / (float)totalRadicals);
+            int kanjiPercent = (int)(passedKanjis * 100 / (float)totalKanjis);
+
+            if (radPercent >= 80 && kanjiPercent >= 80)
+                await PassToNextLevel(user.Level + 1, userId);
+        }
+
         public async Task AddAnswer(VocabularItem vocab, bool answer)
         {
             if (answer)
@@ -131,6 +147,8 @@ namespace Business
                 int strike = vocab.CurrentStrike + 1;
                 int maxstrike = (strike > vocab.LongestStrike) ? strike : vocab.LongestStrike;
                 vocab.Update(strike, maxstrike, vocab.RightAnswers + 1, vocab.WrongAnswers, true, DateTime.Now);
+
+                
             }
             else
             {
@@ -305,6 +323,8 @@ namespace Business
         {
             if ((int)item.CurrentMiniLevel == (int)GrandLevels.Flourished)
                 return false;
+            if (item.LastAnswer == false)
+                return true;
             DateTime readyTime = item.LastTimeAnswered.AddMinutes(StaticInfo.minutesForLevel[(int)item.CurrentMiniLevel]);
             if (DateTime.Compare(readyTime, DateTime.Now) <= 0)
                 return true;
