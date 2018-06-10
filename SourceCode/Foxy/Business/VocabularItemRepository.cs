@@ -127,10 +127,10 @@ namespace Business
         {
             User user = await _userRepo.FindById(userId);
             int passedRadicals = (await GetVocabLessonByTypes(userId, user.Level, VocabularType.Radical, InfoLessonType.Passed)).Count;
-            int totalRadicals = (await GetAllVocabByItemType(user.UserId, VocabularType.Radical)).Count;
+            int totalRadicals = (await GetAllVocabByItemType(user.UserId, VocabularType.Radical, user.Level)).Count;
 
             int passedKanjis = (await GetVocabLessonByTypes(userId, user.Level, VocabularType.Kanji, InfoLessonType.Passed)).Count;
-            int totalKanjis = (await GetAllVocabByItemType(user.UserId, VocabularType.Kanji)).Count;
+            int totalKanjis = (await GetAllVocabByItemType(user.UserId, VocabularType.Kanji, user.Level)).Count;
 
             int radPercent = (int)(passedRadicals * 100 / (float)totalRadicals);
             int kanjiPercent = (int)(passedKanjis * 100 / (float)totalKanjis);
@@ -285,13 +285,23 @@ namespace Business
             return (await WrapVocabular(lessons));
         }
 
-        public async Task<List<VocabularWrapper>> GetAllVocabByItemType(Guid userId, VocabularType type)
+        public async Task<List<VocabularWrapper>> GetAllVocabByItemType(Guid userId, VocabularType type, int level = -1)
         {
             List<VocabularWrapper> elements = await WrapVocabular((await GetVocabByUser(userId)).ToList());
             List<VocabularWrapper> elementsType = new List<VocabularWrapper>();
-            foreach (var x in elements)
+            if (level == -1)
             {
-                if (x.Template.Type == type) elementsType.Add(x);
+                foreach (var x in elements)
+                {
+                    if (x.Template.Type == type) elementsType.Add(x);
+                }
+            }
+            else
+            {
+                foreach (var x in elements)
+                {
+                    if (x.Template.Type == type && x.Template.RequiredLevel == level) elementsType.Add(x);
+                }
             }
             return elementsType;
         }
@@ -321,7 +331,9 @@ namespace Business
 
         public bool ActiveForReview(VocabularItem item)
         {
-            if ((int)item.CurrentMiniLevel == (int)GrandLevels.Flourished)
+            if (MiniIsGrand(item.CurrentMiniLevel, GrandLevels.Flourished))
+                return false;
+            if (MiniIsGrand(item.CurrentMiniLevel, GrandLevels.Lesson))
                 return false;
             if (item.LastAnswer == false)
                 return true;

@@ -95,7 +95,7 @@ namespace Business.Wrappers
                 LastTimeAString = "None";
                 TimeUntilNextReview = "Locked";
             }
-            else if (Unlocked && DateTime.Compare(Item.LastTimeAnswered, DateTime.Now) > 0)
+            else if (Unlocked && Item.CurrentMiniLevel == 0)
             {
                 LastTimeAString = "None";
                 TimeUntilNextReview = "Active in Lesson";
@@ -109,7 +109,8 @@ namespace Business.Wrappers
 
                 span = Item.LastTimeAnswered.AddMinutes(StaticInfo.minutesForLevel[(int)Item.CurrentMiniLevel]) - DateTime.Now; 
                 TimeUntilNextReview = FormatTime(span);
-                if (TimeUntilNextReview.Equals("now") || Item.LastAnswer == false) TimeUntilNextReview = "Active in Review";
+                if (TimeUntilNextReview.Equals("now") || (Item.LastAnswer == false && Item.CurrentMiniLevel!=0) )
+                    TimeUntilNextReview = "Active in Review";
                 else TimeUntilNextReview = "in " + TimeUntilNextReview;
 
                 if (Item.CurrentMiniLevel == MiniLevels.Lev4) TimeUntilNextReview = "You have already mastered this item";

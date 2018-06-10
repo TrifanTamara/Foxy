@@ -19,6 +19,7 @@ To do:
 -add sound to ALL kanji and words
 -Maybe add two stages of flow: slower and faster (for user)
 -fix review meaning and reading check, to be more tolerant
+-implement kana table on input
 
 
 Rules:

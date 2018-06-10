@@ -32,19 +32,20 @@ namespace WebApp.Models
 
         public void CalculatePercentages()
         {
+            int total;
             if (RadicalsLesson != null)
             {
-                int total = RadicalsLesson.Count() + RadicalsViewed.Count() + RadicalsPassed.Count();
-                RadicalPercent = ((int)((RadicalsPassed.Count() / (float)total) * 100));
+                total = RadicalsLesson.Count() + RadicalsViewed.Count() + RadicalsPassed.Count();
+                RadicalPercent = (int)(RadicalsPassed.Count() * 100 / (float)total);
             }
             if (KanjisLesson != null)
             {
-                int total = KanjisLesson.Count() + KanjisViewed.Count() + KanjisPassed.Count();
-                KanjiPercent = ((int)((RadicalsPassed.Count() / (float)total) * 100));
+                total = KanjisLesson.Count() + KanjisViewed.Count() + KanjisPassed.Count();
+                KanjiPercent = (int)(KanjisPassed.Count() * 100 / (float)total);
             }
             if (WordsLesson != null)
             {
-                int total = WordsTotal.Count();
+                total = WordsTotal.Count();
                 if (total == 0) WordsPercent = 100;
                 else WordsPercent = ((int)((WordsPassed.Count() / (float)total) * 100));
             }
