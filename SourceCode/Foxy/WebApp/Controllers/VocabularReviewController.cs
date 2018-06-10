@@ -36,7 +36,7 @@ namespace WebApp.Controllers
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
-            _service.StartReviewSession(user.UserId, false);
+            await _service.StartReviewSession(user.UserId, false);
             VocabularWrapper item = _service.GetItemForReview(user.UserId);
 
             return View("Review", item);
@@ -62,23 +62,28 @@ namespace WebApp.Controllers
 
         [HttpPost]
         [Route("CheckAnswer")]
-        public JsonResult CheckAnswer(VocabularAnswerDto answer)
+        public async Task<JsonResult> CheckAnswer(VocabularAnswerDto answer)
         {
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
-            if (answer != null && answer.Meaning != null)
+            try
             {
-                string email = HttpContext.User.Claims.First().Value;
-                User user = _userRepo.GetByEmail(email).Result;
-                
-                AnswerStatusModel status = _service.UserAnswered(user.UserId, answer);
-
-                return Json(new
+                if (answer != null && answer.Meaning != null)
                 {
-                    status.Reading,
-                    status.Meaning,
-                    status.Final,
-                    status.LevelName
-                });
+                    string email = HttpContext.User.Claims.First().Value;
+                    User user = await _userRepo.GetByEmail(email);
+
+                    AnswerStatusModel status = await _service.UserAnswered(user.UserId, answer);
+
+                    return Json(new
+                    {
+                        status.Reading,
+                        status.Meaning,
+                        status.Final,
+                        status.LevelName
+                    });
+                }
+            } catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
             return Json(new { });
         }
@@ -87,26 +92,32 @@ namespace WebApp.Controllers
         [Route("NextReview")]
         public async Task<JsonResult> NextReview()
         {
-            string email = HttpContext.User.Claims.First().Value;
-            User user = await _userRepo.GetByEmail(email);
-
-            VocabularWrapper item = _service.GetItemForReview(user.UserId);
-            if (item == null) return Json(new { Finish = true });
-            return Json(new
+            try
             {
-                Name = item.Name,
-                Type = item.VocabularType,
-                Finish = false
-            });
+                string email = HttpContext.User.Claims.First().Value;
+                User user = await _userRepo.GetByEmail(email);
 
+                VocabularWrapper item = _service.GetItemForReview(user.UserId);
+                if (item == null) return Json(new { Finish = true });
+                return Json(new
+                {
+                    Name = item.Name,
+                    Type = item.VocabularType,
+                    Finish = false
+                });
+            } catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return Json(new { });
         }
 
         [HttpGet]
         [Route("CurrentItem")]
-        public IActionResult ReadingTab()
+        public async Task<IActionResult> CurrentItem()
         {
             string email = HttpContext.User.Claims.First().Value;
-            User user = _userRepo.GetByEmail(email).Result;
+            User user = await _userRepo.GetByEmail(email);
 
             VocabularWrapper item = _service.GetCurrentItem(user.UserId);
             return PartialView("PartialView/ReviewInfo", item);

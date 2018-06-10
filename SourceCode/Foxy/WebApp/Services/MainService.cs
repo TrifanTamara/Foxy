@@ -43,14 +43,14 @@ namespace WebApp.Services
             _vocabRepo = vocabRepo;
         }
 
-        public MenuModel GetMenuModel(string email)
+        public async Task<MenuModel> GetMenuModel(string email)
         {
-            User user = _userRepo.GetByEmail(email).Result;
+            User user = await _userRepo.GetByEmail(email);
             MenuModel model = new MenuModel();
             model.Username = user.Username;
             model.Level = user.Level;
-            model.LessonNumber = _vocabRepo.GetVocabLesson(user.UserId).Result.Count();
-            model.ReviewNumber = _vocabRepo.GetVocabForReview(user.UserId).Result.Count();
+            model.LessonNumber = (await _vocabRepo.GetVocabLesson(user.UserId)).Count();
+            model.ReviewNumber = (await _vocabRepo.GetVocabForReview(user.UserId)).Count();
 
             return model;
         }
@@ -61,13 +61,13 @@ namespace WebApp.Services
             _vocabRepo.Edit(item);
         }
 
-        public void StartReviewSession(Guid userId, bool forLesson, List<VocabularWrapper> items = null)
+        public async Task StartReviewSession (Guid userId, bool forLesson, List<VocabularWrapper> items = null)
         {
             ReviewModel model = new ReviewModel();
             if (forLesson)
                 model.Reviewitems = new List<VocabularWrapper>(items);
             else
-                model.Reviewitems = _vocabRepo.GetVocabForReview(userId).Result;
+                model.Reviewitems = await _vocabRepo.GetVocabForReview(userId);
             currentReviewSeesion[userId] = model;
         }
 
@@ -90,7 +90,7 @@ namespace WebApp.Services
             return model.Reviewitems[0];
         }
 
-        public AnswerStatusModel UserAnswered(Guid userId, VocabularAnswerDto answer)
+        public async Task<AnswerStatusModel> UserAnswered(Guid userId, VocabularAnswerDto answer)
         {
             ReviewModel model = currentReviewSeesion[userId];
             if (model != null)
@@ -111,9 +111,9 @@ namespace WebApp.Services
 
                     result.Final = result.Meaning && result.Reading;
 
-                    _vocabRepo.AddAnswer(item.Item, result.Final);
+                    await _vocabRepo.AddAnswer(item.Item, result.Final);
 
-                    model.Reviewitems[0].Item = _vocabRepo.FindById(item.Item.VocabularItemId).Result;
+                    model.Reviewitems[0].Item = await _vocabRepo.FindById(item.Item.VocabularItemId);
                     result.LevelName = _vocabRepo.GrandLvlNameFromMini(model.Reviewitems[0].Item.CurrentMiniLevel);
 
                     if (result.Final == true)

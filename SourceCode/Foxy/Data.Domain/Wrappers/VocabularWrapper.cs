@@ -1,4 +1,5 @@
-﻿using Data.Domain.Entities.TemplateItems;
+﻿using Data.Domain.Entities;
+using Data.Domain.Entities.TemplateItems;
 using Data.Domain.Entities.UserRelated;
 using System;
 using System.Collections.Generic;
@@ -30,13 +31,16 @@ namespace Business.Wrappers
         public bool Unlocked { get; set; }
         public bool OnyomyIsMain { get; set; }
         public string LastTimeAString { get; set; }
+        public string TimeUntilNextReview { get; set; }
         public int Percent { get; set; }
+        public string ItemLevel { get; set; }
 
-        public VocabularWrapper(VocabularItem item, VocabularTemplate template, List<VocabularTemplate> components)
+        public VocabularWrapper(VocabularItem item, VocabularTemplate template, List<VocabularTemplate> components, string level)
         {
             Item = item;
             Template = template;
             Components = components;
+            ItemLevel = level;
 
             TransformInformation();
         }
@@ -82,14 +86,32 @@ namespace Business.Wrappers
             KunyoumiReading = new List<string>();
 
             if (Item.RightAnswers + Item.WrongAnswers == 0) Percent = 0;
-            else Percent = (int)(Item.RightAnswers / (Item.RightAnswers + Item.WrongAnswers));
+            else Percent = (int)((Item.RightAnswers / (float)(Item.RightAnswers + Item.WrongAnswers)*100));
 
             LastTimeAString = "x";
             Unlocked = DateTime.Compare(Item.UnlockTime, DateTime.Now) <= 0;
-            if (!Unlocked) LastTimeAString = "Locked";
+            if (!Unlocked)
+            {
+                LastTimeAString = "None";
+                TimeUntilNextReview = "Locked";
+            }
             else if (Unlocked && DateTime.Compare(Item.LastTimeAnswered, DateTime.Now) > 0)
-                LastTimeAString = "Active in Lesson";
-            else LastTimeAString = TimeAgo(Item.LastTimeAnswered);
+            {
+                LastTimeAString = "None";
+                TimeUntilNextReview = "Active in Lesson";
+            }
+            else
+            {
+                TimeSpan span = DateTime.Now - Item.LastTimeAnswered;
+                LastTimeAString = FormatTime(span);
+                if (LastTimeAString.Equals("now")) TimeUntilNextReview = "Just now";
+                else LastTimeAString = "about " + LastTimeAString + " ago";
+
+                span = Item.LastTimeAnswered.AddMinutes(StaticInfo.minutesForLevel[(int)Item.CurrentMiniLevel]) - DateTime.Now; 
+                TimeUntilNextReview = FormatTime(span);
+                if (TimeUntilNextReview.Equals("now")) TimeUntilNextReview = "Active in Review";
+                else TimeUntilNextReview = "in " + TimeUntilNextReview;
+            }
 
             List<string> aux = new List<string>(Template.Reading.Split("||"));
             if (aux.Count >= 1)
@@ -143,15 +165,14 @@ namespace Business.Wrappers
             }
         }
 
-        public string TimeAgo(DateTime dt)
+        public string FormatTime(TimeSpan span)
         {
-            TimeSpan span = DateTime.Now - dt;
             if (span.Days > 365)
             {
                 int years = (span.Days / 365);
                 if (span.Days % 365 != 0)
                     years += 1;
-                return String.Format("about {0} {1} ago",
+                return String.Format("{0} {1}",
                 years, years == 1 ? "year" : "years");
             }
             if (span.Days > 30)
@@ -159,22 +180,22 @@ namespace Business.Wrappers
                 int months = (span.Days / 30);
                 if (span.Days % 31 != 0)
                     months += 1;
-                return String.Format("about {0} {1} ago",
+                return String.Format("{0} {1}",
                 months, months == 1 ? "month" : "months");
             }
             if (span.Days > 0)
-                return String.Format("about {0} {1} ago",
+                return String.Format("{0} {1}",
                 span.Days, span.Days == 1 ? "day" : "days");
             if (span.Hours > 0)
-                return String.Format("about {0} {1} ago",
+                return String.Format("{0} {1}",
                 span.Hours, span.Hours == 1 ? "hour" : "hours");
             if (span.Minutes > 0)
-                return String.Format("about {0} {1} ago",
+                return String.Format("{0} {1}",
                 span.Minutes, span.Minutes == 1 ? "minute" : "minutes");
             if (span.Seconds > 5)
-                return String.Format("about {0} seconds ago", span.Seconds);
+                return String.Format("{0} seconds", span.Seconds);
             if (span.Seconds <= 5)
-                return "just now";
+                return "now";
             return string.Empty;
         }
     }

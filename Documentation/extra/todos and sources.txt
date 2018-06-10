@@ -13,13 +13,12 @@ https://www.wanikani.com/ - mnemonics
 https://github.com/WaniKani/WanaKana - input converter
 
 To do:
--delete n4 from documentation, only n5
--fix front images
+-delete n4 from documentation, only 1% n5 :D
+-add front images
 -create logo and images
--add sound to kanji and words
+-add sound to ALL kanji and words
 -Maybe add two stages of flow: slower and faster (for user)
--fix clear input after add notes or synonyms
--
+-fix review meaning and reading check, to be more tolerant
 
 
 Rules:

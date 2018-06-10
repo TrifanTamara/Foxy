@@ -47,8 +47,8 @@ namespace WebApp.Controllers
             model.KanjisPassed = (await _vocabularRepo.GetVocabLessonByTypes(user.UserId, user.Level, VocabularType.Kanji, InfoLessonType.Passed));
 
             model.WordsLesson = (await _vocabularRepo.GetVocabLessonByTypes(user.UserId, user.Level, VocabularType.Word, InfoLessonType.ActiveLesson));
-            model.WordsViewed = (await _vocabularRepo.GetVocabLessonByTypes(user.UserId, user.Level, VocabularType.Word, InfoLessonType.ViewedLesson));
             model.WordsPassed = (await _vocabularRepo.GetVocabLessonByTypes(user.UserId, user.Level, VocabularType.Word, InfoLessonType.Passed));
+            model.WordsTotal = (await _vocabularRepo.GetAllVocabByItemType(user.UserId, VocabularType.Word));
 
             model.CalculatePercentages();
 

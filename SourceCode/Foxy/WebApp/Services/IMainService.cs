@@ -11,11 +11,11 @@ namespace WebApp.Services
 {
     public interface IMainService
     {
-        MenuModel GetMenuModel(string email);
+        Task<MenuModel> GetMenuModel(string email);
         void UpdateItemMeaningNote(VocabularItem item, string note);
-        void StartReviewSession(Guid userId, bool forLesson, List<VocabularWrapper> items = null);
+        Task StartReviewSession(Guid userId, bool forLesson, List<VocabularWrapper> items = null);
         VocabularWrapper GetItemForReview(Guid userId);
-        AnswerStatusModel UserAnswered(Guid userId, VocabularAnswerDto answer);
+        Task<AnswerStatusModel> UserAnswered(Guid userId, VocabularAnswerDto answer);
         VocabularWrapper GetCurrentItem(Guid userId);
     }
 }

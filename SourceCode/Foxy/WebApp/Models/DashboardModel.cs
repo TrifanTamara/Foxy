@@ -22,8 +22,8 @@ namespace WebApp.Models
         public List<VocabularWrapper> KanjisPassed { get; set; }
 
         public List<VocabularWrapper> WordsLesson { get; set; }
-        public List<VocabularWrapper> WordsViewed { get; set; }
         public List<VocabularWrapper> WordsPassed { get; set; }
+        public List<VocabularWrapper> WordsTotal { get; set; }
 
 
         public int KanjiPercent { get; set; }
@@ -35,20 +35,18 @@ namespace WebApp.Models
             if (RadicalsLesson != null)
             {
                 int total = RadicalsLesson.Count() + RadicalsViewed.Count() + RadicalsPassed.Count();
-                if (total == 0) RadicalPercent = 100; else
-                RadicalPercent = ((int)((RadicalsPassed.Count() / total) * 100));
+                RadicalPercent = ((int)((RadicalsPassed.Count() / (float)total) * 100));
             }
             if (KanjisLesson != null)
             {
                 int total = KanjisLesson.Count() + KanjisViewed.Count() + KanjisPassed.Count();
-                if (total == 0) KanjiPercent = 100; else
-                KanjiPercent = ((int)((RadicalsPassed.Count() / total) * 100));
+                KanjiPercent = ((int)((RadicalsPassed.Count() / (float)total) * 100));
             }
             if (WordsLesson != null)
             {
-                int total = WordsLesson.Count() + WordsViewed.Count() + WordsPassed.Count();
+                int total = WordsTotal.Count();
                 if (total == 0) WordsPercent = 100;
-                else WordsPercent = ((int)((RadicalsPassed.Count() / total) * 100));
+                else WordsPercent = ((int)((WordsPassed.Count() / (float)total) * 100));
             }
         }
     }

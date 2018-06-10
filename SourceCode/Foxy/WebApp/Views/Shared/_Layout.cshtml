@@ -43,7 +43,7 @@
 </head>
 <body>
     @{
-        MenuModel menuModel = FService.GetMenuModel(Context.User.Claims.First().Value);
+        MenuModel menuModel = await FService.GetMenuModel(Context.User.Claims.First().Value);
     }
     <div id="my-container">
         <header class="masthead mb-auto">
