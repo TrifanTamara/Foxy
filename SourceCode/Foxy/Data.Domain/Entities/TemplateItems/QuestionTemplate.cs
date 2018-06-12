@@ -12,6 +12,7 @@ namespace Data.Domain.Entities.TemplateItems
         }
 
         public Guid Id { get; private set; }
+
         public string Content { get; private set; }
         public string Note { get; private set; }
 
