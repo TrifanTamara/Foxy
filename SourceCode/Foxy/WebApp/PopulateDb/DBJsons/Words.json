@@ -218,5 +218,126 @@
     "reading_mnemonic": "Luckily you don't need a reading mnemonic! ^^.",
     "word_type": "5",
     "components": []
+  },
+  {
+    "name": "学生",
+    "meaning": "student",
+    "reading": "k=がくせい",
+    "type": "3",
+    "required_level": "3",
+    "meaning_mnemonic": "Who has a study life? Only one person that I know of, and that's a student.",
+    "reading_mnemonic": "This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "word_type": "4",
+    "components": [ "学", "生" ]
+  },
+  {
+    "name": "友達",
+    "meaning": "friend",
+    "reading": "k=ともだち",
+    "type": "3",
+    "required_level": "3",
+    "meaning_mnemonic": "A friend that you attain is your friend. This is the most common way to say \"friend,\" so learn it if you want to make any!",
+    "reading_mnemonic": "Think of it this way. You have your friend Tom (とも) Cruise. You like him, and he likes you. You're close enough friends that you can touch (だち) each other too. Like, on the shoulder or on the hand or whatever, without it being awkward. So, you like to Tom touch (ともだち) when you can, because he has nice skin.",
+    "word_type": "4",
+    "components": [ "友", "達" ]
+  },
+  {
+    "name": "元気",
+    "meaning": "healthy;energy",
+    "reading": "k=げんき",
+    "type": "3",
+    "required_level": "3",
+    "meaning_mnemonic": "What is the origin of your energy? It is your spirit and health (though this vocab word also means energy as well).",
+    "reading_mnemonic": "This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "word_type": "4",
+    "components": [ "元", "気" ]
+  },
+  {
+    "name": "うん",
+    "meaning": "yes;yeah;uh huh​",
+    "reading": "k=うん",
+    "type": "3",
+    "required_level": "1",
+    "meaning_mnemonic": "That should be very easy if you have watched anime.",
+    "reading_mnemonic": "You don't need a mnemonic here.",
+    "word_type": "6",
+    "components": [ "元", "気" ]
+  },
+  {
+    "name": "ううん",
+    "meaning": "no;um;er;well",
+    "reading": "k=ううん",
+    "type": "3",
+    "required_level": "1",
+    "meaning_mnemonic": "That should be very easy if you have watched anime.",
+    "reading_mnemonic": "You don't need a mnemonic here.",
+    "word_type": "6",
+    "components": []
+  },
+  {
+    "name": "でも",
+    "meaning": "but;however;though;nevertheless;still;yet",
+    "reading": "k=でも",
+    "type": "3",
+    "required_level": "1",
+    "meaning_mnemonic": "BUT the DEMO is very important. Don't you think?",
+    "reading_mnemonic": "You don't need a mnemonic here.",
+    "word_type": "6",
+    "components": []
+  },
+  {
+    "name": "明日",
+    "meaning": "tomorrow",
+    "reading": "k=でも",
+    "type": "3",
+    "required_level": "4",
+    "meaning_mnemonic": "A bright day isn't today (because today was terrible), it's tomorrow, because you can always look to tomorrow to be a better, brighter day.",
+    "reading_mnemonic": "The reading makes no sense at all. You have to learn it straight up, and can't rely on the kanji it's made from. Why is tomorrow going to be such a bright and awesome day? Because you're making ash tacos for dinner, and that's your favorite. Imagine imagining tomorrow, full of ash tacos and deliciousness. Maybe you could use some of those Dorito taco shells?",
+    "word_type": "6",
+    "components": [ "明", "日" ]
+  },
+  {
+    "name": "今日",
+    "meaning": "today",
+    "reading": "k=きょう",
+    "type": "3",
+    "required_level": "4",
+    "meaning_mnemonic": "The now day is what day? Oh, it's today.",
+    "reading_mnemonic": "The reading for this word is a complete exception, though the word itself is incredibly common and useful. When you think of \"today\" think about what you have to do today for work.",
+    "word_type": "6",
+    "components": [ "今", "日" ]
+  },
+  {
+    "name": "私",
+    "meaning": "I;me​",
+    "reading": "k=わたし;わたくし",
+    "type": "3",
+    "required_level": "4",
+    "meaning_mnemonic": "The kanji and the word are exactly the same. That means they share meanings as well.",
+    "reading_mnemonic": "If you're lucky, you already know this (very) common word's reading. It's the word for \"I,\" probably one of the first things you'd learn in Japanese. The reading for this is わたし. If you don't know that already, just think: \"What, a し?\" referring to the reading of the kanji, which is し.",
+    "word_type": "4",
+    "components": [ "私" ]
+  },
+  {
+    "name": "誰",
+    "meaning": "who​",
+    "reading": "k=だれ",
+    "type": "3",
+    "required_level": "4",
+    "meaning_mnemonic": "The kanji and the word are exactly the same. That means they share meanings as well.",
+    "reading_mnemonic": "The reading is the same as the one you learned with the kanji.",
+    "word_type": "4",
+    "components": [ "誰" ]
+  },
+  {
+    "name": "試験",
+    "meaning": "examination​",
+    "reading": "k=しけん",
+    "type": "3",
+    "required_level": "4",
+    "meaning_mnemonic": "If you attempt a test, you're taking an examination. There are a lot of these in Japan, so make sure you know this word if you want to fit in with all the whining and whinging that students do, especially come the final year of high school.",
+    "reading_mnemonic": "This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "word_type": "4",
+    "components": [ "試", "験" ]
   }
 ]

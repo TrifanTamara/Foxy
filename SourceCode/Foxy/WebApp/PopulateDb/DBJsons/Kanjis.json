@@ -141,6 +141,138 @@
     "reading_mnemonic": "The one who GETS (げつ) the MOON must have some GUTS (がつ)!",
     "word_type": "",
     "components": [ "月" ]
+  },
+  {
+    "name": "学",
+    "meaning": "school;science;learning;study",
+    "reading": "o=ガク;マナ",
+    "type": "1",
+    "required_level": "2",
+    "meaning_mnemonic": "Let's imagine that the upper lid is a viking helmet. You have a wild viking child you have to take care of. He won't do anything but study, surprisingly. You can't get him to eat, use the bathroom, or anything else. He just wants to study.",
+    "reading_mnemonic": "his crazy viking child who prefers study over pillaging (and other viking activities)... the other vikings just stop and gawk (がく) at him when they walk by.",
+    "word_type": "",
+    "components": [ "子" ]
+  },
+  {
+    "name": "生",
+    "meaning": "life;genuine;birth",
+    "reading": "o=セイ;ショウ||k=い.きる;い.かす;い.ける",
+    "type": "1",
+    "required_level": "3",
+    "meaning_mnemonic": "The life radical and the life kanji are the same, so hopefully you now just know them both.",
+    "reading_mnemonic": "Whenever we need to remember せい, we use the character \"X\" because he always says \"SEI\" \"SEI\"",
+    "word_type": "",
+    "components": [ "生" ]
+  },
+  {
+    "name": "友",
+    "meaning": "friend",
+    "reading": "o=ユウ;ト",
+    "type": "1",
+    "required_level": "3",
+    "meaning_mnemonic": "The narwhal is sitting on a stool. Why is he sitting there? You told all the people you thought were your friends to stay sitting on the stools if they were indeed still your friend. When you come back to see who's still left, it turns out only the narwhal is there for you. Narwhals make the greatest of friends.",
+    "reading_mnemonic": "\"You (ゆう) are my friend, Narwhal prince,\" you say. \"Only you.\"",
+    "word_type": "",
+    "components": [ "又", "ナ" ]
+  },
+  {
+    "name": "達",
+    "meaning": "accomplished;reach;arrive;attain",
+    "reading": "o=タツ;ダ||k=たち",
+    "type": "1",
+    "required_level": "3",
+    "meaning_mnemonic": "For happiness, a water slide is the best way to attain it – plural water slides; even better. Everyone loves a good water slide. As they say, the path to attaining happiness is littered with plural waterslides.",
+    "reading_mnemonic": "If there’s not a water slide around you, getting a tattoo (たつ) of one is the next best thing. Might as well get two tattooed on because plural is always better. This is a surefire way to attain happiness. Get a tattoo.",
+    "word_type": "",
+    "components": [ "幸", "⻌" ]
+  },
+  {
+    "name": "気",
+    "meaning": "spirit;mind;air;atmosphere;mood",
+    "reading": "o=キ;ケ||k=いき",
+    "type": "1",
+    "required_level": "3",
+    "meaning_mnemonic": "You're looking for a treasure, but no normal treasure... a treasure that's a stash of energy. Not gold, money, or anything like that. Imagine yourself finding it, and opening up a treasure chest. Out bursts a spirit ball of energy like you've never seen.",
+    "reading_mnemonic": "As you reach inside the energy spirit, you feel something hard inside. It's a large key (き) that gives you access to another treasure.",
+    "word_type": "",
+    "components": [ "气", "メ" ]
+  },
+  {
+    "name": "元",
+    "meaning": "beginning;former time;origin",
+    "reading": "o=ガン;ゲン||k=もと",
+    "type": "1",
+    "required_level": "3",
+    "meaning_mnemonic": "The radical and the kanji are the same! You're in luck, today.",
+    "reading_mnemonic": "What is your origin, in the grand scheme of things? What generation were you? I was Gen-Y (げん), for example. You might be Gen-X, or something else.",
+    "word_type": "",
+    "components": [ "元" ]
+  },
+  {
+    "name": "今",
+    "meaning": "now",
+    "reading": "o=コン;キン;イ||k=いま",
+    "type": "1",
+    "required_level": "4",
+    "meaning_mnemonic": "A human with a hat is sitting NOW in front of you.",
+    "reading_mnemonic": "He's wearing a hat because he plans to participate in a con(コン)cert.",
+    "word_type": "",
+    "components": [ "亻" ]
+  },
+  {
+    "name": "明",
+    "meaning": "bright;light",
+    "reading": "o=メイ;ミョウ;ミン||k=あか",
+    "type": "1",
+    "required_level": "3",
+    "meaning_mnemonic": "The sun AND the moon are out? With both their light-powers combined, it's incredibly bright outside.",
+    "reading_mnemonic": "When do things start to get bright outside? I'd say when things start getting sunny, and that is the month of May (めい).",
+    "word_type": "",
+    "components": [ "日", "月" ]
+  },
+  {
+    "name": "私",
+    "meaning": "I;me;private",
+    "reading": "o=シ||k=わたくし;わたし",
+    "type": "1",
+    "required_level": "4",
+    "meaning_mnemonic": "No one can pile pine branches better than I. I am the best at putting pine branches into a pile. And don’t you forget it.",
+    "reading_mnemonic": "You know who else thinks they’re great at piling pines? Charlie Sheen (し). Charlie Sheen knows there’s no I in team, but there are two Is in winning.",
+    "word_type": "",
+    "components": [ "ム", "禾" ]
+  },
+  {
+    "name": "誰",
+    "meaning": "who;someone;somebody",
+    "reading": "o=スイ||k=だれ;たれ;た",
+    "type": "1",
+    "required_level": "4",
+    "meaning_mnemonic": "Who will say turkey? Who? WHO???",
+    "reading_mnemonic": "Then, someone says turkey. \"Who said turkey? You? How dare (だれ) you.\"",
+    "word_type": "",
+    "components": [ "隹", "言" ]
+  },
+  {
+    "name": "試",
+    "meaning": "test;try;attempt;experiment;ordeal",
+    "reading": "o=シ||k=こころ.みる;ため.す",
+    "type": "1",
+    "required_level": "4",
+    "meaning_mnemonic": "Say you are doing construction at a ceremony - people are gonna try and attempt to get you to stop. It's very rude to do construction in the middle of a ceremony so people are gonna try and get you to stop it",
+    "reading_mnemonic": "Probably the only guy who could try and succeed at having an attempt with construction in the middle of a ceremony would be Charlie Sheen (し). All Charlie Sheen does is win, and since he’s winning all the time, he’d probably win at construction like this if he gave it a try.",
+    "word_type": "",
+    "components": [ "言", "弋", "工" ]
+  },
+  {
+    "name": "験",
+    "meaning": "verification;effect;testing",
+    "reading": "o=ケン;ゲン||k=あかし;しるし;ため.す;ためし",
+    "type": "1",
+    "required_level": "4",
+    "meaning_mnemonic": "A horse and a squid take a test to see which is the superior animal. The test will test their mental and physical abilities. Who is superior – the squid, or the horse?",
+    "reading_mnemonic": "The final test is racing in the Kentucky (けん) Derby. This may seem unfair, but the squid totally dominated the swim challenge, so it’s only fair that the horse gets a chance in the Kentucky Derby.",
+    "word_type": "",
+    "components": [ "馬" ]
   }
 
 ]

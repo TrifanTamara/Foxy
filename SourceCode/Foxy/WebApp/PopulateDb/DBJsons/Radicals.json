@@ -185,6 +185,182 @@
     "reading_mnemonic": "",
     "word_type": "",
     "components": []
+  },
+  {
+    "name": "子",
+    "meaning": "child;seed",
+    "reading": "",
+    "type": "0",
+    "required_level": "2",
+    "meaning_mnemonic": "This radical is made up of two barbs and one ground radical. If there are barbs on the ground, whom (especially) do you want to avoid that area? You want the child to avoid it, since children are so careless and often don't wear shoes. Imagine how bad you'd feel if you let a child walk around on top of these barbs! Pretty bad, I imagine.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "生",
+    "meaning": "life",
+    "reading": "",
+    "type": "0",
+    "required_level": "3",
+    "meaning_mnemonic": "This radical consists of a cow radical with the ground radical below it. If you have cows on solid ground, then you really do have a good life, I think. Sometimes this radical will show up without the slide part on the side too, though we'll treat them both as \"life.\"",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "又",
+    "meaning": "again;right hand;stool",
+    "reading": "",
+    "type": "0",
+    "required_level": "2",
+    "meaning_mnemonic": "This looks just like a fold-out stool, amiright?",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "ナ",
+    "meaning": "narwhal",
+    "reading": "",
+    "type": "0",
+    "required_level": "3",
+    "meaning_mnemonic": "This radical looks like the katakana character \"na\" (ナ) which we're going to say stands for narwhal.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "幸",
+    "meaning": "happiness",
+    "reading": "",
+    "type": "0",
+    "required_level": "3",
+    "meaning_mnemonic": "This is the same as the kanji happiness. Don't get confused with the radical \"spicy\" which is very similar.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "⻌",
+    "meaning": "walk;water slide",
+    "reading": "",
+    "type": "0",
+    "required_level": "3",
+    "meaning_mnemonic": "You have a drop of water at the top, and then a squiggly looking thing that looks like it could be a slide. That's why this radical is the water slide. What fun!",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "气",
+    "meaning": "steam;breath;energy",
+    "reading": "",
+    "type": "0",
+    "required_level": "3",
+    "meaning_mnemonic": "This radical is shaped kind of like a dam. See the wall and the water pushing over the top? If this radical is a dam, then it must create a ton of energy as well!",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "メ",
+    "meaning": "treasure",
+    "reading": "",
+    "type": "0",
+    "required_level": "3",
+    "meaning_mnemonic": "This radical is treasure because \"X marks the spot\" as they say. Don't confuse this radical with Narwhal (ナ). This one looks more like an X, which is where the treasure is.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "元",
+    "meaning": "origin",
+    "reading": "",
+    "type": "0",
+    "required_level": "3",
+    "meaning_mnemonic": "You have \"two\" and \"legs\" making up this radical. Between two legs is where you came from, no matter how you look at it. These two legs are your origin.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "禾",
+    "meaning": "pine",
+    "reading": "",
+    "type": "0",
+    "required_level": "3",
+    "meaning_mnemonic": "This radical is a tree with something extra on the top. Although it's sort of arbitrary, we're going to associate this kind of tree with a pine tree, making this radical a pine.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "ム",
+    "meaning": "origin",
+    "reading": "",
+    "type": "0",
+    "required_level": "3",
+    "meaning_mnemonic": "This little triangle isn't quite a triangle because it's not one single thing. It's several things put together to form a little pile of something.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "隹",
+    "meaning": "turkey;old bird",
+    "reading": "",
+    "type": "0",
+    "required_level": "4",
+    "meaning_mnemonic": "This looks kind of like the top of the bird radical, but not quite. It's kind of a dumb looking bird radical top. What's a dumb bird, so dumb that it would look into the sky to drown itself with its mouth open? A turkey.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "言",
+    "meaning": "say",
+    "reading": "",
+    "type": "0",
+    "required_level": "4",
+    "meaning_mnemonic": "One. One. One. One. Mouth. The mouth will say one thing at a time. It's doing what mouths do best, just saying things one after another. That's why this radical is \"say.\"",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "弋",
+    "meaning": "ceremony",
+    "reading": "",
+    "type": "0",
+    "required_level": "4",
+    "meaning_mnemonic": "This radical looks like a guy standing on one foot (because you only see one leg) holding onto something that produces drops of liquid. This person is pretty drunk, apparently. It's because he's performing the ceremony of drinking lots and lots.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "工",
+    "meaning": "construction;work",
+    "reading": "",
+    "type": "0",
+    "required_level": "4",
+    "meaning_mnemonic": "You know those big steel girders that are used for the frame of big buildings? This is like the end of one of those - they have a very distinct shape, just like this radical. These girders are used in construction, which is why this radical means construction. Funny thing is, you use these girders to put together buildings just like you're going to use this radical to put together kanji!",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
+  },
+  {
+    "name": "馬",
+    "meaning": "horse",
+    "reading": "",
+    "type": "0",
+    "required_level": "4",
+    "meaning_mnemonic": "Don't confuse this radical with bird. It looks similar with the wing on the bottom and the shape on top, but it doesn't have a feather sticking out of the top of its head. So while it moves fast like it has wings, it's no bird, it's a horse.",
+    "reading_mnemonic": "",
+    "word_type": "",
+    "components": []
   }
 
 ]
