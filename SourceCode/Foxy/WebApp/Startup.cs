@@ -20,6 +20,9 @@ using Microsoft.AspNetCore.Http;
 using WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using Business.Template;
+using Data.Domain.Interfaces.UserRelated;
+using Business.UserRelated;
 
 namespace WebApp
 {
@@ -36,10 +39,15 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IDatabaseContext, DatabaseContext>();
-            services.AddTransient<IUsersRepository, UsersRepository>();
-            services.AddTransient<IVocabularTempRepository, VocabularTempRepository>();
-            services.AddTransient<IVocabRelRepository, VocabRelRepository>();
-            services.AddTransient<IVocabularItemRepository, VocabularItemRepository>();
+            services.AddTransient<IUsersRepository, UsersRepo>();
+            services.AddTransient<IVocabularTempRepo, VocabularTempRepo>();
+            services.AddTransient<IVocabRelRepo, VocabRelRepo>();
+            services.AddTransient<IVocabularItemRepo, VocabularItemRepo>();
+            services.AddTransient<IAnswerTempRepo, AnswerTempRepo>();
+            services.AddTransient<IQuestionTempRepo, QuestionTempRepo>();
+            services.AddTransient<IQuestionItemRepo, QuestionItemRepo>();
+            services.AddTransient<IFormularItemRepo, FormularItemRepo>();
+            services.AddTransient<IFormularTempRepo, FormularTempRepo>();
 
             services.AddScoped<IMainService, MainService>();
 

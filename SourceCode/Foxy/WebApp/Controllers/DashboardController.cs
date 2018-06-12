@@ -18,9 +18,9 @@ namespace WebApp.Controllers
     public class DashboardController : Controller
     {
         private IUsersRepository _userRepo;
-        private IVocabularItemRepository _vocabularRepo;
+        private IVocabularItemRepo _vocabularRepo;
 
-        public DashboardController(IUsersRepository userRepo, IVocabularItemRepository vocabularRepo)
+        public DashboardController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;

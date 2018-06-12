@@ -13,10 +13,10 @@ namespace WebApp.Controllers
     public class HomeController : Controller
     {
 
-        public HomeController(IUsersRepository userRepo, IVocabularTempRepository vocabRepo)
+        public HomeController(IUsersRepository userRepo, IVocabularTempRepo vocabRepo, IFormularTempRepo formularRepo,
+            IQuestionTempRepo questRepo, IAnswerTempRepo ansRepo)
         {
-            PopulateDb.PopulateDb pop = new PopulateDb.PopulateDb(userRepo, vocabRepo);
-            
+            PopulateDb.PopulateDb pop = new PopulateDb.PopulateDb(userRepo, vocabRepo, formularRepo, questRepo, ansRepo);
         }
 
         [HttpGet]

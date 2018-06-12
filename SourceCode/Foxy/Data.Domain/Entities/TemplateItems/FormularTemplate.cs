@@ -22,6 +22,8 @@ namespace Data.Domain.Entities.TemplateItems
 
         public string Topic { get; private set; }
         public string Description { get; private set; }
+        public bool Seen { get; private set; }
+
         public FormularType Type { get; private set; }
         public List<VocabularTemplate> Words { get; private set; }
         public List<QuestionTemplate> Questions { get; private set; }

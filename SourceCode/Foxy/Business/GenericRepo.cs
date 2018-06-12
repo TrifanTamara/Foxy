@@ -8,12 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepo<T> : IGenericRepository<T> where T : class
     {
         private readonly IDatabaseContext _databaseContext;
         private readonly DbSet<T> _entities;
 
-        protected GenericRepository(IDatabaseContext databaseContext)
+        protected GenericRepo(IDatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
             _entities = (databaseContext as DbContext)?.Set<T>();

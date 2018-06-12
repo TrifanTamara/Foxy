@@ -14,7 +14,7 @@ namespace WebApp.Services
     public class MainService : IMainService
     {
         private readonly IUsersRepository _userRepo;
-        IVocabularItemRepository _vocabRepo;
+        IVocabularItemRepo _vocabRepo;
         private static Dictionary<Guid, ReviewModel> currentReviewSeesion = new Dictionary<Guid, ReviewModel>();
 
         public static bool CheckReadingAns(string userAns, List<string> rightAnswers)
@@ -37,7 +37,7 @@ namespace WebApp.Services
             return false;
         }
 
-        public MainService(IUsersRepository repository, IVocabularItemRepository vocabRepo)
+        public MainService(IUsersRepository repository, IVocabularItemRepo vocabRepo)
         {
             _userRepo = repository;
             _vocabRepo = vocabRepo;

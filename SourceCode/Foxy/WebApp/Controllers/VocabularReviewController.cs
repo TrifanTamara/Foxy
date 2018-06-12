@@ -20,10 +20,10 @@ namespace WebApp.Controllers
     public class VocabularReviewController : Controller
     {
         private IUsersRepository _userRepo;
-        private IVocabularItemRepository _vocabularRepo;
+        private IVocabularItemRepo _vocabularRepo;
         private IMainService _service;
 
-        public VocabularReviewController(IUsersRepository userRepo, IVocabularItemRepository vocabularRepo, IMainService mainSerice)
+        public VocabularReviewController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo, IMainService mainSerice)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;

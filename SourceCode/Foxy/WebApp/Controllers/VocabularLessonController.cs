@@ -21,11 +21,11 @@ namespace WebApp.Controllers
     public class VocabularLessonController : Controller
     {
         private IUsersRepository _userRepo;
-        private IVocabularItemRepository _vocabularRepo;
+        private IVocabularItemRepo _vocabularRepo;
         private IMainService _service;
         private static Dictionary<Guid, LessonModel> currentSeesion = new Dictionary<Guid, LessonModel>();
 
-        public VocabularLessonController(IUsersRepository userRepo, IVocabularItemRepository vocabularRepo, IMainService mainServ)
+        public VocabularLessonController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo, IMainService mainServ)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;

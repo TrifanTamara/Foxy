@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    public class VocabularTempRepository :
-        GenericRepository<VocabularTemplate>, IVocabularTempRepository
+    public class VocabularTempRepo :
+        GenericRepo<VocabularTemplate>, IVocabularTempRepo
     {
         private readonly IDatabaseContext _databaseContext;
         //private DbSet<VocabularTemplate> _entitiesVocab;
-        private IVocabRelRepository _relationRepo;
+        private IVocabRelRepo _relationRepo;
 
-        public VocabularTempRepository(IDatabaseContext databaseContext, IVocabRelRepository vocabRelRepo) : base(databaseContext)
+        public VocabularTempRepo(IDatabaseContext databaseContext, IVocabRelRepo vocabRelRepo) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _relationRepo = vocabRelRepo;

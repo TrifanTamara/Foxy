@@ -13,17 +13,15 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-
-
-    public class VocabularItemRepository :
-        GenericRepository<VocabularItem>, IVocabularItemRepository
+    public class VocabularItemRepo :
+        GenericRepo<VocabularItem>, IVocabularItemRepo
     {
         private readonly IDatabaseContext _databaseContext;
-        private readonly IVocabularTempRepository _tempVocabRepo;
-        private readonly IVocabRelRepository _relVocabRepo;
+        private readonly IVocabularTempRepo _tempVocabRepo;
+        private readonly IVocabRelRepo _relVocabRepo;
         private readonly IUsersRepository _userRepo;
 
-        public VocabularItemRepository(IDatabaseContext databaseContext, IVocabularTempRepository tempVocabRepo, IUsersRepository userRepo, IVocabRelRepository relationRepo) : base(databaseContext)
+        public VocabularItemRepo(IDatabaseContext databaseContext, IVocabularTempRepo tempVocabRepo, IUsersRepository userRepo, IVocabRelRepo relationRepo) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _tempVocabRepo = tempVocabRepo;

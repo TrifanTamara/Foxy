@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Routing;
 using WebApp.DTOs;
 using WebApp.Filter;
 using WebApp.DTOs_Validators;
+using Data.Domain.Interfaces.UserRelated;
 
 namespace WebApp.Controllers
 {
@@ -21,12 +22,14 @@ namespace WebApp.Controllers
     public class RegisterController : Controller
     {
         private readonly IUsersRepository _userRepo;
-        private readonly IVocabularItemRepository _vocabRepo;
+        private readonly IVocabularItemRepo _vocabRepo;
+        private readonly IFormularItemRepo _formularRepo;
 
-        public RegisterController(IUsersRepository userRepo, IVocabularItemRepository vocabRepo)
+        public RegisterController(IUsersRepository userRepo, IVocabularItemRepo vocabRepo, IFormularItemRepo formRepo)
         {
             _userRepo = userRepo;
             _vocabRepo = vocabRepo;
+            _formularRepo = formRepo;
         }
         
         [HttpGet]
@@ -56,9 +59,13 @@ namespace WebApp.Controllers
 
                 // Create the user and add it to database
                 User user = Data.Domain.Entities.User.Create(dto.UserName, false, dto.Email, hashStr, null, "");
+
                 await _userRepo.Add(user);
                 await _vocabRepo.AddVocabularForNewUser(user.UserId);
                 await _vocabRepo.PassToNextLevel(1, user.UserId);
+
+                await _formularRepo.AddItemsForUser(user.UserId);
+
                 // Redirect to login page with parameter registered
                 SharedInfo.RegisterError = "";
 

@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business
 {
-    public class UsersRepository :
-        GenericRepository<User>, IUsersRepository
+    public class UsersRepo :
+        GenericRepo<User>, IUsersRepository
     {
         private readonly IDatabaseContext _databaseContext;
 
-        public UsersRepository(IDatabaseContext databaseContext) : base(databaseContext)
+        public UsersRepo(IDatabaseContext databaseContext) : base(databaseContext)
         {
             _databaseContext = databaseContext;
         }

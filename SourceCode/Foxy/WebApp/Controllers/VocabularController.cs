@@ -19,11 +19,11 @@ namespace WebApp.Controllers
     public class VocabularController : Controller
     {
         private IUsersRepository _userRepo;
-        private IVocabularItemRepository _vocabularRepo;
+        private IVocabularItemRepo _vocabularRepo;
         private static Dictionary<Guid, VocabularWrapper> currentItem = new Dictionary<Guid, VocabularWrapper>();
 
 
-        public VocabularController(IUsersRepository userRepo, IVocabularItemRepository vocabularRepo)
+        public VocabularController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;

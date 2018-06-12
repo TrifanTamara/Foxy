@@ -34,13 +34,57 @@ namespace WebApp.PopulateDb
             public IList<string> components { get; set; }
         }
 
-        private IVocabularTempRepository _vocabRepo;
-        private IUsersRepository _userRepo;
+        public class FormItem
+        {
+            [JsonProperty(PropertyName = "Topic")]
+            public string Topic { get; set; }
+            [JsonProperty(PropertyName = "PartialViewId")]
+            public int PartialViewId { get; set; }
+            [JsonProperty(PropertyName = "Description")]
+            public string Description { get; set; }
+            [JsonProperty(PropertyName = "Type")]
+            public byte Type { get; set; }
+            [JsonProperty(PropertyName = "Words")]
+            public IList<string> Words { get; set; }
+            [JsonProperty(PropertyName = "Questions")]
+            public IList<QuestItem> Questions { get; set; }
+        }
 
-        public PopulateDb(IUsersRepository userRepo, IVocabularTempRepository vocabRepo)
+        public class QuestItem
+        {
+            [JsonProperty(PropertyName = "Content")]
+            public string Content { get; set; }
+            [JsonProperty(PropertyName = "Words")]
+            public IList<string> Words { get; set; }
+            [JsonProperty(PropertyName = "Answers")]
+            public IList<AnsItem> Answers { get; set; }
+        }
+
+        public class AnsItem
+        {
+            [JsonProperty(PropertyName = "Text")]
+            public string Text { get; set; }
+            [JsonProperty(PropertyName = "IsTrue")]
+            public bool IsTrue { get; set; }
+            [JsonProperty(PropertyName = "Words")]
+            public IList<string> Words { get; set; }
+        }
+
+        private IVocabularTempRepo _vocabRepo;
+        private IUsersRepository _userRepo;
+        private IFormularTempRepo _formularRepo;
+        private IQuestionTempRepo _questRepo;
+        private IAnswerTempRepo _ansRepo;
+
+        public PopulateDb(IUsersRepository userRepo, IVocabularTempRepo vocabRepo,
+            IFormularTempRepo formRepo, IQuestionTempRepo qRepo, IAnswerTempRepo aRepo)
         {
             _vocabRepo = vocabRepo;
             _userRepo = userRepo;
+            _formularRepo = formRepo;
+            _questRepo = qRepo;
+            _ansRepo = aRepo;
+
             Populate();
         }
 
@@ -50,6 +94,7 @@ namespace WebApp.PopulateDb
             if (_vocabRepo.GetAll().Result.Count() == 0)
             {
                 await PopulateVocabular();
+                await PopulateGrammarReading();
             }
         }
 
@@ -123,6 +168,86 @@ namespace WebApp.PopulateDb
                 }
             }
 
+        }
+
+        public async Task PopulateGrammarReading()
+        {
+            await _formularRepo.Clear();
+            await _questRepo.ClearAllQuestions();
+
+            string dirpath = Directory.GetCurrentDirectory() + @"\PopulateDb\DBJsons\";
+            using (StreamReader r = new StreamReader(dirpath + "Grammar.json"))
+            {
+                string json = r.ReadToEnd();
+                List<FormItem> items = new List<FormItem>();
+                try
+                {
+                    items = JsonConvert.DeserializeObject<IEnumerable<FormItem>>(json).ToList();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+
+                try
+                {
+                    foreach (FormItem item in items)
+                    {
+                        List<QuestionTemplate> questList = new List<QuestionTemplate>();
+                        foreach (var quest in item.Questions)
+                        {
+                            List<AnswerTemplate> ansList = new List<AnswerTemplate>();
+                            List<VocabularTemplate> wordsForQuest = new List<VocabularTemplate>();
+
+                            foreach (var ans in quest.Answers)
+                            {
+                                List<VocabularTemplate> wordList = new List<VocabularTemplate>();
+                                foreach (var word in ans.Words)
+                                {
+                                    VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
+                                    if (vt != null)
+                                    {
+                                        wordList.Add(vt);
+                                    }
+                                }
+
+                                AnswerTemplate newAns = AnswerTemplate.Create(ans.Text, ans.IsTrue, wordList);
+                                await _ansRepo.Add(newAns);
+                                ansList.Add(newAns);
+                            }
+                            foreach (var word in quest.Words)
+                            {
+                                VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
+                                if (vt != null)
+                                {
+                                    wordsForQuest.Add(vt);
+                                }
+                            }
+
+                            QuestionTemplate newQuest = QuestionTemplate.Create(quest.Content, wordsForQuest, ansList);
+                            await _questRepo.Add(newQuest);
+                            questList.Add(newQuest);
+                        }
+
+                        List<VocabularTemplate> wordsForm = new List<VocabularTemplate>();
+                        foreach (var word in item.Words)
+                        {
+                            VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
+                            if (vt != null)
+                            {
+                                wordsForm.Add(vt);
+                            }
+                        }
+
+                        await _formularRepo.Add(FormularTemplate.Create(
+                                item.PartialViewId, item.Topic, item.Description, (FormularType)item.Type, wordsForm, questList));
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
         }
     }
 }

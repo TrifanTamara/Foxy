@@ -16,7 +16,7 @@ namespace Data.Domain.Interfaces
         All
     }
 
-    public interface IVocabularItemRepository : IGenericRepository<Entities.UserRelated.VocabularItem>
+    public interface IVocabularItemRepo : IGenericRepository<Entities.UserRelated.VocabularItem>
     {
         Task AddVocabularForNewUser(Guid userId);
         Task<IEnumerable<VocabularItem>> GetVocabByUser(Guid userId);

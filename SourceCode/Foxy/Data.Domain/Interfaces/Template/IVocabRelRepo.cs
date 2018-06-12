@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data.Domain.Interfaces
 {
-    public interface IVocabRelRepository : IGenericRepository<VocabularRelationship>
+    public interface IVocabRelRepo : IGenericRepository<VocabularRelationship>
     {
         Task<IEnumerable<VocabularRelationship>> GetByMainId(Guid mainId);
         Task<IEnumerable<VocabularRelationship>> GetByContainedId(Guid containedId);

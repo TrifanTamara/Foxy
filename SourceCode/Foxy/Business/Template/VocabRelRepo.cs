@@ -10,14 +10,14 @@ using System.Linq;
 
 namespace Business
 {
-    public class VocabRelRepository :
-        GenericRepository<VocabularRelationship>, IVocabRelRepository
+    public class VocabRelRepo :
+        GenericRepo<VocabularRelationship>, IVocabRelRepo
     {
         private readonly IDatabaseContext _databaseContext;
         private DbSet<VocabularRelationship> _entities;
 
 
-        public VocabRelRepository(IDatabaseContext databaseContext) : base(databaseContext)
+        public VocabRelRepo(IDatabaseContext databaseContext) : base(databaseContext)
         {
             _databaseContext = databaseContext;
         }
