@@ -212,7 +212,7 @@ namespace WebApp.PopulateDb
                                 }
 
                                 AnswerTemplate newAns = AnswerTemplate.Create(ans.Text, ans.IsTrue, wordList);
-                                await _ansRepo.Add(newAns);
+                                //await _ansRepo.Add(newAns);
                                 ansList.Add(newAns);
                             }
                             foreach (var word in quest.Words)
@@ -225,7 +225,7 @@ namespace WebApp.PopulateDb
                             }
 
                             QuestionTemplate newQuest = QuestionTemplate.Create(quest.Content, wordsForQuest, ansList);
-                            await _questRepo.Add(newQuest);
+                            //await _questRepo.Add(newQuest);
                             questList.Add(newQuest);
                         }
 
