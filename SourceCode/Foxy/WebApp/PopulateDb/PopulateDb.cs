@@ -91,10 +91,17 @@ namespace WebApp.PopulateDb
 
         public async Task Populate()
         {
-            if (_vocabRepo.GetAll().Result.Count() == 0)
+            try
             {
-                await PopulateVocabular();
-                await PopulateGrammarReading();
+                if (_vocabRepo.GetAll().Result.Count() == 0)
+                {
+                    await PopulateVocabular();
+                    await PopulateGrammarReading();
+                }
+            }
+            catch(Exception e)
+            {
+                throw;
             }
         }
 
@@ -104,71 +111,98 @@ namespace WebApp.PopulateDb
 
             await _vocabRepo.ClearAllVocab();
             string dirpath = Directory.GetCurrentDirectory() + @"\PopulateDb\DBJsons\";
+            try
+            {
+                using (StreamReader r = new StreamReader(dirpath + "Radicals.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<VItem> items = new List<VItem>();
+                    try
+                    {
+                        items = JsonConvert.DeserializeObject<IEnumerable<VItem>>(json).ToList();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.Message);
+                    }
+                    try
+                    {
+                        foreach (VItem x in items)
+                        {
+                            if (x.word_type == null) x.word_type = 0;
+                            await _vocabRepo.Add(VocabularTemplate.Create
+                                (x.name, x.meaning, x.reading, (VocabularType)x.type,
+                                x.required_level, x.meaning_mnemonic, x.reading_mnemonic));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.Message);
+                    }
+                }
+                using (StreamReader r = new StreamReader(dirpath + "Kanjis.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<VItem> items = new List<VItem>();
+                    try
+                    {
+                        items = JsonConvert.DeserializeObject<IEnumerable<VItem>>(json).ToList();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.Message);
+                    }
+                    try
+                    {
+                        foreach (VItem x in items)
+                        {
+                            if (x.word_type == null) x.word_type = 0;
+                            await _vocabRepo.Add(VocabularTemplate.Create
+                                (x.name, x.meaning, x.reading, (VocabularType)x.type,
+                                x.required_level, x.meaning_mnemonic, x.reading_mnemonic));
+                            await _vocabRepo.AddRelations(x.name, (VocabularType)x.type, x.components.ToList());
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.Message);
+                    }
+                }
+                using (StreamReader r = new StreamReader(dirpath + "Words.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<VItem> items = new List<VItem>();
+                    try
+                    {
+                        items = JsonConvert.DeserializeObject<IEnumerable<VItem>>(json).ToList();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.Message);
+                    }
+                    try
+                    {
+                        foreach (VItem x in items)
+                        {
+                            if (x.word_type == null) x.word_type = 0;
+                            await _vocabRepo.Add(VocabularTemplate.Create
+                                (x.name, x.meaning, x.reading, (VocabularType)x.type,
+                                x.required_level, x.meaning_mnemonic, x.reading_mnemonic, (WordParticularType)x.word_type));
+                            await _vocabRepo.AddRelations(x.name, (VocabularType)x.type, x.components.ToList());
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.Message);
+                    }
+                }
 
-            using (StreamReader r = new StreamReader(dirpath + "Radicals.json"))
-            {
-                string json = r.ReadToEnd();
-                List<VItem> items = new List<VItem>();
-                try
-                {
-                    items = JsonConvert.DeserializeObject<IEnumerable<VItem>>(json).ToList();
-                }
-                catch (Exception e)
-                {
-                    throw new Exception(e.Message);
-                }
-                foreach (VItem x in items)
-                {
-                    if (x.word_type == null) x.word_type = 0;
-                    await _vocabRepo.Add(VocabularTemplate.Create
-                        (x.name, x.meaning, x.reading, (VocabularType)x.type,
-                        x.required_level, x.meaning_mnemonic, x.reading_mnemonic));
-                }
+                await _vocabRepo.CalcTotalNumberLevel();
             }
-            using (StreamReader r = new StreamReader(dirpath + "Kanjis.json"))
+            catch (Exception e)
             {
-                string json = r.ReadToEnd();
-                List<VItem> items = new List<VItem>();
-                try
-                {
-                    items = JsonConvert.DeserializeObject<IEnumerable<VItem>>(json).ToList();
-                }
-                catch (Exception e)
-                {
-                    throw new Exception(e.Message);
-                }
-                foreach (VItem x in items)
-                {
-                    if (x.word_type == null) x.word_type = 0;
-                    await _vocabRepo.Add(VocabularTemplate.Create
-                        (x.name, x.meaning, x.reading, (VocabularType)x.type,
-                        x.required_level, x.meaning_mnemonic, x.reading_mnemonic));
-                    await _vocabRepo.AddRelations(x.name, (VocabularType)x.type, x.components.ToList());
-                }
+                throw new Exception(e.Message);
             }
-            using (StreamReader r = new StreamReader(dirpath + "Words.json"))
-            {
-                string json = r.ReadToEnd();
-                List<VItem> items = new List<VItem>();
-                try
-                {
-                    items = JsonConvert.DeserializeObject<IEnumerable<VItem>>(json).ToList();
-                }
-                catch (Exception e)
-                {
-                    throw new Exception(e.Message);
-                }
-                foreach (VItem x in items)
-                {
-                    if (x.word_type == null) x.word_type = 0;
-                    await _vocabRepo.Add(VocabularTemplate.Create
-                        (x.name, x.meaning, x.reading, (VocabularType)x.type,
-                        x.required_level, x.meaning_mnemonic, x.reading_mnemonic, (WordParticularType)x.word_type));
-                    await _vocabRepo.AddRelations(x.name, (VocabularType)x.type, x.components.ToList());
-                }
-            }
-
-            await _vocabRepo.CalcTotalNumberLevel();
 
         }
 

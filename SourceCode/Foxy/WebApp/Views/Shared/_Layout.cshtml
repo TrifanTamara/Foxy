@@ -69,13 +69,19 @@
                                         </div>
                                         <div class="dropdown-toggle menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Levels</div>
                                         <div class="dropdown-menu drop-down-menu-foxy" aria-labelledby="menuVocabLink">
-                                            @for (int i = 1; i <= menuModel.TotalNrLevels; ++i)
+                                            @for (int lev = 1; lev <= menuModel.TotalNrLevels; ++lev)
                                             {
-                                                <a class="dropdown-item" asp-controller="Profile" asp-action="Index">
-                                                    Level @i
+                                                <a class="dropdown-item" asp-controller="Vocabular" asp-action="levels/l@(lev)">
+                                                    Level @lev
                                                 </a>
                                             }
+
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="levels/l0">
+                                                All Levels
+                                            </a>
                                         </div>
+
                                     </div>
                                 </li>
                                 <li class="dropdown liNavbar">

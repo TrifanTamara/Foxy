@@ -8,7 +8,8 @@ namespace Data.Domain.Entities.TemplateItems
     {
         Radical,
         Kanji,
-        Word
+        Word,
+        All 
     }
 
     public enum WordParticularType : byte

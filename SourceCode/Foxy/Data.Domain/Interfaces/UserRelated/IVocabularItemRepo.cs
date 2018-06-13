@@ -1,6 +1,7 @@
 ﻿using Business.Wrappers;
 using Data.Domain.Entities.TemplateItems;
 using Data.Domain.Entities.UserRelated;
+using Data.Domain.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -37,5 +38,6 @@ namespace Data.Domain.Interfaces
         Task<List<VocabularWrapper>> GetAllVocabByItemType(Guid userId, VocabularType type, int level = -1);
         Task IsUserReadyForNextLevel(Guid userId);
         int GetTotalLevelNr();
+        Task<List<LevelWrapper>> GetGroupedVocabLevels(Guid userId, int startLevel = 0, int endLevel = 0);
     }
 }

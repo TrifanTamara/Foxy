@@ -3,6 +3,7 @@ using Data.Domain.Entities;
 using Data.Domain.Entities.TemplateItems;
 using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
+using Data.Domain.Wrappers;
 using Data.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -46,12 +47,37 @@ namespace Business
             return StaticInfo.TotalLevelNumber;
         }
 
+        public async Task<List<LevelWrapper>> GetGroupedVocabLevels(Guid userId, int startLevel = 0, int endLevel = 0)
+        {
+            List<LevelWrapper> result = new List<LevelWrapper>();
+            if(startLevel == 0 || endLevel ==0 || endLevel>StaticInfo.TotalLevelNumber)
+            {
+                startLevel = 1; endLevel = StaticInfo.TotalLevelNumber;
+            }
+            for(int lev= startLevel; lev<=endLevel; ++lev)
+            {
+                List<VocabularTemplate> templates = await _tempVocabRepo.GetComponentsByLevel(lev);
+                LevelWrapper levelWrapper = new LevelWrapper(lev, await WrapVocabular(await TransformTemplateToItem(userId, templates)));
+                result.Add(levelWrapper);
+            }
+            return result;
+        }
+
+        public async Task<List<VocabularItem>> TransformTemplateToItem(Guid userId, List<VocabularTemplate> templates)
+        {
+            List<VocabularItem> result = new List<VocabularItem>();
+            foreach(var temp in templates)
+            {
+                result.Add(await GetVocabByTemplateAndUser(temp.VocabularTemplateId, userId));
+            }
+            return result;
+        }
+
         public async Task<IEnumerable<VocabularItem>> GetVocabByUser(Guid userId)
         {
             return await _databaseContext.VocabularItems.Where(x => x.UserId.Equals(userId)).ToListAsync();
         }
-
-        //??????????
+        
         public async Task<VocabularItem> GetVocabByTemplate(Guid templateId)
         {
             return await _databaseContext.VocabularItems.Where(x => x.VocabularTemplateId.Equals(templateId)).FirstOrDefaultAsync();

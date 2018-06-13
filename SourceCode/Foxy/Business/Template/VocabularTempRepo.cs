@@ -37,6 +37,12 @@ namespace Business
             return (_databaseContext.VocabularRelationships.Where(x => x.MainItemId.Equals(id))).Count();
         }
 
+        public async Task<List<VocabularTemplate>> GetComponentsByLevel(int level)
+        {
+
+            return (_databaseContext.VocabularTemplates.Where(x => x.RequiredLevel == level).ToList());
+        }
+
         public async Task<VocabularTemplate> GetByTypeAndName(VocabularType type, String name)
         {
             return await _databaseContext.VocabularTemplates.FirstOrDefaultAsync(vocab => vocab.Type == type && vocab.Name.Equals(name));

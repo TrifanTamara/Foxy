@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.DTOs;
 using WebApp.Filter;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -20,8 +21,6 @@ namespace WebApp.Controllers
     {
         private IUsersRepository _userRepo;
         private IVocabularItemRepo _vocabularRepo;
-        private static Dictionary<Guid, VocabularWrapper> currentItem = new Dictionary<Guid, VocabularWrapper>();
-
 
         public VocabularController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo)
         {
@@ -47,11 +46,10 @@ namespace WebApp.Controllers
             User user = await _userRepo.GetByEmail(email);
 
             VocabularWrapper model = await _vocabularRepo.GetWrappedItem(user.UserId, name, Data.Domain.Entities.TemplateItems.VocabularType.Radical);
-            if (model != null)
+            if (model == null)
             {
-                currentItem[user.UserId] = model;
+                return View("NotFound");
             }
-            //return404
             return View("ItemForm", model);
         }
 
@@ -65,9 +63,9 @@ namespace WebApp.Controllers
 
             VocabularWrapper model = await _vocabularRepo.GetWrappedItem(user.UserId, name, Data.Domain.Entities.TemplateItems.VocabularType.Kanji);
 
-            if (model != null)
+            if (model == null)
             {
-                currentItem[user.UserId] = model;
+                return View("NotFound");
             }
             return View("ItemForm", model);
         }
@@ -81,9 +79,9 @@ namespace WebApp.Controllers
             User user = await _userRepo.GetByEmail(email);
 
             VocabularWrapper model = await _vocabularRepo.GetWrappedItem(user.UserId, name, Data.Domain.Entities.TemplateItems.VocabularType.Word);
-            if (model != null)
+            if (model == null)
             {
-                currentItem[user.UserId] = model;
+                return View("NotFound");
             }
 
             return View("ItemForm", model);
@@ -168,37 +166,17 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        [Route("levels/level")]
-        public async Task<JsonResult> RemoveSynonim(RemoveSynVocDto model)
-        {
-            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
-            if (item != null && model.Index < 5)
-            {
-                string syn = item.UserSynonyms;
-                string result = "";
-                List<string> listSyn = new List<string>(syn.Split(";"));
-                listSyn.Remove(listSyn[model.Index]);
-                if (listSyn.Count() > 0) result = listSyn[0];
-                for (int i = 1; i < listSyn.Count(); ++i) result += ";" + listSyn[i];
-
-                item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite, result);
-                await _vocabularRepo.Edit(item);
-                return Json(new { synonyms = result });
-            }
-            return Json("");
-        }
-
-        [HttpGet]
         [Route("levels/l{level_nr}")]
-        public async Task<IActionResult> Word([FromRoute]int level_nr)
+        public async Task<IActionResult> ShowLevels([FromRoute]int level_nr)
         {
 
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
-            
+            VocabLevelsModel model = new VocabLevelsModel();
+            model.Levels = await _vocabularRepo.GetGroupedVocabLevels(user.UserId, level_nr, level_nr);
 
-            return View("ItemForm", model);
+            return View("Levels", model);
         }
     }
 }

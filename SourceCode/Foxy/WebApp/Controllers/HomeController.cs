@@ -5,6 +5,7 @@ using WebApp.Models;
 using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Routing;
+using System;
 
 namespace WebApp.Controllers
 {
@@ -16,14 +17,26 @@ namespace WebApp.Controllers
         public HomeController(IUsersRepository userRepo, IVocabularTempRepo vocabRepo, IFormularTempRepo formularRepo,
             IQuestionTempRepo questRepo, IAnswerTempRepo ansRepo)
         {
-            PopulateDb.PopulateDb pop = new PopulateDb.PopulateDb(userRepo, vocabRepo, formularRepo, questRepo, ansRepo);
+            try
+            {
+                PopulateDb.PopulateDb pop = new PopulateDb.PopulateDb(userRepo, vocabRepo, formularRepo, questRepo, ansRepo);
+                vocabRepo.CalcTotalNumberLevel();
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-
-            return View();
+            try
+            {
+                return View();
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         [HttpGet]
