@@ -38,14 +38,14 @@ namespace Business.UserRelated
             if (qTemp != null && qItem!=null)
             {
                 List<VocabularWrapper> vwList = new List<VocabularWrapper>();
-                foreach(var vt in qTemp.Words)
+                foreach(var vt in qTemp.VocabularTemplates)
                 {
                     vwList.Add(await _vocabRepo.GetWrappedItem(userId, vt.Name, vt.Type));
                 }
 
-                foreach(var answer in qTemp.Answers)
+                foreach(var answer in qTemp.AnswerTemplates)
                 {
-                    foreach(var vt in answer.Words)
+                    foreach(var vt in answer.VocabularTemplates)
                     {
                         vwList.Add(await _vocabRepo.GetWrappedItem(userId, vt.Name, vt.Type));
                     }

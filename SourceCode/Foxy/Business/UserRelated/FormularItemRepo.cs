@@ -49,7 +49,7 @@ namespace Business.UserRelated
                     questionList.Add(await _questRepo.GetWrappedItem(userId, question.Id));
                 }
 
-                foreach(var word in ft.Words)
+                foreach(var word in ft.VocabularTemplates)
                 {
                     wordList.Add(await _vocabRepo.GetWrappedItem(userId, word.Name, word.Type));
                 }

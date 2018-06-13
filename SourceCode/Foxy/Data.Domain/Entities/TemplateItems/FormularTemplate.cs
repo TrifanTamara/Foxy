@@ -25,7 +25,7 @@ namespace Data.Domain.Entities.TemplateItems
         public bool Seen { get; private set; }
 
         public FormularType Type { get; private set; }
-        public List<VocabularTemplate> Words { get; private set; }
+        public List<VocabularTemplate> VocabularTemplates { get; private set; }
         public List<QuestionTemplate> Questions { get; private set; }
 
         public static FormularTemplate Create(int partialViewId, string topic, string content, FormularType type, List<VocabularTemplate> words, List<QuestionTemplate> questions)
@@ -40,14 +40,14 @@ namespace Data.Domain.Entities.TemplateItems
             Topic = topic;
             Description = content;
             Type = type;
-            Words = words;
+            VocabularTemplates = words;
             Questions = questions;
             PartialViewId = partialViewId;
         }
 
         public void Update(List<VocabularTemplate> words, List<QuestionTemplate> questions)
         {
-            Words = words;
+            VocabularTemplates = words;
             Questions = questions;
         }
     }

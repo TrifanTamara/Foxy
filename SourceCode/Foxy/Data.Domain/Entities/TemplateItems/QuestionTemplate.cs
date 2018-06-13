@@ -16,8 +16,8 @@ namespace Data.Domain.Entities.TemplateItems
         public string Content { get; private set; }
         public string Note { get; private set; }
 
-        public List<VocabularTemplate> Words { get; private set; }
-        public List<AnswerTemplate> Answers { get; private set; }
+        public List<VocabularTemplate> VocabularTemplates { get; private set; }
+        public List<AnswerTemplate> AnswerTemplates { get; private set; }
 
         public static QuestionTemplate Create(string content, List<VocabularTemplate> words, 
             List<AnswerTemplate> answers, string note = "")
@@ -31,15 +31,15 @@ namespace Data.Domain.Entities.TemplateItems
             List<AnswerTemplate> answers, string note = "")
         {
             Content = content;
-            Words = words;
-            Answers = answers;
+            VocabularTemplates = words;
+            AnswerTemplates = answers;
             Note = note;
         }
 
         public void Update(List<VocabularTemplate> words, List<AnswerTemplate> answers)
         {
-            Words = words;
-            Answers = answers;
+            VocabularTemplates = words;
+            AnswerTemplates = answers;
         }
     }
 }

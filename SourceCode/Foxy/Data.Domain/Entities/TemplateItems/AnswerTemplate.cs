@@ -17,7 +17,7 @@ namespace Data.Domain.Entities.TemplateItems
         public bool IsTrue { get; private set; }
 
 
-        public List<VocabularTemplate> Words { get; private set; }
+        public List<VocabularTemplate> VocabularTemplates { get; set; }
 
 
         public static AnswerTemplate Create(string text, bool isTrue, List<VocabularTemplate> words, string note = "")
@@ -37,7 +37,7 @@ namespace Data.Domain.Entities.TemplateItems
 
         public void Update(List<VocabularTemplate> words)
         {
-            Words = words;
+            VocabularTemplates = words;
         }
     }
 }

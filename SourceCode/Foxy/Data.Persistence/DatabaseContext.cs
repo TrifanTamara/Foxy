@@ -22,7 +22,26 @@ namespace Data.Persistence
         {
             modelBuilder.Entity<VocabularRelationship>()
                 .HasKey(vocabularRelationship => new { vocabularRelationship.MainItemId, vocabularRelationship.ContainedItemId });
-            
+
+            modelBuilder.Entity<FormularTemplate>()
+            .HasMany(ft => ft.VocabularTemplates)
+            .WithOne();
+
+            modelBuilder.Entity<FormularTemplate>()
+            .HasMany(ft => ft.Questions)
+            .WithOne();
+
+            modelBuilder.Entity<QuestionTemplate>()
+            .HasMany(qt => qt.VocabularTemplates)
+            .WithOne();
+
+            modelBuilder.Entity<QuestionTemplate>()
+            .HasMany(qt => qt.AnswerTemplates)
+            .WithOne();
+
+            modelBuilder.Entity<AnswerTemplate>()
+            .HasMany(at => at.VocabularTemplates)
+            .WithOne();
         }
 
         public DbSet<User> Users { get; set; }
