@@ -168,6 +168,8 @@ namespace WebApp.PopulateDb
                 }
             }
 
+            await _vocabRepo.CalcTotalNumberLevel();
+
         }
 
         public async Task PopulateGrammarReading()

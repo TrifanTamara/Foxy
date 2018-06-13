@@ -1,4 +1,5 @@
-﻿using Data.Domain.Entities.TemplateItems;
+﻿using Data.Domain.Entities;
+using Data.Domain.Entities.TemplateItems;
 using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
 using Data.Persistence;
@@ -56,6 +57,17 @@ namespace Business
                 }
             }
         }
-        
+
+        public async Task CalcTotalNumberLevel()
+        {
+            List<VocabularTemplate> allV = (await GetAll()).ToList();
+            int maxLevel = 0;
+            foreach(var v in allV)
+            {
+                maxLevel = maxLevel > v.RequiredLevel ? maxLevel : v.RequiredLevel;
+            }
+            StaticInfo.TotalLevelNumber = maxLevel;
+        }
+
     }
 }

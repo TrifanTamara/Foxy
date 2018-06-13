@@ -12,5 +12,6 @@ namespace Data.Domain.Interfaces
         Task<VocabularTemplate> GetByTypeAndName(VocabularType type, String name);
         Task AddRelations(String itemName, VocabularType itemType, List<String> constructionElements);
         Task<int> GetComponentsById(Guid id);
+        Task CalcTotalNumberLevel();
     }
 }

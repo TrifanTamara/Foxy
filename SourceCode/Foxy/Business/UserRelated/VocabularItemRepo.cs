@@ -41,6 +41,11 @@ namespace Business
             return null;
         }
 
+        public int GetTotalLevelNr()
+        {
+            return StaticInfo.TotalLevelNumber;
+        }
+
         public async Task<IEnumerable<VocabularItem>> GetVocabByUser(Guid userId)
         {
             return await _databaseContext.VocabularItems.Where(x => x.UserId.Equals(userId)).ToListAsync();
@@ -175,7 +180,7 @@ namespace Business
                 }
             }
         }
-
+        
         public async Task AddVocabularForNewUser(Guid userId)
         {
             List<VocabularTemplate> vocabList = (await _tempVocabRepo.GetAll()).ToList();

@@ -51,6 +51,7 @@ namespace WebApp.Services
             model.Level = user.Level;
             model.LessonNumber = (await _vocabRepo.GetVocabLesson(user.UserId)).Count();
             model.ReviewNumber = (await _vocabRepo.GetVocabForReview(user.UserId)).Count();
+            model.TotalNrLevels = _vocabRepo.GetTotalLevelNr();
 
             return model;
         }

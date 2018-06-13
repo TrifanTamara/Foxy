@@ -137,7 +137,7 @@ function GetNextReview() {
         success: function (data) {
             var sFinish = data["finish"];
             if (sFinish === true) {
-                var url = 'ReviewFinished';
+                var url = '/VocabularReview/ReviewFinished';
                 window.location.href = url;
             }
             else {

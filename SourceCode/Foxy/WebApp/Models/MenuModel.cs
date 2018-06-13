@@ -11,5 +11,6 @@ namespace WebApp.Models
         public int Level { get; set; }
         public int LessonNumber { get; set; }
         public int ReviewNumber { get; set; }
+        public int TotalNrLevels { get; set; }
     }
 }
