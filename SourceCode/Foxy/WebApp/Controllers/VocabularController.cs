@@ -1,5 +1,6 @@
 ﻿using Business.Wrappers;
 using Data.Domain.Entities;
+using Data.Domain.Entities.TemplateItems;
 using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -175,8 +176,71 @@ namespace WebApp.Controllers
 
             VocabLevelsModel model = new VocabLevelsModel();
             model.Levels = await _vocabularRepo.GetGroupedVocabLevels(user.UserId, level_nr, level_nr);
+            model.RequestedInfo = InfoRequested.AllInfo;
 
             return View("Levels", model);
+        }
+
+        [HttpGet]
+        [Route("lexicon/{type}")]
+        public async Task<IActionResult> ShowVocabularType([FromRoute]string type)
+        {
+            string email = HttpContext.User.Claims.First().Value;
+            User user = await _userRepo.GetByEmail(email);
+
+            VocabLevelsModel model = new VocabLevelsModel();
+            switch (type.ToLower())
+            {
+                case "radical" :
+                    model.RequestedInfo = InfoRequested.JustRadical;
+                    break;
+                case "kanji":
+                    model.RequestedInfo = InfoRequested.JustKanji;
+                    break;
+                case "words":
+                    model.RequestedInfo = InfoRequested.JustWords;
+                    break;
+                default:
+                    model.RequestedInfo = InfoRequested.AllInfo;
+                    break;
+            }
+            
+            model.Levels = await _vocabularRepo.GetGroupedVocabLevels(user.UserId);
+            
+            return View("Levels", model);
+        }
+
+        [HttpGet]
+        [Route("grid")]
+        public async Task<IActionResult> ShowVocabularGrid()
+        {
+            string email = HttpContext.User.Claims.First().Value;
+            User user = await _userRepo.GetByEmail(email);
+
+            VocabLevelsModel model = new VocabLevelsModel();
+            model.Levels = await _vocabularRepo.GetGroupedVocabLevels(user.UserId);
+
+            return View("Grid", model);
+        }
+
+        [HttpGet]
+        [Route("progress")]
+        public async Task<IActionResult> ShowVocabularProgress()
+        {
+            string email = HttpContext.User.Claims.First().Value;
+            User user = await _userRepo.GetByEmail(email);
+
+            List<VocabularWrapper> totalList = await _vocabularRepo.WrapVocabular((await _vocabularRepo.GetVocabByUser(user.UserId)).ToList());
+
+          
+
+            ProgressVocabModel model = new ProgressVocabModel();
+            model.AllVocabular = model.OrderListByProgress(totalList);
+            model.Radical = model.OrderListByProgress(totalList.Where(x => x.Template.Type == VocabularType.Radical).ToList());
+            model.Kanji = model.OrderListByProgress(totalList.Where(x => x.Template.Type == VocabularType.Kanji).ToList());
+            model.Words = model.OrderListByProgress(totalList.Where(x => x.Template.Type == VocabularType.Word).ToList());
+
+            return View("Progress", model);
         }
     }
 }

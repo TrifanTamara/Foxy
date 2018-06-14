@@ -39,5 +39,6 @@ namespace Data.Domain.Interfaces
         Task IsUserReadyForNextLevel(Guid userId);
         int GetTotalLevelNr();
         Task<List<LevelWrapper>> GetGroupedVocabLevels(Guid userId, int startLevel = 0, int endLevel = 0);
+        Task<List<VocabularWrapper>> WrapVocabular(List<VocabularItem> oldItems);
     }
 }

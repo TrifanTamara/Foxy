@@ -90,12 +90,23 @@
                                             単語
                                         </div>
                                         <div class="dropdown-toggle menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lexicon</div>
-                                        <div class="dropdown-menu medium-dropdown menu-drop-main" aria-labelledby="menuVocabLink">
-                                            <ul class="drop-list-menu">
-                                                <li class="list-drop-item"><a href="#">Level 1</a></li>
-                                                <li class="list-drop-item"><a href="#">Level 2</a></li>
-                                                <li class="list-drop-item"><a href="#">Level 3</a></li>
-                                            </ul>
+                                        <div class="dropdown-menu drop-down-menu-foxy" aria-labelledby="menuVocabLink">
+                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon/radical">
+                                                Radical
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon/kanji">
+                                                Kanji
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon/words">
+                                                Words
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="progress">
+                                                Progress
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="grid">
+                                                Grid
+                                            </a>
                                         </div>
                                     </div>
                                 </li>

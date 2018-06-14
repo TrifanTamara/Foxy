@@ -43,6 +43,26 @@ h6 {
     background-color: var(--main-color-word)!important;
 }
 
+.badge-Lesson {
+    background-color: var(--main-color-3) !important;
+}
+.badge-Seed {
+    background-color: var(--main-color-5) !important;
+}
+.badge-Leaf {
+    background-color: var(--main-color-4) !important;
+}
+.badge-Bloom {
+    background-color: var(--main-color-2) !important;
+}
+.badge-Flourished {
+    background-color: var(--main-color-1) !important;
+}
+
+.badge-inactive {
+    background-color: #adadad;
+}
+
 .badge-vocab-lev {
     font-size: 1.5em;
     color: white;

@@ -1,0 +1,101 @@
+﻿@using WebApp.DTOs;
+@model VocabLevelsModel
+@{
+    string componentColor;
+    string vtype = "";
+    string tooltip_style = "";
+    string colTypeR = "col-md-3";
+    string colTypeK = "col-md-3";
+    string colTypeW = "col-md-6";
+
+}
+
+<div class="container">
+    <div class="container" style="margin-bottom:2em">
+        <div class="row name-style-level" style="width:100%;">
+            <div class="">
+                All lexicon
+            </div>
+        </div>
+        <div class="row" style="width:100%;">
+            <div class="@colTypeR">
+                <div class="text-other-meaning" style="font-size:1em!important">
+                    Radical
+                </div>
+                <div class="">
+                    @foreach (var levelGroup in Model.Levels)
+                    {
+                        @for (int i = 0; i < levelGroup.Radicals.Count; ++i)
+                        {
+                            vtype = levelGroup.Radicals[i].VocabularType;
+                            componentColor = "badge-" + vtype;
+                            if (levelGroup.Radicals[i].Unlocked == false)
+                            {
+                                componentColor = "badge-inactive";
+                            }
+                            tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + levelGroup.Radicals[i].MainMeaning + "</p>";
+                            <a style="all:unset!important" asp-controller="Vocabular" asp-action="@vtype/@levelGroup.Radicals[i].Name">
+                                <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
+                                    @levelGroup.Radicals[i].Name
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="@colTypeK">
+                <div class="text-other-meaning" style="font-size:1em!important">
+                    Kanji
+                </div>
+                <div class="">
+                    @foreach (var levelGroup in Model.Levels)
+                    {
+                        @for (int i = 0; i < levelGroup.Kanjis.Count; ++i)
+                        {
+
+                            vtype = levelGroup.Kanjis[i].VocabularType;
+                            componentColor = "badge-" + vtype;
+                            if (levelGroup.Kanjis[i].Unlocked == false)
+                            {
+                                componentColor = "badge-inactive";
+                            }
+                            tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + levelGroup.Kanjis[i].MainMeaning + "</p>";
+                            tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + levelGroup.Kanjis[i].MainReading + "</p></div>";
+                            <a style="all:unset!important" asp-controller="Vocabular" asp-action="@vtype/@levelGroup.Kanjis[i].Name">
+                                <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
+                                    @levelGroup.Kanjis[i].Name
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="@colTypeW">
+                <div class="text-other-meaning" style="font-size:1em!important">
+                    Words
+                </div>
+                <div class="">
+                    @foreach (var levelGroup in Model.Levels)
+                    {
+                        @for (int i = 0; i < levelGroup.Words.Count; ++i)
+                        {
+                            vtype = levelGroup.Words[i].VocabularType;
+                            componentColor = "badge-" + vtype;
+                            if (levelGroup.Words[i].Unlocked == false)
+                            {
+                                componentColor = "badge-inactive";
+                            }
+                            tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + levelGroup.Words[i].MainMeaning + "</p>";
+                            tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + levelGroup.Words[i].MainReading + "</p></div>";
+                            <a style="all:unset!important" asp-controller="Vocabular" asp-action="@vtype/@levelGroup.Words[i].Name">
+                                <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
+                                    @levelGroup.Words[i].Name
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,7 +20,8 @@ To do:
 -Maybe add two stages of flow: slower and faster (for user)
 -fix review meaning and reading check, to be more tolerant
 -implement kana table on input
-
+-and time until next review on dashboard
+-block access to another section when one is already started
 
 Rules:
 -User can see unlocked items info, but cannot force it progress on them.
