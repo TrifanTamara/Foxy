@@ -16,7 +16,7 @@
     <script src="~/vendor/jquery/jquery.js"></script>
 
 
-    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
@@ -32,7 +32,7 @@
     <link href="~/circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
     <link href="~/css/DashBoard.css" rel="stylesheet" type="text/css" />
 
-
+    <link href="~/fontawesome-free-5.0.13/web-fonts-with-css/css/fontawesome-all.min.css" rel="stylesheet" type="text/css" />
 
     <link href="~/toastr/toastr.css" rel="stylesheet" />
     <script src="~/toastr/toastr.js"></script>
@@ -64,9 +64,11 @@
                             <ul class="navbar-nav mr-auto nav-list" style="height:100%;" data-toggle="collapse" data-target="#navbarCollapse">
                                 <li class="dropdown liNavbar">
                                     <div class="div-saviour">
-                                        <div class="levels-id circle-just-border">
-                                            @menuModel.Level
-                                        </div>
+                                        <a class="dropdown-item" asp-controller="Vocabular" asp-action="levels/l@(menuModel.Level)" style="all:unset">
+                                            <div class="levels-id circle-just-border">
+                                                @menuModel.Level
+                                            </div>
+                                        </a>
                                         <div class="dropdown-toggle menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Levels</div>
                                         <div class="dropdown-menu drop-down-menu-foxy" aria-labelledby="menuVocabLink">
                                             @for (int lev = 1; lev <= menuModel.TotalNrLevels; ++lev)
@@ -86,9 +88,11 @@
                                 </li>
                                 <li class="dropdown liNavbar">
                                     <div class="div-saviour text-center">
-                                        <div class="levels-id hide-when-small">
-                                            単語
-                                        </div>
+                                        <a class="dropdown-item" asp-controller="Vocabular" asp-action="grid" style="all:unset!important">
+                                            <div class="levels-id hide-when-small" style="cursor:pointer">
+                                                単語
+                                            </div>
+                                        </a>
                                         <div class="dropdown-toggle menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lexicon</div>
                                         <div class="dropdown-menu drop-down-menu-foxy" aria-labelledby="menuVocabLink">
                                             <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon/radical">
@@ -111,7 +115,7 @@
                                     </div>
                                 </li>
                                 <li class="dropdown liNavbar">
-                                    <a style="all:unset!important" asp-controller="Grammar" asp-action="Index">
+                                    <a style="all:unset!important;cursor:pointer!important" asp-controller="Grammar" asp-action="Index">
                                         <div class="div-saviour text-center">
                                             <div class="levels-id hide-when-small">
                                                 文法

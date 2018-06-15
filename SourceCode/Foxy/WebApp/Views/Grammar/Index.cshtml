@@ -1,27 +1,62 @@
 ﻿@using WebApp.DTOs;
 @model GrammarModel
 @{
+    int columnNr = 3;
+    int totalLines = Model.Formulars.Count() / 3;
+    if (Model.Formulars.Count() % 3 > 0)
+    {
+        totalLines = totalLines + 1;
+    }
 
 }
 
 <div class="container">
-    @foreach (var formular in Model.Formulars)
+    @for (int line = 0; line < totalLines; ++line)
     {
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="~/images/grammar/grammar@(formular.Template.PartialViewId).jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">@formular.Template.Topic</h5>
-                <p class="card-text">@formular.Template.Description</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-            <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
+        <div class="card-deck">
+            @for (int column = 0; column < columnNr && ((line * columnNr + column) < Model.Formulars.Count()); ++column)
+            {
+                int index = line * columnNr + column;
+                var formular = Model.Formulars[index];
+                <div class="card p-3" style="width: 18rem;">
+                    <div class="card-header">
+                        <div class="text-uppercase">
+                            Words status
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                40%
+                            </div>
+                        </div>
+                    </div>
+                    <img class="card-img-top" src="~/images/grammar/grammar@(formular.Template.PartialViewId).jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@formular.Template.Topic</h5>
+                        <p class="card-text">
+                            @formular.Template.Description
+
+                        </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fas fa-star star-orange"></i>
+                            <i class="fas fa-star star-orange"></i>
+                            <i class="fas fa-star star-orange"></i>
+                            <i class="fas fa-star star-orange"></i>
+                            <i class="fas fa-star"></i>
+
+
+                            <p>4.1 average based on 254 reviews.</p>
+                        </li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            }
         </div>
     }
 </div>

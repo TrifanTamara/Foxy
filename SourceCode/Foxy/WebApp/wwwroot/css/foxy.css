@@ -92,3 +92,13 @@ h6 {
     border-color: rgba(38, 38, 82, 0.95);
     border-bottom-width: 0.1vmin !important;
 }
+
+.card-columns {
+    display: inline-block;
+    column-break-inside: avoid;
+}
+
+.star-orange {
+    color: orange;
+    font-size: 3em;
+}
