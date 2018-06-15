@@ -10,6 +10,7 @@ namespace Data.Domain.Interfaces
         Task<IEnumerable<T>> GetAll();
         Task<T> FindById(Guid id);
         Task Add(T entity);
+        Task AddWithoutSave(T entity);
         Task Delete(Guid id);
         Task Edit(T entity);
         Task Clear();

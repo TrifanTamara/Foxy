@@ -2,6 +2,7 @@
 using Data.Domain.Entities.TemplateItems;
 using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
+using Data.Domain.Interfaces.Template;
 using Data.Domain.Interfaces.UserRelated;
 using Data.Domain.Wrappers;
 using Data.Persistence;
@@ -21,42 +22,51 @@ namespace Business.UserRelated
 
         private readonly IQuestionTempRepo _questionTempRepo;
         private readonly IUsersRepository _userRepo;
+        
+        private readonly IWordsElemRelRepo _relationshipsRepo;
 
         public QuestionItemRepo(IDatabaseContext databaseContext,
-            IVocabularItemRepo vocabRepo, IUsersRepository userRepo, IQuestionTempRepo questionRepo) : base(databaseContext)
+            IVocabularItemRepo vocabRepo, IUsersRepository userRepo, 
+            IQuestionTempRepo questionRepo, IWordsElemRelRepo relationshipsRepo) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _vocabRepo = vocabRepo;
             _userRepo = userRepo;
             _questionTempRepo = questionRepo;
+            _relationshipsRepo = relationshipsRepo;
         }
 
         public async Task<QuestionWrapper> GetWrappedItem(Guid userId, Guid questionTemplateId)
         {
+            
             QuestionItem qItem = await GetItemByTemplate(questionTemplateId);
             QuestionTemplate qTemp = await _questionTempRepo.FindById(questionTemplateId);
             if (qTemp != null && qItem!=null)
             {
                 List<VocabularWrapper> vwList = new List<VocabularWrapper>();
-                foreach(var vt in qTemp.VocabularTemplates)
+                List<WordFormQuestAnsRel> relList = (await _relationshipsRepo.GetByMainId(qTemp.QuestionTemplateId)).ToList();
+                foreach(var rel in relList)
                 {
-                    vwList.Add(await _vocabRepo.GetWrappedItem(userId, vt.Name, vt.Type));
+                    VocabularTemplate vt = await _vocabRepo.GetVocabTemplate(rel.WordId);
+                    if(vt!=null) vwList.Add(await _vocabRepo.GetWrappedItem(userId, vt.Name, vt.Type));
                 }
 
-                foreach(var answer in qTemp.AnswerTemplates)
+                foreach (var answer in qTemp.AnswerTemplates)
                 {
-                    foreach(var vt in answer.VocabularTemplates)
+                    relList = (await _relationshipsRepo.GetByMainId(answer.AnswerTemplateId)).ToList();
+                    foreach (var rel in relList)
                     {
+                        VocabularTemplate vt = await _vocabRepo.GetVocabTemplate(rel.WordId);
                         vwList.Add(await _vocabRepo.GetWrappedItem(userId, vt.Name, vt.Type));
                     }
                 }
 
                 return new QuestionWrapper(qItem, qTemp, vwList);
             }
-
+            
             return null;
         }
-
+        
         public async Task<QuestionItem> GetItemByTemplate(Guid templateId)
         {
             return _databaseContext.QuestionItems.Where(q => q.QuestionId == templateId).FirstOrDefault();
@@ -68,7 +78,7 @@ namespace Business.UserRelated
 
             foreach(var temp in templates)
             {
-                await Add(QuestionItem.Create(userId, temp.Id));
+                await Add(QuestionItem.Create(userId, temp.QuestionTemplateId));
             }
         }
         

@@ -78,9 +78,9 @@ namespace Business
             return await _databaseContext.VocabularItems.Where(x => x.UserId.Equals(userId)).ToListAsync();
         }
         
-        public async Task<VocabularItem> GetVocabByTemplate(Guid templateId)
+        public async Task<VocabularTemplate> GetVocabTemplate(Guid templateId)
         {
-            return await _databaseContext.VocabularItems.Where(x => x.VocabularTemplateId.Equals(templateId)).FirstOrDefaultAsync();
+            return await _databaseContext.VocabularTemplates.Where(x => x.VocabularTemplateId.Equals(templateId)).FirstOrDefaultAsync();
         }
 
         public async Task<VocabularItem> GetVocabByTemplateAndUser(Guid templateId, Guid userId)
@@ -400,7 +400,7 @@ namespace Business
         {
             foreach (var vocab in elementList)
             {
-                if (vocab.Name.Equals(element.Name) && vocab.Template.Type == element.Type)
+                if (vocab.Name.Equals(element.Name, StringComparison.InvariantCulture) && vocab.Template.Type == element.Type)
                     return true;
             }
 

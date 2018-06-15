@@ -26,5 +26,16 @@ namespace Business.Template
         {
             return await _databaseContext.FormularTemplates.Where(formular => formular.Type == type).ToListAsync();
         }
+
+        public override async Task<IEnumerable<FormularTemplate>> GetAll()
+        {
+            return await _databaseContext.FormularTemplates.Include(ft => ft.QuestionTemplates)
+                .ThenInclude(at => at.AnswerTemplates).ToListAsync();
+        }
+
+        public override async Task<FormularTemplate> FindById(Guid id)
+        {
+            return (await GetAll()).ToList().FirstOrDefault(ft => ft.FormularTemplateId == id);
+        }
     }
 }

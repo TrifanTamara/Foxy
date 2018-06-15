@@ -21,7 +21,7 @@ namespace Data.Domain.Interfaces
     {
         Task AddVocabularForNewUser(Guid userId);
         Task<IEnumerable<VocabularItem>> GetVocabByUser(Guid userId);
-        Task<VocabularItem> GetVocabByTemplate(Guid templateId);
+        Task<VocabularTemplate> GetVocabTemplate(Guid templateId);
         Task UnlockElements(VocabularItem item);
         Task AddToLesson(VocabularItem vocab);
         Task RemoveFromLesson(VocabularItem vocab);
@@ -40,5 +40,6 @@ namespace Data.Domain.Interfaces
         int GetTotalLevelNr();
         Task<List<LevelWrapper>> GetGroupedVocabLevels(Guid userId, int startLevel = 0, int endLevel = 0);
         Task<List<VocabularWrapper>> WrapVocabular(List<VocabularItem> oldItems);
+        Task<VocabularItem> GetVocabByTemplateAndUser(Guid templateId, Guid userId);
     }
 }

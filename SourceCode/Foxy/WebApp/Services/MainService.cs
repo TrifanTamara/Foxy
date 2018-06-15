@@ -21,7 +21,7 @@ namespace WebApp.Services
         {
             for (int i = 0; i < rightAnswers.Count(); ++i)
             {
-                if (rightAnswers[i].ToLower().Equals(userAns.ToLower()))
+                if (rightAnswers[i].ToLower().Equals(userAns.ToLower(), StringComparison.InvariantCulture))
                     return true;
             }
             return false;

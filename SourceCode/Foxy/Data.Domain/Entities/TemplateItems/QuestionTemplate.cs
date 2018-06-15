@@ -11,35 +11,38 @@ namespace Data.Domain.Entities.TemplateItems
             // EF Core    
         }
 
-        public Guid Id { get; private set; }
+        public Guid QuestionTemplateId { get; private set; }
 
         public string Content { get; private set; }
         public string Note { get; private set; }
-
-        public List<VocabularTemplate> VocabularTemplates { get; private set; }
+        
         public List<AnswerTemplate> AnswerTemplates { get; private set; }
 
-        public static QuestionTemplate Create(string content, List<VocabularTemplate> words, 
-            List<AnswerTemplate> answers, string note = "")
+        public FormularTemplate FormularTemplate;
+
+        public static QuestionTemplate Create(string content, List<AnswerTemplate> answers, string note = "")
         {
-            var instance = new QuestionTemplate { Id = Guid.NewGuid() };
-            instance.Update(content, words, answers, note);
+            var instance = new QuestionTemplate { QuestionTemplateId = Guid.NewGuid() };
+            instance.Update(content, note);
+            instance.Update(answers);
             return instance;
         }
 
-        public void Update(string content, List<VocabularTemplate> words,
-            List<AnswerTemplate> answers, string note = "")
+        public void Update(FormularTemplate formularTemplate)
+        {
+            FormularTemplate = formularTemplate;
+        }
+
+        public void Update(string content, string note = "")
         {
             Content = content;
-            VocabularTemplates = words;
-            AnswerTemplates = answers;
             Note = note;
         }
 
-        public void Update(List<VocabularTemplate> words, List<AnswerTemplate> answers)
+        public void Update(List<AnswerTemplate> answers)
         {
-            VocabularTemplates = words;
-            AnswerTemplates = answers;
+            AnswerTemplates = new List<AnswerTemplate>();
+            foreach (var a in answers) AnswerTemplates.Add(a);
         }
     }
 }

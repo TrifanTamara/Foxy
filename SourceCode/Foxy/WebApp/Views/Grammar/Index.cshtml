@@ -1,0 +1,27 @@
+﻿@using WebApp.DTOs;
+@model GrammarModel
+@{
+
+}
+
+<div class="container">
+    @foreach (var formular in Model.Formulars)
+    {
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="~/images/grammar/grammar@(formular.Template.PartialViewId).jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@formular.Template.Topic</h5>
+                <p class="card-text">@formular.Template.Description</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+            <div class="card-body">
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    }
+</div>

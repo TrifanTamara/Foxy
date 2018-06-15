@@ -17,7 +17,7 @@ namespace Data.Domain.Entities.TemplateItems
             // EF Core      
         }
 
-        public Guid Id { get; private set; }
+        public Guid FormularTemplateId { get; private set; }
         public int PartialViewId { get; private set; }
 
         public string Topic { get; private set; }
@@ -25,30 +25,28 @@ namespace Data.Domain.Entities.TemplateItems
         public bool Seen { get; private set; }
 
         public FormularType Type { get; private set; }
-        public List<VocabularTemplate> VocabularTemplates { get; private set; }
-        public List<QuestionTemplate> Questions { get; private set; }
+        public virtual List<QuestionTemplate> QuestionTemplates { get; private set; }
 
-        public static FormularTemplate Create(int partialViewId, string topic, string content, FormularType type, List<VocabularTemplate> words, List<QuestionTemplate> questions)
+        public static FormularTemplate Create(int partialViewId, string topic, string content, FormularType type, List<QuestionTemplate> questions)
         {
-            var instance = new FormularTemplate { Id = Guid.NewGuid() };
-            instance.Update(partialViewId, topic, content, type, words, questions);
+            var instance = new FormularTemplate { FormularTemplateId = Guid.NewGuid() };
+            instance.Update(partialViewId, topic, content, type);
+            instance.Update(questions);
             return instance;
         }
 
-        public void Update(int partialViewId, string topic, string content, FormularType type, List<VocabularTemplate> words, List<QuestionTemplate> questions)
+        public void Update(int partialViewId, string topic, string content, FormularType type)
         {
             Topic = topic;
             Description = content;
             Type = type;
-            VocabularTemplates = words;
-            Questions = questions;
             PartialViewId = partialViewId;
         }
 
-        public void Update(List<VocabularTemplate> words, List<QuestionTemplate> questions)
+        public void Update(List<QuestionTemplate> questions)
         {
-            VocabularTemplates = words;
-            Questions = questions;
+            QuestionTemplates = new List<QuestionTemplate>();
+            foreach (var q in questions) QuestionTemplates.Add(q);
         }
     }
 }

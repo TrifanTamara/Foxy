@@ -37,6 +37,13 @@ namespace Business
             await Save();
         }
 
+        public virtual async Task AddWithoutSave(T entity)
+        {
+            //            (_databaseContext as DbContext).ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            (_databaseContext as DatabaseContext).Attach(entity);
+            await _entities.AddAsync(entity);
+        }
+
         public virtual async Task Delete(Guid id)
         {
             var itemToRemove = await FindById(id);

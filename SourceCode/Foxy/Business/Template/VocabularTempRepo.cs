@@ -45,7 +45,7 @@ namespace Business
 
         public async Task<VocabularTemplate> GetByTypeAndName(VocabularType type, String name)
         {
-            return await _databaseContext.VocabularTemplates.FirstOrDefaultAsync(vocab => vocab.Type == type && vocab.Name.Equals(name));
+            return await _databaseContext.VocabularTemplates.FirstOrDefaultAsync(vocab => vocab.Type == type && vocab.Name.Equals(name, StringComparison.InvariantCulture));
         }
 
         public async Task AddRelations(String itemName, VocabularType itemType, List<String> constructionElements)

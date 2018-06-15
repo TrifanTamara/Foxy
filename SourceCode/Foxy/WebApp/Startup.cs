@@ -1,28 +1,22 @@
 ﻿using System;
-using System.Text;
 using Business;
 using Data.Domain.Interfaces;
 using Data.Persistence;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.Swagger;
 using WebApp.Filter;
-using WebApp.DTOs_Validators;
 using System.Net.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using WebApp.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Business.Template;
 using Data.Domain.Interfaces.UserRelated;
 using Business.UserRelated;
+using Data.Domain.Interfaces.Template;
 
 namespace WebApp
 {
@@ -43,11 +37,14 @@ namespace WebApp
             services.AddTransient<IVocabularTempRepo, VocabularTempRepo>();
             services.AddTransient<IVocabRelRepo, VocabRelRepo>();
             services.AddTransient<IVocabularItemRepo, VocabularItemRepo>();
+            
             services.AddTransient<IAnswerTempRepo, AnswerTempRepo>();
             services.AddTransient<IQuestionTempRepo, QuestionTempRepo>();
             services.AddTransient<IQuestionItemRepo, QuestionItemRepo>();
             services.AddTransient<IFormularItemRepo, FormularItemRepo>();
             services.AddTransient<IFormularTempRepo, FormularTempRepo>();
+            services.AddTransient<ICommonRepo, CommonRepo>();
+            services.AddTransient<IWordsElemRelRepo, WordsElemRelRepo>();
 
             services.AddScoped<IMainService, MainService>();
 
@@ -62,11 +59,8 @@ namespace WebApp
                         options.LoginPath = new PathString("/Login");
                         options.CookieName = "FoxyCookie";
                         options.ExpireTimeSpan = new TimeSpan(2, 0, 0);
-
                     });
-
-
-
+            
             services.AddMvc(options =>
                 {
                     options.Filters.Add(typeof(DefaultControllerFilter));

@@ -1,8 +1,10 @@
 ﻿using Data.Domain.Entities.TemplateItems;
 using Data.Domain.Interfaces;
 using Data.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +27,16 @@ namespace Business.Template
         {
             await _answerRepo.Clear();
             await Clear();
+        }
+        
+        public override async Task<IEnumerable<QuestionTemplate>> GetAll()
+        {
+            return await _databaseContext.QuestionTemplates.Include(qt => qt.AnswerTemplates).ToListAsync();
+        }
+
+        public override async Task<QuestionTemplate> FindById(Guid id)
+        {
+            return (await GetAll()).ToList().FirstOrDefault(qt => qt.QuestionTemplateId == id);
         }
 
     }

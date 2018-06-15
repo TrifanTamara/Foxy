@@ -23,25 +23,8 @@ namespace Data.Persistence
             modelBuilder.Entity<VocabularRelationship>()
                 .HasKey(vocabularRelationship => new { vocabularRelationship.MainItemId, vocabularRelationship.ContainedItemId });
 
-            modelBuilder.Entity<FormularTemplate>()
-            .HasMany(ft => ft.VocabularTemplates)
-            .WithOne();
-
-            modelBuilder.Entity<FormularTemplate>()
-            .HasMany(ft => ft.Questions)
-            .WithOne();
-
-            modelBuilder.Entity<QuestionTemplate>()
-            .HasMany(qt => qt.VocabularTemplates)
-            .WithOne();
-
-            modelBuilder.Entity<QuestionTemplate>()
-            .HasMany(qt => qt.AnswerTemplates)
-            .WithOne();
-
-            modelBuilder.Entity<AnswerTemplate>()
-            .HasMany(at => at.VocabularTemplates)
-            .WithOne();
+            modelBuilder.Entity<WordFormQuestAnsRel>()
+                .HasKey(wordFormQuestAnsRel => new { wordFormQuestAnsRel.MainElementId, wordFormQuestAnsRel.WordId });
         }
 
         public DbSet<User> Users { get; set; }
@@ -58,6 +41,8 @@ namespace Data.Persistence
         public DbSet<QuestionItem> QuestionItems { get; set; }
 
         public DbSet<AnswerTemplate> AnswerTemplates { get; set; }
+        
+        public DbSet<WordFormQuestAnsRel> WordFormQuestAnsRels { get; set; }
 
     }
 }

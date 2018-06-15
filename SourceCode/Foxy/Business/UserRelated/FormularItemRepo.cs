@@ -2,6 +2,7 @@
 using Data.Domain.Entities.TemplateItems;
 using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
+using Data.Domain.Interfaces.Template;
 using Data.Domain.Interfaces.UserRelated;
 using Data.Domain.Wrappers;
 using Data.Persistence;
@@ -24,14 +25,17 @@ namespace Business.UserRelated
         private readonly IFormularTempRepo _formularTempRepo;
         private readonly IUsersRepository _userRepo;
 
+        private readonly IWordsElemRelRepo _relationshipsRepo;
+
         public FormularItemRepo(IDatabaseContext databaseContext, IFormularTempRepo formRepo,
-            IVocabularItemRepo vocabRepo, IUsersRepository userRepo, IQuestionItemRepo questionRepo) : base(databaseContext)
+            IVocabularItemRepo vocabRepo, IUsersRepository userRepo, IQuestionItemRepo questionRepo, IWordsElemRelRepo rel) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _vocabRepo = vocabRepo;
             _userRepo = userRepo;
             _questRepo = questionRepo;
             _formularTempRepo = formRepo;
+            _relationshipsRepo = rel;
         }
 
         public async Task<FormularWrapper> GetWrappedItem(Guid userId, Guid formularTemplateId)
@@ -44,14 +48,19 @@ namespace Business.UserRelated
                 List<QuestionWrapper> questionList = new List<QuestionWrapper>();
                 List<VocabularWrapper> wordList = new List<VocabularWrapper>();
 
-                foreach(var question in ft.Questions)
+                if (ft.QuestionTemplates != null)
                 {
-                    questionList.Add(await _questRepo.GetWrappedItem(userId, question.Id));
+                    foreach (var question in ft.QuestionTemplates)
+                    {
+                        questionList.Add(await _questRepo.GetWrappedItem(userId, question.QuestionTemplateId));
+                    }
                 }
 
-                foreach(var word in ft.VocabularTemplates)
+                List<WordFormQuestAnsRel> relList = (await _relationshipsRepo.GetByMainId(ft.FormularTemplateId)).ToList();
+                foreach (var rel in relList)
                 {
-                    wordList.Add(await _vocabRepo.GetWrappedItem(userId, word.Name, word.Type));
+                    VocabularTemplate vt = await _vocabRepo.GetVocabTemplate(rel.WordId);
+                    if (vt != null) wordList.Add(await _vocabRepo.GetWrappedItem(userId, vt.Name, vt.Type));
                 }
 
                 return new FormularWrapper(fi, ft, questionList, wordList);
@@ -59,6 +68,16 @@ namespace Business.UserRelated
             return null;
         }
 
+        public async Task<List<FormularWrapper>> WrapFormularList(List<FormularItem> formulars)
+        {
+            List<FormularWrapper> result = new List<FormularWrapper>();
+            foreach(var f in formulars)
+            {
+                result.Add(await GetWrappedItem(f.UserId, f.FormularId));
+            }
+            return result;
+        }
+ 
         public async Task<FormularItem> GetItemByTemplate(Guid templateId)
         {
             return _databaseContext.FormularItems.Where(f => f.FormularId == templateId).FirstOrDefault();
@@ -71,9 +90,18 @@ namespace Business.UserRelated
 
             foreach (var temp in templates)
             {
-                await Add(FormularItem.Create(userId, temp.Id));
+                await Add(FormularItem.Create(userId, temp.FormularTemplateId));
             }
         }
 
+        public async Task<List<FormularWrapper>> GetAllFormularsByUser(Guid userId)
+        {
+            return await WrapFormularList((await GetAll()).Where(f => f.UserId == userId).ToList());
+        }
+
+        public async Task<List<FormularWrapper>> GetAllFormByUserAndType(Guid userId, FormularType type)
+        {
+            return (await GetAllFormularsByUser(userId)).Where(f => f.Template.Type == type).ToList();
+        }
     }
 }

@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\images\grammar\" />
   </ItemGroup>
 
   <ItemGroup>
