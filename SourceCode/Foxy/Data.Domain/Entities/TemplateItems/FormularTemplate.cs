@@ -41,6 +41,7 @@ namespace Data.Domain.Entities.TemplateItems
             Description = content;
             Type = type;
             PartialViewId = partialViewId;
+            Seen = false;
         }
 
         public void Update(List<QuestionTemplate> questions)

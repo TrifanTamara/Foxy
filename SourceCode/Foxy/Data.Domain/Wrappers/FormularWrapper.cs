@@ -16,6 +16,13 @@ namespace Data.Domain.Wrappers
         public List<QuestionWrapper> Questions { get; set; }
         public List<VocabularWrapper> RequiredVocabular { get; set; }
 
+        public float WordsPercentage { get; set; }
+        public List<VocabularWrapper> LearnedWords { get; set; }
+        public List<VocabularWrapper> NotLearnedWords { get; set; }
+        public int StarsNumber { get; set; }
+
+
+
         public FormularWrapper(FormularItem item, FormularTemplate template, List<QuestionWrapper> questions, List<VocabularWrapper> reqVoc)
         {
             Item = item;
@@ -29,7 +36,17 @@ namespace Data.Domain.Wrappers
 
         private void TransformInformation()
         {
+            LearnedWords = new List<VocabularWrapper>();
+            NotLearnedWords = new List<VocabularWrapper>();
+            foreach(var word in RequiredVocabular)
+            {
+                if (word.Item.CurrentMiniLevel >= MiniLevels.Lev21)
+                    LearnedWords.Add(word);
+                else NotLearnedWords.Add(word);
+            }
+            WordsPercentage = (int)(LearnedWords.Count() * 100 / (float)RequiredVocabular.Count());
 
+            StarsNumber = (int)Item.AverageScore;
         }
     }
 }

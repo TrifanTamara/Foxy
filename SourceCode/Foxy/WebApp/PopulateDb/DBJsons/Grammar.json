@@ -247,5 +247,1085 @@
         ]
       }
     ]
+  },
+  {
+    "Topic": "Adjectives",
+    "PartialViewId": 3,
+    "Description": "Properties of Adjectives. The na-adjective. The i-adjective.",
+    "Type": 0,
+    "Words": [ "学⽣", "うん", "明⽇", "ううん", "今⽇", "試験", "でも", "誰", "私" ],
+    "Questions": [
+      {
+        "Content": "Choose the missing word to match the translation:\n ボブ：アリス___学⽣？\nBob: Is Alice (you) student?",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n トム___学⽣。？\nTom is also student.",
+        "Words": [],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\nボブ：アリスは学⽣？\nBob: Is Alice (you) student?\n\nアリス：うん、でもトム___学⽣じゃない。\nAlice: Yeah, but Tom is not student.",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n誰___学⽣？\n Who is the one that is student?",
+        "Words": [ "誰", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___学⽣。\n I (am) student.",
+        "Words": [ "私", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___友達。\n I (am) friend.",
+        "Words": [ "私", "友達" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Topic": "Verb Basics",
+    "PartialViewId": 4,
+    "Description": "Role of Verbs.  Classifying verbs into ru-verbs and u-verbs. ",
+    "Type": 0,
+    "Words": [ "学⽣", "うん", "明⽇", "ううん", "今⽇", "試験", "でも", "誰", "私" ],
+    "Questions": [
+      {
+        "Content": "Choose the missing word to match the translation:\n ボブ：アリス___学⽣？\nBob: Is Alice (you) student?",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n トム___学⽣。？\nTom is also student.",
+        "Words": [],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\nボブ：アリスは学⽣？\nBob: Is Alice (you) student?\n\nアリス：うん、でもトム___学⽣じゃない。\nAlice: Yeah, but Tom is not student.",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n誰___学⽣？\n Who is the one that is student?",
+        "Words": [ "誰", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___学⽣。\n I (am) student.",
+        "Words": [ "私", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___友達。\n I (am) friend.",
+        "Words": [ "私", "友達" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Topic": "Negative Verbs",
+    "PartialViewId": 5,
+    "Description": "Conjugating verbs into the negative. ",
+    "Type": 0,
+    "Words": [ "学⽣", "うん", "明⽇", "ううん", "今⽇", "試験", "でも", "誰", "私" ],
+    "Questions": [
+      {
+        "Content": "Choose the missing word to match the translation:\n ボブ：アリス___学⽣？\nBob: Is Alice (you) student?",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n トム___学⽣。？\nTom is also student.",
+        "Words": [],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\nボブ：アリスは学⽣？\nBob: Is Alice (you) student?\n\nアリス：うん、でもトム___学⽣じゃない。\nAlice: Yeah, but Tom is not student.",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n誰___学⽣？\n Who is the one that is student?",
+        "Words": [ "誰", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___学⽣。\n I (am) student.",
+        "Words": [ "私", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___友達。\n I (am) friend.",
+        "Words": [ "私", "友達" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Topic": "Past Tense",
+    "PartialViewId": 6,
+    "Description": "Past tense for ru-verbs. Past tense for u-verbs.  Past-negative tense for all verbs.",
+    "Type": 0,
+    "Words": [ "学⽣", "うん", "明⽇", "ううん", "今⽇", "試験", "でも", "誰", "私" ],
+    "Questions": [
+      {
+        "Content": "Choose the missing word to match the translation:\n ボブ：アリス___学⽣？\nBob: Is Alice (you) student?",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n トム___学⽣。？\nTom is also student.",
+        "Words": [],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\nボブ：アリスは学⽣？\nBob: Is Alice (you) student?\n\nアリス：うん、でもトム___学⽣じゃない。\nAlice: Yeah, but Tom is not student.",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n誰___学⽣？\n Who is the one that is student?",
+        "Words": [ "誰", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___学⽣。\n I (am) student.",
+        "Words": [ "私", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___友達。\n I (am) friend.",
+        "Words": [ "私", "友達" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Topic": "Particles used with verbs （を、に、へ、で）",
+    "PartialViewId": 7,
+    "Description": "The direct object 「を」 particle. The target 「に」 particle. The directional 「へ」 particle. The contextual 「で」 particle. When location is the topic.  When direct object is the topic.",
+    "Type": 0,
+    "Words": [ "学⽣", "うん", "明⽇", "ううん", "今⽇", "試験", "でも", "誰", "私" ],
+    "Questions": [
+      {
+        "Content": "Choose the missing word to match the translation:\n ボブ：アリス___学⽣？\nBob: Is Alice (you) student?",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n トム___学⽣。？\nTom is also student.",
+        "Words": [],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\nボブ：アリスは学⽣？\nBob: Is Alice (you) student?\n\nアリス：うん、でもトム___学⽣じゃない。\nAlice: Yeah, but Tom is not student.",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n誰___学⽣？\n Who is the one that is student?",
+        "Words": [ "誰", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___学⽣。\n I (am) student.",
+        "Words": [ "私", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___友達。\n I (am) friend.",
+        "Words": [ "私", "友達" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Topic": "Transitive and Intransitive Verbs",
+    "PartialViewId": 8,
+    "Description": "Pay attention to particles!",
+    "Type": 0,
+    "Words": [ "学⽣", "うん", "明⽇", "ううん", "今⽇", "試験", "でも", "誰", "私" ],
+    "Questions": [
+      {
+        "Content": "Choose the missing word to match the translation:\n ボブ：アリス___学⽣？\nBob: Is Alice (you) student?",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n トム___学⽣。？\nTom is also student.",
+        "Words": [],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\nボブ：アリスは学⽣？\nBob: Is Alice (you) student?\n\nアリス：うん、でもトム___学⽣じゃない。\nAlice: Yeah, but Tom is not student.",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n誰___学⽣？\n Who is the one that is student?",
+        "Words": [ "誰", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___学⽣。\n I (am) student.",
+        "Words": [ "私", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___友達。\n I (am) friend.",
+        "Words": [ "私", "友達" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Topic": "Relative Clauses and Sentence Order",
+    "PartialViewId": 9,
+    "Description": "Treating verbs and state-of-being like adjectives. Using state-of-being clauses as adjectives.  Using relative verb clauses as adjectives.  Japanese Sentence Order. ",
+    "Type": 0,
+    "Words": [ "学⽣", "うん", "明⽇", "ううん", "今⽇", "試験", "でも", "誰", "私" ],
+    "Questions": [
+      {
+        "Content": "Choose the missing word to match the translation:\n ボブ：アリス___学⽣？\nBob: Is Alice (you) student?",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n トム___学⽣。？\nTom is also student.",
+        "Words": [],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\nボブ：アリスは学⽣？\nBob: Is Alice (you) student?\n\nアリス：うん、でもトム___学⽣じゃない。\nAlice: Yeah, but Tom is not student.",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n誰___学⽣？\n Who is the one that is student?",
+        "Words": [ "誰", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___学⽣。\n I (am) student.",
+        "Words": [ "私", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___友達。\n I (am) friend.",
+        "Words": [ "私", "友達" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Topic": "Noun-related Particles （と、や、とか、の）",
+    "PartialViewId": 10,
+    "Description": "The last three particles (Not!).  The Inclusive 「と」 particle. ",
+    "Type": 0,
+    "Words": [ "学⽣", "うん", "明⽇", "ううん", "今⽇", "試験", "でも", "誰", "私" ],
+    "Questions": [
+      {
+        "Content": "Choose the missing word to match the translation:\n ボブ：アリス___学⽣？\nBob: Is Alice (you) student?",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n トム___学⽣。？\nTom is also student.",
+        "Words": [],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\nボブ：アリスは学⽣？\nBob: Is Alice (you) student?\n\nアリス：うん、でもトム___学⽣じゃない。\nAlice: Yeah, but Tom is not student.",
+        "Words": [ "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": false,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n誰___学⽣？\n Who is the one that is student?",
+        "Words": [ "誰", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___学⽣。\n I (am) student.",
+        "Words": [ "私", "学⽣" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      },
+      {
+        "Content": "Choose the missing word to match the translation:\n私___友達。\n I (am) friend.",
+        "Words": [ "私", "友達" ],
+        "Answers": [
+          {
+            "Text": "は",
+            "IsTrue": true,
+            "Words": []
+          },
+          {
+            "Text": "も",
+            "IsTrue": false,
+            "Words": []
+          },
+          {
+            "Text": "が",
+            "IsTrue": true,
+            "Words": []
+          }
+        ]
+      }
+    ]
   }
 ]

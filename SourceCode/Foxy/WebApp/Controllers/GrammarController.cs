@@ -33,9 +33,8 @@ namespace WebApp.Controllers
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
-            GrammarModel model = new GrammarModel();
-            model.Formulars = await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormularType.Grammar);
-
+            GrammarModel model = new GrammarModel(await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormularType.Grammar));
+            
             return View("Index", model);
         }
     }

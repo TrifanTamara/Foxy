@@ -100,5 +100,18 @@ h6 {
 
 .star-orange {
     color: orange;
-    font-size: 3em;
+}
+
+.rating-star{
+    font-size:1.5em!important;
+}
+
+.formular-words-button{
+    position:relative;
+    width: 100%!important;
+    display:inline-block;
+}
+
+.form-word-col{
+    padding:0.25em!important;
 }
