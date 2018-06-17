@@ -68,6 +68,14 @@
                                 </div>
                             </div>
                         </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <p class="text-uppercase" style="display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                    @formular.Questions.Count()
+                                </div>
+                            </div>
+                        </li>
                         <li class="list-group-item" style="background-color: azure">
                             <div class="row">
                                 <p class="text-uppercase">Score</p>
@@ -97,7 +105,9 @@
                     </ul>
                     <div class="card-body float-bottom">
                         <div class="btn btn-info">Open Formualar</div>
-                        <div class="btn btn-outline-warning">Take a test</div>
+                        <a class="" asp-controller="Grammar" asp-action="quizz/formular@(formular.Template.PartialViewId)" style="all:unset">
+                            <div class="btn btn-outline-warning">Take a test</div>
+                        </a>
                     </div>
                 </div>
             }

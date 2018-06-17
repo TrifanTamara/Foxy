@@ -31,30 +31,34 @@ h6 {
     font-family: meiryo, sans-serif;
 }
 
-.badge-kanji{
-    background-color: var(--main-color-kanji)!important;
+.badge-kanji {
+    background-color: var(--main-color-kanji) !important;
 }
 
 .badge-radical {
-    background-color: var(--main-color-radical)!important;
+    background-color: var(--main-color-radical) !important;
 }
 
 .badge-word {
-    background-color: var(--main-color-word)!important;
+    background-color: var(--main-color-word) !important;
 }
 
 .badge-Lesson {
     background-color: var(--main-color-3) !important;
 }
+
 .badge-Seed {
     background-color: var(--main-color-5) !important;
 }
+
 .badge-Leaf {
     background-color: var(--main-color-4) !important;
 }
+
 .badge-Bloom {
     background-color: var(--main-color-2) !important;
 }
+
 .badge-Flourished {
     background-color: var(--main-color-1) !important;
 }
@@ -67,16 +71,16 @@ h6 {
     font-size: 1.5em;
     color: white;
     margin-bottom: 0.2em;
-    margin-right: 0.02em!important;
+    margin-right: 0.02em !important;
     width: auto !important;
     display: inline-block !important;
     cursor: pointer;
-    font-weight: normal!important;
+    font-weight: normal !important;
 }
 
-.badge-vocab-lev:hover{
-    opacity: 0.8!important;
-}
+    .badge-vocab-lev:hover {
+        opacity: 0.8 !important;
+    }
 
 .name-style-level {
     position: relative !important;
@@ -87,7 +91,7 @@ h6 {
     margin: 0 !important;
     border-bottom: solid;
     font-size: 1.8em !important;
-    width: 100%!important;
+    width: 100% !important;
     color: rgba(38, 38, 82, 0.95);
     border-color: rgba(38, 38, 82, 0.95);
     border-bottom-width: 0.1vmin !important;
@@ -102,16 +106,55 @@ h6 {
     color: orange;
 }
 
-.rating-star{
-    font-size:1.5em!important;
+.rating-star {
+    font-size: 1.5em !important;
 }
 
-.formular-words-button{
-    position:relative;
-    width: 100%!important;
-    display:inline-block;
+.formular-words-button {
+    position: relative;
+    width: 100% !important;
+    display: inline-block;
 }
 
-.form-word-col{
-    padding:0.25em!important;
+.my-custom-check {
+    display: inline-block !important;
+    padding: 0em;
+    margin-right: 0.5em;
+    align-content: center;
+    width: 1.6em;
+    height: 1.6em;
+    border: solid;
+    border-width: 0.05em;
+}
+
+.answer-text {
+    display: inline;
+}
+
+.scale-div {
+    align-content: center;
+    margin-left: 2em !important;
+}
+
+    .scale-div:hover {
+        transition: all .2s ease-in-out;
+        transform: scale(1.3);
+        margin-left: 2em !important;
+    }
+
+.answer-option {
+    width: 100%;
+    margin-bottom: 0.5em;
+    margin-right: 0;
+    margin-left: 0 !important;
+    padding-left: 1em;
+    cursor: pointer;
+    align-content: center !important;
+    text-align: center !important;
+}
+
+.my-check-icon {
+    position: relative !important;
+    font-size: 0.8em;
+    vertical-align: middle !important;
 }

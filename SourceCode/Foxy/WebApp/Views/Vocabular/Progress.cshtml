@@ -27,6 +27,10 @@
                             componentColor = "badge-inactive";
                         }
                         tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + Model.AllVocabular[i].MainMeaning + "</p>";
+                        if (!Model.AllVocabular[i].VocabularType.ToLower().Equals("radical"))
+                        {
+                            tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + Model.AllVocabular[i].MainReading + "</p></div>";
+                        }
                         <a style="all:unset!important" asp-controller="Vocabular" asp-action="@vtype/@Model.AllVocabular[i].Name">
                             <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
                                 @Model.AllVocabular[i].Name

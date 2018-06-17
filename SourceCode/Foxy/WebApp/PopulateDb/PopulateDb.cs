@@ -253,10 +253,12 @@ namespace WebApp.PopulateDb
                                     }
                                 }
                             }
+
+                            QuestionTemplate newQuest = QuestionTemplate.Create(quest.Content, ansList);
+                            questList.Add(newQuest);
+
                             foreach (var word in quest.Words)
                             {
-                                QuestionTemplate newQuest = QuestionTemplate.Create(quest.Content, ansList);
-                                questList.Add(newQuest);
                                 VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
                                 if (vt != null)
                                 {

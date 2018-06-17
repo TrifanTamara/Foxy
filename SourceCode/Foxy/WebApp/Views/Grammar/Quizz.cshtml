@@ -1,0 +1,106 @@
+﻿@using WebApp.DTOs;
+@model QuizzModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Foxy</title>
+
+    <!-- Bootstrap core CSS -->
+    <script src="~/vendor/jquery/jquery.js"></script>
+
+
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!-- Custom fonts for this template -->
+    <!-- Plugin CSS -->
+    <!-- Custom styles for this template -->
+    <link href="~/css/foxy.css" rel="stylesheet">
+    <link href="~/css/fontfamily.css" rel="stylesheet">
+    <link href="~/circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/DashBoard.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/fontawesome-free-5.0.13/web-fonts-with-css/css/fontawesome-all.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/toastr/toastr.css" rel="stylesheet" />
+    <script src="~/toastr/toastr.js"></script>
+    <script src="~/js/foxy.js"></script>
+    <script src="~/js/quizz.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row name-style-level text-center" style="width:100%;margin-bottom:0.5em!important;">
+            <div class="text-center" style="text-align:center!important">
+                Quizz for grammar formular #@(Model.Formular.Template.PartialViewId)
+            </div>
+        </div>
+
+        @for (int qi = 0; qi < Model.Questions.Count(); ++qi)
+        {
+            var question = Model.Questions[qi];
+
+            <div class="card" style="margin-bottom:2em">
+                <h5 class="card-header" style="white-space: pre;font-weight:normal;color: #373860;word-break: break-all!important">@question.Template.Content</h5>
+                <div class="card-body">
+                    <div class="row text-center" style="text-align:center!important">
+                        @for (int ai = 0; ai < question.Template.AnswerTemplates.Count(); ++ai)
+                        {
+                            var answer = question.Template.AnswerTemplates[ai];
+                            <div class="row answer-option" onclick="CheckBox(@qi, @ai)">
+                                <div class="scale-div">
+                                    <div class="btn btn-outline-secondary rounded my-custom-check">
+                                        <i class="fas fa-check my-check-icon" id="icon@(qi)-@(ai)"></i>
+                                    </div>
+                                    <div class="answer-text">
+                                        @answer.Text
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    @for (int i = 0; i < question.RequiredWords.Count(); ++i)
+                    {
+                        var word = question.RequiredWords[i];
+                        var vtype = word.ItemLevel;
+                        var componentColor = "badge-" + vtype;
+                        if (word.Unlocked == false)
+                        {
+                            componentColor = "badge-inactive";
+                        }
+                        var tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + word.MainMeaning + "</p>";
+                        tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + word.MainReading + "</p></div>";
+                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="@word.VocabularType/@word.Name">
+                            <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
+                                @word.Name
+                            </div>
+                        </a>
+
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row" style="margin-bottom:3em">
+        <div class="container">
+            <button type="button" class="btn btn-success btn-lg" style="margin-right:0.3em">Submit answers</button>
+            <button type="button" class="btn btn-outline-secondary">Back to dashboard</button>
+        </div>
+    </div>
+    
+</body>

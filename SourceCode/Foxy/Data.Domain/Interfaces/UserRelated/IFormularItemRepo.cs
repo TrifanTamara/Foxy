@@ -16,5 +16,6 @@ namespace Data.Domain.Interfaces.UserRelated
         Task<List<FormularWrapper>> WrapFormularList(List<FormularItem> formulars);
         Task<List<FormularWrapper>> GetAllFormularsByUser(Guid userId);
         Task<List<FormularWrapper>> GetAllFormByUserAndType(Guid userId, FormularType type);
+        Task<FormularWrapper> GetByUserAndPvId(Guid userId, int pvId);
     }
 }
