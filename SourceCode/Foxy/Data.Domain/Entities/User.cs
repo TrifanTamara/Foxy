@@ -13,44 +13,36 @@ namespace Data.Domain.Entities
 
         public Guid UserId { get; private set; }
         public string Username { get; private set; }
-        public bool IsAdmin { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
-        public string Token { get; private set; }
         public string Description { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public int Level { get; private set; }
         public Guid ImageId { get; private set; }
 
-        public int LessonSessionCount { get; private set; }
+        public int LessonSize { get; private set; }
 
         public List<VocabularItem> VocabularItems { get; set; }
 
-        public static User Create(string name, bool isAdmin, string email, string password, string token, string description)
+        public static User Create(string name, string email, string password, string description)
         {
             var instance = new User { UserId = Guid.NewGuid(), CreatedAt = DateTime.Now};
             ImageEntity image = ImageEntity.Create(null);
-            instance.Update(name, isAdmin, email, password, token, description, 0, image.Id);
+            instance.Update(name, email, password, description, 0, image.Id);
             return instance;
         }
 
-        public void Update(string name, bool isAdmin, string email, string password, string token, string description, int level, Guid imageId)
+        public void Update(string name, string email, string password, string description, int level, Guid imageId)
         {
             Username = name;
-            IsAdmin = isAdmin;
             Email = email;
             Password = password;
-            Token = token;
             Description = description;
             Update(level);
             ImageId = imageId;
-            LessonSessionCount = 5;
+            LessonSize = 5;
         }
-        public void Update(string token, int lessCount)
-        {
-            Token = token;
-            LessonSessionCount = lessCount;
-        }
+
         public void Update(int level)
         {
             Level = level;

@@ -12,10 +12,10 @@ using Data.Domain.Interfaces.Template;
 namespace Business.Template
 {
     public class WordsElemRelRepo :
-        GenericRepo<WordFormQuestAnsRel>, IWordsElemRelRepo
+        GenericRepo<WordsInText>, IWordsElemRelRepo
     {
         private readonly IDatabaseContext _databaseContext;
-        private DbSet<WordFormQuestAnsRel> _entities;
+        private DbSet<WordsInText> _entities;
 
 
         public WordsElemRelRepo(IDatabaseContext databaseContext) : base(databaseContext)
@@ -23,12 +23,12 @@ namespace Business.Template
             _databaseContext = databaseContext;
         }
 
-        public async Task<IEnumerable<WordFormQuestAnsRel>> GetByMainId(Guid mainId)
+        public async Task<IEnumerable<WordsInText>> GetByMainId(Guid mainId)
         {
             return await _databaseContext.WordFormQuestAnsRels.Where(x => x.MainElementId.Equals(mainId)).ToListAsync();
         }
 
-        public async Task<IEnumerable<WordFormQuestAnsRel>> GetByWordId(Guid containedId)
+        public async Task<IEnumerable<WordsInText>> GetByWordId(Guid containedId)
         {
             return await _databaseContext.WordFormQuestAnsRels.Where(x => x.WordId.Equals(containedId)).ToListAsync();
         }

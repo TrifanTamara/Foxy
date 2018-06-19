@@ -44,7 +44,7 @@ namespace Business.UserRelated
             if (qTemp != null && qItem!=null)
             {
                 List<VocabularWrapper> vwList = new List<VocabularWrapper>();
-                List<WordFormQuestAnsRel> relList = (await _relationshipsRepo.GetByMainId(qTemp.QuestionTemplateId)).ToList();
+                List<WordsInText> relList = (await _relationshipsRepo.GetByMainId(qTemp.QuestionTemplateId)).ToList();
                 foreach(var rel in relList)
                 {
                     VocabularTemplate vt = await _vocabRepo.GetVocabTemplate(rel.WordId);
@@ -69,7 +69,7 @@ namespace Business.UserRelated
         
         public async Task<QuestionItem> GetItemByTemplate(Guid templateId)
         {
-            return _databaseContext.QuestionItems.Where(q => q.QuestionId == templateId).FirstOrDefault();
+            return _databaseContext.QuestionItems.Where(q => q.QuestionTemplateId == templateId).FirstOrDefault();
         }
 
         public async Task AddItemsForUser(Guid userId)

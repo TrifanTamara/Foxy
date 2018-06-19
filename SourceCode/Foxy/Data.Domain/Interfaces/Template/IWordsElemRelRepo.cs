@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data.Domain.Interfaces.Template
 {
-    public interface IWordsElemRelRepo : IGenericRepository<WordFormQuestAnsRel>
+    public interface IWordsElemRelRepo : IGenericRepository<WordsInText>
     {
-        Task<IEnumerable<WordFormQuestAnsRel>> GetByMainId(Guid mainId);
-        Task<IEnumerable<WordFormQuestAnsRel>> GetByWordId(Guid wordId);
+        Task<IEnumerable<WordsInText>> GetByMainId(Guid mainId);
+        Task<IEnumerable<WordsInText>> GetByWordId(Guid wordId);
     }
 }

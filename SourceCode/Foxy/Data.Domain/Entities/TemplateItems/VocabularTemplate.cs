@@ -12,11 +12,11 @@ namespace Data.Domain.Entities.TemplateItems
         All 
     }
 
-    public enum WordParticularType : byte
+    public enum WordType : byte
     {
         IAdj,
         NaAdj,
-        Verbs,
+        Verb,
         Expression,
         Noun,
         Common,
@@ -38,7 +38,7 @@ namespace Data.Domain.Entities.TemplateItems
         public VocabularType Type { get; private set; }
         public String MeaningMnemonic { get; private set; }
         public String ReadingMnemonic { get; private set; }
-        public WordParticularType WordType { get; private set; }
+        public WordType WordType { get; private set; }
 
         public int ComponentsNumber { get; private set; }
 
@@ -46,14 +46,14 @@ namespace Data.Domain.Entities.TemplateItems
 
         public List<VocabularItem> VocabularItems { get; set; }
 
-        public static VocabularTemplate Create(string name, string meaning, string reading, VocabularType type, byte requiredLevel, string meaningMnemonic, string readingMnemonic, WordParticularType wordType=0)
+        public static VocabularTemplate Create(string name, string meaning, string reading, VocabularType type, byte requiredLevel, string meaningMnemonic, string readingMnemonic, WordType wordType=0)
         {
             var instance = new VocabularTemplate { VocabularTemplateId = Guid.NewGuid() };
             instance.Update(name, meaning, reading, type, requiredLevel, meaningMnemonic, readingMnemonic, wordType);
             return instance;
         }
 
-        public void Update(string name, string meaning, string reading, VocabularType type, byte requiredLevel, string meaningMnemonic, string readingMnemonic, WordParticularType wordType, int components=0)
+        public void Update(string name, string meaning, string reading, VocabularType type, byte requiredLevel, string meaningMnemonic, string readingMnemonic, WordType wordType, int components=0)
         {
             Name = name;
             Meaning = meaning;

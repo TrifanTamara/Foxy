@@ -8,13 +8,13 @@ namespace Data.Domain.Entities.UserRelated
 {
     public enum MiniLevels : byte
     {
-        Lev0,
-        Lev11, //5 min
-        Lev12, //10 min
-        Lev21, //6z
-        Lev22, //2w
-        Lev31, //1month
-        Lev4
+        Lesson,
+        Seed1, //5 min
+        Seed2, //10 min
+        Leaf1, //6z
+        Leaf2, //2w
+        Bloom, //1month
+        Flourised
     }
 
     public enum PeriodLevels // in minutes

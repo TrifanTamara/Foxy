@@ -40,7 +40,7 @@ namespace Data.Domain.Wrappers
             NotLearnedWords = new List<VocabularWrapper>();
             foreach(var word in RequiredVocabular)
             {
-                if (word.Item.CurrentMiniLevel >= MiniLevels.Lev21)
+                if (word.Item.CurrentMiniLevel >= MiniLevels.Leaf1)
                     LearnedWords.Add(word);
                 else NotLearnedWords.Add(word);
             }

@@ -56,7 +56,7 @@ namespace Business.UserRelated
                     }
                 }
 
-                List<WordFormQuestAnsRel> relList = (await _relationshipsRepo.GetByMainId(ft.FormularTemplateId)).ToList();
+                List<WordsInText> relList = (await _relationshipsRepo.GetByMainId(ft.FormularTemplateId)).ToList();
                 foreach (var rel in relList)
                 {
                     VocabularTemplate vt = await _vocabRepo.GetVocabTemplate(rel.WordId);
@@ -73,14 +73,14 @@ namespace Business.UserRelated
             List<FormularWrapper> result = new List<FormularWrapper>();
             foreach(var f in formulars)
             {
-                result.Add(await GetWrappedItem(f.UserId, f.FormularId));
+                result.Add(await GetWrappedItem(f.UserId, f.FormularTemplateId));
             }
             return result;
         }
  
         public async Task<FormularItem> GetItemByTemplate(Guid templateId)
         {
-            return _databaseContext.FormularItems.Where(f => f.FormularId == templateId).FirstOrDefault();
+            return _databaseContext.FormularItems.Where(f => f.FormularTemplateId == templateId).FirstOrDefault();
         }
 
         public async Task AddItemsForUser(Guid userId)

@@ -113,7 +113,7 @@ namespace Business.Wrappers
                     TimeUntilNextReview = "Active in Review";
                 else TimeUntilNextReview = "in " + TimeUntilNextReview;
 
-                if (Item.CurrentMiniLevel == MiniLevels.Lev4) TimeUntilNextReview = "You have already mastered this item";
+                if (Item.CurrentMiniLevel == MiniLevels.Flourised) TimeUntilNextReview = "You have already mastered this item";
             }
 
             List<string> aux = new List<string>(Template.Reading.Split("||"));
@@ -143,25 +143,25 @@ namespace Business.Wrappers
             if (Template.Type == Data.Domain.Entities.TemplateItems.VocabularType.Word) {
                 switch (Template.WordType)
                 {
-                    case WordParticularType.IAdj:
+                    case WordType.IAdj:
                         WordTypeString = "i-adj";
                         break;
-                    case WordParticularType.NaAdj:
+                    case WordType.NaAdj:
                         WordTypeString = "na-adj";
                         break;
-                    case WordParticularType.Verbs:
+                    case WordType.Verb:
                         WordTypeString = "verb";
                         break;
-                    case WordParticularType.Expression:
+                    case WordType.Expression:
                         WordTypeString = "expression";
                         break;
-                    case WordParticularType.Noun:
+                    case WordType.Noun:
                         WordTypeString = "noun";
                         break;
-                    case WordParticularType.Common:
+                    case WordType.Common:
                         WordTypeString = "common";
                         break;
-                    case WordParticularType.Numeral:
+                    case WordType.Numeral:
                         WordTypeString = "numeral";
                         break;
                 }

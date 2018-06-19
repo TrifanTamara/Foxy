@@ -4,32 +4,32 @@ using System.Text;
 
 namespace Data.Domain.Entities.TemplateItems
 {
-    public enum FQAElementType : byte
+    public enum TextType : byte
     {
         Answer,
         Question,
         Formular
     }
 
-    public class WordFormQuestAnsRel
+    public class WordsInText
     {
-        private WordFormQuestAnsRel()
+        private WordsInText()
         {
             // EF Core    
         }
 
         public Guid MainElementId { get; private set; }
         public Guid WordId { get; private set; }
-        public FQAElementType Type { get; private set; }
+        public TextType Type { get; private set; }
 
-        public static WordFormQuestAnsRel Create(Guid main, Guid contained, FQAElementType type)
+        public static WordsInText Create(Guid main, Guid contained, TextType type)
         {
-            var instance = new WordFormQuestAnsRel();
+            var instance = new WordsInText();
             instance.Update(main, contained, type);
             return instance;
         }
 
-        public void Update(Guid main, Guid contained, FQAElementType type)
+        public void Update(Guid main, Guid contained, TextType type)
         {
             MainElementId = main;
             WordId = contained;

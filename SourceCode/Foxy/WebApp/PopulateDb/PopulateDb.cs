@@ -192,7 +192,7 @@ namespace WebApp.PopulateDb
                             if (x.word_type == null) x.word_type = 0;
                             await _vocabRepo.Add(VocabularTemplate.Create
                                 (x.name, x.meaning, x.reading, (VocabularType)x.type,
-                                x.required_level, x.meaning_mnemonic, x.reading_mnemonic, (WordParticularType)x.word_type));
+                                x.required_level, x.meaning_mnemonic, x.reading_mnemonic, (WordType)x.word_type));
                             await _vocabRepo.AddRelations(x.name, (VocabularType)x.type, x.components.ToList());
                         }
                     }
@@ -248,8 +248,8 @@ namespace WebApp.PopulateDb
                                     VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
                                     if (vt != null)
                                     {
-                                        await _relationshipsRepo.Add(WordFormQuestAnsRel.Create(newAns.AnswerTemplateId,
-                                            vt.VocabularTemplateId, FQAElementType.Answer));
+                                        await _relationshipsRepo.Add(WordsInText.Create(newAns.AnswerTemplateId,
+                                            vt.VocabularTemplateId, TextType.Answer));
                                     }
                                 }
                             }
@@ -262,8 +262,8 @@ namespace WebApp.PopulateDb
                                 VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
                                 if (vt != null)
                                 {
-                                    await _relationshipsRepo.Add(WordFormQuestAnsRel.Create(newQuest.QuestionTemplateId,
-                                            vt.VocabularTemplateId, FQAElementType.Question));
+                                    await _relationshipsRepo.Add(WordsInText.Create(newQuest.QuestionTemplateId,
+                                            vt.VocabularTemplateId, TextType.Question));
                                 }
                             }
                         }
@@ -275,8 +275,8 @@ namespace WebApp.PopulateDb
                             VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
                             if (vt != null)
                             {
-                                await _relationshipsRepo.Add(WordFormQuestAnsRel.Create(formular.FormularTemplateId,
-                                            vt.VocabularTemplateId, FQAElementType.Formular));
+                                await _relationshipsRepo.Add(WordsInText.Create(formular.FormularTemplateId,
+                                            vt.VocabularTemplateId, TextType.Formular));
                             }
                         }
                         await _commonRepo.SaveFormular(formular);

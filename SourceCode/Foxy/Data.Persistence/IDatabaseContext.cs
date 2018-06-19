@@ -25,7 +25,7 @@ namespace Data.Persistence
 
         DbSet<AnswerTemplate> AnswerTemplates { get; set; }
 
-        DbSet<WordFormQuestAnsRel> WordFormQuestAnsRels { get; set; }
+        DbSet<WordsInText> WordFormQuestAnsRels { get; set; }
 
         int SaveChanges();
 

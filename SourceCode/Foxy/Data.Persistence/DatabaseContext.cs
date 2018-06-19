@@ -23,7 +23,7 @@ namespace Data.Persistence
             modelBuilder.Entity<VocabularRelationship>()
                 .HasKey(vocabularRelationship => new { vocabularRelationship.MainItemId, vocabularRelationship.ContainedItemId });
 
-            modelBuilder.Entity<WordFormQuestAnsRel>()
+            modelBuilder.Entity<WordsInText>()
                 .HasKey(wordFormQuestAnsRel => new { wordFormQuestAnsRel.MainElementId, wordFormQuestAnsRel.WordId });
         }
 
@@ -42,7 +42,7 @@ namespace Data.Persistence
 
         public DbSet<AnswerTemplate> AnswerTemplates { get; set; }
         
-        public DbSet<WordFormQuestAnsRel> WordFormQuestAnsRels { get; set; }
+        public DbSet<WordsInText> WordFormQuestAnsRels { get; set; }
 
     }
 }
