@@ -33,14 +33,14 @@ namespace Business
 
         public async Task<int> GetComponentsById(Guid id)
         {
-
-            return (_databaseContext.VocabularRelationships.Where(x => x.MainItemId.Equals(id))).Count();
+            List<VocabularRelationship> relations = (await _relationRepo.GetAll()).ToList();
+            return (relations.Where(x => x.MainItemId.Equals(id))).Count();
         }
 
         public async Task<List<VocabularTemplate>> GetComponentsByLevel(int level)
         {
-
-            return (_databaseContext.VocabularTemplates.Where(x => x.RequiredLevel == level).ToList());
+            List<VocabularTemplate> vocab = (await GetAll()).ToList();
+            return (vocab.Where(x => x.RequiredLevel == level).ToList());
         }
 
         public async Task<VocabularTemplate> GetByTypeAndName(VocabularType type, String name)

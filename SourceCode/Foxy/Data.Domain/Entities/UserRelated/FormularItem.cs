@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Data.Domain.Entities.UserRelated
 {
-    public class FormularItem
+    public class FormItem
     {
-        private FormularItem()
+        private FormItem()
         {
             // EF Core    
         }
 
-        public Guid FormularItemId { get; private set; }
+        public Guid FormItemId { get; private set; }
 
         public Guid UserId { get; private set; }
         public Guid FormularTemplateId { get; private set; }
@@ -23,9 +23,9 @@ namespace Data.Domain.Entities.UserRelated
         public bool Favorite { get; private set; }
 
 
-        public static FormularItem Create(Guid userId, Guid lessonTemplateId)
+        public static FormItem Create(Guid userId, Guid lessonTemplateId)
         {
-            var instance = new FormularItem() { FormularItemId = Guid.NewGuid() };
+            var instance = new FormItem() { FormItemId = Guid.NewGuid() };
             instance.Update(userId, lessonTemplateId);
             instance.Update("", 0, 0, false);
             return instance;

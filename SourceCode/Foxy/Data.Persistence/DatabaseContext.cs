@@ -34,8 +34,8 @@ namespace Data.Persistence
         public DbSet<VocabularItem> VocabularItems { get; set; }
         public DbSet<VocabularRelationship> VocabularRelationships { get; set; }
 
-        public DbSet<FormularTemplate> FormularTemplates { get; set; }
-        public DbSet<FormularItem> FormularItems { get; set; }
+        public DbSet<FormTemplate> FormularTemplates { get; set; }
+        public DbSet<FormItem> FormularItems { get; set; }
 
         public DbSet<QuestionTemplate> QuestionTemplates { get; set; }
         public DbSet<QuestionItem> QuestionItems { get; set; }

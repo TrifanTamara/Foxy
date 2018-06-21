@@ -8,7 +8,6 @@ namespace Data.Domain.Interfaces
 {
     public interface IUsersRepository : IGenericRepository<User>
     {
-        Task<IEnumerable<User>> GetAdmins();
         Task<User> GetByEmail(string email);
     }
 }

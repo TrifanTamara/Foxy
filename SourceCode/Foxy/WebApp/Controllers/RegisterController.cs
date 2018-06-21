@@ -58,7 +58,7 @@ namespace WebApp.Controllers
                     hashStr += string.Format("{0:x2}", b);
 
                 // Create the user and add it to database
-                User user = Data.Domain.Entities.User.Create(dto.UserName, false, dto.Email, hashStr, null, "");
+                User user = Data.Domain.Entities.User.Create(dto.UserName, dto.Email, hashStr, "");
 
                 await _userRepo.Add(user);
                 await _vocabRepo.AddVocabularForNewUser(user.UserId);

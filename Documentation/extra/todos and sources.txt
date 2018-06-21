@@ -22,6 +22,8 @@ To do:
 -implement kana table on input
 -and time until next review on dashboard
 -block access to another section when one is already started
+-add explanation for documentation about review loop and rectify in code
+-structure neoficial vocab
 
 Rules:
 -User can see unlocked items info, but cannot force it progress on them.

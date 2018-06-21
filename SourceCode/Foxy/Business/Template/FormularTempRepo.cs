@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 namespace Business.Template
 {
     public class FormularTempRepo :
-        GenericRepo<FormularTemplate>, IFormularTempRepo
+        GenericRepo<FormTemplate>, IFormularTempRepo
     {
         private readonly IDatabaseContext _databaseContext;
-        private IQuestionTempRepo _questRepo;
+        private readonly IQuestionTempRepo _questRepo;
 
         public FormularTempRepo(IDatabaseContext databaseContext, IQuestionTempRepo questRepo ) : base(databaseContext)
         {
@@ -22,20 +22,20 @@ namespace Business.Template
             _questRepo = questRepo;
         }
 
-        public async Task<List<FormularTemplate>> GetByType(FormularType type, String name)
+        public async Task<List<FormTemplate>> GetByType(FormType type, String name)
         {
             return await _databaseContext.FormularTemplates.Where(formular => formular.Type == type).ToListAsync();
         }
 
-        public override async Task<IEnumerable<FormularTemplate>> GetAll()
+        public override async Task<IEnumerable<FormTemplate>> GetAll()
         {
             return await _databaseContext.FormularTemplates.Include(ft => ft.QuestionTemplates)
                 .ThenInclude(at => at.AnswerTemplates).ToListAsync();
         }
 
-        public override async Task<FormularTemplate> FindById(Guid id)
+        public override async Task<FormTemplate> FindById(Guid id)
         {
-            return (await GetAll()).ToList().FirstOrDefault(ft => ft.FormularTemplateId == id);
+            return (await GetAll()).ToList().FirstOrDefault(ft => ft.FormTemplateId == id);
         }
     }
 }

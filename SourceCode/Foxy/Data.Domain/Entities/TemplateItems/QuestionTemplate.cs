@@ -18,7 +18,7 @@ namespace Data.Domain.Entities.TemplateItems
         
         public List<AnswerTemplate> AnswerTemplates { get; private set; }
 
-        public FormularTemplate FormularTemplate;
+        public FormTemplate FormTemplate;
 
         public static QuestionTemplate Create(string content, List<AnswerTemplate> answers, string note = "")
         {
@@ -28,9 +28,9 @@ namespace Data.Domain.Entities.TemplateItems
             return instance;
         }
 
-        public void Update(FormularTemplate formularTemplate)
+        public void Update(FormTemplate formularTemplate)
         {
-            FormularTemplate = formularTemplate;
+            FormTemplate = formularTemplate;
         }
 
         public void Update(string content, string note = "")

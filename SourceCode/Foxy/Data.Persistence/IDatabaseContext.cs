@@ -17,8 +17,8 @@ namespace Data.Persistence
         DbSet<VocabularItem> VocabularItems { get; set; }
         DbSet<VocabularRelationship> VocabularRelationships { get; set; }
 
-        DbSet<FormularTemplate> FormularTemplates { get; set; }
-        DbSet<FormularItem> FormularItems { get; set; }
+        DbSet<FormTemplate> FormularTemplates { get; set; }
+        DbSet<FormItem> FormularItems { get; set; }
 
         DbSet<QuestionTemplate> QuestionTemplates { get; set; }
         DbSet<QuestionItem> QuestionItems { get; set; }

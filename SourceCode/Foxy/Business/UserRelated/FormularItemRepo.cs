@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Business.UserRelated
 {
     public class FormularItemRepo :
-        GenericRepo<FormularItem>, IFormularItemRepo
+        GenericRepo<FormItem>, IFormularItemRepo
     {
         private readonly IDatabaseContext _databaseContext;
 
@@ -40,8 +40,8 @@ namespace Business.UserRelated
 
         public async Task<FormularWrapper> GetWrappedItem(Guid userId, Guid formularTemplateId)
         {
-            FormularItem fi = await GetItemByTemplate(formularTemplateId);
-            FormularTemplate ft = await _formularTempRepo.FindById(formularTemplateId);
+            FormItem fi = await GetItemByTemplate(formularTemplateId);
+            FormTemplate ft = await _formularTempRepo.FindById(formularTemplateId);
 
             if(fi!=null && ft != null)
             {
@@ -56,7 +56,7 @@ namespace Business.UserRelated
                     }
                 }
 
-                List<WordsInText> relList = (await _relationshipsRepo.GetByMainId(ft.FormularTemplateId)).ToList();
+                List<WordsInText> relList = (await _relationshipsRepo.GetByMainId(ft.FormTemplateId)).ToList();
                 foreach (var rel in relList)
                 {
                     VocabularTemplate vt = await _vocabRepo.GetVocabTemplate(rel.WordId);
@@ -68,7 +68,7 @@ namespace Business.UserRelated
             return null;
         }
 
-        public async Task<List<FormularWrapper>> WrapFormularList(List<FormularItem> formulars)
+        public async Task<List<FormularWrapper>> WrapFormularList(List<FormItem> formulars)
         {
             List<FormularWrapper> result = new List<FormularWrapper>();
             foreach(var f in formulars)
@@ -78,19 +78,20 @@ namespace Business.UserRelated
             return result;
         }
  
-        public async Task<FormularItem> GetItemByTemplate(Guid templateId)
+        public async Task<FormItem> GetItemByTemplate(Guid templateId)
         {
-            return _databaseContext.FormularItems.Where(f => f.FormularTemplateId == templateId).FirstOrDefault();
+            List<FormItem> items = (await GetAll()).ToList();
+            return items.Where(f => f.FormularTemplateId == templateId).FirstOrDefault();
         }
 
         public async Task AddItemsForUser(Guid userId)
         {
             await _questRepo.AddItemsForUser(userId);
-            List<FormularTemplate> templates = (await _formularTempRepo.GetAll()).ToList();
+            List<FormTemplate> templates = (await _formularTempRepo.GetAll()).ToList();
 
             foreach (var temp in templates)
             {
-                await Add(FormularItem.Create(userId, temp.FormularTemplateId));
+                await Add(FormItem.Create(userId, temp.FormTemplateId));
             }
         }
 
@@ -99,7 +100,7 @@ namespace Business.UserRelated
             return await WrapFormularList((await GetAll()).Where(f => f.UserId == userId).ToList());
         }
 
-        public async Task<List<FormularWrapper>> GetAllFormByUserAndType(Guid userId, FormularType type)
+        public async Task<List<FormularWrapper>> GetAllFormByUserAndType(Guid userId, FormType type)
         {
             return (await GetAllFormularsByUser(userId)).Where(f => f.Template.Type == type).ToList();
         }

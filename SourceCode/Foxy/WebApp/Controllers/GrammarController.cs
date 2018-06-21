@@ -19,7 +19,7 @@ namespace WebApp.Controllers
     public class GrammarController : Controller
     {
         private IUsersRepository _userRepo;
-        private IVocabularItemRepo _vocabularRepo;
+        private readonly IVocabularItemRepo _vocabularRepo;
         private IFormularItemRepo _formularRepo;
 
         public GrammarController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo, IFormularItemRepo formularRepo)
@@ -35,7 +35,7 @@ namespace WebApp.Controllers
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
-            GrammarModel model = new GrammarModel(await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormularType.Grammar));
+            GrammarModel model = new GrammarModel(await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormType.Grammar));
             
             return View("Index", model);
         }

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace Data.Domain.Interfaces
 {
     public interface ICommonRepo
-    {
-        Task SaveFormular(FormularTemplate formular);
+    {        Task SaveFormular(FormTemplate formular);
     }
 }

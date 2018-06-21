@@ -426,7 +426,6 @@ namespace Business
             {
                 List<VocabularWrapper> vocab = await GetVocabLesson(userId);
                 int length = user.LessonSize < vocab.Count ? user.LessonSize : vocab.Count;
-                //pay attention here, may be infinite
                 for (int i = 0; finalList.Count < length; ++i)
                 {
                     Random rnd = new Random();

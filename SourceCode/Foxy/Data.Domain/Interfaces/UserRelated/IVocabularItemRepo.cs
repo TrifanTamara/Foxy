@@ -29,17 +29,17 @@ namespace Data.Domain.Interfaces
         Task PassToNextLevel(int level, Guid userId);
         Task<List<VocabularWrapper>> GetVocabLesson(Guid userId);
         Task<List<VocabularWrapper>> GetVocabForReview(Guid userId);
-        bool ActiveForReview(VocabularItem item);
         Task<List<VocabularItem>> GetItemsByGrandLevels(Guid userId, GrandLevels level);
         Task<List<VocabularWrapper>> GetVocabLessonByTypes(Guid userId, int level, VocabularType type, InfoLessonType requestedInfo);
         Task<List<VocabularWrapper>> GetItemsForLesson(Guid userId);
         Task<VocabularWrapper> GetWrappedItem(Guid userId, string name, VocabularType type);
-        string GrandLvlNameFromMini(MiniLevels minilevel);
         Task<List<VocabularWrapper>> GetAllVocabByItemType(Guid userId, VocabularType type, int level = -1);
         Task IsUserReadyForNextLevel(Guid userId);
-        int GetTotalLevelNr();
         Task<List<LevelWrapper>> GetGroupedVocabLevels(Guid userId, int startLevel = 0, int endLevel = 0);
         Task<List<VocabularWrapper>> WrapVocabular(List<VocabularItem> oldItems);
         Task<VocabularItem> GetVocabByTemplateAndUser(Guid templateId, Guid userId);
+        int GetTotalLevelNr();
+        string GrandLvlNameFromMini(MiniLevels minilevel);
+        bool ActiveForReview(VocabularItem item);
     }
 }

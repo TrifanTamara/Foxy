@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data.Domain.Interfaces
 {
-    public interface IFormularTempRepo : IGenericRepository<FormularTemplate>
+    public interface IFormularTempRepo : IGenericRepository<FormTemplate>
     {
         //Task AddFormularsForNewUser(Guid userId);
-        Task<List<FormularTemplate>> GetByType(FormularType type, String name);
+        Task<List<FormTemplate>> GetByType(FormType type, String name);
     }
 }

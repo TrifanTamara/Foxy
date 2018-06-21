@@ -18,7 +18,7 @@ namespace Business
             _databaseContext = databaseContext;
         }
 
-        public async Task SaveFormular(FormularTemplate formular)
+        public async Task SaveFormular(FormTemplate formular)
         {
             foreach(var quest in formular.QuestionTemplates)
             {

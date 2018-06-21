@@ -8,7 +8,7 @@ namespace Data.Domain.Entities.TemplateItems
     {
         Answer,
         Question,
-        Formular
+        Form
     }
 
     public class WordsInText

@@ -10,8 +10,8 @@ namespace Data.Domain.Wrappers
 {
     public class FormularWrapper
     {
-        public FormularItem Item { get; set; }
-        public FormularTemplate Template { get; set; }
+        public FormItem Item { get; set; }
+        public FormTemplate Template { get; set; }
 
         public List<QuestionWrapper> Questions { get; set; }
         public List<VocabularWrapper> RequiredVocabular { get; set; }
@@ -23,7 +23,7 @@ namespace Data.Domain.Wrappers
 
 
 
-        public FormularWrapper(FormularItem item, FormularTemplate template, List<QuestionWrapper> questions, List<VocabularWrapper> reqVoc)
+        public FormularWrapper(FormItem item, FormTemplate template, List<QuestionWrapper> questions, List<VocabularWrapper> reqVoc)
         {
             Item = item;
             Template = template;

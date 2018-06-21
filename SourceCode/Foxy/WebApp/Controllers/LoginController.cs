@@ -14,7 +14,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using WebApp.DTOs;
 using WebApp.Filter;
-using WebApp.Security;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using Microsoft.AspNetCore.Routing;
@@ -29,7 +28,6 @@ namespace WebApp.Controllers
     public class LoginController : Controller
     {
         private readonly IUsersRepository _repository;
-        private JwToken _jwtToken;
         private readonly HttpClient _httpClient; // declare a HttpClient
 
         public LoginController(IUsersRepository repository, HttpClient httpClient)
@@ -41,7 +39,6 @@ namespace WebApp.Controllers
                 .AddJsonFile("hosting.json", true)
                 .AddJsonFile("appsettings.json", true)
                 .Build();
-            _jwtToken = new JwToken(config);
             _httpClient = httpClient;
         }
 

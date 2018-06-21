@@ -3,39 +3,39 @@ using System.Collections.Generic;
 
 namespace Data.Domain.Entities.TemplateItems
 {
-    public enum FormularType : byte
+    public enum FormType : byte
     {
         Grammar,
         Reading,
         Listening
     }
 
-    public class FormularTemplate
+    public class FormTemplate
     {
-        private FormularTemplate()
+        private FormTemplate()
         {
             // EF Core      
         }
 
-        public Guid FormularTemplateId { get; private set; }
+        public Guid FormTemplateId { get; private set; }
         public int PartialViewId { get; private set; }
 
         public string Topic { get; private set; }
         public string Description { get; private set; }
         public bool Seen { get; private set; }
 
-        public FormularType Type { get; private set; }
+        public FormType Type { get; private set; }
         public virtual List<QuestionTemplate> QuestionTemplates { get; private set; }
 
-        public static FormularTemplate Create(int partialViewId, string topic, string content, FormularType type, List<QuestionTemplate> questions)
+        public static FormTemplate Create(int partialViewId, string topic, string content, FormType type, List<QuestionTemplate> questions)
         {
-            var instance = new FormularTemplate { FormularTemplateId = Guid.NewGuid() };
+            var instance = new FormTemplate { FormTemplateId = Guid.NewGuid() };
             instance.Update(partialViewId, topic, content, type);
             instance.Update(questions);
             return instance;
         }
 
-        public void Update(int partialViewId, string topic, string content, FormularType type)
+        public void Update(int partialViewId, string topic, string content, FormType type)
         {
             Topic = topic;
             Description = content;

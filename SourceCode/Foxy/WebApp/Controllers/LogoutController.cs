@@ -10,7 +10,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using WebApp.DTOs;
 using WebApp.Filter;
-using WebApp.Security;
 
 namespace WebApp.Controllers
 {

@@ -69,6 +69,7 @@ namespace Business.UserRelated
         
         public async Task<QuestionItem> GetItemByTemplate(Guid templateId)
         {
+            List<QuestionItem> questions = (await GetAll()).ToList();
             return _databaseContext.QuestionItems.Where(q => q.QuestionTemplateId == templateId).FirstOrDefault();
         }
 

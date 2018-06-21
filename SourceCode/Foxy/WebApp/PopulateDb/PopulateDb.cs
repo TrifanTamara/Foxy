@@ -16,23 +16,23 @@ namespace WebApp.PopulateDb
         public class VItem
         {
             [JsonProperty(PropertyName = "name")]
-            public string name { get; set; }
+            public string Name { get; set; }
             [JsonProperty(PropertyName = "meaning")]
-            public string meaning { get; set; }
+            public string Meaning { get; set; }
             [JsonProperty(PropertyName = "reading")]
-            public string reading { get; set; }
+            public string Reading { get; set; }
             [JsonProperty(PropertyName = "type")]
-            public byte type { get; set; }
+            public byte Type { get; set; }
             [JsonProperty(PropertyName = "required_level")]
-            public byte required_level { get; set; }
+            public byte Required_level { get; set; }
             [JsonProperty(PropertyName = "meaning_mnemonic")]
-            public string meaning_mnemonic { get; set; }
+            public string Meaning_mnemonic { get; set; }
             [JsonProperty(PropertyName = "reading_mnemonic")]
-            public string reading_mnemonic { get; set; }
+            public string Reading_mnemonic { get; set; }
             [JsonProperty(PropertyName = "word_type")]
-            public byte? word_type { get; set; }
+            public byte? Word_type { get; set; }
             [JsonProperty(PropertyName = "components")]
-            public IList<string> components { get; set; }
+            public IList<string> Components { get; set; }
         }
 
         public class FormItem
@@ -75,7 +75,7 @@ namespace WebApp.PopulateDb
         private IUsersRepository _userRepo;
         private IFormularTempRepo _formularRepo;
         private IQuestionTempRepo _questRepo;
-        private IAnswerTempRepo _ansRepo;
+        private readonly IAnswerTempRepo _ansRepo;
         private readonly ICommonRepo _commonRepo;
         private IWordsElemRelRepo _relationshipsRepo;
 
@@ -105,7 +105,7 @@ namespace WebApp.PopulateDb
             }
             catch(Exception e)
             {
-                throw;
+                throw new Exception(e.Message);
             }
         }
 
@@ -133,10 +133,10 @@ namespace WebApp.PopulateDb
                     {
                         foreach (VItem x in items)
                         {
-                            if (x.word_type == null) x.word_type = 0;
+                            if (x.Word_type == null) x.Word_type = 0;
                             await _vocabRepo.Add(VocabularTemplate.Create
-                                (x.name, x.meaning, x.reading, (VocabularType)x.type,
-                                x.required_level, x.meaning_mnemonic, x.reading_mnemonic));
+                                (x.Name, x.Meaning, x.Reading, (VocabularType)x.Type,
+                                x.Required_level, x.Meaning_mnemonic, x.Reading_mnemonic));
                         }
                     }
                     catch (Exception e)
@@ -161,11 +161,11 @@ namespace WebApp.PopulateDb
                     {
                         foreach (VItem x in items)
                         {
-                            if (x.word_type == null) x.word_type = 0;
+                            if (x.Word_type == null) x.Word_type = 0;
                             await _vocabRepo.Add(VocabularTemplate.Create
-                                (x.name, x.meaning, x.reading, (VocabularType)x.type,
-                                x.required_level, x.meaning_mnemonic, x.reading_mnemonic));
-                            await _vocabRepo.AddRelations(x.name, (VocabularType)x.type, x.components.ToList());
+                                (x.Name, x.Meaning, x.Reading, (VocabularType)x.Type,
+                                x.Required_level, x.Meaning_mnemonic, x.Reading_mnemonic));
+                            await _vocabRepo.AddRelations(x.Name, (VocabularType)x.Type, x.Components.ToList());
                         }
                     }
                     catch (Exception e)
@@ -189,11 +189,11 @@ namespace WebApp.PopulateDb
                     {
                         foreach (VItem x in items)
                         {
-                            if (x.word_type == null) x.word_type = 0;
+                            if (x.Word_type == null) x.Word_type = 0;
                             await _vocabRepo.Add(VocabularTemplate.Create
-                                (x.name, x.meaning, x.reading, (VocabularType)x.type,
-                                x.required_level, x.meaning_mnemonic, x.reading_mnemonic, (WordType)x.word_type));
-                            await _vocabRepo.AddRelations(x.name, (VocabularType)x.type, x.components.ToList());
+                                (x.Name, x.Meaning, x.Reading, (VocabularType)x.Type,
+                                x.Required_level, x.Meaning_mnemonic, x.Reading_mnemonic, (WordType)x.Word_type));
+                            await _vocabRepo.AddRelations(x.Name, (VocabularType)x.Type, x.Components.ToList());
                         }
                     }
                     catch (Exception e)
@@ -268,15 +268,15 @@ namespace WebApp.PopulateDb
                             }
                         }
 
-                        FormularTemplate formular = FormularTemplate.Create(item.PartialViewId, item.Topic,
-                            item.Description, (FormularType)item.Type, questList);
+                        FormTemplate formular = FormTemplate.Create(item.PartialViewId, item.Topic,
+                            item.Description, (FormType)item.Type, questList);
                         foreach (var word in item.Words)
                         {
                             VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
                             if (vt != null)
                             {
-                                await _relationshipsRepo.Add(WordsInText.Create(formular.FormularTemplateId,
-                                            vt.VocabularTemplateId, TextType.Formular));
+                                await _relationshipsRepo.Add(WordsInText.Create(formular.FormTemplateId,
+                                            vt.VocabularTemplateId, TextType.Form));
                             }
                         }
                         await _commonRepo.SaveFormular(formular);
