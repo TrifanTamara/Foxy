@@ -7,7 +7,7 @@ using WebApp.DTOs_Validators;
 namespace WebApp.DTOs
 {
     [FluentValidation.Attributes.Validator(typeof(RegisterValidator))]
-    public class Register
+    public class RegisterDto
     {
         public string UserName { get; set; }
         public string Email { get; set; }

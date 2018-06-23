@@ -7,7 +7,7 @@ using WebApp.DTOs;
 
 namespace WebApp.DTOs_Validators
 {
-    public class LoginValidator : AbstractValidator<Login>
+    public class LoginValidator : AbstractValidator<LoginDto>
     {
         public LoginValidator()
         {

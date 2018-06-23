@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApp.DTOs
 {
-    public class Login
+    public class LoginDto
     {
         public string Email { get; set; }
         public string Password { get; set; }

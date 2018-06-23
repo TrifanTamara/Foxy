@@ -72,14 +72,14 @@ namespace WebApp.PopulateDb
         }
 
         private IVocabularTempRepo _vocabRepo;
-        private IUsersRepository _userRepo;
+        private IUserRepo _userRepo;
         private IFormularTempRepo _formularRepo;
         private IQuestionTempRepo _questRepo;
         private readonly IAnswerTempRepo _ansRepo;
         private readonly ICommonRepo _commonRepo;
         private IWordsElemRelRepo _relationshipsRepo;
 
-        public PopulateDb(IUsersRepository userRepo, IVocabularTempRepo vocabRepo,
+        public PopulateDb(IUserRepo userRepo, IVocabularTempRepo vocabRepo,
             IFormularTempRepo formRepo, IQuestionTempRepo qRepo, IAnswerTempRepo aRepo, 
             ICommonRepo commonRepo, IWordsElemRelRepo relationshipsRepo)
         {

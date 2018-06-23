@@ -20,9 +20,9 @@ namespace Business
         private readonly IDatabaseContext _databaseContext;
         private readonly IVocabularTempRepo _tempVocabRepo;
         private readonly IVocabRelRepo _relVocabRepo;
-        private readonly IUsersRepository _userRepo;
+        private readonly IUserRepo _userRepo;
 
-        public VocabularItemRepo(IDatabaseContext databaseContext, IVocabularTempRepo tempVocabRepo, IUsersRepository userRepo, IVocabRelRepo relationRepo) : base(databaseContext)
+        public VocabularItemRepo(IDatabaseContext databaseContext, IVocabularTempRepo tempVocabRepo, IUserRepo userRepo, IVocabRelRepo relationRepo) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _tempVocabRepo = tempVocabRepo;

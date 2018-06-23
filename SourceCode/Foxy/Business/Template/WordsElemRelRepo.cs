@@ -15,9 +15,7 @@ namespace Business.Template
         GenericRepo<WordsInText>, IWordsElemRelRepo
     {
         private readonly IDatabaseContext _databaseContext;
-        private readonly DbSet<WordsInText> _entities;
-
-
+        
         public WordsElemRelRepo(IDatabaseContext databaseContext) : base(databaseContext)
         {
             _databaseContext = databaseContext;

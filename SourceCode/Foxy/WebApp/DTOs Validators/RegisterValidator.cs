@@ -7,7 +7,7 @@ using WebApp.DTOs;
 
 namespace WebApp.DTOs_Validators
 {
-    public class RegisterValidator : AbstractValidator<Register>
+    public class RegisterValidator : AbstractValidator<RegisterDto>
     {
         public RegisterValidator()
         {

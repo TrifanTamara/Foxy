@@ -10,22 +10,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using WebApp.DTOs;
-using WebApp.Filter;
 using WebApp.DTOs_Validators;
 using Data.Domain.Interfaces.UserRelated;
 
 namespace WebApp.Controllers
 {
     [Route("[controller]")]
-    [DefaultControllerFilter]
     [AllowAnonymous]
     public class RegisterController : Controller
     {
-        private readonly IUsersRepository _userRepo;
+        private readonly IUserRepo _userRepo;
         private readonly IVocabularItemRepo _vocabRepo;
         private readonly IFormularItemRepo _formularRepo;
 
-        public RegisterController(IUsersRepository userRepo, IVocabularItemRepo vocabRepo, IFormularItemRepo formRepo)
+        public RegisterController(IUserRepo userRepo, IVocabularItemRepo vocabRepo, IFormularItemRepo formRepo)
         {
             _userRepo = userRepo;
             _vocabRepo = vocabRepo;
@@ -33,13 +31,13 @@ namespace WebApp.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
         
         [HttpPost]
-        public async Task<IActionResult> Index(Register dto)
+        public async Task<IActionResult> Index(RegisterDto dto)
         {
             if (ModelState.IsValid)
             {

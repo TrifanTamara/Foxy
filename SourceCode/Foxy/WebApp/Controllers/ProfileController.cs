@@ -6,26 +6,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using WebApp.Filter;
 
 namespace WebApp.Controllers
 {
     [Route("[controller]")]
-    [DefaultControllerFilter]
     [Authorize]
     public class ProfileController : Controller
     {
-        private IUsersRepository _repository;
-        private readonly HttpClient _httpClient; // declare a HttpClient
+        private IUserRepo _repository;
 
-        public ProfileController(IUsersRepository repository, HttpClient httpClient)
+        public ProfileController(IUserRepo repository)
         {
             _repository = repository;
-            _httpClient = httpClient;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }

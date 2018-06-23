@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebApp.Filter;
 using System.Net.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +32,7 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IDatabaseContext, DatabaseContext>();
-            services.AddTransient<IUsersRepository, UsersRepo>();
+            services.AddTransient<IUserRepo, UsersRepo>();
             services.AddTransient<IVocabularTempRepo, VocabularTempRepo>();
             services.AddTransient<IVocabRelRepo, VocabRelRepo>();
             services.AddTransient<IVocabularItemRepo, VocabularItemRepo>();
@@ -63,8 +62,8 @@ namespace WebApp
             
             services.AddMvc(options =>
                 {
-                    options.Filters.Add(typeof(DefaultControllerFilter));
-                    options.Filters.Add(typeof(AuthorizationFilter));
+                    //options.Filters.Add(typeof(DefaultControllerFilter));
+                    //options.Filters.Add(typeof(AuthorizationFilter));
                 }
             ).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>())
             .AddSessionStateTempDataProvider();
@@ -88,7 +87,6 @@ namespace WebApp
 
             if (env.IsDevelopment())
             {
-                //.... rest of app configuration
                 app.UseSwaggerDocumentation();
             }
 
@@ -100,7 +98,7 @@ namespace WebApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}");
             });
 
         }

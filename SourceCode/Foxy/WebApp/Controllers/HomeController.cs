@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using WebApp.Filter;
 using WebApp.Models;
 using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -11,11 +10,10 @@ using Data.Domain.Interfaces.Template;
 
 namespace WebApp.Controllers
 {
-    [DefaultControllerFilter]
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        private IUsersRepository _userRepo;
+        private IUserRepo _userRepo;
         private IVocabularTempRepo _vocabRepo;
         private IFormularTempRepo _formularRepo;
         private IQuestionTempRepo _questRepo;
@@ -23,7 +21,7 @@ namespace WebApp.Controllers
         private ICommonRepo _commonRepo;
         private IWordsElemRelRepo _relationshipsRepo;
 
-        public HomeController(IUsersRepository userRepo, IVocabularTempRepo vocabRepo, IFormularTempRepo formularRepo,
+        public HomeController(IUserRepo userRepo, IVocabularTempRepo vocabRepo, IFormularTempRepo formularRepo,
             IQuestionTempRepo questRepo, IAnswerTempRepo ansRepo, ICommonRepo commonRepo, IWordsElemRelRepo relRepo)
         {
             _userRepo = userRepo;

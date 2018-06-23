@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using WebApp.DTOs;
-using WebApp.Filter;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using Microsoft.AspNetCore.Routing;
@@ -23,14 +22,12 @@ using Microsoft.AspNetCore.Authentication;
 namespace WebApp.Controllers
 {
     [Route("[controller]")]
-    [DefaultControllerFilter]
     [AllowAnonymous]
     public class LoginController : Controller
     {
-        private readonly IUsersRepository _repository;
-        private readonly HttpClient _httpClient; // declare a HttpClient
+        private readonly IUserRepo _repository;
 
-        public LoginController(IUsersRepository repository, HttpClient httpClient)
+        public LoginController(IUserRepo repository)
         {
             _repository = repository;
 
@@ -39,17 +36,16 @@ namespace WebApp.Controllers
                 .AddJsonFile("hosting.json", true)
                 .AddJsonFile("appsettings.json", true)
                 .Build();
-            _httpClient = httpClient;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Login dto)
+        public async Task<IActionResult> Index(LoginDto dto)
         {
             if (ModelState.IsValid)
             {

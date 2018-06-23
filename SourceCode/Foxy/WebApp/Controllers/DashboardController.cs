@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebApp.Filter;
 using WebApp.Models;
 using Data.Domain.Entities.UserRelated;
 using Data.Domain.Entities;
@@ -13,14 +12,13 @@ using Data.Domain.Entities.TemplateItems;
 
 namespace WebApp.Controllers
 {
-    [DefaultControllerFilter]
     [Authorize]
     public class DashboardController : Controller
     {
-        private IUsersRepository _userRepo;
+        private IUserRepo _userRepo;
         private IVocabularItemRepo _vocabularRepo;
 
-        public DashboardController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo)
+        public DashboardController(IUserRepo userRepo, IVocabularItemRepo vocabularRepo)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;

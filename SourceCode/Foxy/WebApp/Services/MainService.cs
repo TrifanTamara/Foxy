@@ -13,7 +13,7 @@ namespace WebApp.Services
 {
     public class MainService : IMainService
     {
-        private readonly IUsersRepository _userRepo;
+        private readonly IUserRepo _userRepo;
         IVocabularItemRepo _vocabRepo;
         private static Dictionary<Guid, ReviewModel> currentReviewSeesion = new Dictionary<Guid, ReviewModel>();
 
@@ -37,7 +37,7 @@ namespace WebApp.Services
             return false;
         }
 
-        public MainService(IUsersRepository repository, IVocabularItemRepo vocabRepo)
+        public MainService(IUserRepo repository, IVocabularItemRepo vocabRepo)
         {
             _userRepo = repository;
             _vocabRepo = vocabRepo;
@@ -46,12 +46,14 @@ namespace WebApp.Services
         public async Task<MenuModel> GetMenuModel(string email)
         {
             User user = await _userRepo.GetByEmail(email);
-            MenuModel model = new MenuModel();
-            model.Username = user.Username;
-            model.Level = user.Level;
-            model.LessonNumber = (await _vocabRepo.GetVocabLesson(user.UserId)).Count();
-            model.ReviewNumber = (await _vocabRepo.GetVocabForReview(user.UserId)).Count();
-            model.TotalNrLevels = _vocabRepo.GetTotalLevelNr();
+            MenuModel model = new MenuModel
+            {
+                Username = user.Username,
+                Level = user.Level,
+                LessonNumber = (await _vocabRepo.GetVocabLesson(user.UserId)).Count(),
+                ReviewNumber = (await _vocabRepo.GetVocabForReview(user.UserId)).Count(),
+                TotalNrLevels = _vocabRepo.GetTotalLevelNr()
+            };
 
             return model;
         }
@@ -100,9 +102,10 @@ namespace WebApp.Services
                 else
                 {
                     VocabularWrapper item = model.Reviewitems[0];
-                    AnswerStatusModel result = new AnswerStatusModel();
-
-                    result.Meaning = CheckMeaningAns(answer.Meaning, item.MeaningsList);
+                    AnswerStatusModel result = new AnswerStatusModel
+                    {
+                        Meaning = CheckMeaningAns(answer.Meaning, item.MeaningsList)
+                    };
 
                     List<string> readingList = item.OnyomyIsMain ? item.OnyomiReading : item.KunyoumiReading;
 

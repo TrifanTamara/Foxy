@@ -23,12 +23,12 @@ namespace Business.UserRelated
         private readonly IQuestionItemRepo _questRepo;
 
         private readonly IFormularTempRepo _formularTempRepo;
-        private readonly IUsersRepository _userRepo;
+        private readonly IUserRepo _userRepo;
 
         private readonly IWordsElemRelRepo _relationshipsRepo;
 
         public FormularItemRepo(IDatabaseContext databaseContext, IFormularTempRepo formRepo,
-            IVocabularItemRepo vocabRepo, IUsersRepository userRepo, IQuestionItemRepo questionRepo, IWordsElemRelRepo rel) : base(databaseContext)
+            IVocabularItemRepo vocabRepo, IUserRepo userRepo, IQuestionItemRepo questionRepo, IWordsElemRelRepo rel) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _vocabRepo = vocabRepo;

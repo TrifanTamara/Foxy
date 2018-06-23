@@ -10,20 +10,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.DTOs;
-using WebApp.Filter;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    [DefaultControllerFilter]
     [Authorize]
     [Route("[controller]")]
     public class VocabularController : Controller
     {
-        private IUsersRepository _userRepo;
+        private IUserRepo _userRepo;
         private IVocabularItemRepo _vocabularRepo;
 
-        public VocabularController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo)
+        public VocabularController(IUserRepo userRepo, IVocabularItemRepo vocabularRepo)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;
@@ -33,7 +31,7 @@ namespace WebApp.Controllers
         [HttpGet]
         [Route("")]
         [Route("index")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }

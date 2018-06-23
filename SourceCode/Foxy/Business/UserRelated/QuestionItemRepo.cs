@@ -21,12 +21,12 @@ namespace Business.UserRelated
         private readonly IVocabularItemRepo _vocabRepo;
 
         private readonly IQuestionTempRepo _questionTempRepo;
-        private readonly IUsersRepository _userRepo;
+        private readonly IUserRepo _userRepo;
         
         private readonly IWordsElemRelRepo _relationshipsRepo;
 
         public QuestionItemRepo(IDatabaseContext databaseContext,
-            IVocabularItemRepo vocabRepo, IUsersRepository userRepo, 
+            IVocabularItemRepo vocabRepo, IUserRepo userRepo, 
             IQuestionTempRepo questionRepo, IWordsElemRelRepo relationshipsRepo) : base(databaseContext)
         {
             _databaseContext = databaseContext;

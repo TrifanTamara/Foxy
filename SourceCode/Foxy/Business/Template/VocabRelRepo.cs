@@ -14,8 +14,6 @@ namespace Business
         GenericRepo<VocabularRelationship>, IVocabRelRepo
     {
         private readonly IDatabaseContext _databaseContext;
-        private DbSet<VocabularRelationship> _entities;
-
 
         public VocabRelRepo(IDatabaseContext databaseContext) : base(databaseContext)
         {

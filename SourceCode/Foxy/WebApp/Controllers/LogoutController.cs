@@ -9,20 +9,17 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WebApp.DTOs;
-using WebApp.Filter;
 
 namespace WebApp.Controllers
 {
     [Route("[controller]")]
-    [DefaultControllerFilter]
     [Authorize]
     public class LogoutController : Controller
     {
-        private readonly IUsersRepository _repository;
+        private readonly IUserRepo _repository;
         //private JwToken _jwtToken;
-        //private readonly HttpClient _httpClient; // declare a HttpClient
 
-        public LogoutController(IUsersRepository repository)
+        public LogoutController(IUserRepo repository)
         {
             _repository = repository;
         }

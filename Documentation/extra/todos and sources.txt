@@ -24,6 +24,7 @@ To do:
 -block access to another section when one is already started
 -add explanation for documentation about review loop and rectify in code
 -structure neoficial vocab
+-FOLDER ESTE DIRECTOR. PLOT TWIST
 
 Rules:
 -User can see unlocked items info, but cannot force it progress on them.

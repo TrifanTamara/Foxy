@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Business
 {
     public class UsersRepo :
-        GenericRepo<User>, IUsersRepository
+        GenericRepo<User>, IUserRepo
     {
         private readonly IDatabaseContext _databaseContext;
 

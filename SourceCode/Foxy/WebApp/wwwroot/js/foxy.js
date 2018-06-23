@@ -139,7 +139,7 @@ function favoriteChanged(vId, myVal) {
 function CheckHeart() {
     var x = 0;
     $("#toggle-heart").attr("checked", "checked");
-    if ($("#toggle-heart").val == "on") {
+    if ($("#toggle-heart").val === "on") {
         x = 1;
     }
     x = -3;

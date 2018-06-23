@@ -8,21 +8,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Filter;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    [DefaultControllerFilter]
     [Authorize]
     [Route("[controller]")]
     public class GrammarController : Controller
     {
-        private IUsersRepository _userRepo;
+        private IUserRepo _userRepo;
         private readonly IVocabularItemRepo _vocabularRepo;
         private IFormularItemRepo _formularRepo;
 
-        public GrammarController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo, IFormularItemRepo formularRepo)
+        public GrammarController(IUserRepo userRepo, IVocabularItemRepo vocabularRepo, IFormularItemRepo formularRepo)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;

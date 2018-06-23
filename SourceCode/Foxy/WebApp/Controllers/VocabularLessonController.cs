@@ -9,23 +9,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.DTOs;
-using WebApp.Filter;
 using WebApp.Models;
 using WebApp.Services;
 
 namespace WebApp.Controllers
 {
-    [DefaultControllerFilter]
     [Authorize]
     [Route("[controller]")]
     public class VocabularLessonController : Controller
     {
-        private IUsersRepository _userRepo;
+        private IUserRepo _userRepo;
         private IVocabularItemRepo _vocabularRepo;
         private IMainService _service;
         private static Dictionary<Guid, LessonModel> currentSeesion = new Dictionary<Guid, LessonModel>();
 
-        public VocabularLessonController(IUsersRepository userRepo, IVocabularItemRepo vocabularRepo, IMainService mainServ)
+        public VocabularLessonController(IUserRepo userRepo, IVocabularItemRepo vocabularRepo, IMainService mainServ)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;
@@ -77,7 +75,7 @@ namespace WebApp.Controllers
             User user = await _userRepo.GetByEmail(email);
 
             LessonModel model = currentSeesion[user.UserId];
-            _service.StartReviewSession(user.UserId, true, model.LessonList);
+            await _service.StartReviewSession(user.UserId, true, model.LessonList);
 
             return RedirectToAction("ReviewLesson", "VocabularReview");
         }
