@@ -25,6 +25,9 @@ To do:
 -add explanation for documentation about review loop and rectify in code
 -structure neoficial vocab
 -FOLDER ESTE DIRECTOR. PLOT TWIST
+- browser====navigator web
+-run map user read middlewarw
+-prezentare surse folosite.
 
 Rules:
 -User can see unlocked items info, but cannot force it progress on them.

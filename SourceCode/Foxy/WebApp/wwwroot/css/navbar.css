@@ -68,8 +68,14 @@
     margin-top: 0 !important;
     display: block;
     cursor: pointer;
+    transform: scale(1.2);
 }
-
+    #foxy-icon:hover {
+        transition: all .2s ease-in-out;
+        transform: scale(1.5);
+        margin-top:0.5em!important;
+        margin-bottom:0.2em!important;
+    }
 .brand-div-foxy {
     height: 100%;
     margin-right: 20px !important;
