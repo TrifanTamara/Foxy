@@ -10,7 +10,7 @@
 
 }
 
-<div class="container">
+<div class="container rounded" style="background-color:rgba(119, 136, 153, 0.25);padding-bottom:1em">
     <div class="row name-style-level text-center" style="width:100%;margin-bottom:0.5em!important;">
         <div class="text-center" style="text-align:center!important">
             Grammar
@@ -18,7 +18,7 @@
     </div>
     @for (int line = 0; line < totalLines; ++line)
     {
-        <div class="card-deck" style="margin-bottom:3em">
+        <div class="card-deck" style="margin-bottom:2em">
             @for (int column = 0; column < columnNr && ((line * columnNr + column) < Model.Formulars.Count()); ++column)
             {
                 int index = line * columnNr + column;
@@ -49,21 +49,23 @@
                             </div>
 
                             <div class="row" style="width:100%!important;margin:0!important">
-                                <div class="col-md-4 form-word-col">
-                                    <div class="btn btn-outline-secondary formular-words-button" data-toggle="modal" data-target="#longModalAllWords@(formular.Template.PartialViewId)" id="btnTotal@(formular.Template.PartialViewId)">
-                                        Total - @formular.RequiredVocabular.Count()
-                                    </div>
 
+                                <div class="btn btn-block btn-outline-secondary formular-words-button" data-toggle="modal" data-target="#longModalAllWords@(formular.Template.PartialViewId)" id="btnTotal@(formular.Template.PartialViewId)" style="margin-bottom:4px;">
+                                    Total - @formular.RequiredVocabular.Count()
                                 </div>
-                                <div class="col-md-4 form-word-col">
-                                    <div class="btn btn-outline-success formular-words-button" data-toggle="modal" data-target="#modLearned@(formular.Template.PartialViewId)" id="btnLearned@(formular.Template.PartialViewId)">
-                                        <i class="far fa-check-circle" style="font-size:2em"></i> - @formular.LearnedWords.Count()
+
+
+                                <div class="row" style="width:100%!important;margin:0!important">
+                                    <div class="col" style="padding-left:0!important;padding-right:2px">
+                                        <div class="btn btn-block btn-outline-success formular-words-button" data-toggle="modal" data-target="#modLearned@(formular.Template.PartialViewId)" id="btnLearned@(formular.Template.PartialViewId)">
+                                            <i class="far fa-check-circle"></i> - @formular.LearnedWords.Count()
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 form-word-col">
-                                    <div class="btn btn-outline-danger formular-words-button" data-toggle="modal" data-target="#modNotLearned@(formular.Template.PartialViewId)" id="btnNotLearned@(formular.Template.PartialViewId)">
-                                        - @formular.NotLearnedWords.Count()
-                                        <i class="fas fa-ban"></i>
+                                    <div class="col" style="padding-right:0!important;padding-left:2px">
+                                        <div class="btn btn-block btn-outline-danger formular-words-button" data-toggle="modal" data-target="#modNotLearned@(formular.Template.PartialViewId)" id="btnNotLearned@(formular.Template.PartialViewId)">
+                                            - @formular.NotLearnedWords.Count()
+                                            <i class="fas fa-ban"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +84,7 @@
                             </div>
                             @if (formular.Item.TimesAnswered == 0)
                             {
-                                <p>No aswers yet.</p>
+                                <p>No answers yet.</p>
                             }
                             else
                             {
@@ -97,14 +99,16 @@
                                     }
                                 </div>
                                 <div class="row">
-                                    <p>@formular.Item.AverageScore average based on @formular.Item.TimesAnswered tests.</p>
+                                    <p>@(formular.Average)/5 average based on @formular.Item.TimesAnswered answers.</p>
                                 </div>
                             }
                         </li>
 
                     </ul>
                     <div class="card-body float-bottom">
-                        <div class="btn btn-info">Open Formualar</div>
+                        <a class="" asp-controller="Grammar" asp-action="formular@(formular.Template.PartialViewId)" style="all:unset">
+                            <div class="btn btn-info">Open Formualar</div>
+                        </a>
                         <a class="" asp-controller="Grammar" asp-action="quizz/formular@(formular.Template.PartialViewId)" style="all:unset">
                             <div class="btn btn-outline-warning">Take a test</div>
                         </a>

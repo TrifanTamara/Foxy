@@ -7,7 +7,7 @@ namespace WebApp.DTOs
 {
     public class UpdateNoteDto
     {
-        public Guid VocabularId { get; set; }
+        public Guid ElementId { get; set; }
         public string NewContent { get; set; }
     }
 }

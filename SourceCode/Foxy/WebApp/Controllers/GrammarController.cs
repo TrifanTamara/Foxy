@@ -1,4 +1,5 @@
 ﻿using Data.Domain.Entities;
+using Data.Domain.Entities.UserRelated;
 using Data.Domain.Interfaces;
 using Data.Domain.Interfaces.UserRelated;
 using Data.Domain.Wrappers;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.DTOs;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -58,6 +60,46 @@ namespace WebApp.Controllers
             QuizzModel model = new QuizzModel(questList, formular);
 
             return View("Quizz", model);
+        }
+
+        [HttpGet]
+        [Route("formular{gramm}")]
+        public async Task<IActionResult> FormGrammar([FromRoute]int gramm)
+        {
+            string email = HttpContext.User.Claims.First().Value;
+            User user = await _userRepo.GetByEmail(email);
+
+            FormularWrapper formular = await _formularRepo.GetByUserAndPvId(user.UserId, gramm);
+            if (null == formular) return View("NotFound");
+            
+            return View("FormGram", formular);
+        }
+
+        [HttpPost]
+        [Route("update/Favorite")]
+        public async Task<bool> UpdateFavorite(ChangeFavoriteDto model)
+        {
+            FormItem item = await _formularRepo.FindById(model.ElementId);
+            if (item != null)
+            {
+                item.Update(item.Note, item.AverageScore, item.TimesAnswered, !item.Favorite);
+                await _formularRepo.Edit(item);
+                return item.Favorite;
+            }
+            return false;
+        }
+
+        [HttpPost]
+        [Route("update/note")]
+        public async Task<bool> UpdateNote(UpdateNoteDto model)
+        {
+            FormItem item = await _formularRepo.FindById(model.ElementId);
+            if (item != null)
+            {
+                item.Update(model.NewContent, item.AverageScore, item.TimesAnswered, !item.Favorite);
+                await _formularRepo.Edit(item);
+            }
+            return true;
         }
     }
 }

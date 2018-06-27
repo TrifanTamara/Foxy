@@ -156,6 +156,61 @@ h6 {
 
 .my-check-icon {
     position: relative !important;
-    font-size: 0.8em;
+    font-size: 1em;
     vertical-align: middle !important;
+    margin-top:5px!important;
+}
+
+.right-answer{
+    background-color: forestgreen;
+    color: white;
+}
+    .right-answer:hover {
+        background-color: forestgreen!important;
+        color:white!important;
+    }
+
+.wrong-answer {
+    background-color: red;
+    color: white;
+}
+    .wrong-answer:hover {
+        background-color: red !important;
+        color: white !important;
+    }
+
+.right-question{
+    background-color: rgba(144, 238, 144, 0.19);
+}
+
+.wrong-question {
+    background-color: rgba(255, 39, 0, 0.11);
+}
+
+.par-answer {
+    margin-left: 4em;
+    margin-top: -0.7em;
+    font-size: 1.1em;
+}
+
+.answer-option-par {
+    display: none;
+    text-align: left !important;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0 !important;
+    padding-left: 1em;
+    cursor: pointer;
+}
+
+.row{
+    margin-right:0!important;
+}
+
+.form-container {
+    margin-bottom: 3em !important;
+    background-color: rgba(233, 236, 239, 0.21) !important;
+    border: solid;
+    border-width: 0.2em;
+    border-color: rgba(233, 236, 239, 1) !important;
 }

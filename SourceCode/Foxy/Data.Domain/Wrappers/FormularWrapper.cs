@@ -20,8 +20,7 @@ namespace Data.Domain.Wrappers
         public List<VocabularWrapper> LearnedWords { get; set; }
         public List<VocabularWrapper> NotLearnedWords { get; set; }
         public int StarsNumber { get; set; }
-
-
+        public string Average { get; set; }
 
         public FormularWrapper(FormItem item, FormTemplate template, List<QuestionWrapper> questions, List<VocabularWrapper> reqVoc)
         {
@@ -46,7 +45,8 @@ namespace Data.Domain.Wrappers
             }
             WordsPercentage = (int)(LearnedWords.Count() * 100 / (float)RequiredVocabular.Count());
 
-            StarsNumber = (int)Item.AverageScore;
+            StarsNumber = (int)Math.Round(Item.AverageScore*10);
+            Average = String.Format("{0:0.00}", Item.AverageScore*10);
         }
     }
 }

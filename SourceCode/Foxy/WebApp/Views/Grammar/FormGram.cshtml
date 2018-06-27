@@ -1,0 +1,76 @@
+﻿@using Data.Domain.Wrappers;
+@model FormularWrapper
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-9"></div>
+    <div class="rounded-top col-xs-6 col-md-3 text-center shadow" id="vocabTitle">
+        <p class="title-upper-box" style="font-size:1.4em!important">Grammar formular #@Model.Template.PartialViewId</p>
+    </div>
+</div>
+<div class="row jumbotron jumbotron-fluid form-container" id="jumbo">
+    <div class="col big-col">
+        <div class="row">
+            <div class="col categories-title-col">
+                <p class="title-categories">
+                    @Model.Template.Topic
+                </p>
+
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col-2 align-self-end" style="width:4em!important;vertical-align:middle;text-align:center">
+                <input id="toggle-heart" type="checkbox" onclick="favoriteGrammarChanged('@Model.Item.FormItemId.ToString()')" />
+                <label for="toggle-heart">❤</label>
+            </div>
+            @if (Model.Item.Favorite == true)
+            {
+                <script>
+                    CheckHeart();
+                </script>
+            }
+        </div>
+
+        <div style="margin-top:2em!important;margin-bottom:3em!important">
+            @await Html.PartialAsync("PViews/Form" + @Model.Template.PartialViewId)
+        </div>
+
+        <div class="row mini-title-categories" style="position:relative!important">
+            <div class="">
+                <p style="display: inline;">
+                    User's note
+                </p>
+            </div>
+            <div class="">
+                <div id="editIconMeaning">
+                    <button type="button" class="btn btn-light border-dark" style="padding:0!important;width:2em!important; height:2em!important;position:absolute;vertical-align:middle;margin-left:7px!important; cursor:pointer!important" onclick="ShowMeaningInput()">
+                        <img src="~/img/octicons/svg/pencil.svg" style="position:relative!important;height:1.3em; width:1.3em;padding-bottom: 3px;" alt="*">
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <div class="input-group input-group-sm mb-3" id="input-meaning">
+                    <input type="text" class="form-control" id="meaningUserInput" placeholder="User note.." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="RefreshNoteDiv('@Model.Item.FormItemId.ToString()')">Save</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="HideMeaningDiv()">Discard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="margin-bottom:1em">
+
+            <div class="row text-mnem">
+                <div class="col">
+                    <div class="mnemonic-box">
+                        <div id="opertionExecute">
+                        </div>
+                        <div class="text-mnem" id="meaning-note">
+                            @Model.Item.Note
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

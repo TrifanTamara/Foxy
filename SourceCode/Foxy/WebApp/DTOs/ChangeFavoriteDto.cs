@@ -7,6 +7,6 @@ namespace WebApp.DTOs
 {
     public class ChangeFavoriteDto
     {
-        public Guid VocabularId { get; set; }
+        public Guid ElementId { get; set; }
     }
 }

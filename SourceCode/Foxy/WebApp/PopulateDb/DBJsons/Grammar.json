@@ -278,7 +278,7 @@
       },
       {
         "Content": "Choose the missing word to match the translation:\n トム___学⽣。？\nTom is also student.",
-        "Words": [],
+        "Words": [ "学⽣" ],
         "Answers": [
           {
             "Text": "は",

@@ -57,6 +57,18 @@
 
             <div class="col meaning-col">
                 <p class="text-other-meaning">
+                    Required level
+                </p>
+                <span class="badge badge-warning meaning-badge" style="padding-right:10x!important;padding-left:10px!important;">
+                    @Model.Template.RequiredLevel
+                </span>
+
+            </div>
+        </div>
+        <div class="row meaning-row" style="margin-top:0.3em!important">
+
+            <div class="col meaning-col">
+                <p class="text-other-meaning">
                     All meanings
                 </p>
                 @for (int i = 0; i < Model.MeaningsList.Count(); ++i)
@@ -119,6 +131,7 @@
                 </div>
             </div>
         </div>
+
         @{
             string title = "";
             bool radical = false;

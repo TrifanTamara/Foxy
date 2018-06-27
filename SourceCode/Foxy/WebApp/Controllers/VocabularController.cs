@@ -90,7 +90,7 @@ namespace WebApp.Controllers
         [Route("update/meaningNote")]
         public async Task<bool> UpdateMeaningNote(UpdateNoteDto model)
         {
-            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
+            VocabularItem item = await _vocabularRepo.FindById(model.ElementId);
             if (item != null)
             {
                 item.Update(model.NewContent, item.ReadingNote, item.Favorite, item.UserSynonyms);
@@ -103,7 +103,7 @@ namespace WebApp.Controllers
         [Route("update/readingNote")]
         public async Task<bool> UpdateReadingNote(UpdateNoteDto model)
         {
-            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
+            VocabularItem item = await _vocabularRepo.FindById(model.ElementId);
             if (item != null)
             {
                 item.Update(item.MeaningNote, model.NewContent, item.Favorite, item.UserSynonyms);
@@ -116,7 +116,7 @@ namespace WebApp.Controllers
         [Route("update/Favorite")]
         public async Task<bool> UpdateFavorite(ChangeFavoriteDto model)
         {
-            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
+            VocabularItem item = await _vocabularRepo.FindById(model.ElementId);
             if (item != null)
             {
                 item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite, item.UserSynonyms);
@@ -130,7 +130,7 @@ namespace WebApp.Controllers
         [Route("addSynonym")]
         public async Task<JsonResult> AddSynonim(UpdateNoteDto model)
         {
-            VocabularItem item = await _vocabularRepo.FindById(model.VocabularId);
+            VocabularItem item = await _vocabularRepo.FindById(model.ElementId);
             if (item != null && !model.NewContent.Equals(""))
             {
                 string syn = item.UserSynonyms;

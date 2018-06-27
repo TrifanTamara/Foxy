@@ -67,7 +67,7 @@ function RefreshReadingDiv(vId) {
         type: "POST",
         url: "/vocabular/update/readingNote",
         data: {
-            VocabularId: vId,
+            ElementId: vId,
             NewContent: node.value
         },
         dataType: 'json'
@@ -109,7 +109,28 @@ function RefreshMeaningDiv(vId) {
         type: "POST",
         url: "/vocabular/update/meaningNote",
         data: {
-            VocabularId: vId,
+            ElementId: vId,
+            NewContent: strMM
+        },
+        dataType: 'json'
+    })
+}
+
+function RefreshNoteDiv(vId) {
+    var node = document.getElementById('meaningUserInput');
+    var strMM = node.value;
+    $("#meaning-note").text(strMM);
+
+    $('#input-meaning').hide();
+    $('#editIconMeaning').show();
+
+    toastr.success("Meaning note updated!");
+
+    $.ajax({
+        type: "POST",
+        url: "/Grammar/update/note",
+        data: {
+            ElementId: vId,
             NewContent: strMM
         },
         dataType: 'json'
@@ -123,7 +144,7 @@ function favoriteChanged(vId, myVal) {
         type: "POST",
         url: "/vocabular/update/Favorite",
         data: {
-            VocabularId: vId
+            ElementId: vId
         },
         dataType: 'json',
         success: function (data) {
@@ -135,7 +156,25 @@ function favoriteChanged(vId, myVal) {
         }
     })
 }
+function favoriteGrammarChanged(vId) {
+    var checkedValue = $('#toggle-heart').val();
 
+    $.ajax({
+        type: "POST",
+        url: "/Grammar/update/Favorite",
+        data: {
+            ElementId: vId
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data) {
+                toastr.success("Formular added to favorite list!")
+            } else {
+                toastr.warning("Formular removed from favorite!")
+            }
+        }
+    })
+}
 function CheckHeart() {
     var x = 0;
     $("#toggle-heart").attr("checked", "checked");

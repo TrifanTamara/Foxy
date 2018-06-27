@@ -4,6 +4,40 @@
     Layout = null;
 }
 
+<script>
+    class QuestionJs {
+        constructor(number, id, answers) {
+            this.number = number;
+            this.id = id;
+            this.answers = answers;
+        }
+    };
+    var questionModels = [];
+    var formularId = "@Model.Formular.Item.FormItemId";
+</script>
+
+@for (int orderNr = 0; orderNr < Model.Questions.Count; ++orderNr)
+{
+    var question = Model.Questions[orderNr];
+    <script>
+        answers = [];
+    </script>
+    @foreach (var ans in question.Template.AnswerTemplates)
+    {
+        <script>
+            answers.push("@ans.IsTrue");
+        </script>
+    }
+    <script type="text/javascript">
+        var questionTemp = new QuestionJs(@orderNr, "@question.Item.QuestionItemId", answers.slice());
+        console.log(questionTemp);
+        questionModels.push(questionTemp);
+    </script>
+}
+<script>
+    console.log(questionModels);
+</script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,22 +87,32 @@
         {
             var question = Model.Questions[qi];
 
-            <div class="card" style="margin-bottom:2em">
+            <div class="card">
                 <h5 class="card-header" style="white-space: pre;font-weight:normal;color: #373860;word-break: break-all!important">@question.Template.Content</h5>
-                <div class="card-body">
+                <div class="card-body" id="question-@(qi)">
                     <div class="row text-center" style="text-align:center!important">
                         @for (int ai = 0; ai < question.Template.AnswerTemplates.Count(); ++ai)
                         {
                             var answer = question.Template.AnswerTemplates[ai];
-                            <div class="row answer-option" onclick="CheckBox(@qi, @ai)">
+                            <div class="row answer-option" onclick="CheckBox(@qi, @ai)" id="line-@(qi)-@(ai)">
                                 <div class="scale-div">
-                                    <div class="btn btn-outline-secondary rounded my-custom-check">
+                                    <div class="btn btn-outline-secondary rounded my-custom-check" id="button@(qi)-@(ai)">
                                         <i class="fas fa-check my-check-icon" id="icon@(qi)-@(ai)"></i>
                                     </div>
                                     <div class="answer-text">
                                         @answer.Text
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row answer-option-par" id="answer-response-@(qi)-@(ai)">
+                                @if (answer.IsTrue)
+                                {
+                                    <p class="par-answer" style="color:green">Correct answer!</p>
+                                }
+                                else
+                                {
+                                    <p class="par-answer" style="color:#d51111">Wrong answer</p>
+                                }
                             </div>
                         }
                     </div>
@@ -94,14 +138,36 @@
                     }
                 </div>
             </div>
+            <div class="row text-right" style="width:100%!important;margin:0!important;display: inline-block;padding-top: 0.2em;">
+                <div style="margin-bottom:2em; width:10em;font-size:1em" class="badge badge-info">
+                    Right answered: @question.Item.RightAnswers/@(question.Item.RightAnswers + question.Item.WrongAnswers)
+                </div>
+            </div>
         }
     </div>
 
     <div class="row" style="margin-bottom:3em">
+        <div class="row" style="width:100%;margin-bottom:1em;display:none" id="resultDiv">
+            <div class="container" style="    padding-left: 1.9em!important;padding-right: 0!important;">
+                <div class="alert alert-info" style="font-size:1.3em">
+                    <p style="display:inline">You've got </p>
+                    <b><p id="rightAnswerDiv" style="display:inline;color:#13ca13"></p></b>
+                    <p style="display:inline"><b>right</b> answers from</p>
+                    <p style="display:inline">@Model.Questions.Count!</p>
+                </div>
+            </div>
+        </div>
         <div class="container">
-            <button type="button" class="btn btn-success btn-lg" style="margin-right:0.3em">Submit answers</button>
-            <button type="button" class="btn btn-outline-secondary">Back to dashboard</button>
+            <button type="button" id="submitAnswersBtn" class="btn btn-success btn-lg" style="margin-right:0.3em" onclick="SubmitAnswers()">
+                Submit answers
+            </button>
+            <a class="" asp-controller="Grammar" asp-action="Index" style="all:unset">
+                <button type="button" class="btn btn-outline-secondary">Back to forms</button>
+            </a>
+            <button type="button" class="btn btn-outline-info" id="anotherTestBtn" style="display:none" onclick="ReloadTest()">
+                Take another test
+            </button>
         </div>
     </div>
-    
+
 </body>
