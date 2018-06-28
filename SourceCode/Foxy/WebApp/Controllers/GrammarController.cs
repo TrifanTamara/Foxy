@@ -47,7 +47,7 @@ namespace WebApp.Controllers
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
-            FormularWrapper formular = await _formularRepo.GetByUserAndPvId(user.UserId, quizz_nr);
+            FormularWrapper formular = await _formularRepo.GetByUserAndPvId(user.UserId, quizz_nr, Data.Domain.Entities.TemplateItems.FormType.Grammar);
             if (null == formular) return View("NotFound");
 
             int questionsNr = 5;
@@ -69,7 +69,7 @@ namespace WebApp.Controllers
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
-            FormularWrapper formular = await _formularRepo.GetByUserAndPvId(user.UserId, gramm);
+            FormularWrapper formular = await _formularRepo.GetByUserAndPvId(user.UserId, gramm, Data.Domain.Entities.TemplateItems.FormType.Grammar);
             if (null == formular) return View("NotFound");
             
             return View("FormGram", formular);

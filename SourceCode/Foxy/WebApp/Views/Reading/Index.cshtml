@@ -1,0 +1,499 @@
+﻿@using WebApplication.Models;
+@model ReadListModel;
+@{
+    int columnNrR = 4;
+    int totalLinesR = Model.ReadingForms.Count() / columnNrR;
+    if (Model.ReadingForms.Count() % columnNrR > 0)
+    {
+        totalLinesR = totalLinesR + 1;
+    }
+
+    int columnNrL = 4;
+    int totalLinesL = Model.ListeningForms.Count() / columnNrL;
+    if (Model.ListeningForms.Count() % columnNrL > 0)
+    {
+        totalLinesL = totalLinesR + 1;
+    }
+}
+
+<div class="container rounded" style="background-color:rgba(119, 136, 153, 0.15);padding-bottom:1em">
+    <div class="row name-style-level text-center" style="width:100%;margin-bottom:0.5em!important;">
+        <div class="text-center" style="text-align:center!important">
+            Reading
+        </div>
+    </div>
+    @for (int line = 0; line < totalLinesR; ++line)
+    {
+        <div class="card-deck" style="margin-bottom:1em">
+            @for (int column = 0; column < columnNrR && ((line * columnNrR + column) < Model.ReadingForms.Count()); ++column)
+            {
+                int index = line * columnNrR + column;
+                var formular = Model.ReadingForms[index];
+                <div class="card p-3" style="width: 18rem;">
+                    <div class="card-header">
+                        <div class="text-uppercase">
+                            Words status
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: @formular.WordsPercentage%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                @formular.WordsPercentage%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">#@(formular.Template.PartialViewId). @formular.Template.Topic</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <p class="text-uppercase">Required words</p>
+                            </div>
+
+                            <div class="row" style="width:100%!important;margin:0!important">
+
+                                <div class="btn btn-block btn-outline-secondary formular-words-button" data-toggle="modal" data-target="#longModalAllWords@(formular.Template.PartialViewId)" id="btnTotal@(formular.Template.PartialViewId)" style="margin-bottom:4px;">
+                                    Total - @formular.RequiredVocabular.Count()
+                                </div>
+
+
+                                <div class="row" style="width:100%!important;margin:0!important">
+                                    <div class="col" style="padding-left:0!important;padding-right:2px">
+                                        <div class="btn btn-block btn-outline-success formular-words-button" data-toggle="modal" data-target="#modLearned@(formular.Template.PartialViewId)" id="btnLearned@(formular.Template.PartialViewId)">
+                                            <i class="far fa-check-circle"></i> - @formular.LearnedWords.Count()
+                                        </div>
+                                    </div>
+                                    <div class="col" style="padding-right:0!important;padding-left:2px">
+                                        <div class="btn btn-block btn-outline-danger formular-words-button" data-toggle="modal" data-target="#modNotLearned@(formular.Template.PartialViewId)" id="btnNotLearned@(formular.Template.PartialViewId)">
+                                            - @formular.NotLearnedWords.Count()
+                                            <i class="fas fa-ban"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item" style="background-color: azure">
+                            <div class="row">
+                                <p class="text-uppercase">Score</p>
+                            </div>
+                            @if (formular.Item.TimesAnswered == 0)
+                            {
+                                <p>No answers yet.</p>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    @for (int i = 0; i < formular.StarsNumber; ++i)
+                                    {
+                                        <i class="fas fa-star star-orange rating-star"></i>
+                                    }
+                                    @for (int i = formular.StarsNumber; i < 5; ++i)
+                                    {
+                                        <i class="fas fa-star rating-star"></i>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <p>@(formular.Average)/5 average based on @formular.Item.TimesAnswered answers.</p>
+                                </div>
+                            }
+                        </li>
+
+                    </ul>
+                    <div class="card-body float-bottom">
+                        <a class="" asp-controller="Reading" asp-action="reading/form@(formular.Template.PartialViewId)" style="all:unset">
+                            <div class="btn btn-info">Open Quizz</div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<div class="container rounded" style="background-color:rgba(119, 136, 153, 0.15);padding-bottom:1em;margin-top:2em">
+    <div class="row name-style-level text-center" style="width:100%;margin-bottom:0.5em!important;">
+        <div class="text-center" style="text-align:center!important">
+            Listening
+        </div>
+    </div>
+    @for (int line = 0; line < totalLinesL; ++line)
+    {
+        <div class="card-deck" style="margin-bottom:1em">
+            @for (int column = 0; column < columnNrL && ((line * columnNrL + column) < Model.ReadingForms.Count()); ++column)
+            {
+                int index = line * columnNrL + column;
+                var formular = Model.ListeningForms[index];
+                <div class="card p-3" style="width: 18rem;">
+                    <div class="card-header">
+                        <div class="text-uppercase">
+                            Words status
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: @formular.WordsPercentage%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                @formular.WordsPercentage%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">#@(formular.Template.PartialViewId). @formular.Template.Topic</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <p class="text-uppercase">Required words</p>
+                            </div>
+
+                            <div class="row" style="width:100%!important;margin:0!important">
+
+                                <div class="btn btn-block btn-outline-secondary formular-words-button" data-toggle="modal" data-target="#LlongModalAllWords@(formular.Template.PartialViewId)" id="btnTotal@(formular.Template.PartialViewId)" style="margin-bottom:4px;">
+                                    Total - @formular.RequiredVocabular.Count()
+                                </div>
+
+
+                                <div class="row" style="width:100%!important;margin:0!important">
+                                    <div class="col" style="padding-left:0!important;padding-right:2px">
+                                        <div class="btn btn-block btn-outline-success formular-words-button" data-toggle="modal" data-target="#LmodLearned@(formular.Template.PartialViewId)" id="btnLearned@(formular.Template.PartialViewId)">
+                                            <i class="far fa-check-circle"></i> - @formular.LearnedWords.Count()
+                                        </div>
+                                    </div>
+                                    <div class="col" style="padding-right:0!important;padding-left:2px">
+                                        <div class="btn btn-block btn-outline-danger formular-words-button" data-toggle="modal" data-target="#LmodNotLearned@(formular.Template.PartialViewId)" id="btnNotLearned@(formular.Template.PartialViewId)">
+                                            - @formular.NotLearnedWords.Count()
+                                            <i class="fas fa-ban"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item" style="background-color: azure">
+                            <div class="row">
+                                <p class="text-uppercase">Score</p>
+                            </div>
+                            @if (formular.Item.TimesAnswered == 0)
+                            {
+                                <p>No answers yet.</p>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    @for (int i = 0; i < formular.StarsNumber; ++i)
+                                    {
+                                        <i class="fas fa-star star-orange rating-star"></i>
+                                    }
+                                    @for (int i = formular.StarsNumber; i < 5; ++i)
+                                    {
+                                        <i class="fas fa-star rating-star"></i>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <p>@(formular.Average)/5 average based on @formular.Item.TimesAnswered answers.</p>
+                                </div>
+                            }
+                        </li>
+
+                    </ul>
+                    <div class="card-body float-bottom">
+                        <a class="" asp-controller="Reading" asp-action="listening/form@(formular.Template.PartialViewId)" style="all:unset">
+                            <div class="btn btn-info">Open Quizz</div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<br />
+<br />
+@for (int f = 0; f < Model.ReadingForms.Count; f++)
+{
+    var formular = Model.ReadingForms[f];
+    <!-----Modal----->
+    <div class="modal fade" style="margin-top:2em!important" id="longModalAllWords@(formular.Template.PartialViewId)" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="longModalAllWordsTitle">All required words for Grammar Formular #@(formular.Template.PartialViewId)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+
+                    @for (int i = 0; i < formular.RequiredVocabular.Count(); ++i)
+                    {
+                        <div class="text-center">
+                            @{
+                                string tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + formular.RequiredVocabular[i].MainMeaning + "</p>";
+                                tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + formular.RequiredVocabular[i].MainReading + "</p></div>";
+
+                                string vtype = formular.RequiredVocabular[i].ItemLevel;
+                                string componentColor = "badge-" + vtype;
+                                if (formular.RequiredVocabular[i].Unlocked == false)
+                                {
+                                    componentColor = "badge-inactive";
+                                }
+                            }
+                            <div class="little-squares-words rounded @(componentColor)" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
+                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@formular.RequiredVocabular[i].Template.Name">
+                                    <div class="little-content word-no-top-pad">
+                                        <div class="table">
+                                            <div class="table-cell little-text .ja">
+                                                @formular.RequiredVocabular[i].Template.Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----Modal----->
+    <div class="modal fade" style="margin-top:2em!important" id="modLearned@(formular.Template.PartialViewId)" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="longModalAllWordsTitle">All learned words for Grammar Formular #@(formular.Template.PartialViewId)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+
+                    @for (int i = 0; i < formular.LearnedWords.Count(); ++i)
+                    {
+                        <div class="text-center">
+                            @{
+                                string tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + formular.LearnedWords[i].MainMeaning + "</p>";
+                                tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + formular.LearnedWords[i].MainReading + "</p></div>";
+
+                                string vtype = formular.LearnedWords[i].ItemLevel;
+                                string componentColor = "badge-" + vtype;
+                                if (formular.LearnedWords[i].Unlocked == false)
+                                {
+                                    componentColor = "badge-inactive";
+                                }
+                            }
+                            <div class="little-squares-words rounded @(componentColor)" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
+                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@formular.LearnedWords[i].Template.Name">
+                                    <div class="little-content word-no-top-pad">
+                                        <div class="table">
+                                            <div class="table-cell little-text .ja">
+                                                @formular.LearnedWords[i].Template.Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----Modal----->
+    <div class="modal fade" style="margin-top:2em!important" id="modNotLearned@(formular.Template.PartialViewId)" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="longModalAllWordsTitle">All not learned words for Grammar Formular #@(formular.Template.PartialViewId)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+
+                    @for (int i = 0; i < formular.NotLearnedWords.Count(); ++i)
+                    {
+                        <div class="text-center">
+                            @{
+                                string tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + formular.NotLearnedWords[i].MainMeaning + "</p>";
+                                tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + formular.NotLearnedWords[i].MainReading + "</p></div>";
+
+                                string vtype = formular.NotLearnedWords[i].ItemLevel;
+                                string componentColor = "badge-" + vtype;
+                                if (formular.NotLearnedWords[i].Unlocked == false)
+                                {
+                                    componentColor = "badge-inactive";
+                                }
+                            }
+                            <div class="little-squares-words rounded @(componentColor)" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
+                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@formular.NotLearnedWords[i].Template.Name">
+                                    <div class="little-content word-no-top-pad">
+                                        <div class="table">
+                                            <div class="table-cell little-text .ja">
+                                                @formular.NotLearnedWords[i].Template.Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@*//Listenting*@
+@for (int f = 0; f < Model.ListeningForms.Count; f++)
+{
+    var formular = Model.ListeningForms[f];
+    <!-----Modal----->
+    <div class="modal fade" style="margin-top:2em!important" id="LlongModalAllWords@(formular.Template.PartialViewId)" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LlongModalAllWordsTitle">All required words for Grammar Formular #@(formular.Template.PartialViewId)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+
+                    @for (int i = 0; i < formular.RequiredVocabular.Count(); ++i)
+                    {
+                        <div class="text-center">
+                            @{
+                                string tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + formular.RequiredVocabular[i].MainMeaning + "</p>";
+                                tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + formular.RequiredVocabular[i].MainReading + "</p></div>";
+
+                                string vtype = formular.RequiredVocabular[i].ItemLevel;
+                                string componentColor = "badge-" + vtype;
+                                if (formular.RequiredVocabular[i].Unlocked == false)
+                                {
+                                    componentColor = "badge-inactive";
+                                }
+                            }
+                            <div class="little-squares-words rounded @(componentColor)" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
+                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@formular.RequiredVocabular[i].Template.Name">
+                                    <div class="little-content word-no-top-pad">
+                                        <div class="table">
+                                            <div class="table-cell little-text .ja">
+                                                @formular.RequiredVocabular[i].Template.Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----Modal----->
+    <div class="modal fade" style="margin-top:2em!important" id="LmodLearned@(formular.Template.PartialViewId)" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LlongModalAllWordsTitle">All learned words for Grammar Formular #@(formular.Template.PartialViewId)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+
+                    @for (int i = 0; i < formular.LearnedWords.Count(); ++i)
+                    {
+                        <div class="text-center">
+                            @{
+                                string tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + formular.LearnedWords[i].MainMeaning + "</p>";
+                                tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + formular.LearnedWords[i].MainReading + "</p></div>";
+
+                                string vtype = formular.LearnedWords[i].ItemLevel;
+                                string componentColor = "badge-" + vtype;
+                                if (formular.LearnedWords[i].Unlocked == false)
+                                {
+                                    componentColor = "badge-inactive";
+                                }
+                            }
+                            <div class="little-squares-words rounded @(componentColor)" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
+                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@formular.LearnedWords[i].Template.Name">
+                                    <div class="little-content word-no-top-pad">
+                                        <div class="table">
+                                            <div class="table-cell little-text .ja">
+                                                @formular.LearnedWords[i].Template.Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----Modal----->
+    <div class="modal fade" style="margin-top:2em!important" id="LmodNotLearned@(formular.Template.PartialViewId)" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LlongModalAllWordsTitle">All not learned words for Grammar Formular #@(formular.Template.PartialViewId)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+
+                    @for (int i = 0; i < formular.NotLearnedWords.Count(); ++i)
+                    {
+                        <div class="text-center">
+                            @{
+                                string tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + formular.NotLearnedWords[i].MainMeaning + "</p>";
+                                tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + formular.NotLearnedWords[i].MainReading + "</p></div>";
+
+                                string vtype = formular.NotLearnedWords[i].ItemLevel;
+                                string componentColor = "badge-" + vtype;
+                                if (formular.NotLearnedWords[i].Unlocked == false)
+                                {
+                                    componentColor = "badge-inactive";
+                                }
+                            }
+                            <div class="little-squares-words rounded @(componentColor)" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
+                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@formular.NotLearnedWords[i].Template.Name">
+                                    <div class="little-content word-no-top-pad">
+                                        <div class="table">
+                                            <div class="table-cell little-text .ja">
+                                                @formular.NotLearnedWords[i].Template.Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<br />

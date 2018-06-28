@@ -6,16 +6,13 @@
         <p class="title-upper-box" style="font-size:1.4em!important">Grammar formular #@Model.Template.PartialViewId</p>
     </div>
 </div>
-<div class="row jumbotron jumbotron-fluid form-container" id="jumbo">
+<div class="row jumbotron jumbotron-fluid form-container" id="jumbo" style="margin-bottom:0!important">
     <div class="col big-col">
         <div class="row">
             <div class="col categories-title-col">
                 <p class="title-categories">
                     @Model.Template.Topic
                 </p>
-
-            </div>
-            <div class="col">
 
             </div>
             <div class="col-2 align-self-end" style="width:4em!important;vertical-align:middle;text-align:center">
@@ -29,7 +26,26 @@
                 </script>
             }
         </div>
+        <div class="container">
+            @for (int i = 0; i < Model.RequiredVocabular.Count(); ++i)
+            {
+                var word = Model.RequiredVocabular[i];
+                var vtype = word.ItemLevel;
+                var componentColor = "badge-" + vtype;
+                if (word.Unlocked == false)
+                {
+                    componentColor = "badge-inactive";
+                }
+                var tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + word.MainMeaning + "</p>";
+                tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + word.MainReading + "</p></div>";
+                <a style="all:unset!important" asp-controller="Vocabular" asp-action="@word.VocabularType/@word.Name">
+                    <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
+                        @word.Name
+                    </div>
+                </a>
 
+            }
+        </div>
         <div style="margin-top:2em!important;margin-bottom:3em!important">
             @await Html.PartialAsync("PViews/Form" + @Model.Template.PartialViewId)
         </div>
@@ -73,4 +89,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="container text-center">
+    <a class="" asp-controller="Grammar" asp-action="quizz/formular@(Model.Template.PartialViewId)" style="all:unset">
+        <div class="btn btn-lg btn-success" style="margin-bottom:5em!important;margin-top:1.5em">Take a test</div>
+    </a>
 </div>

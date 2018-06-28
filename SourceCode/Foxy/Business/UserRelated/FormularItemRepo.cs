@@ -105,10 +105,10 @@ namespace Business.UserRelated
             return (await GetAllFormularsByUser(userId)).Where(f => f.Template.Type == type).ToList();
         }
 
-        public async Task<FormularWrapper> GetByUserAndPvId(Guid userId, int pvId)
+        public async Task<FormularWrapper> GetByUserAndPvId(Guid userId, int pvId, FormType type)
         {
             List<FormularWrapper> formulars = await GetAllFormularsByUser(userId);
-            FormularWrapper formular = formulars.FirstOrDefault(x => x.Template.PartialViewId == pvId);
+            FormularWrapper formular = formulars.FirstOrDefault(x => x.Template.PartialViewId == pvId && type==x.Template.Type);
             return formular;
         }
         

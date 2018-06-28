@@ -287,6 +287,148 @@ namespace WebApp.PopulateDb
                     throw new Exception(e.Message);
                 }
             }
+
+            using (StreamReader r = new StreamReader(dirpath + "Reading.json"))
+            {
+                string json = r.ReadToEnd();
+                List<FormItem> items = new List<FormItem>();
+                try
+                {
+                    items = JsonConvert.DeserializeObject<IEnumerable<FormItem>>(json).ToList();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+
+                try
+                {
+                    foreach (FormItem item in items)
+                    {
+                        List<QuestionTemplate> questList = new List<QuestionTemplate>();
+                        foreach (var quest in item.Questions)
+                        {
+                            List<AnswerTemplate> ansList = new List<AnswerTemplate>();
+
+                            foreach (var ans in quest.Answers)
+                            {
+                                AnswerTemplate newAns = AnswerTemplate.Create(ans.Text, ans.IsTrue);
+                                ansList.Add(newAns);
+                                foreach (var word in ans.Words)
+                                {
+                                    VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
+                                    if (vt != null)
+                                    {
+                                        await _relationshipsRepo.Add(WordsInText.Create(newAns.AnswerTemplateId,
+                                            vt.VocabularTemplateId, TextType.Answer));
+                                    }
+                                }
+                            }
+
+                            QuestionTemplate newQuest = QuestionTemplate.Create(quest.Content, ansList);
+                            questList.Add(newQuest);
+
+                            foreach (var word in quest.Words)
+                            {
+                                VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
+                                if (vt != null)
+                                {
+                                    await _relationshipsRepo.Add(WordsInText.Create(newQuest.QuestionTemplateId,
+                                            vt.VocabularTemplateId, TextType.Question));
+                                }
+                            }
+                        }
+
+                        FormTemplate formular = FormTemplate.Create(item.PartialViewId, item.Topic,
+                            item.Description, (FormType)item.Type, questList);
+                        foreach (var word in item.Words)
+                        {
+                            VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
+                            if (vt != null)
+                            {
+                                await _relationshipsRepo.Add(WordsInText.Create(formular.FormTemplateId,
+                                            vt.VocabularTemplateId, TextType.Form));
+                            }
+                        }
+                        await _commonRepo.SaveFormular(formular);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
+
+            using (StreamReader r = new StreamReader(dirpath + "Listening.json"))
+            {
+                string json = r.ReadToEnd();
+                List<FormItem> items = new List<FormItem>();
+                try
+                {
+                    items = JsonConvert.DeserializeObject<IEnumerable<FormItem>>(json).ToList();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+
+                try
+                {
+                    foreach (FormItem item in items)
+                    {
+                        List<QuestionTemplate> questList = new List<QuestionTemplate>();
+                        foreach (var quest in item.Questions)
+                        {
+                            List<AnswerTemplate> ansList = new List<AnswerTemplate>();
+
+                            foreach (var ans in quest.Answers)
+                            {
+                                AnswerTemplate newAns = AnswerTemplate.Create(ans.Text, ans.IsTrue);
+                                ansList.Add(newAns);
+                                foreach (var word in ans.Words)
+                                {
+                                    VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
+                                    if (vt != null)
+                                    {
+                                        await _relationshipsRepo.Add(WordsInText.Create(newAns.AnswerTemplateId,
+                                            vt.VocabularTemplateId, TextType.Answer));
+                                    }
+                                }
+                            }
+
+                            QuestionTemplate newQuest = QuestionTemplate.Create(quest.Content, ansList);
+                            questList.Add(newQuest);
+
+                            foreach (var word in quest.Words)
+                            {
+                                VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
+                                if (vt != null)
+                                {
+                                    await _relationshipsRepo.Add(WordsInText.Create(newQuest.QuestionTemplateId,
+                                            vt.VocabularTemplateId, TextType.Question));
+                                }
+                            }
+                        }
+
+                        FormTemplate formular = FormTemplate.Create(item.PartialViewId, item.Topic,
+                            item.Description, (FormType)item.Type, questList);
+                        foreach (var word in item.Words)
+                        {
+                            VocabularTemplate vt = await _vocabRepo.GetByTypeAndName(VocabularType.Word, word);
+                            if (vt != null)
+                            {
+                                await _relationshipsRepo.Add(WordsInText.Create(formular.FormTemplateId,
+                                            vt.VocabularTemplateId, TextType.Form));
+                            }
+                        }
+                        await _commonRepo.SaveFormular(formular);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
         }
     }
 }
