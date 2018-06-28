@@ -11,6 +11,8 @@ https://soundoftext.com/ - sounds
 http://www.joyokanji.com/ulrikes-mnemonics - mnemonics
 https://www.wanikani.com/ - mnemonics
 https://github.com/WaniKani/WanaKana - input converter
+https://jlptstudy.net
+
 
 To do:
 -delete n4 from documentation, only 1% n5 :D
