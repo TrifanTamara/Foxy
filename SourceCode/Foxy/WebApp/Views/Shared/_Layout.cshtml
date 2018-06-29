@@ -167,7 +167,6 @@
                                         <div class="dropdown-toggle menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</div>
                                         <div class="dropdown-menu drop-down-menu-foxy" aria-labelledby="profile-dropdown">
                                             <a class="dropdown-item" asp-controller="Profile" asp-action="Index">Profile</a>
-                                            <a class="dropdown-item" href="#">Account</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" asp-controller="Logout" asp-action="Index">Sign out</a>
                                         </div>
@@ -181,6 +180,7 @@
         </header>
     </div>
 
+    @await Html.PartialAsync("KanaCharts")
 
     <div class="container body-content">
         @RenderBody()

@@ -13,19 +13,23 @@
 }
 
 #seed {
-    background-color: var(--main-color-5)
+    /*background-color: var(--main-color-5)*/
+    background-color:rgba(90, 124, 125,0.3) 
 }
 
 #leaf {
-    background-color: var(--main-color-4)
+    /*background-color: var(--main-color-4)*/
+    background-color: rgba(115, 184, 200, 0.2);
 }
 
 #bloom {
-    background-color: var(--main-color-3)
+    /*background-color: var(--main-color-3)*/
+    background-color: rgba(254, 211, 166, 0.5);
 }
 
 #flower {
-    background-color: var(--main-color-2)
+    /*background-color: var(--main-color-2)*/
+    background-color: rgba(255, 94, 50, 0.2);
 }
 
 #jumbo {
@@ -49,7 +53,7 @@
 }
 
 .shadow {
-    border-bottom: solid;
+    
     border-bottom-color: rgb(255, 255, 255);
 }
 
@@ -59,17 +63,24 @@
     height: 3em;
 }
 
+.divTitle {
+    background-color: rgb(247, 250, 254);
+    height: 3em;
+    margin-bottom:2em;
+}
+
 .square-box {
     position: relative;
     width: 50%;
     overflow: hidden;
     cursor: pointer;
+    padding: 0.5em;
 }
 
     .square-box:before {
         content: "";
         display: block;
-        padding-top: 75%;
+        padding-top: 85%;
     }
 
     .square-box:hover {
@@ -82,6 +93,9 @@
 }
 
 .square-content {
+    border: solid;
+    border-width: 0.5em;
+    border-color: #eaecee;
     position: absolute;
     top: 0;
     left: 0;

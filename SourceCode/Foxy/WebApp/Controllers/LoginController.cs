@@ -41,6 +41,10 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            var user = HttpContext.User.Claims.Count();
+            if (user != 0)
+                return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Dashboard" }));
+
             return View();
         }
 
@@ -65,11 +69,6 @@ namespace WebApp.Controllers
                     // Check if the passwords match
                     if (user.Password.Equals(hashStr))
                     {
-                        // Generate the token
-                        //var token = _jwtToken.GenerateToken(user);
-
-
-                        // create claims
                         List<Claim> claims = new List<Claim>
                         {
                             new Claim(ClaimTypes.Email, user.Email),
@@ -84,11 +83,7 @@ namespace WebApp.Controllers
 
                         // sign-in
                         await HttpContext.SignInAsync(principal);
-
-                        //LoggedUser.IsLogged = true;
-                        //LoggedUser.Email = user.Email;
-                        //LoggedUser.UserName = user.Username;
-
+                        
                         SharedInfo.LoginError = "";
                         SharedInfo.ShowSuccessMessage = "You are now logged in!";
                         return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Dashboard" }));

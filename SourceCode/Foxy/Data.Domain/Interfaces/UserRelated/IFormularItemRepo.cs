@@ -11,7 +11,7 @@ namespace Data.Domain.Interfaces.UserRelated
     public interface IFormularItemRepo : IGenericRepository<FormItem>
     {
         Task<FormularWrapper> GetWrappedItem(Guid userId, Guid formularTemplateId);
-        Task<FormItem> GetItemByTemplate(Guid templateId);
+        Task<FormItem> GetItemByTemplateAndUser(Guid userId, Guid templateId);
         Task AddItemsForUser(Guid userId);
         Task<List<FormularWrapper>> WrapFormularList(List<FormItem> formulars);
         Task<List<FormularWrapper>> GetAllFormularsByUser(Guid userId);

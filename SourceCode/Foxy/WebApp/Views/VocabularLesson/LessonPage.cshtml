@@ -50,6 +50,9 @@
     <script>
         lessonNumber = @Model.LessonList.Count();
     </script>
+    <div style="padding-top:10em!important;padding-left:1em;position:fixed;z-index:9999">
+        @await Html.PartialAsync("KanaCharts")
+    </div>
     <div class="fill-screen">
         <div class="upper-header">
 

@@ -1,6 +1,7 @@
 ﻿using Business.Wrappers;
 using System.Collections.Generic;
 using System.Linq;
+using WebApplication.Models;
 
 namespace WebApp.Models
 {
@@ -29,6 +30,9 @@ namespace WebApp.Models
         public int KanjiPercent { get; set; }
         public int RadicalPercent { get; set; }
         public int WordsPercent { get; set; }
+
+        public GrammarModel Grammar { get; set; }
+        public ReadListModel Reading { get; set; }
 
         public void CalculatePercentages()
         {

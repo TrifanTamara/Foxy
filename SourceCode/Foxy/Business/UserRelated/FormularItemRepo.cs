@@ -40,7 +40,7 @@ namespace Business.UserRelated
 
         public async Task<FormularWrapper> GetWrappedItem(Guid userId, Guid formularTemplateId)
         {
-            FormItem fi = await GetItemByTemplate(formularTemplateId);
+            FormItem fi = await GetItemByTemplateAndUser(userId, formularTemplateId);
             FormTemplate ft = await _formularTempRepo.FindById(formularTemplateId);
 
             if(fi!=null && ft != null)
@@ -48,6 +48,9 @@ namespace Business.UserRelated
                 List<QuestionWrapper> questionList = new List<QuestionWrapper>();
                 List<VocabularWrapper> wordList = new List<VocabularWrapper>();
 
+                
+                
+                
                 if (ft.QuestionTemplates != null)
                 {
                     foreach (var question in ft.QuestionTemplates)
@@ -55,14 +58,15 @@ namespace Business.UserRelated
                         questionList.Add(await _questRepo.GetWrappedItem(userId, question.QuestionTemplateId));
                     }
                 }
-
+                
+                
                 List<WordsInText> relList = (await _relationshipsRepo.GetByMainId(ft.FormTemplateId)).ToList();
                 foreach (var rel in relList)
                 {
                     VocabularTemplate vt = await _vocabRepo.GetVocabTemplate(rel.WordId);
                     if (vt != null) wordList.Add(await _vocabRepo.GetWrappedItem(userId, vt.Name, vt.Type));
                 }
-
+                
                 return new FormularWrapper(fi, ft, questionList, wordList);
             }
             return null;
@@ -70,18 +74,22 @@ namespace Business.UserRelated
 
         public async Task<List<FormularWrapper>> WrapFormularList(List<FormItem> formulars)
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            
             List<FormularWrapper> result = new List<FormularWrapper>();
             foreach(var f in formulars)
             {
                 result.Add(await GetWrappedItem(f.UserId, f.FormularTemplateId));
             }
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
             return result;
         }
  
-        public async Task<FormItem> GetItemByTemplate(Guid templateId)
+        public async Task<FormItem> GetItemByTemplateAndUser(Guid userId, Guid templateId)
         {
             List<FormItem> items = (await GetAll()).ToList();
-            return items.Where(f => f.FormularTemplateId == templateId).FirstOrDefault();
+            return items.Where(f => f.FormularTemplateId == templateId && f.UserId==userId).FirstOrDefault();
         }
 
         public async Task AddItemsForUser(Guid userId)
@@ -97,12 +105,28 @@ namespace Business.UserRelated
 
         public async Task<List<FormularWrapper>> GetAllFormularsByUser(Guid userId)
         {
-            return await WrapFormularList((await GetAll()).Where(f => f.UserId == userId).ToList());
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            List<FormItem> list = (await GetAll()).Where(f => f.UserId == userId).ToList();
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+
+
+            var watch2 = System.Diagnostics.Stopwatch.StartNew();
+            List<FormularWrapper> listW = await WrapFormularList(list);
+            watch2.Stop();
+            var elapsedMs2 = watch2.ElapsedMilliseconds;
+
+
+            return listW;
         }
 
         public async Task<List<FormularWrapper>> GetAllFormByUserAndType(Guid userId, FormType type)
         {
-            return (await GetAllFormularsByUser(userId)).Where(f => f.Template.Type == type).ToList();
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            List<FormularWrapper> list = (await GetAllFormularsByUser(userId)).Where(f => f.Template.Type == type).ToList();
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            return list;
         }
 
         public async Task<FormularWrapper> GetByUserAndPvId(Guid userId, int pvId, FormType type)

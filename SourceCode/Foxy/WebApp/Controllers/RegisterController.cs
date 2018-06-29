@@ -33,6 +33,10 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            var user = HttpContext.User.Claims.Count();
+            if (user != 0)
+                return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Dashboard" }));
+
             return View();
         }
         

@@ -9,6 +9,9 @@ using WebApp.Models;
 using Data.Domain.Entities.UserRelated;
 using Data.Domain.Entities;
 using Data.Domain.Entities.TemplateItems;
+using Data.Domain.Interfaces.UserRelated;
+using Data.Domain.Wrappers;
+using WebApplication.Models;
 
 namespace WebApp.Controllers
 {
@@ -17,11 +20,13 @@ namespace WebApp.Controllers
     {
         private IUserRepo _userRepo;
         private IVocabularItemRepo _vocabularRepo;
+        private IFormularItemRepo _formularRepo;
 
-        public DashboardController(IUserRepo userRepo, IVocabularItemRepo vocabularRepo)
+        public DashboardController(IUserRepo userRepo, IVocabularItemRepo vocabularRepo, IFormularItemRepo formular)
         {
             _userRepo = userRepo;
             _vocabularRepo = vocabularRepo;
+            _formularRepo = formular;
         }
 
         [HttpGet]
@@ -49,6 +54,15 @@ namespace WebApp.Controllers
             model.WordsTotal = (await _vocabularRepo.GetAllVocabByItemType(user.UserId, VocabularType.Word));
 
             model.CalculatePercentages();
+            
+            model.Grammar = new GrammarModel(await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormType.Grammar));
+
+
+            List<FormularWrapper> readL = await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormType.Reading);
+            List<FormularWrapper> listL = await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormType.Listening);
+
+            model.Reading = new ReadListModel(readL, listL);
+            
 
             return View(model);
         }

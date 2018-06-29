@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Threading.Tasks;
 using Data.Domain.Interfaces.Template;
+using System.Linq;
 
 namespace WebApp.Controllers
 {
@@ -46,16 +47,13 @@ namespace WebApp.Controllers
             {
                 throw new Exception(e.Message);
             }
+            var user = HttpContext.User.Claims.Count();
+            if(user!=0)
+                return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Dashboard" }));
 
             return View();
         }
-
-        [HttpGet]
-        [Route("error")]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
 
     }
 }

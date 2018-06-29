@@ -21,41 +21,45 @@
     </div>
 </div>
 <div class="row jumbotron jumbotron-fluid" id="jumbo">
-    <div class="container">
+    <div class="container" style="padding-right:0!important">
         <div class="row levels">
-            <div class="square-box col-sm" id="seed">
-                <div class='square-content'>
-                    <div>
-                        <span>
-                            Seed
-                        </span>
+            <div class="square-box col-sm">
+                @{
+                    string tooltipS = "<div style=\"font-size:1.3em;\"><em>Total items: </em> <u> <b>" + Model.SeedLevelNr + "</b></u></div>";
+                }
+                <div class='square-content' id="seed" data-toggle="tooltip" data-placement="bottom" data-html="true" title="@tooltipS">
+                    <div class="text-center">
+                        <img src="~/imagesFoxy/stadii/seedText.png" class="" style="height: 97%;">
                     </div>
                 </div>
             </div>
-            <div class="square-box col-sm" id="leaf">
-                <div class='square-content'>
-                    <div>
-                        <span>
-                            Leaf
-                        </span>
+            <div class="square-box col-sm">
+                @{
+                    tooltipS = "<div style=\"font-size:1.3em;\"><em>Total items: </em> <u> <b>" + Model.LeafLevelNr + "</b></u></div>";
+                }
+                <div class='square-content' id="leaf" data-toggle="tooltip" data-placement="bottom" data-html="true" title="@tooltipS">
+                    <div class="text-center">
+                        <img src="~/imagesFoxy/stadii/leafText.png" class="" style="height: 97%;">
                     </div>
                 </div>
             </div>
-            <div class="square-box col-sm" id="bloom">
-                <div class='square-content'>
-                    <div>
-                        <span>
-                            Bloom
-                        </span>
+            <div class="square-box col-sm">
+                @{
+                    tooltipS = "<div style=\"font-size:1.3em;\"><em>Total items: </em> <u> <b>" + Model.BloomLevelNr + "</b></u></div>";
+                }
+                <div class='square-content' id="bloom" data-toggle="tooltip" data-placement="bottom" data-html="true" title="@tooltipS">
+                    <div class="text-center">
+                        <img src="~/imagesFoxy/stadii/bloomText.png" class="" style="height: 97%;">
                     </div>
                 </div>
             </div>
-            <div class="square-box col-sm" id="flower">
-                <div class='square-content'>
-                    <div>
-                        <span>
-                            Flourished
-                        </span>
+            <div class="square-box col-sm">
+                @{
+                    tooltipS = "<div style=\"font-size:1.3em;\"><em>Total items: </em> <u> <b>" + Model.FlourishedLevelNr + "</b></u></div>";
+                }
+                <div class='square-content' id="flower" data-toggle="tooltip" data-placement="bottom" data-html="true" title="@tooltipS">
+                    <div class="text-center">
+                        <img src="~/imagesFoxy/stadii/flourishedText.png" class="" style="height: 97%;">
                     </div>
                 </div>
             </div>
@@ -400,16 +404,174 @@
     </a>
 </div>
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Grammar</h1>
-        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-    </div>
-</div>
+@*<div class="row">
+    <div class="col jumbotron" style="margin-right:0.5em;padding:1em!important">
+        <div class="container">
+            <div class="rounded-top text-center shadow divTitle">
+                <p class="title-upper-box">Grammar</p>
+            </div>
+            @if (Model.Grammar.Formulars.Count() > 0)
+            {
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    @{
+                        var formular = Model.Grammar.Formulars[0];
+                    }
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="card p-3" style="width: 18rem;">
+                                <div class="card-header">
+                                    <div class="text-uppercase">
+                                        Words status
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: @formular.WordsPercentage%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                            @formular.WordsPercentage%
+                                        </div>
+                                    </div>
+                                </div>
+                                <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.Template.PartialViewId).jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">#@(formular.Template.PartialViewId). @formular.Template.Topic</h5>
+                                    <p class="card-text">
+                                        @formular.Template.Description
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Reading</h1>
-        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                                    </p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <p class="text-uppercase" style="display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                            <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                @formular.Questions.Count()
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="background-color: azure">
+                                        <div class="row">
+                                            <p class="text-uppercase">Score</p>
+                                        </div>
+                                        @if (formular.Item.TimesAnswered == 0)
+                                        {
+                                            <p>No answers yet.</p>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                @for (int i = 0; i < formular.StarsNumber; ++i)
+                                                {
+                                                    <i class="fas fa-star star-orange rating-star"></i>
+                                                }
+                                                @for (int i = formular.StarsNumber; i < 5; ++i)
+                                                {
+                                                    <i class="fas fa-star rating-star"></i>
+                                                }
+                                            </div>
+                                            <div class="row">
+                                                <p>@(formular.Average)/5 average based on @formular.Item.TimesAnswered answers.</p>
+                                            </div>
+                                        }
+                                    </li>
+
+                                </ul>
+                                <div class="card-body float-bottom">
+                                    <a class="" asp-controller="Grammar" asp-action="formular@(formular.Template.PartialViewId)" style="all:unset">
+                                        <div class="btn btn-info">Open Formualar</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        @for (int f = 1; f < Model.Grammar.Formulars.Count(); ++f)
+                        {
+                            formular = Model.Grammar.Formulars[f];
+                        <div class="carousel-item">
+                            <div class="card p-3" style="width: 18rem;">
+                                <div class="card-header">
+                                    <div class="text-uppercase">
+                                        Words status
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: @formular.WordsPercentage%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                            @formular.WordsPercentage%
+                                        </div>
+                                    </div>
+                                </div>
+                                <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.Template.PartialViewId).jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">#@(formular.Template.PartialViewId). @formular.Template.Topic</h5>
+                                    <p class="card-text">
+                                        @formular.Template.Description
+
+                                    </p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <p class="text-uppercase" style="display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                            <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                @formular.Questions.Count()
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="background-color: azure">
+                                        <div class="row">
+                                            <p class="text-uppercase">Score</p>
+                                        </div>
+                                        @if (formular.Item.TimesAnswered == 0)
+                                        {
+                                            <p>No answers yet.</p>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                @for (int i = 0; i < formular.StarsNumber; ++i)
+                                                {
+                                                    <i class="fas fa-star star-orange rating-star"></i>
+                                                }
+                                                @for (int i = formular.StarsNumber; i < 5; ++i)
+                                                {
+                                                    <i class="fas fa-star rating-star"></i>
+                                                }
+                                            </div>
+                                            <div class="row">
+                                                <p>@(formular.Average)/5 average based on @formular.Item.TimesAnswered answers.</p>
+                                            </div>
+                                        }
+                                    </li>
+
+                                </ul>
+                                <div class="card-body float-bottom">
+                                    <a class="" asp-controller="Grammar" asp-action="formular@(formular.Template.PartialViewId)" style="all:unset">
+                                        <div class="btn btn-info">Open Formualar</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            }
+        </div>
     </div>
-</div>
+    <div class="col jumbotron" style="margin-left:0.5em;padding:1em!important">
+        <div class="container">
+            <div class="rounded-top text-center shadow divTitle">
+                <p class="title-upper-box">Reading</p>
+            </div>
+            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        </div>
+    </div>
+</div>*@
+

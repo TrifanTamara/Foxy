@@ -33,7 +33,8 @@ jQuery(document).ready(function () {
     $('#review-button').click(function (e) {
         if ($('#review-button').hasClass('active-review')) {
             //go to review
-            toastr.success("you go to review", { positionClass: 'toast-top-right' });
+            var url = 'LessonReview';
+            window.location.href = url;
         } else {
             toastr.warning("All elements must be visited to activate review!", { positionClass: 'toast-top-right' });
         }
