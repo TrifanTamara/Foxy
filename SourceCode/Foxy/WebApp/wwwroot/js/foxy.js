@@ -303,3 +303,36 @@ function RemoveSynonym(vId, index) {
         }
     })
 }
+
+function SetSession() {
+    var e = document.getElementById("inlineFormCustomSelect");
+    var valueSelect = e.options[e.selectedIndex].text;
+
+    if (valueSelect === "Choose...") {
+        toastr.warning("You need to select a value first");
+    }
+    else {
+        $.ajax({
+            type: "POST",
+            url: "/profile/setSession",
+            data: {
+                value: valueSelect
+            },
+            dataType: 'json',
+            success: function (data) {
+                var str = data["success"];
+                var sessionNr = data["length"];
+                if (str === false) {
+                    toastr.warning("Could not set. Current length: " + sessionNr);
+                } else {
+                    toastr.success("Session successfully setted. Current length: " + sessionNr);
+                    $('#lessonSize').text(sessionNr);
+                }
+            },
+            error: function (data) {
+                toastr.error("Could not set session length!");
+                var x = 1;
+            }
+        })
+    }
+}

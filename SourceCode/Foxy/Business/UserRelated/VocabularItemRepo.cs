@@ -395,7 +395,7 @@ namespace Business
             User user = await _userRepo.FindById(userId);
             List<VocabularItem> allUsersVocab = (await GetVocabByUser(userId)).ToList();
             return allUsersVocab.Where(x => DateTime.Compare(x.UnlockTime, DateTime.Now) <= 0 &&
-                (int)x.CurrentMiniLevel > (int)level - 1 && (int)x.CurrentMiniLevel <= (int)level).ToList();
+                MiniIsGrand(x.CurrentMiniLevel, level)).ToList();
         }
 
         public bool VocabInList(VocabularTemplate element, List<VocabularWrapper> elementList)

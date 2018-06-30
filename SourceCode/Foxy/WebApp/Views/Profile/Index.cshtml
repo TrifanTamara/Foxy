@@ -14,26 +14,56 @@
             <p class="title-upper-box"> @Model.User.Username </p>
         </div>
     </div>
-    <div class="container" style="background-color: rgba(255, 255, 255, 0.52);margin-top:2em;margin-bottom:2em; height:5em">
-        <div class="row" style="width:100%;">
+
+    <div class="container rounded text-center" style="background-color: rgba(255, 255, 255, 0.52);margin-top:2em;margin-bottom:2em; display:block;padding-top:1em;padding-bottom:1.5em">
+        <div class="title-upper-box" style="font-size:1.5em;border-bottom:solid; border-width:0.05em;margin-bottom:1em">
+            Lesson Session:
+            <div class="badge-info rounded" id="lessonSize" style="font-size:0.9em;display:inline; padding:0.1em 0.5em 0.1em 0.5em">
+                @Model.User.LessonSize
+            </div>
+        </div>
+        <div class="row text-center" style="width:100%;margin-right:0!important;margin-left:0!important">
+            <div style="font-size:1em!important;width:60%;margin-right:20%;margin-left:20%" ">
+                <div class="col-auto my-1">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Lesson length</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" style="width:10em">
+                        <option selected>Choose...</option>
+                        <option value="1">5</option>
+                        <option value="2">6</option>
+                        <option value="3">7</option>
+                        <option value="4">8</option>
+                        <option value="5">9</option>
+                        <option value="6">10</option>
+                    </select>
+                    <div class="btn btn-outline-info" onclick="SetSession()">
+                        Set
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container rounded" style="background-color: rgba(255, 255, 255, 0.52);margin-top:2em;margin-bottom:2em; display:block;padding-top:1em;padding-bottom:1.5em">
+        <p class="title-upper-box" style="font-size:1.5em;border-bottom:solid; border-width:0.05em;margin-bottom:1em">Favorite vocabular items <label for="toggle-heart" style="font-size:1.5em;color: red">❤</label></p>
+        <div class="row" style="width:100%;margin-right:0!important;margin-left:0!important">
             <div class="col-md-4">
                 <div class="container">
-                    <div class="btn btn-block btn-outline-primary">
-                        Radical [@Model.favoriteRadical.Count()]
+                    <div class="btn btn-block btn-outline-primary" style="font-size:1.3em" data-toggle="modal" data-target="#modalRadical">
+                        Radical [ @Model.favoriteRadical.Count() ]
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="container">
-                    <div class="btn btn-block btn-outline-secondary">
-                        Kanji [@Model.favoriteKanji.Count()]
+                    <div class="btn btn-block btn-outline-secondary" style="font-size:1.3em" data-toggle="modal" data-target="#modalKanji">
+                        Kanji [ @Model.favoriteKanji.Count() ]
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="container">
-                    <div class="btn btn-block btn-outline-info">
-                        Words [@Model.favoriteWords.Count()]
+                    <div class="btn btn-block btn-outline-info" style="font-size:1.3em" data-toggle="modal" data-target="#modalWord">
+                        Words [ @Model.favoriteWords.Count() ]
                     </div>
                 </div>
             </div>
@@ -45,7 +75,12 @@
             <div class="jumbotron" style="margin-right:0.5em;padding:1em!important;height:46.5em">
                 <div class="container">
                     <div class="rounded-top text-center shadow divTitle">
-                        <p class="title-upper-box">Grammar [ @Model.favoriteGrammar.Count() ]</p>
+                        <div class="title-upper-box">
+                            Grammar
+                            <div class="badge-info rounded" id="lessonSize" style="font-size:0.8em;display:inline; padding:0.1em 0.5em 0.1em 0.5em;opacity:0.4">
+                                @Model.favoriteGrammar.Count()
+                            </div>
+                        </div>
                     </div>
                     @if (Model.favoriteGrammar.Count() > 0)
                     {
@@ -67,7 +102,7 @@
                                             <div class="card-header">
                                                 <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
                                             </div>
-                                            <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">
+                                            <img class="card-img-top" type="image/jpeg" src="/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">
                                             <div class="card-body" style="background-color:aliceblue;margin-top:1em">
                                                 <p class="card-text">
                                                     @formular.Description
@@ -102,7 +137,7 @@
                                                 <div class="card-header">
                                                     <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
                                                 </div>
-                                                <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">
+                                                <img class="card-img-top" src="/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">
                                                 <div class="card-body" style="background-color:aliceblue;margin-top:1em">
                                                     <p class="card-text">
                                                         @formular.Description
@@ -152,7 +187,12 @@
             <div class="jumbotron" style="margin-right:0.5em;padding:1em!important;height:46.5em">
                 <div class="container">
                     <div class="rounded-top text-center shadow divTitle">
-                        <p class="title-upper-box">Reading [ @Model.favoriteReading.Count() ]</p>
+                        <div class="title-upper-box">
+                            Reading
+                            <div class="badge-info rounded" id="lessonSize" style="font-size:0.8em;display:inline; padding:0.1em 0.5em 0.1em 0.5em;opacity:0.4">
+                                @Model.favoriteReading.Count()
+                            </div>
+                        </div>
                     </div>
                     @if (Model.favoriteReading.Count() > 0)
                     {
@@ -289,4 +329,98 @@
 
 
 
+</div>
+
+
+
+<div class="modal fade" id="modalRadical" tabindex="-1" role="dialog" aria-labelledby="modalTitleRadical" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleRadical">Radicals</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container text-center">
+                    <div class="">
+                        @for (int i = 0; i < Model.favoriteRadical.Count; ++i)
+                        {
+                            string componentColor = "badge-radical";
+                            string tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + Model.favoriteRadical[i].Meaning.Split(";")[0] + "</p>";
+
+                            <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical" asp-route-name="@Model.favoriteRadical[i].Name">
+                                <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
+                                    @Model.favoriteRadical[i].Name
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalKanji" tabindex="-1" role="dialog" aria-labelledby="modalTitleKanji" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleKanji">Kanjis</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container text-center">
+                    <div class="">
+                        @for (int i = 0; i < Model.favoriteKanji.Count; ++i)
+                        {
+                            string componentColor = "badge-kanji";
+                            string tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + Model.favoriteKanji[i].Meaning.Split(";")[0] + "</p>";
+
+                            <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji" asp-route-name="@Model.favoriteKanji[i].Name">
+                                <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
+                                    @Model.favoriteKanji[i].Name
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalWord" tabindex="-1" role="dialog" aria-labelledby="modalTitleWord" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleWord">Words</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container text-center">
+                    <div class="">
+                        @for (int i = 0; i < Model.favoriteWords.Count; ++i)
+                        {
+                            string componentColor = "badge-word";
+                            string tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + Model.favoriteWords[i].Meaning.Split(";")[0] + "</p>";
+                            
+                            <a style="all:unset!important" asp-controller="Vocabular" asp-action="word" asp-route-name="@Model.favoriteWords[i].Name">
+                                <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
+                                    @Model.favoriteWords[i].Name
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

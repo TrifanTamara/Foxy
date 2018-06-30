@@ -32,7 +32,7 @@ namespace Data.Domain.Entities
             return instance;
         }
 
-        public void Update(string name, string email, string password, string description, int level, Guid imageId)
+        public void Update(string name, string email, string password, string description, int level, Guid imageId, int lessonSize = 5)
         {
             Username = name;
             Email = email;
@@ -40,7 +40,7 @@ namespace Data.Domain.Entities
             Description = description;
             Update(level);
             ImageId = imageId;
-            LessonSize = 5;
+            LessonSize = lessonSize;
         }
 
         public void Update(int level)
