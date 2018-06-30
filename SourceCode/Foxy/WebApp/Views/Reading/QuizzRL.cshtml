@@ -1,11 +1,11 @@
 ﻿@using Data.Domain.Wrappers;
-@model FormularWrapper
+@model QuizzModel
 @{
     Layout = null;
 }
 @{
     string typeS = "Reading";
-    if ((byte)Model.Template.Type == 2)
+    if ((byte)Model.Formular.Template.Type == 2)
     {
         typeS = "Listening";
 
@@ -20,7 +20,7 @@
         }
     };
     var questionModels = [];
-    var formularId = "@Model.Item.FormItemId";
+    var formularId = "@Model.Formular.Item.FormItemId";
 </script>
 
 @for (int orderNr = 0; orderNr < Model.Questions.Count; ++orderNr)
@@ -86,13 +86,13 @@
     <div class="container">
         <div class="row name-style-level text-center" style="width:100%;margin-bottom:0.5em!important;">
             <div class="text-center" style="text-align:center!important;display:inline">
-                Quizz for @typeS: <div style="color:darkred;display:inline">@(Model.Template.Topic)</div>
+                Quizz for @typeS: <div style="color:darkred;display:inline">@(Model.Formular.Template.Topic)</div>
             </div>
         </div>
 
         @if (typeS.Equals("Listening"))
         {
-            string pathS = "list"+Model.Template.PartialViewId+".ogg";
+            string pathS = "list"+Model.Formular.Template.PartialViewId+".ogg";
             <audio controls style="margin-bottom:1em">
 
                 <source src="~/sounds/listening/@pathS" type="audio/ogg">
@@ -101,7 +101,7 @@
         }
 
         <div class="container jumbotron" style="font-size:1.2em; padding-top:1em;padding-bottom:1em;white-space: pre-line">
-            @Model.Template.Description
+            @Model.Formular.Template.Description
         </div>
 
         @for (int qi = 0; qi < Model.Questions.Count(); ++qi)
@@ -150,7 +150,7 @@
                         }
                         var tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + word.MainMeaning + "</p>";
                         tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + word.MainReading + "</p></div>";
-                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="@word.VocabularType/@word.Name">
+                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="@word.VocabularType" asp-route-name="@word.Name">
                             <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
                                 @word.Name
                             </div>

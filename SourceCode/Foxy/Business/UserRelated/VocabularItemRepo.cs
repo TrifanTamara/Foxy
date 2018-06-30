@@ -50,11 +50,11 @@ namespace Business
         public async Task<List<LevelWrapper>> GetGroupedVocabLevels(Guid userId, int startLevel = 0, int endLevel = 0)
         {
             List<LevelWrapper> result = new List<LevelWrapper>();
-            if(startLevel == 0 || endLevel ==0 || endLevel>StaticInfo.TotalLevelNumber)
+            if (startLevel == 0 || endLevel == 0 || endLevel > StaticInfo.TotalLevelNumber)
             {
                 startLevel = 1; endLevel = StaticInfo.TotalLevelNumber;
             }
-            for(int lev= startLevel; lev<=endLevel; ++lev)
+            for (int lev = startLevel; lev <= endLevel; ++lev)
             {
                 List<VocabularTemplate> templates = await _tempVocabRepo.GetComponentsByLevel(lev);
                 LevelWrapper levelWrapper = new LevelWrapper(lev, await WrapVocabular(await TransformTemplateToItem(userId, templates)));
@@ -66,7 +66,7 @@ namespace Business
         public async Task<List<VocabularItem>> TransformTemplateToItem(Guid userId, List<VocabularTemplate> templates)
         {
             List<VocabularItem> result = new List<VocabularItem>();
-            foreach(var temp in templates)
+            foreach (var temp in templates)
             {
                 result.Add(await GetVocabByTemplateAndUser(temp.VocabularTemplateId, userId));
             }
@@ -77,7 +77,7 @@ namespace Business
         {
             return await _databaseContext.VocabularItems.Where(x => x.UserId.Equals(userId)).ToListAsync();
         }
-        
+
         public async Task<VocabularTemplate> GetVocabTemplate(Guid templateId)
         {
             return await _databaseContext.VocabularTemplates.Where(x => x.VocabularTemplateId.Equals(templateId)).FirstOrDefaultAsync();
@@ -179,7 +179,7 @@ namespace Business
                 int maxstrike = (strike > vocab.LongestStrike) ? strike : vocab.LongestStrike;
                 vocab.Update(strike, maxstrike, vocab.RightAnswers + 1, vocab.WrongAnswers, true, DateTime.Now);
 
-                
+
             }
             else
             {
@@ -208,7 +208,7 @@ namespace Business
                 }
             }
         }
-        
+
         public async Task AddVocabularForNewUser(Guid userId)
         {
             List<VocabularTemplate> vocabList = (await _tempVocabRepo.GetAll()).ToList();
@@ -337,7 +337,7 @@ namespace Business
             return elementsType;
         }
 
-            public async Task<List<VocabularWrapper>> GetVocabLessonByTypes(Guid userId, int level, VocabularType type, InfoLessonType requestedInfo)
+        public async Task<List<VocabularWrapper>> GetVocabLessonByTypes(Guid userId, int level, VocabularType type, InfoLessonType requestedInfo)
         {
             List<VocabularWrapper> elements = await GetVocabLesson(userId);
             List<VocabularWrapper> elementsType = new List<VocabularWrapper>();
@@ -356,7 +356,7 @@ namespace Business
                 case InfoLessonType.Passed:
                     return (await GetVocabItemsByStages(userId, level, type, GrandLevels.Leaf));
             }
-            
+
             return new List<VocabularWrapper>();
         }
 
@@ -443,5 +443,18 @@ namespace Business
             return finalList;
         }
 
+        public async Task<List<VocabularTemplate>> GetFavItems(Guid userId, VocabularType type)
+        {
+            List<VocabularItem> items = (await GetVocabByUser(userId)).Where(x => x.UserId == userId && x.Favorite).ToList();
+            List<VocabularTemplate> result = new List<VocabularTemplate>();
+
+            foreach(var item in items)
+            {
+                VocabularTemplate temp = await _tempVocabRepo.FindById(item.VocabularTemplateId);
+                if(temp.Type == type) result.Add(temp);
+            }
+            
+            return result;
+        }
     }
 }

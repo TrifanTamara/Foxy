@@ -20,6 +20,12 @@
         <h5 style="color:gray;text-transform:uppercase;margin:0em!important;padding:0!important">nothing to display</h5>
     </div>
 }
+else if (Model.Components.Count() == 0)
+{
+    <div class="container text-center justify-content-center" style="margin-top:2em!important;margin-bottom:2em!important;padding:0!important;padding:0!important">
+        <h5 style="color:gray;text-transform:uppercase;margin:0em!important;padding:0!important">nothing to display</h5>
+    </div>
+}
 else
 {
     <div class="row" style="all:unset;">
@@ -33,27 +39,33 @@ else
     <div class="row" style="all:unset;">
         <div class="col components-col" style="width:100%">
 
-            <div class="row">
+            <div class="row text-center">
                 @for (int i = 0; i < Model.Components.Count(); ++i)
                 {
-                    <div class="col">
-                        <div class="row" style="margin-bottom:1em!important;">
-                            <div class="component-name-box @componentColor">
-                                <div class="component-name-text">
-                                    @Model.Components[i].Name
+                    string typeC = "radical";
+                    if (Model.Template.Type == Data.Domain.Entities.TemplateItems.VocabularType.Word)
+                    {
+                        typeC = "kanji";
+                    }
+                    <a style="all:unset!important;width:100%!important" asp-controller="Vocabular" asp-action="@typeC" asp-route-name="@Model.Components[i].Name">
+                        <div class="col" style="width:100%!important">
+                            <div class="row" style="margin-bottom:1em!important;">
+                                <div class="component-name-box @componentColor">
+                                    <div class="component-name-text">
+                                        @Model.Components[i].Name
+                                    </div>
                                 </div>
                             </div>
+                            <div class="row meaning-comp">
+                                @{
+                                    string meaningFirst = @Model.Components[i].Meaning.Split(";")[0];
+                                }
+                                <p class="meaning-comp-text">
+                                    @meaningFirst
+                                </p>
+                            </div>
                         </div>
-                        <div class="row meaning-comp">
-                            @{
-                                string meaningFirst = @Model.Components[i].Meaning.Split(";")[0];
-                            }
-                            <p class="meaning-comp-text">
-                                @meaningFirst
-                            </p>
-                        </div>
-                    </div>
-
+                    </a>
                 }
             </div>
 

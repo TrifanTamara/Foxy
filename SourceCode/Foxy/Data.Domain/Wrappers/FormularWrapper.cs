@@ -13,7 +13,7 @@ namespace Data.Domain.Wrappers
         public FormItem Item { get; set; }
         public FormTemplate Template { get; set; }
 
-        public List<QuestionWrapper> Questions { get; set; }
+        //public List<QuestionWrapper> Questions { get; set; }
         public List<VocabularWrapper> RequiredVocabular { get; set; }
 
         public float WordsPercentage { get; set; }
@@ -22,12 +22,12 @@ namespace Data.Domain.Wrappers
         public int StarsNumber { get; set; }
         public string Average { get; set; }
 
-        public FormularWrapper(FormItem item, FormTemplate template, List<QuestionWrapper> questions, List<VocabularWrapper> reqVoc)
+        public FormularWrapper(FormItem item, FormTemplate template, List<VocabularWrapper> reqVoc)
         {
             Item = item;
             Template = template;
 
-            Questions = questions;
+            //Questions = questions;
             RequiredVocabular = reqVoc;
 
             TransformInformation();

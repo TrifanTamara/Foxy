@@ -55,14 +55,13 @@ namespace WebApp.Controllers
 
             model.CalculatePercentages();
             
-            model.Grammar = new GrammarModel(await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormType.Grammar));
+            model.Grammar = (await _formularRepo.GetAllFormTempByType(FormType.Grammar));
 
+            model.Reading = await _formularRepo.GetAllFormTempByType(Data.Domain.Entities.TemplateItems.FormType.Reading);
+            model.Reading.AddRange(await _formularRepo.GetAllFormTempByType(Data.Domain.Entities.TemplateItems.FormType.Listening));
 
-            List<FormularWrapper> readL = await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormType.Reading);
-            List<FormularWrapper> listL = await _formularRepo.GetAllFormByUserAndType(user.UserId, Data.Domain.Entities.TemplateItems.FormType.Listening);
-
-            model.Reading = new ReadListModel(readL, listL);
-            
+            model.Grammar = model.Grammar.OrderBy(x => x.PartialViewId).ToList();
+            model.Reading = model.Reading.OrderBy(x => x.PartialViewId).ToList();
 
             return View(model);
         }

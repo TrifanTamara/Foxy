@@ -40,25 +40,23 @@ namespace Business.UserRelated
 
         public async Task<FormularWrapper> GetWrappedItem(Guid userId, Guid formularTemplateId)
         {
+            
             FormItem fi = await GetItemByTemplateAndUser(userId, formularTemplateId);
             FormTemplate ft = await _formularTempRepo.FindById(formularTemplateId);
 
             if(fi!=null && ft != null)
             {
-                List<QuestionWrapper> questionList = new List<QuestionWrapper>();
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                //List<QuestionWrapper> questionList = new List<QuestionWrapper>();
                 List<VocabularWrapper> wordList = new List<VocabularWrapper>();
 
-                
-                
-                
-                if (ft.QuestionTemplates != null)
-                {
-                    foreach (var question in ft.QuestionTemplates)
-                    {
-                        questionList.Add(await _questRepo.GetWrappedItem(userId, question.QuestionTemplateId));
-                    }
-                }
-                
+                //if (ft.QuestionTemplates != null)
+                //{
+                //    foreach (var question in ft.QuestionTemplates)
+                //    {
+                //        questionList.Add(await _questRepo.GetWrappedItem(userId, question.QuestionTemplateId));
+                //    }
+                //}
                 
                 List<WordsInText> relList = (await _relationshipsRepo.GetByMainId(ft.FormTemplateId)).ToList();
                 foreach (var rel in relList)
@@ -66,26 +64,39 @@ namespace Business.UserRelated
                     VocabularTemplate vt = await _vocabRepo.GetVocabTemplate(rel.WordId);
                     if (vt != null) wordList.Add(await _vocabRepo.GetWrappedItem(userId, vt.Name, vt.Type));
                 }
-                
-                return new FormularWrapper(fi, ft, questionList, wordList);
+                watch.Stop();
+                var elapsedMs = watch.ElapsedMilliseconds;
+                return new FormularWrapper(fi, ft, wordList);
             }
             return null;
         }
 
         public async Task<List<FormularWrapper>> WrapFormularList(List<FormItem> formulars)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
             
             List<FormularWrapper> result = new List<FormularWrapper>();
             foreach(var f in formulars)
             {
+                
                 result.Add(await GetWrappedItem(f.UserId, f.FormularTemplateId));
+                
             }
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
+            
             return result;
         }
- 
+
+        public async Task<List<FormularWrapper>> WrapFormularList(List<FormTemplate> formulars, Guid userId)
+        {
+            List<FormularWrapper> result = new List<FormularWrapper>();
+            foreach (var f in formulars)
+            {
+                result.Add(await GetWrappedItem(userId, f.FormTemplateId));
+
+            }
+
+            return result;
+        }
+
         public async Task<FormItem> GetItemByTemplateAndUser(Guid userId, Guid templateId)
         {
             List<FormItem> items = (await GetAll()).ToList();
@@ -123,18 +134,65 @@ namespace Business.UserRelated
         public async Task<List<FormularWrapper>> GetAllFormByUserAndType(Guid userId, FormType type)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            List<FormularWrapper> list = (await GetAllFormularsByUser(userId)).Where(f => f.Template.Type == type).ToList();
+            List<FormTemplate> templates = (await _formularTempRepo.GetAll()).Where(x => x.Type == type).ToList();
+            List<FormularWrapper> list = (await WrapFormularList(templates, userId));
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             return list;
         }
 
-        public async Task<FormularWrapper> GetByUserAndPvId(Guid userId, int pvId, FormType type)
+        public async Task<List<FormTemplate>> GetFavoriteFormsType(Guid userId, FormType type)
         {
-            List<FormularWrapper> formulars = await GetAllFormularsByUser(userId);
-            FormularWrapper formular = formulars.FirstOrDefault(x => x.Template.PartialViewId == pvId && type==x.Template.Type);
-            return formular;
+            List<FormItem> items = (await GetAll()).Where(x => userId==x.UserId && x.Favorite).ToList();
+            List<FormTemplate> result = new List<FormTemplate>();
+
+            foreach(var item in items)
+            {
+                FormTemplate temp = await _formularTempRepo.FindById(item.FormularTemplateId);
+                if(temp.Type == type) result.Add(temp);
+            }
+            result = result.OrderBy(x => x.PartialViewId).ToList();
+
+            return result;
         }
-        
+
+            public async Task<FormularWrapper> GetByUserAndPvId(Guid userId, int pvId, FormType type)
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            FormTemplate temp = (await _formularTempRepo.GetAll()).Where(x => x.PartialViewId == pvId && type == x.Type).FirstOrDefault();
+            FormularWrapper result = await GetWrappedItem(userId, temp.FormTemplateId);
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            return result;
+        }
+
+        public async Task<List<QuestionWrapper>> GetQuestionsByUserAndPvId(Guid userId, int pvId, FormType type)
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            FormTemplate ft = (await _formularTempRepo.GetAll()).Where(x => x.PartialViewId == pvId && x.Type == type).FirstOrDefault();
+            FormItem fi = await GetItemByTemplateAndUser(userId, ft.FormTemplateId);
+            List<QuestionWrapper> questionList = new List<QuestionWrapper>();
+            if (fi != null && ft != null)
+            {
+                if (ft.QuestionTemplates != null)
+                {
+                    foreach (var question in ft.QuestionTemplates)
+                    {
+                        questionList.Add(await _questRepo.GetWrappedItem(userId, question.QuestionTemplateId));
+                    }
+                }
+                
+            }
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            return questionList;
+        }
+
+        public async Task<List<FormTemplate>> GetAllFormTempByType(FormType type)
+        {
+            List<FormTemplate> templates = (await _formularTempRepo.GetAll()).Where(x => x.Type == type).ToList();
+            
+            return templates;
+        }
     }
 }

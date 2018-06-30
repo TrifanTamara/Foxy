@@ -45,29 +45,34 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        [Route("listening/form{quizz_nr}")]
+        [Route("listeningform{quizz_nr}")]
         public async Task<IActionResult> QuizzListening([FromRoute]int quizz_nr)
         {
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
-            FormularWrapper formular = await _formularRepo.GetByUserAndPvId(user.UserId, quizz_nr, Data.Domain.Entities.TemplateItems.FormType.Listening);
-            if (null == formular) return View("NotFound");
+            FormularWrapper formularW = await _formularRepo.GetByUserAndPvId(user.UserId, quizz_nr, Data.Domain.Entities.TemplateItems.FormType.Listening);
+            List<QuestionWrapper> formQuestions = await _formularRepo.GetQuestionsByUserAndPvId(user.UserId, quizz_nr, Data.Domain.Entities.TemplateItems.FormType.Listening);
+            if (null == formQuestions) return View("NotFound");
+
+            QuizzModel model = new QuizzModel(formQuestions, formularW);
             
-            return View("QuizzRL", formular);
+            return View("QuizzRL", model);
         }
 
         [HttpGet]
-        [Route("reading/form{quizz_nr}")]
+        [Route("readingform{quizz_nr}")]
         public async Task<IActionResult> QuizzReading([FromRoute]int quizz_nr)
         {
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
+            FormularWrapper formularW = await _formularRepo.GetByUserAndPvId(user.UserId, quizz_nr, Data.Domain.Entities.TemplateItems.FormType.Reading);
+            List<QuestionWrapper> formQuestions = await _formularRepo.GetQuestionsByUserAndPvId(user.UserId, quizz_nr, Data.Domain.Entities.TemplateItems.FormType.Reading);
+            if (null == formQuestions) return View("NotFound");
 
-            FormularWrapper formular = await _formularRepo.GetByUserAndPvId(user.UserId, quizz_nr, Data.Domain.Entities.TemplateItems.FormType.Reading);
-            if (null == formular) return View("NotFound");
+            QuizzModel model = new QuizzModel(formQuestions, formularW);
 
-            return View("QuizzRL", formular);
+            return View("QuizzRL", model);
         }
     }
 }

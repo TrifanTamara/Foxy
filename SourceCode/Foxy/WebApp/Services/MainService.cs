@@ -15,6 +15,7 @@ namespace WebApp.Services
     {
         private readonly IUserRepo _userRepo;
         IVocabularItemRepo _vocabRepo;
+        IVocabularTempRepo _vocabTemp;
         private static Dictionary<Guid, ReviewModel> currentReviewSeesion = new Dictionary<Guid, ReviewModel>();
 
         public static bool CheckReadingAns(string userAns, List<string> rightAnswers)
@@ -37,22 +38,28 @@ namespace WebApp.Services
             return false;
         }
 
-        public MainService(IUserRepo repository, IVocabularItemRepo vocabRepo)
+        public MainService(IUserRepo repository, IVocabularItemRepo vocabRepo, IVocabularTempRepo temp)
         {
             _userRepo = repository;
             _vocabRepo = vocabRepo;
+            _vocabTemp = temp;
         }
 
         public async Task<MenuModel> GetMenuModel(string email)
         {
             User user = await _userRepo.GetByEmail(email);
+            int totalLevels = _vocabRepo.GetTotalLevelNr();
+            if (totalLevels == 0)
+                await _vocabTemp.CalcTotalNumberLevel();
+
+            totalLevels = _vocabRepo.GetTotalLevelNr();
             MenuModel model = new MenuModel
             {
                 Username = user.Username,
                 Level = user.Level,
                 LessonNumber = (await _vocabRepo.GetVocabLesson(user.UserId)).Count(),
                 ReviewNumber = (await _vocabRepo.GetVocabForReview(user.UserId)).Count(),
-                TotalNrLevels = _vocabRepo.GetTotalLevelNr()
+                TotalNrLevels = totalLevels
             };
 
             return model;

@@ -63,7 +63,7 @@
                             <ul class="navbar-nav mr-auto nav-list" style="height:100%;" data-toggle="collapse" data-target="#navbarCollapse">
                                 <li class="dropdown liNavbar">
                                     <div class="div-saviour">
-                                        <a class="dropdown-item" asp-controller="Vocabular" asp-action="levels/l@(menuModel.Level)" style="all:unset">
+                                        <a class="dropdown-item" asp-controller="Vocabular" asp-action="levels" asp-route-levelNr="@(menuModel.Level)" style="all:unset">
                                             <div class="levels-id circle-just-border">
                                                 @menuModel.Level
                                             </div>
@@ -72,7 +72,7 @@
                                         <div class="dropdown-menu drop-down-menu-foxy" aria-labelledby="menuVocabLink">
                                             @for (int lev = 1; lev <= menuModel.TotalNrLevels; ++lev)
                                             {
-                                                <a class="dropdown-item" asp-controller="Vocabular" asp-action="levels/l@(lev)">
+                                                <a class="dropdown-item" asp-controller="Vocabular" asp-action="levels" asp-route-levelNr="@(lev)">
                                                     Level @lev
                                                 </a>
                                             }
@@ -94,13 +94,13 @@
                                         </a>
                                         <div class="dropdown-toggle menuVocabLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lexicon</div>
                                         <div class="dropdown-menu drop-down-menu-foxy" aria-labelledby="menuVocabLink">
-                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon/radical">
+                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon" asp-route-type="radical">
                                                 Radical
                                             </a>
-                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon/kanji">
+                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon" asp-route-type="kanji">
                                                 Kanji
                                             </a>
-                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon/words">
+                                            <a class="dropdown-item" asp-controller="Vocabular" asp-action="lexicon" asp-route-type="words">
                                                 Words
                                             </a>
                                             <div class="dropdown-divider"></div>

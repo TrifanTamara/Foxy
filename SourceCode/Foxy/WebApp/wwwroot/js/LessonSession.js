@@ -266,7 +266,7 @@ function LessonRefreshMeaningDiv(vId) {
         type: "POST",
         url: "/vocabular/update/meaningNote",
         data: {
-            VocabularId: vId,
+            ElementId: vId,
             NewContent: strMM
         },
         dataType: 'json'
@@ -333,7 +333,7 @@ function LessonRefreshReadingDiv(vId) {
         type: "POST",
         url: "/vocabular/update/readingNote",
         data: {
-            VocabularId: vId,
+            ElementId: vId,
             NewContent: node.value
         },
         dataType: 'json'
@@ -365,7 +365,7 @@ function LessonRemoveSynonym(vId, index) {
         type: "POST",
         url: "/vocabular/removeSynonym",
         data: {
-            VocabularId: vId,
+            ElementId: vId,
             Index: index
         },
         dataType: 'json',
@@ -487,11 +487,11 @@ function LessonAddSynonim(vId) {
     });
     var strMM = node.value;
 
-    $.ajax({
+        $.ajax({
         type: "POST",
         url: "/vocabular/addSynonym",
         data: {
-            VocabularId: vId,
+            ElementId: vId,
             NewContent: strMM
         },
         dataType: 'json',

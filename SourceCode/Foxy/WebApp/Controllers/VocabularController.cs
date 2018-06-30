@@ -39,8 +39,7 @@ namespace WebApp.Controllers
         [HttpGet]
         [Route("radical/{name}")]
         public async Task<IActionResult> Radical([FromRoute]string name)
-        {
-
+        { 
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
@@ -90,11 +89,15 @@ namespace WebApp.Controllers
         [Route("update/meaningNote")]
         public async Task<bool> UpdateMeaningNote(UpdateNoteDto model)
         {
-            VocabularItem item = await _vocabularRepo.FindById(model.ElementId);
-            if (item != null)
+            if (model.ElementId != null)
             {
-                item.Update(model.NewContent, item.ReadingNote, item.Favorite, item.UserSynonyms);
-                await _vocabularRepo.Edit(item);
+                Guid itemId = Guid.Parse(model.ElementId);
+                VocabularItem item = await _vocabularRepo.FindById(itemId);
+                if (item != null)
+                {
+                    item.Update(model.NewContent, item.ReadingNote, item.Favorite, item.UserSynonyms);
+                    await _vocabularRepo.Edit(item);
+                }
             }
             return true;
         }
@@ -103,11 +106,15 @@ namespace WebApp.Controllers
         [Route("update/readingNote")]
         public async Task<bool> UpdateReadingNote(UpdateNoteDto model)
         {
-            VocabularItem item = await _vocabularRepo.FindById(model.ElementId);
-            if (item != null)
+            if (model.ElementId != null)
             {
-                item.Update(item.MeaningNote, model.NewContent, item.Favorite, item.UserSynonyms);
-                await _vocabularRepo.Edit(item);
+                Guid itemId = Guid.Parse(model.ElementId);
+                VocabularItem item = await _vocabularRepo.FindById(itemId);
+                if (item != null)
+                {
+                    item.Update(item.MeaningNote, model.NewContent, item.Favorite, item.UserSynonyms);
+                    await _vocabularRepo.Edit(item);
+                }
             }
             return true;
         }
@@ -116,31 +123,39 @@ namespace WebApp.Controllers
         [Route("update/Favorite")]
         public async Task<bool> UpdateFavorite(ChangeFavoriteDto model)
         {
-            VocabularItem item = await _vocabularRepo.FindById(model.ElementId);
-            if (item != null)
+            if (model.ElementId != null)
             {
-                item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite, item.UserSynonyms);
-                await _vocabularRepo.Edit(item);
-                return item.Favorite;
+                VocabularItem item = await _vocabularRepo.FindById(model.ElementId);
+                if (item != null)
+                {
+                    item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite, item.UserSynonyms);
+                    await _vocabularRepo.Edit(item);
+                    return item.Favorite;
+                }
             }
             return false;
+            
         }
 
         [HttpPost]
         [Route("addSynonym")]
-        public async Task<JsonResult> AddSynonim(UpdateNoteDto model)
+        public async Task<JsonResult> AddSynonym(UpdateNoteDto model)
         {
-            VocabularItem item = await _vocabularRepo.FindById(model.ElementId);
-            if (item != null && !model.NewContent.Equals(""))
+            if (model.ElementId != null)
             {
-                string syn = item.UserSynonyms;
-                if (!syn.Equals("")) syn += ";";
-                syn += model.NewContent;
-                item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite, syn);
-                await _vocabularRepo.Edit(item);
-                return Json(new { synonyms = syn });
+                Guid itemId = Guid.Parse(model.ElementId);
+                VocabularItem item = await _vocabularRepo.FindById(itemId);
+                if (item != null && !model.NewContent.Equals(""))
+                {
+                    string syn = item.UserSynonyms;
+                    if (!syn.Equals("")) syn += ";";
+                    syn += model.NewContent;
+                    item.Update(item.MeaningNote, item.ReadingNote, !item.Favorite, syn);
+                    await _vocabularRepo.Edit(item);
+                    return Json(new { synonyms = syn });
+                }
             }
-            return Json("");
+            return Json(new { synonyms = "" });
         }
 
         [HttpPost]
@@ -165,15 +180,15 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        [Route("levels/l{level_nr}")]
-        public async Task<IActionResult> ShowLevels([FromRoute]int level_nr)
+        [Route("levels/{levelNr:int}")]
+        public async Task<IActionResult> Levels([FromRoute]int levelNr)
         {
 
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
             VocabLevelsModel model = new VocabLevelsModel();
-            model.Levels = await _vocabularRepo.GetGroupedVocabLevels(user.UserId, level_nr, level_nr);
+            model.Levels = await _vocabularRepo.GetGroupedVocabLevels(user.UserId, levelNr, levelNr);
             model.RequestedInfo = InfoRequested.AllInfo;
 
             return View("Levels", model);
@@ -181,7 +196,7 @@ namespace WebApp.Controllers
 
         [HttpGet]
         [Route("lexicon/{type}")]
-        public async Task<IActionResult> ShowVocabularType([FromRoute]string type)
+        public async Task<IActionResult> Lexicon([FromRoute]string type)
         {
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);

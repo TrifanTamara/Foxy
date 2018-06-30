@@ -41,5 +41,6 @@ namespace Data.Domain.Interfaces
         int GetTotalLevelNr();
         string GrandLvlNameFromMini(MiniLevels minilevel);
         bool ActiveForReview(VocabularItem item);
+        Task<List<VocabularTemplate>> GetFavItems(Guid userId, VocabularType type);
     }
 }

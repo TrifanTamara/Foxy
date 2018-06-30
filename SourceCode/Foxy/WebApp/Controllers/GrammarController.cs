@@ -41,23 +41,24 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        [Route("quizz/formular{quizz_nr}")]
-        public async Task<IActionResult> Quizz([FromRoute]int quizz_nr)
+        [Route("quizz/{quizznr}")]
+        public async Task<IActionResult> Quizz([FromRoute]int quizznr)
         {
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
-            FormularWrapper formular = await _formularRepo.GetByUserAndPvId(user.UserId, quizz_nr, Data.Domain.Entities.TemplateItems.FormType.Grammar);
-            if (null == formular) return View("NotFound");
+            FormularWrapper formularW = await _formularRepo.GetByUserAndPvId(user.UserId, quizznr, Data.Domain.Entities.TemplateItems.FormType.Grammar);
+            List<QuestionWrapper> formQuestions = await _formularRepo.GetQuestionsByUserAndPvId(user.UserId, quizznr, Data.Domain.Entities.TemplateItems.FormType.Grammar);
+            if (null == formQuestions) return View("NotFound");
 
             int questionsNr = 5;
-            int questTempNr = formular.Questions.Count();
+            int questTempNr = formQuestions.Count();
             int sizeQuest = questionsNr > questTempNr ? questTempNr : questionsNr;
 
             List<QuestionWrapper> questList = new List<QuestionWrapper>();
             var rnd = new Random();
-            questList = formular.Questions.OrderBy(item => rnd.Next()).ToList().GetRange(0, sizeQuest);
-            QuizzModel model = new QuizzModel(questList, formular);
+            questList = formQuestions.OrderBy(item => rnd.Next()).ToList().GetRange(0, sizeQuest);
+            QuizzModel model = new QuizzModel(questList, formularW);
 
             return View("Quizz", model);
         }
@@ -93,7 +94,8 @@ namespace WebApp.Controllers
         [Route("update/note")]
         public async Task<bool> UpdateNote(UpdateNoteDto model)
         {
-            FormItem item = await _formularRepo.FindById(model.ElementId);
+            Guid itemId = Guid.Parse(model.ElementId);
+            FormItem item = await _formularRepo.FindById(itemId);
             if (item != null)
             {
                 item.Update(model.NewContent, item.AverageScore, item.TimesAnswered, !item.Favorite);

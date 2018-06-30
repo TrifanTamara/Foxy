@@ -18,6 +18,9 @@
 
             <div class="col-md-12">
                 <div class="">
+                    @{ 
+                        string elementS = "";
+                    }
                     @for (int i = 0; i < Model.AllVocabular.Count; ++i)
                     {
                         vtype = Model.AllVocabular[i].ItemLevel;
@@ -31,7 +34,7 @@
                         {
                             tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + Model.AllVocabular[i].MainReading + "</p></div>";
                         }
-                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="@vtype/@Model.AllVocabular[i].Name">
+                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="@Model.AllVocabular[i].VocabularType" asp-route-name="@Model.AllVocabular[i].Name">
                             <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
                                 @Model.AllVocabular[i].Name
                             </div>
@@ -62,7 +65,8 @@
                             componentColor = "badge-inactive";
                         }
                         tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + Model.Radical[i].MainMeaning + "</p>";
-                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="@vtype/@Model.Radical[i].Name">
+                        
+                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical" asp-route-name="@Model.Radical[i].Name">
                             <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
                                 @Model.Radical[i].Name
                             </div>
@@ -86,7 +90,7 @@
                         }
                         tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + Model.Kanji[i].MainMeaning + "</p>";
                         tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + Model.Kanji[i].MainReading + "</p></div>";
-                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="@vtype/@Model.Kanji[i].Name">
+                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji" asp-route-name="@Model.Kanji[i].Name">
                             <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
                                 @Model.Kanji[i].Name
                             </div>
@@ -110,7 +114,7 @@
                         }
                         tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + Model.Words[i].MainMeaning + "</p>";
                         tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + Model.Words[i].MainReading + "</p></div>";
-                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="@vtype/@Model.Words[i].Name">
+                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="word" asp-route-name="@Model.Words[i].Name">
                             <div class="badge @componentColor badge-vocab-lev rounded" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
                                 @Model.Words[i].Name
                             </div>

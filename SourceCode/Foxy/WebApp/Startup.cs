@@ -99,6 +99,14 @@ namespace WebApp
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
+                //routes.MapRoute(
+                //    name: "vocabular_route",
+                //    template: "{controller=Vocabular}/{action=Radical}/{name}"
+                //    );
+                //routes.MapRoute(
+                //    name: "vocabular_lexicon",
+                //    template: "{controller=Vocabular}/{action=lexicon}/{name}"
+                //    );
             });
 
         }

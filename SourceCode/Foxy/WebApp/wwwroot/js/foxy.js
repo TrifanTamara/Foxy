@@ -215,7 +215,7 @@ function AddSynonim(vId) {
         type: "POST",
         url: "/vocabular/addSynonym",
         data: {
-            VocabularId: vId,
+            ElementId: vId,
             NewContent: strMM
         },
         dataType: 'json',

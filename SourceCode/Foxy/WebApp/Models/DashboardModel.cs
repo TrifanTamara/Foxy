@@ -1,4 +1,5 @@
 ﻿using Business.Wrappers;
+using Data.Domain.Entities.TemplateItems;
 using System.Collections.Generic;
 using System.Linq;
 using WebApplication.Models;
@@ -31,8 +32,8 @@ namespace WebApp.Models
         public int RadicalPercent { get; set; }
         public int WordsPercent { get; set; }
 
-        public GrammarModel Grammar { get; set; }
-        public ReadListModel Reading { get; set; }
+        public List<FormTemplate> Grammar { get; set; }
+        public List<FormTemplate> Reading { get; set; }
 
         public void CalculatePercentages()
         {

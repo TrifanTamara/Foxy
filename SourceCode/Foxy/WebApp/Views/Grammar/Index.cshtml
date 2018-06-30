@@ -74,7 +74,7 @@
                             <div class="row">
                                 <p class="text-uppercase" style="display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
                                 <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
-                                    @formular.Questions.Count()
+                                    @formular.Template.QuestionTemplates.Count()
                                 </div>
                             </div>
                         </li>
@@ -109,7 +109,7 @@
                         <a class="" asp-controller="Grammar" asp-action="formular@(formular.Template.PartialViewId)" style="all:unset">
                             <div class="btn btn-info">Open Formualar</div>
                         </a>
-                        <a class="" asp-controller="Grammar" asp-action="quizz/formular@(formular.Template.PartialViewId)" style="all:unset">
+                        <a class="" asp-controller="Grammar" asp-action="quizz" asp-route-quizznr="@(formular.Template.PartialViewId)" style="all:unset">
                             <div class="btn btn-outline-warning">Take a test</div>
                         </a>
                     </div>
@@ -149,7 +149,7 @@
                                 }
                             }
                             <div class="little-squares-words rounded @(componentColor)" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
-                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@formular.RequiredVocabular[i].Template.Name">
+                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word" asp-route-name="@formular.RequiredVocabular[i].Template.Name">
                                     <div class="little-content word-no-top-pad">
                                         <div class="table">
                                             <div class="table-cell little-text .ja">
@@ -196,7 +196,7 @@
                                 }
                             }
                             <div class="little-squares-words rounded @(componentColor)" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
-                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@formular.LearnedWords[i].Template.Name">
+                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word" asp-route-name="@formular.LearnedWords[i].Template.Name">
                                     <div class="little-content word-no-top-pad">
                                         <div class="table">
                                             <div class="table-cell little-text .ja">
@@ -243,7 +243,7 @@
                                 }
                             }
                             <div class="little-squares-words rounded @(componentColor)" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
-                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@formular.NotLearnedWords[i].Template.Name">
+                                <a style="all:unset!important" asp-controller="Vocabular" asp-action="word" asp-route-name="@formular.NotLearnedWords[i].Template.Name">
                                     <div class="little-content word-no-top-pad">
                                         <div class="table">
                                             <div class="table-cell little-text .ja">

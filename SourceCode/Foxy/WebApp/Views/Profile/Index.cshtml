@@ -1,6 +1,292 @@
-﻿@using WebApp.DTOs
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<h2>Hello</h2>
-<h2>Your profile, @LoggedUser.UserName</h2>
+﻿@using WebApplication.Models
+@using System.Text;
+@model ProfileModel
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-9"></div>
+    <div class="rounded-top col-xs-6 col-md-3 text-center shadow" id="vocabTitle">
+        <p class="title-upper-box">Profile</p>
+    </div>
+</div>
+<div class="row jumbotron jumbotron-fluid" id="jumbo" style="margin-bottom:3em!important">
+    <div style="width:100%;">
+        <div class="rounded-top text-center shadow divTitle" style="width:60%;margin-left:20%; margin-right:20%;">
+            <p class="title-upper-box"> @Model.User.Username </p>
+        </div>
+    </div>
+    <div class="container" style="background-color: rgba(255, 255, 255, 0.52);margin-top:2em;margin-bottom:2em; height:5em">
+        <div class="row" style="width:100%;">
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="btn btn-block btn-outline-primary">
+                        Radical [@Model.favoriteRadical.Count()]
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="btn btn-block btn-outline-secondary">
+                        Kanji [@Model.favoriteKanji.Count()]
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="btn btn-block btn-outline-info">
+                        Words [@Model.favoriteWords.Count()]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="jumbotron" style="margin-right:0.5em;padding:1em!important;height:46.5em">
+                <div class="container">
+                    <div class="rounded-top text-center shadow divTitle">
+                        <p class="title-upper-box">Grammar [ @Model.favoriteGrammar.Count() ]</p>
+                    </div>
+                    @if (Model.favoriteGrammar.Count() > 0)
+                    {
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                @for (int k = 1; k < Model.favoriteGrammar.Count(); ++k)
+                                {
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="@k"></li>
+                                }
+                            </ol>
+                            @{
+                                var formular = Model.favoriteGrammar[0];
+                            }
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div style="height:40.5em;">
+                                        <div class="card" style="width: 80%;margin-right:10%;margin-left:10%;">
+                                            <div class="card-header">
+                                                <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
+                                            </div>
+                                            <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">
+                                            <div class="card-body" style="background-color:aliceblue;margin-top:1em">
+                                                <p class="card-text">
+                                                    @formular.Description
+
+                                                </p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="row text-center">
+                                                        <p class="text-uppercase" style="margin-left:1em;display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                                        <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                            @formular.QuestionTemplates.Count()
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <div class="card-body float-bottom text-center">
+                                                <a class="" asp-controller="Grammar" asp-action="formular@(formular.PartialViewId)" style="all:unset">
+                                                    <div class="btn btn-info">Open Formualar</div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @for (int f = 1; f < Model.favoriteGrammar.Count(); ++f)
+                                {
+                                    formular = Model.favoriteGrammar[f];
+                                    <div class="carousel-item">
+                                        <div style="height:40.5em;">
+                                            <div class="card" style="width: 80%;margin-left:10%; margin-right:10%;">
+                                                <div class="card-header">
+                                                    <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
+                                                </div>
+                                                <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">
+                                                <div class="card-body" style="background-color:aliceblue;margin-top:1em">
+                                                    <p class="card-text">
+                                                        @formular.Description
+
+                                                    </p>
+                                                </div>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">
+                                                        <div class="row text-center">
+                                                            <p class="text-uppercase" style="margin-left:1em;display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                                            <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                                @formular.QuestionTemplates.Count()
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="card-body float-bottom text-center">
+                                                    <a class="" asp-controller="Grammar" asp-action="formular@(formular.PartialViewId)" style="all:unset">
+                                                        <div class="btn btn-info">Open Formualar</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="rounded text-center" style="padding-top:49%;padding-left:5%;padding-right:5%;height:38em;width:80%;margin-right:10%;margin-left:10%;background-color: rgba(255, 255, 255, 0.52);vertical-align:middle">
+                            <h2>No favorite grammar formulars yet!</h2>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="jumbotron" style="margin-right:0.5em;padding:1em!important;height:46.5em">
+                <div class="container">
+                    <div class="rounded-top text-center shadow divTitle">
+                        <p class="title-upper-box">Reading [ @Model.favoriteReading.Count() ]</p>
+                    </div>
+                    @if (Model.favoriteReading.Count() > 0)
+                    {
+                        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                                @for (int k = 1; k < Model.favoriteReading.Count(); ++k)
+                                {
+                                    <li data-target="#carouselExampleIndicators2" data-slide-to="@k"></li>
+                                }
+                            </ol>
+                            @{
+                                var formular = Model.favoriteReading[0];
+                            }
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div style="height:40.5em;">
+                                        <div class="card" style="width: 80%;margin-right:10%;margin-left:10%;">
+                                            <div class="card-header">
+                                                <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
+                                            </div>
+                                            @*<img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">*@
+                                            @{
+                                                string typeR = "Reading";
+                                                if (formular.Type == Data.Domain.Entities.TemplateItems.FormType.Listening)
+                                                {
+                                                    typeR = "Listening";
+                                                }
+                                            }
+                                            <li class="list-group-item text-center" style="background-color:rgba(211, 211, 211, 0.4);border:none!important;align-content:center">
+                                                <div class="row text-center" style="opacity:0.4;">
+                                                    <div class="badge badge-primary" style="font-size:1em;height:1.5em!important;margin-left:1em">
+                                                        @typeR
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    @formular.Description
+
+                                                </p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="row text-center">
+                                                        <p class="text-uppercase" style="margin-left:1em;margin-left:1em;position:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                                        <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                            @formular.QuestionTemplates.Count()
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                            <div class="card-body float-bottom text-center">
+                                                <a class="" asp-controller="Reading" asp-action="@(typeR)form@(formular.PartialViewId)" style="all:unset">
+                                                    <div class="btn btn-info">Open Formualar</div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @for (int f = 1; f < Model.favoriteReading.Count(); ++f)
+                                {
+                                    formular = Model.favoriteReading[f];
+                                    <div class="carousel-item">
+                                        <div style="height:40.5em;">
+                                            <div class="card" style="width: 80%;margin-left:10%; margin-right:10%;">
+                                                <div class="card-header">
+                                                    <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
+                                                </div>
+                                                @*<img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">*@
+                                                @{
+                                                    typeR = "Reading";
+                                                    if (formular.Type == Data.Domain.Entities.TemplateItems.FormType.Listening)
+                                                    {
+                                                        typeR = "Listening";
+                                                    }
+                                                }
+                                                <li class="list-group-item text-center" style="background-color:rgba(211, 211, 211, 0.4);border:none!important;align-content:center">
+                                                    <div class="row text-center" style="opacity:0.4;">
+                                                        <div class="badge badge-primary" style="font-size:1em;height:1.5em!important;margin-left:1em">
+                                                            @typeR
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <div class="card-body" style="background-color:aliceblue;margin-top:1em">
+
+                                                    <p class="card-text">
+                                                        @formular.Description
+
+                                                    </p>
+                                                </div>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">
+                                                        <div class="row text-center">
+                                                            <p class="text-uppercase" style="margin-left:1em;display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                                            <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                                @formular.QuestionTemplates.Count()
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="card-body float-bottom text-center">
+                                                    <a class="" asp-controller="Reading" asp-action="@(typeR)form@(formular.PartialViewId)" style="all:unset">
+                                                        <div class="btn btn-info">Open Formualar</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="rounded text-center" style="padding-top:49%;padding-left:5%;padding-right:5%;height:38em;width:80%;margin-right:10%;margin-left:10%;background-color: rgba(255, 255, 255, 0.52);vertical-align:middle">
+                            <p class="title-upper-box" style="font-size:1.8em!important;opacity:0.9"> No favorite reading or listening formulars yet!</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

@@ -101,7 +101,7 @@
                                 {
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsLesson[i * colNr + j].MeaningsList[0] + "</p>";
                                     <div class="little-squares rounded little-radical" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical/@Model.RadicalsLesson[i * colNr + j].Template.Name">
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical" asp-route-name="@Model.RadicalsLesson[i * colNr + j].Template.Name">
 
                                             <div class="little-content">
                                                 <div class="table">
@@ -131,7 +131,7 @@
                                 {
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsViewed[i * colNr + j].MeaningsList[0] + "</p>";
                                     <div class="little-squares rounded little-radical" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical/@Model.RadicalsViewed[i * colNr + j].Template.Name">
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical" asp-route-name="@Model.RadicalsViewed[i * colNr + j].Template.Name">
                                             <div class="little-content">
                                                 <div class="table">
                                                     <div class="table-cell little-text .ja">
@@ -159,7 +159,7 @@
                                 {
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.RadicalsPassed[i * colNr + j].MeaningsList[0] + "</p>";
                                     <div class="little-squares rounded little-radical" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical/@Model.RadicalsPassed[i * colNr + j].Template.Name">
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="radical" asp-route-name="@Model.RadicalsPassed[i * colNr + j].Template.Name">
                                             <div class="little-content">
                                                 <div class="table">
                                                     <div class="table-cell little-text .ja">
@@ -208,7 +208,7 @@
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.KanjisLesson[i * colNr + j].MeaningsList[0] + "</p>";
                                     tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.KanjisLesson[i * colNr + j].MainReading + "</p></div>";
                                     <div class="little-squares rounded little-kanji" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji/@Model.KanjisLesson[i * colNr + j].Template.Name">
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji" asp-route-name="@Model.KanjisLesson[i * colNr + j].Template.Name">
                                             <div class="little-content">
                                                 <div class="table">
                                                     <div class="table-cell little-text .ja">
@@ -237,7 +237,7 @@
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.KanjisViewed[i * colNr + j].MeaningsList[0] + "</p>";
                                     tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.KanjisViewed[i * colNr + j].MainReading + "</p></div>";
                                     <div class="little-squares rounded little-kanji" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji/@Model.KanjisViewed[i * colNr + j].Template.Name">
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji" asp-route-name="@Model.KanjisViewed[i * colNr + j].Template.Name">
                                             <div class="little-content">
                                                 <div class="table">
                                                     <div class="table-cell little-text .ja">
@@ -266,7 +266,7 @@
                                     tooltip_style = "<p style=\"text-transform:capitalize;padding:1px; margin:0\">" + @Model.KanjisPassed[i * colNr + j].MeaningsList[0] + "</p>";
                                     tooltip_style = tooltip_style + "<div style=\"background-color:#565656; margin:2px; margin-right:0px; margin-left:0px; margin-bottom:4px; width:100%;border-radius: 2px;\"><p style=\"padding:1px; margin:0\">" + @Model.KanjisPassed[i * colNr + j].MainReading + "</p></div>";
                                     <div class="little-squares rounded little-kanji" data-toggle="tooltip" data-placement="top" data-html="true" title="@tooltip_style">
-                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji/@Model.KanjisPassed[i * colNr + j].Template.Name">
+                                        <a style="all:unset!important" asp-controller="Vocabular" asp-action="kanji" asp-route-name="@Model.KanjisPassed[i * colNr + j].Template.Name">
                                             <div class="little-content">
                                                 <div class="table">
                                                     <div class="table-cell little-text .ja">
@@ -316,7 +316,7 @@
 
                                 }
                                 <div class="little-squares-words rounded little-word" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
-                                    <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@Model.WordsLesson[i].Template.Name">
+                                    <a style="all:unset!important" asp-controller="Vocabular" asp-action="word" asp-route-name="@Model.WordsLesson[i].Template.Name">
                                         <div class="little-content word-no-top-pad">
                                             <div class="table">
                                                 <div class="table-cell little-text .ja">
@@ -360,7 +360,7 @@
 
                                                         }
                                                         <div class="little-squares-words rounded little-word" style="margin-left:9px!important" data-toggle="tooltip" data-placement="right" data-html="true" title="@tooltip_style">
-                                                            <a style="all:unset!important" asp-controller="Vocabular" asp-action="word/@Model.WordsLesson[i].Template.Name">
+                                                            <a style="all:unset!important" asp-controller="Vocabular" asp-action="word" asp-route-name="@Model.WordsLesson[i].Template.Name">
                                                                 <div class="little-content word-no-top-pad">
                                                                     <div class="table">
                                                                         <div class="table-cell little-text .ja">
@@ -404,174 +404,238 @@
     </a>
 </div>
 
-@*<div class="row">
-    <div class="col jumbotron" style="margin-right:0.5em;padding:1em!important">
-        <div class="container">
-            <div class="rounded-top text-center shadow divTitle">
-                <p class="title-upper-box">Grammar</p>
-            </div>
-            @if (Model.Grammar.Formulars.Count() > 0)
-            {
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    @{
-                        var formular = Model.Grammar.Formulars[0];
-                    }
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="card p-3" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="text-uppercase">
-                                        Words status
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: @formular.WordsPercentage%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                            @formular.WordsPercentage%
-                                        </div>
-                                    </div>
-                                </div>
-                                <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.Template.PartialViewId).jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">#@(formular.Template.PartialViewId). @formular.Template.Topic</h5>
-                                    <p class="card-text">
-                                        @formular.Template.Description
-
-                                    </p>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <p class="text-uppercase" style="display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
-                                            <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
-                                                @formular.Questions.Count()
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item" style="background-color: azure">
-                                        <div class="row">
-                                            <p class="text-uppercase">Score</p>
-                                        </div>
-                                        @if (formular.Item.TimesAnswered == 0)
-                                        {
-                                            <p>No answers yet.</p>
-                                        }
-                                        else
-                                        {
-                                            <div class="row">
-                                                @for (int i = 0; i < formular.StarsNumber; ++i)
-                                                {
-                                                    <i class="fas fa-star star-orange rating-star"></i>
-                                                }
-                                                @for (int i = formular.StarsNumber; i < 5; ++i)
-                                                {
-                                                    <i class="fas fa-star rating-star"></i>
-                                                }
-                                            </div>
-                                            <div class="row">
-                                                <p>@(formular.Average)/5 average based on @formular.Item.TimesAnswered answers.</p>
-                                            </div>
-                                        }
-                                    </li>
-
-                                </ul>
-                                <div class="card-body float-bottom">
-                                    <a class="" asp-controller="Grammar" asp-action="formular@(formular.Template.PartialViewId)" style="all:unset">
-                                        <div class="btn btn-info">Open Formualar</div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        @for (int f = 1; f < Model.Grammar.Formulars.Count(); ++f)
-                        {
-                            formular = Model.Grammar.Formulars[f];
-                        <div class="carousel-item">
-                            <div class="card p-3" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="text-uppercase">
-                                        Words status
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: @formular.WordsPercentage%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                            @formular.WordsPercentage%
-                                        </div>
-                                    </div>
-                                </div>
-                                <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.Template.PartialViewId).jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">#@(formular.Template.PartialViewId). @formular.Template.Topic</h5>
-                                    <p class="card-text">
-                                        @formular.Template.Description
-
-                                    </p>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <p class="text-uppercase" style="display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
-                                            <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
-                                                @formular.Questions.Count()
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item" style="background-color: azure">
-                                        <div class="row">
-                                            <p class="text-uppercase">Score</p>
-                                        </div>
-                                        @if (formular.Item.TimesAnswered == 0)
-                                        {
-                                            <p>No answers yet.</p>
-                                        }
-                                        else
-                                        {
-                                            <div class="row">
-                                                @for (int i = 0; i < formular.StarsNumber; ++i)
-                                                {
-                                                    <i class="fas fa-star star-orange rating-star"></i>
-                                                }
-                                                @for (int i = formular.StarsNumber; i < 5; ++i)
-                                                {
-                                                    <i class="fas fa-star rating-star"></i>
-                                                }
-                                            </div>
-                                            <div class="row">
-                                                <p>@(formular.Average)/5 average based on @formular.Item.TimesAnswered answers.</p>
-                                            </div>
-                                        }
-                                    </li>
-
-                                </ul>
-                                <div class="card-body float-bottom">
-                                    <a class="" asp-controller="Grammar" asp-action="formular@(formular.Template.PartialViewId)" style="all:unset">
-                                        <div class="btn btn-info">Open Formualar</div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        }
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+<div class="row">
+    <div class="col-md-6">
+        <div class="jumbotron" style="margin-right:0.5em;padding:1em!important;height:46.5em">
+            <div class="container">
+                <div class="rounded-top text-center shadow divTitle">
+                    <p class="title-upper-box">Grammar</p>
                 </div>
-            }
-        </div>
-    </div>
-    <div class="col jumbotron" style="margin-left:0.5em;padding:1em!important">
-        <div class="container">
-            <div class="rounded-top text-center shadow divTitle">
-                <p class="title-upper-box">Reading</p>
+                @if (Model.Grammar.Count() > 0)
+                {
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            @for (int k = 1; k < Model.Grammar.Count(); ++k)
+                            {
+                                <li data-target="#carouselExampleIndicators" data-slide-to="@k"></li>
+                            }
+                        </ol>
+                        @{
+                            var formular = Model.Grammar[0];
+                        }
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div style="height:40.5em;">
+                                    <div class="card" style="width: 80%;margin-right:10%;margin-left:10%;">
+                                        <div class="card-header">
+                                            <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
+                                        </div>
+                                        <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">
+                                        <div class="card-body" style="background-color:aliceblue;margin-top:1em">
+                                            <p class="card-text">
+                                                @formular.Description
+
+                                            </p>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <div class="row text-center">
+                                                    <p class="text-uppercase" style="margin-left:1em;display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                                    <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                        @formular.QuestionTemplates.Count()
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="card-body float-bottom text-center">
+                                            <a class="" asp-controller="Grammar" asp-action="formular@(formular.PartialViewId)" style="all:unset">
+                                                <div class="btn btn-info">Open Formualar</div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            @for (int f = 1; f < Model.Grammar.Count(); ++f)
+                            {
+                                formular = Model.Grammar[f];
+                                <div class="carousel-item">
+                                    <div style="height:40.5em;">
+                                        <div class="card" style="width: 80%;margin-left:10%; margin-right:10%;">
+                                            <div class="card-header">
+                                                <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
+                                            </div>
+                                            <img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">
+                                            <div class="card-body" style="background-color:aliceblue;margin-top:1em">
+                                                <p class="card-text">
+                                                    @formular.Description
+
+                                                </p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="row text-center">
+                                                        <p class="text-uppercase" style="margin-left:1em;display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                                        <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                            @formular.QuestionTemplates.Count()
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <div class="card-body float-bottom text-center">
+                                                <a class="" asp-controller="Grammar" asp-action="formular@(formular.PartialViewId)" style="all:unset">
+                                                    <div class="btn btn-info">Open Formualar</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                }
             </div>
-            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
         </div>
     </div>
-</div>*@
+    <div class="col-md-6">
+        <div class="jumbotron" style="margin-right:0.5em;padding:1em!important;height:46.5em">
+            <div class="container">
+                <div class="rounded-top text-center shadow divTitle">
+                    <p class="title-upper-box">Reading</p>
+                </div>
+                @if (Model.Reading.Count() > 0)
+                {
+                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                            @for (int k = 1; k < Model.Reading.Count(); ++k)
+                            {
+                                <li data-target="#carouselExampleIndicators2" data-slide-to="@k"></li>
+                            }
+                        </ol>
+                        @{
+                            var formular = Model.Reading[0];
+                        }
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div style="height:40.5em;">
+                                    <div class="card" style="width: 80%;margin-right:10%;margin-left:10%;">
+                                        <div class="card-header">
+                                            <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
+                                        </div>
+                                        @*<img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">*@
+                                        @{
+                                            string typeR = "Reading";
+                                            if (formular.Type == Data.Domain.Entities.TemplateItems.FormType.Listening)
+                                            {
+                                                typeR = "Listening";
+                                            }
+                                        }
+                                        <li class="list-group-item text-center" style="background-color:rgba(211, 211, 211, 0.4);border:none!important;align-content:center">
+                                            <div class="row text-center" style="opacity:0.4;">
+                                                <div class="badge badge-primary" style="font-size:1em;height:1.5em!important;margin-left:1em">
+                                                    @typeR
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                @formular.Description
+
+                                            </p>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <div class="row text-center">
+                                                    <p class="text-uppercase" style="margin-left:1em;margin-left:1em;position:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                                    <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                        @formular.QuestionTemplates.Count()
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                        <div class="card-body float-bottom text-center">
+                                            <a class="" asp-controller="Reading" asp-action="@(typeR)form@(formular.PartialViewId)" style="all:unset">
+                                                <div class="btn btn-info">Open Formualar</div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            @for (int f = 1; f < Model.Reading.Count(); ++f)
+                            {
+                                formular = Model.Reading[f];
+                                <div class="carousel-item">
+                                    <div style="height:40.5em;">
+                                        <div class="card" style="width: 80%;margin-left:10%; margin-right:10%;">
+                                            <div class="card-header">
+                                                <h5 class="card-title">#@(formular.PartialViewId). @formular.Topic</h5>
+                                            </div>
+                                            @*<img class="card-img-top" src="~/imagesFoxy/grammar/grammar@(formular.PartialViewId).jpg" alt="Card image cap">*@
+                                            @{
+                                                typeR = "Reading";
+                                                if (formular.Type == Data.Domain.Entities.TemplateItems.FormType.Listening)
+                                                {
+                                                    typeR = "Listening";
+                                                }
+                                            }
+                                            <li class="list-group-item text-center"  style="background-color:rgba(211, 211, 211, 0.4);border:none!important;align-content:center">
+                                                <div class="row text-center" style="opacity:0.4;">
+                                                    <div class="badge badge-primary" style="font-size:1em;height:1.5em!important;margin-left:1em">
+                                                        @typeR
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <div class="card-body" style="background-color:aliceblue;margin-top:1em">
+
+                                                <p class="card-text">
+                                                    @formular.Description
+
+                                                </p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="row text-center">
+                                                        <p class="text-uppercase" style="margin-left:1em;display:inline!important;margin-bottom:0;font-size:0.85em">Number of questions available </p>
+                                                        <div class="badge badge-warning" style="font-size:0.85em;display:inline!important;height:1.5em!important;margin-left:0.5em!important">
+                                                            @formular.QuestionTemplates.Count()
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <div class="card-body float-bottom text-center">
+                                                <a class="" asp-controller="Reading" asp-action="@(typeR)form@(formular.PartialViewId)" style="all:unset">
+                                                    <div class="btn btn-info">Open Formualar</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
