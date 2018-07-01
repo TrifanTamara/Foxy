@@ -51,20 +51,19 @@
                             <div class="row" style="width:100%!important;margin:0!important">
 
                                 <div class="btn btn-block btn-outline-secondary formular-words-button" data-toggle="modal" data-target="#longModalAllWords@(formular.Template.PartialViewId)" id="btnTotal@(formular.Template.PartialViewId)" style="margin-bottom:4px;">
-                                    Total - @formular.RequiredVocabular.Count()
+                                    Total @formular.RequiredVocabular.Count()
                                 </div>
 
 
                                 <div class="row" style="width:100%!important;margin:0!important">
                                     <div class="col" style="padding-left:0!important;padding-right:2px">
                                         <div class="btn btn-block btn-outline-success formular-words-button" data-toggle="modal" data-target="#modLearned@(formular.Template.PartialViewId)" id="btnLearned@(formular.Template.PartialViewId)">
-                                            <i class="far fa-check-circle"></i> - @formular.LearnedWords.Count()
+                                            <i class="far fa-check-circle"></i> @formular.LearnedWords.Count()
                                         </div>
                                     </div>
                                     <div class="col" style="padding-right:0!important;padding-left:2px">
                                         <div class="btn btn-block btn-outline-danger formular-words-button" data-toggle="modal" data-target="#modNotLearned@(formular.Template.PartialViewId)" id="btnNotLearned@(formular.Template.PartialViewId)">
-                                            - @formular.NotLearnedWords.Count()
-                                            <i class="fas fa-ban"></i>
+                                            <i class="fas fa-ban"></i> @formular.NotLearnedWords.Count()
                                         </div>
                                     </div>
                                 </div>

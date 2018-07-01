@@ -172,9 +172,18 @@ namespace Business
         {
             if (answer)
             {
-                DateTime readyTime = vocab.LastTimeAnswered.AddMinutes(StaticInfo.minutesForLevel[(int)vocab.CurrentMiniLevel]);
-                if (DateTime.Compare(readyTime, DateTime.Now) <= 0)
+                //if lesson - increase level anyway
+                if ((int)vocab.CurrentMiniLevel == 0)
+                {
                     vocab.Update(vocab.LockedComponents, vocab.CurrentMiniLevel + 1);
+                }
+                else
+                {
+                    //verify if time passed right
+                    DateTime readyTime = vocab.LastTimeAnswered.AddMinutes(StaticInfo.minutesForLevel[(int)vocab.CurrentMiniLevel]);
+                    if (DateTime.Compare(readyTime, DateTime.Now) <= 0)
+                        vocab.Update(vocab.LockedComponents, vocab.CurrentMiniLevel + 1);
+                }
                 int strike = vocab.CurrentStrike + 1;
                 int maxstrike = (strike > vocab.LongestStrike) ? strike : vocab.LongestStrike;
                 vocab.Update(strike, maxstrike, vocab.RightAnswers + 1, vocab.WrongAnswers, true, DateTime.Now);
