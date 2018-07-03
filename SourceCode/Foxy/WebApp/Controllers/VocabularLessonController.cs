@@ -36,10 +36,7 @@ namespace WebApp.Controllers
             string email = HttpContext.User.Claims.First().Value;
             User user = await _userRepo.GetByEmail(email);
 
-            LessonModel model = new LessonModel();
-            model.LessonList = await _vocabularRepo.GetItemsForLesson(user.UserId);
-
-            return View(model);
+            return RedirectToAction("LessonPage", new RouteValueDictionary(new { controller = "VocabularLesson" }));
         }
 
         [HttpGet]

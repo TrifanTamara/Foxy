@@ -51,20 +51,22 @@
     <link rel="icon" href="~/imagesFoxy/logoFoxy.png">
 </head>
 <body>
-    <div class="container text-center justify-content-center vertical-align" style="padding-top:5em!important">
-        <div class="row justify-content-center" style="padding-top:5em;width:100%">
-            <h1>Review Finished</h1>
-        </div>
-        <div class="row justify-content-center" style="padding-top:5em;width:100%">
-            <a style="all:unset!important" asp-controller="Dashboard" asp-action="Index">
-                <div class="btn btn-info" style="display:block">
-
-                    Back to dashboard
-
+    <div class="container text-center" style="vertical-align:central;padding-top:7em;">
+        <img src="~/imagesFoxy/Tori-gate.png" class="" style="width:55%">
+        <div class="row text-center" style="width:55%;display:block; margin-top:2em;margin-left:22%!important">
+            <a style="all:unset!important" asp-controller="VocabularLesson" asp-action="LessonPage">
+                <div class="btn btn-block btn-lg btn-outline-dark">
+                    Go to lesson
                 </div>
             </a>
         </div>
-
+        <div class="row text-center" style="width:30%;display:block; margin-top:1em;margin-left:35%!important">
+            <a style="all:unset!important" asp-controller="Dashboard" asp-action="Index">
+                <div class="btn btn-block btn-lg btn-outline-secondary">
+                    Back to Dashboard
+                </div>
+            </a>
+        </div>
     </div>
 </body>
 </html>

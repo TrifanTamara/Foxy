@@ -20,6 +20,7 @@ namespace Data.Domain.Interfaces
     public interface IVocabularItemRepo : IGenericRepository<Entities.UserRelated.VocabularItem>
     {
         Task AddVocabularForNewUser(Guid userId);
+        Task<List<VocabularWrapper>> GetPassedWords(Guid userId);
         Task<IEnumerable<VocabularItem>> GetVocabByUser(Guid userId);
         Task<VocabularTemplate> GetVocabTemplate(Guid templateId);
         Task UnlockElements(VocabularItem item);

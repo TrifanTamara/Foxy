@@ -62,7 +62,7 @@ namespace WebApp.Controllers
             }
 
             user.Update(user.Username, user.Email, user.Password, user.Description, user.Level, Guid.Empty, value);
-            _userRepo.Edit(user);
+            await _userRepo.Edit(user);
 
             return Json(new { success = true, length = value });
         }

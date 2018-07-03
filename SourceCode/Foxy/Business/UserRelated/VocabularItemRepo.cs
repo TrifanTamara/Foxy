@@ -369,6 +369,20 @@ namespace Business
             return new List<VocabularWrapper>();
         }
 
+        public async Task<List<VocabularWrapper>> GetPassedWords(Guid userId)
+        {
+            List<VocabularWrapper> elements = await WrapVocabular((await GetVocabByUser(userId)).ToList());
+            List<VocabularWrapper> elementsType = new List<VocabularWrapper>();
+            foreach (var x in elements)
+            {
+                if (x.Template.Type == VocabularType.Word && x.Item.CurrentMiniLevel>=MiniLevels.Leaf1)
+                    elementsType.Add(x);
+            }
+            
+            
+            return elementsType;
+        }
+
         public bool ActiveForReview(VocabularItem item)
         {
             if (MiniIsGrand(item.CurrentMiniLevel, GrandLevels.Flourished))
